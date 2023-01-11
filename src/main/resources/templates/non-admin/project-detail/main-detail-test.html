@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Detail</title>
+</head>
+
+<body>
+    <div class="pcoded-main-container" layout:fragment="content">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h4 class="m-b-10 text-white">Chi tiết báo cáo</h4>
+                                <!-- <h4 class="m-b-10 text-white"
+                                    th:text="'Chi tiết báo cáo - Tuần ' + ${projectDetail.getWeek()} + ' / Năm ' + ${projectDetail.getYear()}">
+                                </h4> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="page-header-title"></div>
+                            <ul class="breadcrumb float-right">
+                                <li class="breadcrumb-item">
+                                    <a th:href="@{/dashboard}"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a
+                                        th:href="@{/dashboard?week=} + ${projectDetail.getWeek()} + '&year=' + ${projectDetail.getYear()}">
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Chi tiết</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row" style="margin-top: -20px;">
+                <!-- Project start -->
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 th:text="${projectDetail.getJob_name()}"></h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-maximize"></i> maximize</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-minimize"></i>Restore
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item minimize-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-minus"></i> collapse</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-plus"></i> expand
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item reload-card">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-refresh-cw"></i> reload
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-uppercase" id="phan-loai-tab" data-toggle="tab"
+                                        href="#phan-loai" role="tab" aria-controls="phan-loai" aria-selected="true">
+                                        Phân loại
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="thanh-vien-tab" data-toggle="tab"
+                                        href="#thanh-vien" role="tab" aria-controls="thanh-vien" aria-selected="false">
+                                        Thành viên
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="du-thau-tab" data-toggle="tab"
+                                        href="#du-thau" role="tab" aria-controls="du-thau" aria-selected="false">
+                                        Dự thầu
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="chi-phi-va-thoi-gian-tab" data-toggle="tab"
+                                        href="#chi-phi-va-thoi-gian" role="tab" aria-controls="chi-phi-va-thoi-gian"
+                                        aria-selected="false">
+                                        Chi phí & Thời gian
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="qua-trinh-tab" data-toggle="tab"
+                                        href="#qua-trinh" role="tab" aria-controls="qua-trinh" aria-selected="false">
+                                        Quá trình
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="phan-loai" role="tabpanel"
+                                    aria-labelledby="phan-loai-tab">
+                                    <div class="row">
+                                        <div class="col-md-8 table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <tr>
+                                                    <td class="font-weight-bold">Dự án</td>
+                                                    <td th:text="${projectDetail.getProject_name()}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Giai đoạn</td>
+                                                    <td style="padding-top: 12px;">
+                                                        <th:block th:each="projectTypeItem : ${projectType}">
+                                                            <div class="btn pt-1"
+                                                                th:classappend="${projectTypeItem.getId() == projectDetail.getProject_type_id()} ? 'btn-primary' : 'disabled btn-outline-secondary'"
+                                                                style="height: 30px; width: 160px;">
+                                                                <i class="fa-light fa-circle-1"></i>
+                                                                <th:block th:text="${projectTypeItem.getDisplay()}">
+                                                                </th:block>
+                                                            </div>
+                                                        </th:block>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Mức độ ưu tiên</td>
+                                                    <td style="padding-top: 12px;">
+                                                        <th:block th:each="projectPriorityItem : ${projectPriority}">
+                                                            <div class="btn pt-1"
+                                                                th:classappend="${projectPriorityItem.getId() == projectDetail.getProject_priority_id()} ? 'btn-primary' : 'disabled btn-outline-secondary'"
+                                                                style="height: 30px; width: 120px;"
+                                                                th:text="${projectPriorityItem.getDisplay()}"></div>
+                                                        </th:block>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Trạng thái</td>
+                                                    <td style="padding-top: 12px;">
+                                                        <th:block th:each="projectStatusItem : ${projectStatus}">
+                                                            <div class="btn pt-1"
+                                                                th:classappend="${projectStatusItem.getId() == projectDetail.getProject_status_id()} ? 'btn-' + ${projectStatusItem.getColor()} : 'disabled btn-outline-' + ${projectStatusItem.getColor()}"
+                                                                style="height: 30px; width: 120px;"
+                                                                th:text="${projectStatusItem.getDisplay()}"></div>
+                                                        </th:block>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-4 table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <tr>
+                                                    <td class="font-weight-bold">Tuần / Năm</td>
+                                                    <td
+                                                        th:text="${projectDetail.getWeek()} + ' / ' + ${projectDetail.getYear()}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Mã hợp đồng</td>
+                                                    <td
+                                                        th:text="${projectDetail.getMa_hop_dong()} ? ${projectDetail.getMa_hop_dong()} : '. . . . .'">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Mã kế toán</td>
+                                                    <td
+                                                        th:text="${projectDetail.getMa_ke_toan()} ? ${projectDetail.getMa_ke_toan()} : '. . . . .'">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Đơn vị tiền tệ</td>
+                                                    <td th:text="${projectDetail.getCurrency_unit_display()}"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="thanh-vien" role="tabpanel"
+                                    aria-labelledby="thanh-vien-tab">
+                                    <div class="row">
+                                        <div class="col-md-6 table-responsive">
+                                            <table class="table table-striped table-hover custom-table">
+                                                <tbody>
+                                                    <tr class="bg-primary">
+                                                        <td colspan="5"
+                                                            class="text-detail-thanh-vien text-white font-weight-bold pt-1 pb-1"
+                                                            align="center">
+                                                            Ban BDC
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-weight-bold pt-4 w-25">Quản lý AM</td>
+                                                        <td style="width: 20%;">
+                                                            <ul class="persons">
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getAm_manager_name()}">
+                                                                        <img th:src="@{/images/user/avatar-8.png}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td width="10%" class="text-center font-weight-bold"
+                                                            style="padding-top: 3px; padding-bottom: 6px; font-size: 40px;">
+                                                            /</td>
+                                                        <td class="font-weight-bold pt-4">AM</td>
+                                                        <td>
+                                                            <ul class="persons">
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getAm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-1.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-weight-bold pt-4">Tham gia</td>
+                                                        <td colspan="4">
+                                                            <ul class="persons">
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getAm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-2.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getAm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-6.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getAm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-5.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getAm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-4.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getAm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-3.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6 table-responsive">
+                                            <table class="table table-striped table-hover custom-table">
+                                                <tbody>
+                                                    <tr class="bg-primary">
+                                                        <td colspan="5"
+                                                            class="text-detail-thanh-vien text-white font-weight-bold pt-1 pb-1"
+                                                            align="center">
+                                                            Ban DO
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-weight-bold pt-4 w-25">Quản lý PM</td>
+                                                        <td style="width: 20%;">
+                                                            <ul class="persons">
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getPm_manager_name()}">
+                                                                        <img th:src="@{/images/user/avatar-8.png}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td width="10%" class="text-center font-weight-bold"
+                                                            style="padding-top: 3px; padding-bottom: 6px; font-size: 40px;">
+                                                            /</td>
+                                                        <td class="font-weight-bold pt-4">PM</td>
+                                                        <td>
+                                                            <ul class="persons">
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getPm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-1.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-weight-bold pt-4">Tham gia</td>
+                                                        <td colspan="4">
+                                                            <ul class="persons">
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getPm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-2.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getPm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-6.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getPm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-5.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getPm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-4.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                                        th:title="${projectDetail.getPm_name()}">
+                                                                        <img th:src="@{/images/user/avatar-3.jpg}"
+                                                                            alt="Person"
+                                                                            class="img-fluid img-thanh-vien">
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="du-thau" role="tabpanel" aria-labelledby="du-thau-tab">
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jobName" class="font-weight-bold">Công việc</label>
+                                                <textarea class="form-control pl-2 pr-2" id="jobName" rows="3"
+                                                    th:text="${projectDetail.getJob_name()}" readonly></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jobDescription" class="font-weight-bold">Mô tả</label>
+                                                <textarea class="form-control pl-2 pr-2" id="jobDescription" rows="3"
+                                                    th:text="${projectDetail.getDescription()}" readonly></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phanTichSwoot" class="font-weight-bold">
+                                                    Phân tích SWOOT
+                                                </label>
+                                                <textarea class="form-control pl-2 pr-2" id="phanTichSwoot" rows="3"
+                                                    th:text="${projectDetail.getPhan_tich_SWOOT()}" readonly></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row pt-4">
+                                                <label for="customerName"
+                                                    class="col-sm-3 col-form-label font-weight-bold">
+                                                    Khách hàng
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control pl-2 pr-2" type="text" id="customerName"
+                                                        th:value="${projectDetail.getCustomer_name()}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row pt-3">
+                                                <label for="hinhThucDauTu"
+                                                    class="col-sm-3 col-form-label font-weight-bold">
+                                                    Hình thức đầu tư
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control pl-2 pr-2" type="text" id="hinhThucDauTu"
+                                                        th:value="${projectDetail.getHinh_thuc_dau_tu()}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row pt-3">
+                                                <label for="phamViCungCap"
+                                                    class="col-sm-3 col-form-label font-weight-bold">
+                                                    Phạm vi cung cấp
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control pl-2 pr-2" type="text" id="phamViCungCap"
+                                                        th:value="${projectDetail.getPham_vi_cung_cap()}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row pt-3">
+                                                <label for="tongMucDauTuDuKien"
+                                                    class="col-sm-3 col-form-label font-weight-bold pt-0">
+                                                    Tổng mức đầu tư<br>(dự kiến)
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control pl-2 pr-2" type="text"
+                                                        id="tongMucDauTuDuKien"
+                                                        th:value="${projectDetail.getTong_muc_dau_tu_du_kien()}"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row pt-3">
+                                                <label for="mucDoKhaThi"
+                                                    class="col-sm-3 col-form-label font-weight-bold">
+                                                    Mức độ khả thi
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input class="form-control pl-2 pr-2" type="text" id="mucDoKhaThi"
+                                                        th:value="${projectDetail.getMuc_do_kha_thi()} + '%'" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="chi-phi-va-thoi-gian" role="tabpanel"
+                                    aria-labelledby="chi-phi-va-thoi-gian-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr class="bg-primary text-white">
+                                                    <td class="font-weight-bold text-center">Kế hoạch</td>
+                                                    <td class="font-weight-bold text-center"
+                                                        th:text="'Số tiền (' + ${projectDetail.getCurrency_unit_display()} + ')'">
+                                                    </td>
+                                                    <td class="font-weight-bold text-center">Hợp đồng (D / M / Y)</td>
+                                                    <td class="font-weight-bold text-center">Mục tiêu (D / M / Y)</td>
+                                                    <td class="font-weight-bold text-center">Thực tế (D / M / Y)</td>
+                                                    <td class="font-weight-bold text-center">Ghi chú</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="bg-primary text-white font-weight-bold text-center">
+                                                        DAC
+                                                    </td>
+                                                    <td class="text-center" th:text="${projectDetail.getSo_tien_DAC()}">
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getHop_dong_DAC()}"></td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getMuc_tieu_DAC()}"></td>
+                                                    <td class="text-center" th:text="${projectDetail.getThuc_te_DAC()}">
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getChenh_lech_DAC()}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-primary text-white font-weight-bold text-center">
+                                                        PAC
+                                                    </td>
+                                                    <td class="text-center" th:text="${projectDetail.getSo_tien_PAC()}">
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getHop_dong_PAC()}"></td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getMuc_tieu_PAC()}"></td>
+                                                    <td class="text-center" th:text="${projectDetail.getThuc_te_PAC()}">
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getChenh_lech_PAC()}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-primary text-white font-weight-bold text-center">
+                                                        FAC
+                                                    </td>
+                                                    <td class="text-center" th:text="${projectDetail.getSo_tien_FAC()}">
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getHop_dong_FAC()}"></td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getMuc_tieu_FAC()}"></td>
+                                                    <td class="text-center" th:text="${projectDetail.getThuc_te_FAC()}">
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getChenh_lech_FAC()}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-primary text-white font-weight-bold text-center">
+                                                        Tổng giá trị thực tế
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getTong_gia_tri_thuc_te()}">
+                                                    </td>
+                                                    <td class="text-center">N / A</td>
+                                                    <td class="text-center">N / A</td>
+                                                    <td class="text-center">N / A</td>
+                                                    <td class="text-center">N / A</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bg-primary text-white font-weight-bold text-center">
+                                                        Tạm ứng
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getSo_tien_tam_ung()}">
+                                                    </td>
+                                                    <td class="text-center">N / A</td>
+                                                    <td class="text-center"
+                                                        th:text="${projectDetail.getKe_hoach_tam_ung()}">
+                                                    <td class="text-center">N / A</td>
+                                                    <td class="text-center">N / A</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="qua-trinh" role="tabpanel"
+                                    aria-labelledby="qua-trinh-tab">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="btn btn-primary w-100" style="font-size: 20px;">
+                                                    Khó khăn
+                                                </div>
+                                                <p class="pt-2 pl-2 pr-2"
+                                                    th:utext="${projectDetail.getGeneral_issue()}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                                                    th:text="'Kế hoạch tuần này (tuần ' + ${projectDetail.getWeek()} + ')'">
+                                                </div>
+                                                <p class="pt-2 pl-2 pr-2"
+                                                    th:utext="${projectDetail.getKe_hoach_tuan_nay()}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                                                    th:text="'Kết quả tuần trước (tuần ' + ${projectDetail.getWeek() - 1} + ')'">
+                                                </div>
+                                                <p class="pt-2 pl-2 pr-2"
+                                                    th:utext="${projectDetail.getKet_qua_tuan_truoc()}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group pt-1">
+                                                <div class="btn btn-primary w-100" style="font-size: 20px;">
+                                                    Giải pháp
+                                                </div>
+                                                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getSolution()}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group pt-1">
+                                                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                                                    th:text="'Kết quả tuần này (tuần ' + ${projectDetail.getWeek()} + ')'">
+                                                </div>
+                                                <p class="pt-2 pl-2 pr-2"
+                                                    th:utext="${projectDetail.getKet_qua_tuan_nay()}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group pt-1">
+                                                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                                                    th:text="'Kế hoạch tuần sau (tuần ' + ${projectDetail.getWeek() + 1} + ')'">
+                                                </div>
+                                                <p class="pt-2 pl-2 pr-2"
+                                                    th:utext="${projectDetail.getKe_hoach_tuan_sau()}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+</body>
+
+</html>

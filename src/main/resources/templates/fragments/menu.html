@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+    <nav class="pcoded-navbar menu-light" th:fragment="menu">
+        <div class="navbar-wrapper">
+            <div class="navbar-content scroll-div ">
+
+                <div class="">
+                    <div class="main-menu-header">
+                        <img class="img-radius" th:src="@{/images/user/avatar-8.png}" alt="User-Profile-Image">
+                        <div class="user-details">
+                            <div id="more-details">
+                                Lê Văn Thành <i class="fa fa-caret-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="nav-user-link">
+                        <ul class="list-unstyled">
+                            <li class="list-group-item">
+                                <a href="user-profile.html">
+                                    <i class="feather icon-user m-r-5"></i>Thông tin cá nhân
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#!">
+                                    <i class="feather icon-settings m-r-5"></i>Cài đặt
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="auth-normal-sign-in.html">
+                                    <i class="feather icon-log-out m-r-5"></i>Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <ul class="nav pcoded-inner-navbar ">
+                    <th:block th:each="mclItem : ${menuCategoryLayout}">
+                        <li class="nav-item pcoded-menu-caption">
+                            <label th:text="${mclItem.getMenuCategoryName()}"></label>
+                        </li>
+
+                        <th:block th:each="menu_level_1 : ${mclItem.getMenuItem()}">
+                            <!-- <li class="
+                                    nav-item 
+                                    ${menu_level_1.getInclude() == 1 ? 'pcoded-hasmenu' : ''} 
+                                    ${fn:contains(pageContext.request.requestURI, 'dashboard') ? '' : 'active'}
+                                "></li> -->
+                            <li class="nav-item"
+                                th:classappend="${menu_level_1.getInclude() == 1} ? 'pcoded-hasmenu' : ''">
+                                <a th:href="${menu_level_1.getLink()}" class="nav-link">
+                                    <span class="pcoded-micon">
+                                        <i class="feather" th:classappend="${menu_level_1.getIcon()}"></i>
+                                    </span>
+                                    <span class="pcoded-mtext" th:text="${menu_level_1.getMenuName()}"></span>
+                                </a>
+
+                                <th:block th:if="${menu_level_1.getInclude() == 1}">
+                                    <ul class="pcoded-submenu">
+                                        <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
+                                            <li>
+                                                <a th:href="${menu_level_2.getLink()}"
+                                                    th:text="${menu_level_2.getMenuName()}"></a>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </th:block>
+                            </li>
+                        </th:block>
+                    </th:block>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+
+</html>

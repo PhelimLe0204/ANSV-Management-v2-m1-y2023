@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="pcoded-main-container" layout:fragment="content">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h4 class="m-b-10 text-white"
+                                    th:text="'Dashboard - Tuần ' + ${param.week} + ' / Năm ' + ${param.year}"></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="page-header-title"></div>
+                            <ul class="breadcrumb float-right">
+                                <li class="breadcrumb-item">
+                                    <a href="/dashboard"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row" style="margin-top: -20px;">
+                <div class="col-lg-10 col-md-12">
+                    <!-- support-section start -->
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="card overflow-hidden">
+                                <figure class="highcharts-figure">
+                                    <div id="container-highchart-1" class="highcharts-dashboard"></div>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card overflow-hidden">
+                                <figure class="highcharts-figure">
+                                    <div id="container-highchart-2" class="highcharts-dashboard"></div>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card overflow-hidden">
+                                <figure class="highcharts-figure">
+                                    <div id="container-highchart-3" class="highcharts-dashboard"></div>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- support-section end -->
+                </div>
+                <div class="col-lg-2 col-md-12">
+                    <!-- page statustic card start -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-9">
+                                            <h4 class="text-c-blue">30
+                                                <hr class="hr-custom" />
+                                            </h4>
+                                            <h6 class="text-muted m-b-0">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width: 82%;">M - AM:</td>
+                                                        <td>2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>AM:</td>
+                                                        <td>10</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Members:</td>
+                                                        <td>18</td>
+                                                    </tr>
+                                                </table>
+                                                <!-- M - AM: 2<br />AM: 10<br />Member: 18 -->
+                                            </h6>
+                                        </div>
+                                        <div class="col-3 text-right pl-1">
+                                            <i class="feather icon-users f-28"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-c-gray" style="height: 26px;">
+                                    <div class="row align-items-center" style="margin-top: -10px;">
+                                        <div class="col-9">
+                                            <p class="text-white m-b-0">Ban BDC</p>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <i class="feather icon-briefcase text-white f-16"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-9">
+                                            <h4 class="text-c-blue">35
+                                                <hr class="hr-custom" />
+                                            </h4>
+                                            <h6 class="text-muted m-b-0">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width: 82%;">M - PM:</td>
+                                                        <td>2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>PM:</td>
+                                                        <td>13</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Members:</td>
+                                                        <td>20</td>
+                                                    </tr>
+                                                </table>
+                                                <!-- M - PM: 2<br />PM: 13<br />Member: 20 -->
+                                            </h6>
+                                        </div>
+                                        <div class="col-3 text-right pl-1">
+                                            <i class="feather icon-users f-28"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-c-gray" style="height: 26px;">
+                                    <div class="row align-items-center" style="margin-top: -10px;">
+                                        <div class="col-9">
+                                            <p class="text-white m-b-0">Ban DO</p>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <i class="feather icon-briefcase text-white f-16"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- page statustic card end -->
+                </div>
+                <!-- Project start -->
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Báo cáo dự án</h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-maximize"></i> maximize</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-minimize"></i>Restore
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item minimize-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-minus"></i> collapse</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-plus"></i> expand
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item reload-card">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-refresh-cw"></i> reload
+                                            </a>
+                                        </li>
+                                        <!-- <li class="dropdown-item close-card">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-trash"></i> remove
+                                            </a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-uppercase" id="trien-khai-tab" data-toggle="tab"
+                                        href="#trien-khai" role="tab" aria-controls="trien-khai" aria-selected="true">
+                                        Triển khai
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="vien-thong-tab" data-toggle="tab"
+                                        href="#vien-thong" role="tab" aria-controls="vien-thong" aria-selected="false">
+                                        KD Viễn thông
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="chuyen-doi-so-tab" data-toggle="tab"
+                                        href="#chuyen-doi-so" role="tab" aria-controls="chuyen-doi-so"
+                                        aria-selected="false">
+                                        KD Chuyển đổi số
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="trien-khai" role="tabpanel"
+                                    aria-labelledby="trien-khai-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="table-trien-khai">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width: 50px;">STT</th>
+                                                    <th>Tên dự án</th>
+                                                    <th style="width: 250px;">Khách hàng</th>
+                                                    <th style="width: 250px;">Người thực hiện (PM)</th>
+                                                    <th class="text-center" style="width: 150px;">Trạng thái</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="deploymentItem : ${deploymentProject}">
+                                                    <tr>
+                                                        <td class="text-center"
+                                                            th:text="${deploymentItemStat.index + 1}"></td>
+                                                        <td>
+                                                            <a th:href="@{/chi-tiet?id=} + ${deploymentItem.getId()}"
+                                                                th:text="${#strings.abbreviate(deploymentItem.getJob_name(),60)}"
+                                                                data-toggle="tooltip"
+                                                                th:title="${deploymentItem.getJob_name()}"></a>
+                                                        </td>
+                                                        <td th:text="${deploymentItem.getCustomer_name()}"></td>
+                                                        <td th:text="${deploymentItem.getPic_name()}"></td>
+                                                        <td class="text-center">
+                                                            <button type="button"
+                                                                th:class="'btn btn-' + ${deploymentItem.getStatus_color()} + ' rounded-pill pt-0 btn-status'"
+                                                                data-toggle="popover" data-html="true"
+                                                                data-placement="right" title=""
+                                                                th:attr="data-content=${deploymentItem.getTinh_trang_du_an()}"
+                                                                data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                                th:text="${deploymentItem.getStatus_display()}">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="vien-thong" role="tabpanel"
+                                    aria-labelledby="vien-thong-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="table-vien-thong">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width: 50px;">STT</th>
+                                                    <th>Tên dự án</th>
+                                                    <th style="width: 250px;">Khách hàng</th>
+                                                    <th style="width: 250px;">Người thực hiện (AM)</th>
+                                                    <th class="text-center" style="width: 150px;">Trạng thái</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="telecomItem : ${telecomProject}">
+                                                    <tr>
+                                                        <td class="text-center" th:text="${telecomItemStat.index + 1}">
+                                                        </td>
+                                                        <td>
+                                                            <a th:href="@{/chi-tiet?id=} + ${telecomItem.getId()} + '&type=3'"
+                                                                th:text="${#strings.abbreviate(telecomItem.getJob_name(),60)}"
+                                                                data-toggle="tooltip"
+                                                                th:title="${telecomItem.getJob_name()}"></a>
+                                                        </td>
+                                                        <td th:text="${telecomItem.getCustomer_name()}"></td>
+                                                        <td th:text="${telecomItem.getPic_name()}"></td>
+                                                        <td class="text-center">
+                                                            <button type="button"
+                                                                th:class="'btn btn-' + ${telecomItem.getStatus_color()} + ' rounded-pill pt-0 btn-status'"
+                                                                data-toggle="popover" data-html="true"
+                                                                data-placement="right" title=""
+                                                                th:attr="data-content=${telecomItem.getTinh_trang_du_an()}"
+                                                                data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                                th:text="${telecomItem.getStatus_display()}">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="chuyen-doi-so" role="tabpanel"
+                                    aria-labelledby="chuyen-doi-so-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="table-chuyen-doi-so">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width: 50px;">STT</th>
+                                                    <th>Tên dự án</th>
+                                                    <th style="width: 250px;">Khách hàng</th>
+                                                    <th style="width: 250px;">Người thực hiện (AM)</th>
+                                                    <th class="text-center" style="width: 150px;">Trạng thái</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="digitalTransferItem : ${digitalTransferProject}">
+                                                    <tr>
+                                                        <td class="text-center"
+                                                            th:text="${digitalTransferItemStat.index + 1}">
+                                                        </td>
+                                                        <td>
+                                                            <a th:href="@{/chi-tiet?id=} + ${digitalTransferItem.getId()} + '&type=3'"
+                                                                th:text="${#strings.abbreviate(digitalTransferItem.getJob_name(),60)}"
+                                                                data-toggle="tooltip"
+                                                                th:title="${digitalTransferItem.getJob_name()}"></a>
+                                                        </td>
+                                                        <td th:text="${digitalTransferItem.getCustomer_name()}"></td>
+                                                        <td th:text="${digitalTransferItem.getPic_name()}"></td>
+                                                        <td class="text-center">
+                                                            <button type="button"
+                                                                th:class="'btn btn-' + ${digitalTransferItem.getStatus_color()} + ' rounded-pill pt-0 btn-status'"
+                                                                data-toggle="popover" data-html="true"
+                                                                data-placement="right" title=""
+                                                                th:attr="data-content=${digitalTransferItem.getTinh_trang_du_an()}"
+                                                                data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                                th:text="${digitalTransferItem.getStatus_display()}">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+</body>
+
+</html>

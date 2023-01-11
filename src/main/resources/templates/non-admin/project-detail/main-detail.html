@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Detail</title>
+</head>
+
+<body>
+    <div class="pcoded-main-container" layout:fragment="content">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h4 class="m-b-10 text-white">Chi tiết báo cáo</h4>
+                                <!-- <h4 class="m-b-10 text-white"
+                                    th:text="'Chi tiết báo cáo - Tuần ' + ${projectDetail.getWeek()} + ' / Năm ' + ${projectDetail.getYear()}">
+                                </h4> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="page-header-title"></div>
+                            <ul class="breadcrumb float-right">
+                                <li class="breadcrumb-item">
+                                    <a th:href="@{/dashboard}"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a
+                                        th:href="@{/dashboard?week=} + ${projectDetail.getWeek()} + '&year=' + ${projectDetail.getYear()}">
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Chi tiết</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row" style="margin-top: -20px;">
+                <!-- Project start -->
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 th:text="${projectDetail.getJob_name()}"></h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-maximize"></i> maximize</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-minimize"></i>Restore
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item minimize-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-minus"></i> collapse</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-plus"></i> expand
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item reload-card">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-refresh-cw"></i> reload
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-uppercase" id="phan-loai-tab" data-toggle="tab"
+                                        href="#phan-loai" role="tab" aria-controls="phan-loai" aria-selected="true">
+                                        Phân loại
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="thanh-vien-tab" data-toggle="tab"
+                                        href="#thanh-vien" role="tab" aria-controls="thanh-vien" aria-selected="false">
+                                        Thành viên
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="du-thau-tab" data-toggle="tab"
+                                        href="#du-thau" role="tab" aria-controls="du-thau" aria-selected="false">
+                                        Dự thầu
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="chi-phi-va-thoi-gian-tab" data-toggle="tab"
+                                        href="#chi-phi-va-thoi-gian" role="tab" aria-controls="chi-phi-va-thoi-gian"
+                                        aria-selected="false">
+                                        Chi phí & Thời gian
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="qua-trinh-tab" data-toggle="tab"
+                                        href="#qua-trinh" role="tab" aria-controls="qua-trinh" aria-selected="false">
+                                        Quá trình
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <th:block th:insert="non-admin/project-detail/detail-tab-phan-loai :: body"></th:block>
+                                <th:block th:insert="non-admin/project-detail/detail-tab-thanh-vien :: body"></th:block>
+                                <th:block th:insert="non-admin/project-detail/detail-tab-du-thau :: body"></th:block>
+                                <th:block th:insert="non-admin/project-detail/detail-tab-chi-phi-thoi-gian :: body">
+                                </th:block>
+                                <th:block th:insert="non-admin/project-detail/detail-tab-qua-trinh :: body"></th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+</body>
+
+</html>

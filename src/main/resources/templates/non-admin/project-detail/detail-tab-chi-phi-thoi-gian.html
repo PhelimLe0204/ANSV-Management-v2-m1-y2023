@@ -1,0 +1,82 @@
+<div class="tab-pane fade" id="chi-phi-va-thoi-gian" role="tabpanel" aria-labelledby="chi-phi-va-thoi-gian-tab"
+    th:fragment="body">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="bg-primary text-white">
+                    <td class="font-weight-bold text-center">Kế hoạch</td>
+                    <td class="font-weight-bold text-center"
+                        th:text="'Số tiền (' + ${projectDetail.getCurrency_unit_display()} + ')'">
+                    </td>
+                    <td class="font-weight-bold text-center">Hợp đồng (D / M / Y)</td>
+                    <td class="font-weight-bold text-center">Mục tiêu (D / M / Y)</td>
+                    <td class="font-weight-bold text-center">Thực tế (D / M / Y)</td>
+                    <td class="font-weight-bold text-center">Ghi chú</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="bg-primary text-white font-weight-bold text-center">
+                        DAC
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getSo_tien_DAC()}">
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getHop_dong_DAC()}"></td>
+                    <td class="text-center" th:text="${projectDetail.getMuc_tieu_DAC()}"></td>
+                    <td class="text-center" th:text="${projectDetail.getThuc_te_DAC()}">
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getChenh_lech_DAC()}">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bg-primary text-white font-weight-bold text-center">
+                        PAC
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getSo_tien_PAC()}">
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getHop_dong_PAC()}"></td>
+                    <td class="text-center" th:text="${projectDetail.getMuc_tieu_PAC()}"></td>
+                    <td class="text-center" th:text="${projectDetail.getThuc_te_PAC()}">
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getChenh_lech_PAC()}">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bg-primary text-white font-weight-bold text-center">
+                        FAC
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getSo_tien_FAC()}">
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getHop_dong_FAC()}"></td>
+                    <td class="text-center" th:text="${projectDetail.getMuc_tieu_FAC()}"></td>
+                    <td class="text-center" th:text="${projectDetail.getThuc_te_FAC()}">
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getChenh_lech_FAC()}">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bg-primary text-white font-weight-bold text-center">
+                        Tổng giá trị thực tế
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getTong_gia_tri_thuc_te()}">
+                    </td>
+                    <td class="text-center">N / A</td>
+                    <td class="text-center">N / A</td>
+                    <td class="text-center">N / A</td>
+                    <td class="text-center">N / A</td>
+                </tr>
+                <tr>
+                    <td class="bg-primary text-white font-weight-bold text-center">
+                        Tạm ứng
+                    </td>
+                    <td class="text-center" th:text="${projectDetail.getSo_tien_tam_ung()}">
+                    </td>
+                    <td class="text-center">N / A</td>
+                    <td class="text-center" th:text="${projectDetail.getKe_hoach_tam_ung()}">
+                    <td class="text-center">N / A</td>
+                    <td class="text-center">N / A</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

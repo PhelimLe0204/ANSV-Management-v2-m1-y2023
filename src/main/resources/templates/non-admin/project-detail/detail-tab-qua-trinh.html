@@ -1,0 +1,54 @@
+<div class="tab-pane fade" id="qua-trinh" role="tabpanel" aria-labelledby="qua-trinh-tab" th:fragment="body">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="btn btn-primary w-100" style="font-size: 20px;">
+                    Khó khăn
+                </div>
+                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getGeneral_issue()}"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                    th:text="'Kế hoạch tuần này (tuần ' + ${projectDetail.getWeek()} + ')'">
+                </div>
+                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKe_hoach_tuan_nay()}"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                    th:text="'Kết quả tuần trước (tuần ' + ${projectDetail.getWeek() - 1} + ')'">
+                </div>
+                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKet_qua_tuan_truoc()}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group pt-1">
+                <div class="btn btn-primary w-100" style="font-size: 20px;">
+                    Giải pháp
+                </div>
+                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getSolution()}"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group pt-1">
+                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                    th:text="'Kết quả tuần này (tuần ' + ${projectDetail.getWeek()} + ')'">
+                </div>
+                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKet_qua_tuan_nay()}"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group pt-1">
+                <div class="btn btn-primary w-100" style="font-size: 20px;"
+                    th:text="'Kế hoạch tuần sau (tuần ' + ${projectDetail.getWeek() + 1} + ')'">
+                </div>
+                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKe_hoach_tuan_sau()}"></p>
+            </div>
+        </div>
+    </div>
+</div>

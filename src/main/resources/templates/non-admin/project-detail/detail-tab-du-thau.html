@@ -1,0 +1,70 @@
+<div class="tab-pane fade" id="du-thau" role="tabpanel" aria-labelledby="du-thau-tab" th:fragment="body">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="jobName" class="font-weight-bold">Công việc</label>
+                <textarea class="form-control pl-2 pr-2" id="jobName" rows="3" th:text="${projectDetail.getJob_name()}"
+                    readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label for="jobDescription" class="font-weight-bold">Mô tả</label>
+                <textarea class="form-control pl-2 pr-2" id="jobDescription" rows="3"
+                    th:text="${projectDetail.getDescription()}" readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label for="phanTichSwoot" class="font-weight-bold">
+                    Phân tích SWOOT
+                </label>
+                <textarea class="form-control pl-2 pr-2" id="phanTichSwoot" rows="3"
+                    th:text="${projectDetail.getPhan_tich_SWOOT()}" readonly></textarea>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row pt-4">
+                <label for="customerName" class="col-sm-3 col-form-label font-weight-bold">
+                    Khách hàng
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control pl-2 pr-2" type="text" id="customerName"
+                        th:value="${projectDetail.getCustomer_name()}" readonly>
+                </div>
+            </div>
+            <div class="form-group row pt-3">
+                <label for="hinhThucDauTu" class="col-sm-3 col-form-label font-weight-bold">
+                    Hình thức đầu tư
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control pl-2 pr-2" type="text" id="hinhThucDauTu"
+                        th:value="${projectDetail.getHinh_thuc_dau_tu()}" readonly>
+                </div>
+            </div>
+            <div class="form-group row pt-3">
+                <label for="phamViCungCap" class="col-sm-3 col-form-label font-weight-bold">
+                    Phạm vi cung cấp
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control pl-2 pr-2" type="text" id="phamViCungCap"
+                        th:value="${projectDetail.getPham_vi_cung_cap()}" readonly>
+                </div>
+            </div>
+            <div class="form-group row pt-3">
+                <label for="tongMucDauTuDuKien" class="col-sm-3 col-form-label font-weight-bold pt-0">
+                    Tổng mức đầu tư<br>(dự kiến)
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control pl-2 pr-2" type="text" id="tongMucDauTuDuKien"
+                        th:value="${projectDetail.getTong_muc_dau_tu_du_kien()}" readonly>
+                </div>
+            </div>
+            <div class="form-group row pt-3">
+                <label for="mucDoKhaThi" class="col-sm-3 col-form-label font-weight-bold">
+                    Mức độ khả thi
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control pl-2 pr-2" type="text" id="mucDoKhaThi"
+                        th:value="${projectDetail.getMuc_do_kha_thi()} + '%'" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
