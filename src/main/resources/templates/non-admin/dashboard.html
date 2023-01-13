@@ -238,20 +238,20 @@
                                                             th:text="${deploymentItemStat.index + 1}"></td>
                                                         <td>
                                                             <a th:href="@{/chi-tiet?id=} + ${deploymentItem.getId()}"
-                                                                th:text="${#strings.abbreviate(deploymentItem.getJob_name(),60)}"
+                                                                th:text="${#strings.abbreviate(deploymentItem.getJobName(),60)}"
                                                                 data-toggle="tooltip"
-                                                                th:title="${deploymentItem.getJob_name()}"></a>
+                                                                th:title="${deploymentItem.getJobName()}"></a>
                                                         </td>
-                                                        <td th:text="${deploymentItem.getCustomer_name()}"></td>
-                                                        <td th:text="${deploymentItem.getPic_name()}"></td>
+                                                        <td th:text="${deploymentItem.getCustomerName()}"></td>
+                                                        <td th:text="${deploymentItem.getPicName()}"></td>
                                                         <td class="text-center">
                                                             <button type="button"
-                                                                th:class="'btn btn-' + ${deploymentItem.getStatus_color()} + ' rounded-pill pt-0 btn-status'"
+                                                                th:class="'btn btn-' + ${deploymentItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
                                                                 data-toggle="popover" data-html="true"
                                                                 data-placement="right" title=""
-                                                                th:attr="data-content=${deploymentItem.getTinh_trang_du_an()}"
+                                                                th:attr="data-content=${deploymentItem.getTinhTrangDuAn()}"
                                                                 data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                                th:text="${deploymentItem.getStatus_display()}">
+                                                                th:text="${deploymentItem.getStatusDisplay()}">
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -279,21 +279,21 @@
                                                         <td class="text-center" th:text="${telecomItemStat.index + 1}">
                                                         </td>
                                                         <td>
-                                                            <a th:href="@{/chi-tiet?id=} + ${telecomItem.getId()} + '&type=3'"
-                                                                th:text="${#strings.abbreviate(telecomItem.getJob_name(),60)}"
+                                                            <a th:href="@{/chi-tiet?id=} + ${telecomItem.getId()}"
+                                                                th:text="${#strings.abbreviate(telecomItem.getJobName(),60)}"
                                                                 data-toggle="tooltip"
-                                                                th:title="${telecomItem.getJob_name()}"></a>
+                                                                th:title="${telecomItem.getJobName()}"></a>
                                                         </td>
-                                                        <td th:text="${telecomItem.getCustomer_name()}"></td>
-                                                        <td th:text="${telecomItem.getPic_name()}"></td>
+                                                        <td th:text="${telecomItem.getCustomerName()}"></td>
+                                                        <td th:text="${telecomItem.getPicName()}"></td>
                                                         <td class="text-center">
                                                             <button type="button"
-                                                                th:class="'btn btn-' + ${telecomItem.getStatus_color()} + ' rounded-pill pt-0 btn-status'"
+                                                                th:class="'btn btn-' + ${telecomItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
                                                                 data-toggle="popover" data-html="true"
                                                                 data-placement="right" title=""
-                                                                th:attr="data-content=${telecomItem.getTinh_trang_du_an()}"
+                                                                th:attr="data-content=${telecomItem.getTinhTrangDuAn()}"
                                                                 data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                                th:text="${telecomItem.getStatus_display()}">
+                                                                th:text="${telecomItem.getStatusDisplay()}">
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -322,21 +322,21 @@
                                                             th:text="${digitalTransferItemStat.index + 1}">
                                                         </td>
                                                         <td>
-                                                            <a th:href="@{/chi-tiet?id=} + ${digitalTransferItem.getId()} + '&type=3'"
-                                                                th:text="${#strings.abbreviate(digitalTransferItem.getJob_name(),60)}"
+                                                            <a th:href="@{/chi-tiet?id=} + ${digitalTransferItem.getId()}"
+                                                                th:text="${#strings.abbreviate(digitalTransferItem.getJobName(),60)}"
                                                                 data-toggle="tooltip"
-                                                                th:title="${digitalTransferItem.getJob_name()}"></a>
+                                                                th:title="${digitalTransferItem.getJobName()}"></a>
                                                         </td>
-                                                        <td th:text="${digitalTransferItem.getCustomer_name()}"></td>
-                                                        <td th:text="${digitalTransferItem.getPic_name()}"></td>
+                                                        <td th:text="${digitalTransferItem.getCustomerName()}"></td>
+                                                        <td th:text="${digitalTransferItem.getPicName()}"></td>
                                                         <td class="text-center">
                                                             <button type="button"
-                                                                th:class="'btn btn-' + ${digitalTransferItem.getStatus_color()} + ' rounded-pill pt-0 btn-status'"
+                                                                th:class="'btn btn-' + ${digitalTransferItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
                                                                 data-toggle="popover" data-html="true"
                                                                 data-placement="right" title=""
-                                                                th:attr="data-content=${digitalTransferItem.getTinh_trang_du_an()}"
+                                                                th:attr="data-content=${digitalTransferItem.getTinhTrangDuAn()}"
                                                                 data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                                th:text="${digitalTransferItem.getStatus_display()}">
+                                                                th:text="${digitalTransferItem.getStatusDisplay()}">
                                                             </button>
                                                         </td>
                                                     </tr>

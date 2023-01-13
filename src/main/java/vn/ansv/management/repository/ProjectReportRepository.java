@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
 public interface ProjectReportRepository extends JpaRepository<ProjectReportEntity, Long> {
@@ -21,5 +22,35 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "ORDER BY pr.job_name", nativeQuery = true)
     // Danh sách báo cáo dự án trên Dashboard
     List<ProjectDashboardDTO> findAllDashboardProjectType1(@Param("enabled") int enabled,
-            @Param("project_type_id") int project_type_id, @Param("week") int week, @Param("year") int year);
+            @Param("project_type_id") int project_type_id, @Param("week") int week,
+            @Param("year") int year);
+
+    /*
+     * -------------------------------------------------------------------
+     * Danh sách báo cáo dự án (giai đoạn 1: Viễn thông / Chuyển đổi số)
+     * View: Dashboard
+     * -------------------------------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    List<ProjectDashboardDTO> findAllDashboardProjectStep1(@Param("enabled") int enabled,
+            @Param("project_type_id") Long project_type_id, @Param("week") int week, @Param("year") int year);
+
+    /*
+     * ---------------------------------------------------
+     * Danh sách báo cáo dự án (giai đoạn 2: Triển khai)
+     * View: Dashboard
+     * ---------------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    List<ProjectDashboardDTO> findAllDashboardProjectStep2(@Param("enabled") int enabled,
+            @Param("project_type_id") Long project_type_id, @Param("week") int week, @Param("year") int year);
+
+    /*
+     * -------------------------------------------
+     * Chi tiết báo cáo dự án theo ID và Enabled
+     * View: Detail
+     * -------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    ReportDetailTab1DTO findDetailTab1(@Param("id") Long id, @Param("enabled") int enabled);
 }

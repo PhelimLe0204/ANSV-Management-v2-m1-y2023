@@ -4,11 +4,90 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
+
+/* ===== ProjectReportRepository.findAllDashboardProjectStep2() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep1", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id AND pr.week = :week AND pr.year = :year "
+        + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
+
+/* ===== ProjectReportRepository.findAllDashboardProjectStep2() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep2", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id AND pr.week = :week AND pr.year = :year "
+        + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
+
+/* ===== ProjectReportRepository.findDetailTab1() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailTab1", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, p.id AS projectId, p.project_name AS projectName, "
+        + "c.customer_name AS customerName, pt.id AS typeId, pt.display AS typeDisplay, "
+        + "pp.id AS priorityId, pp.display AS priorityDisplay, ps.id AS statusId, "
+        + "ps.color AS statusColor, ps.display AS statusDisplay, pr.week, pr.year, "
+        + "pr.ma_hop_dong AS maHopDong, pr.ma_ke_toan AS maKeToan, pr.currency_unit_id AS currencyUnitId, "
+        + "cu.currency_unit AS currencyUnitDisplay "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_type AS pt ON pr.project_type_id = pt.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN currency_unit AS cu ON pr.currency_unit_id = cu.id "
+        + "WHERE pr.id = 1 AND pr.enabled = 1", resultSetMapping = "Mapping.ReportDetailTab1DTO")
+
+/* ===== Set mapping: ProjectDashboardDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "picName", type = String.class),
+        @ColumnResult(name = "statusDisplay", type = String.class),
+        @ColumnResult(name = "statusColor", type = String.class),
+        @ColumnResult(name = "tinhTrangDuAn", type = String.class) }))
+
+/* ===== Set mapping: ReportDetailTab1DTO ===== */
+@SqlResultSetMapping(name = "Mapping.ReportDetailTab1DTO", classes = @ConstructorResult(targetClass = ReportDetailTab1DTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "projectId", type = Long.class),
+        @ColumnResult(name = "projectName", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "typeId", type = Long.class),
+        @ColumnResult(name = "typeDisplay", type = String.class),
+        @ColumnResult(name = "priorityId", type = Long.class),
+        @ColumnResult(name = "priorityDisplay", type = String.class),
+        @ColumnResult(name = "statusId", type = Long.class),
+        @ColumnResult(name = "statusColor", type = String.class),
+        @ColumnResult(name = "statusDisplay", type = String.class),
+        @ColumnResult(name = "week", type = Integer.class),
+        @ColumnResult(name = "year", type = Integer.class),
+        @ColumnResult(name = "maHopDong", type = String.class),
+        @ColumnResult(name = "maKeToan", type = String.class),
+        @ColumnResult(name = "currencyUnitId", type = Long.class),
+        @ColumnResult(name = "currencyUnitDisplay", type = String.class) }))
 
 @Entity
 @Table(name = "project_report")

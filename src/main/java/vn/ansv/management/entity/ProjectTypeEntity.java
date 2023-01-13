@@ -4,9 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import vn.ansv.management.dto.selectOption.OptionProjectTypeDTO;
+
+/* ===== ProjectReportRepository.findAllDashboardProjectStep2() ===== */
+@NamedNativeQuery(name = "ProjectTypeEntity.findAllOption", query = "SELECT "
+        + "pt.id, pt.display AS typeDisplay FROM project_type AS pt", resultSetMapping = "Mapping.OptionProjectTypeDTO")
+
+/* ===== Set mapping: OptionProjectTypeDTO ===== */
+@SqlResultSetMapping(name = "Mapping.OptionProjectTypeDTO", classes = @ConstructorResult(targetClass = OptionProjectTypeDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "typeDisplay", type = String.class) }))
 
 @Entity
 @Table(name = "project_type")
