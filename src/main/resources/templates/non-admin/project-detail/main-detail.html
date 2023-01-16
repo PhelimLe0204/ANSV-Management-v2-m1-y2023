@@ -17,7 +17,7 @@
                             <div class="page-header-title">
                                 <h4 class="m-b-10 text-white">Chi tiết báo cáo</h4>
                                 <!-- <h4 class="m-b-10 text-white"
-                                    th:text="'Chi tiết báo cáo - Tuần ' + ${projectDetailTab1.getWeek()} + ' / Năm ' + ${projectDetailTab1.getYear()}">
+                                    th:text="'Chi tiết báo cáo - Tuần ' + ${detailTabPhanLoai.getWeek()} + ' / Năm ' + ${detailTabPhanLoai.getYear()}">
                                 </h4> -->
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a
-                                        th:href="@{/dashboard?week=} + ${projectDetailTab1.getWeek()} + '&year=' + ${projectDetailTab1.getYear()}">
+                                        th:href="@{/dashboard?week=} + ${detailTabPhanLoai.getWeek()} + '&year=' + ${detailTabPhanLoai.getYear()}">
                                         Dashboard
                                     </a>
                                 </li>
@@ -46,7 +46,7 @@
                 <div class="col-xl-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 th:text="${projectDetailTab1.getJobName()}"></h5>
+                            <h5 th:text="${detailTabPhanLoai.getJobName()}"></h5>
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"

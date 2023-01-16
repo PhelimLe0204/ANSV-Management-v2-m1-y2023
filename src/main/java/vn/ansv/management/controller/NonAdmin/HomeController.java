@@ -78,7 +78,7 @@ public class HomeController extends BaseController {
 
         Init(); // Lấy dữ liệu cơ bản
         // _mvShare.addObject("projectDetail", projectDetail);
-        _mvShare.addObject("projectDetailTab1", projectDetailTab1);
+        _mvShare.addObject("detailTabPhanLoai", projectDetailTab1);
 
         // _mvShare.addObject("projectType", projectType);
         _mvShare.addObject("optionType", optionProjectTypeDTO);
