@@ -41,8 +41,8 @@ import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
         + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id AND pr.week = :week AND pr.year = :year "
         + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
 
-/* ===== ProjectReportRepository.findDetailTab1() ===== */
-@NamedNativeQuery(name = "ProjectReportEntity.findDetailTab1", query = "SELECT "
+/* ===== ProjectReportRepository.findDetailTabPhanLoai() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailTabPhanLoai", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, p.id AS projectId, p.project_name AS projectName, "
         + "c.customer_name AS customerName, pt.id AS typeId, pt.display AS typeDisplay, "
         + "pp.id AS priorityId, pp.display AS priorityDisplay, ps.id AS statusId, "
@@ -56,7 +56,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
         + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "INNER JOIN currency_unit AS cu ON pr.currency_unit_id = cu.id "
-        + "WHERE pr.id = 1 AND pr.enabled = 1", resultSetMapping = "Mapping.ReportDetailTab1DTO")
+        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTab1DTO")
 
 /* ===== Set mapping: ProjectDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {

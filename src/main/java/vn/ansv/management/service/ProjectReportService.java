@@ -26,7 +26,7 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public ReportDetailTab1DTO findDetailTab1(Long id, int enabled) {
-        return projectReportRepository.findDetailTab1(id, enabled);
+    public ReportDetailTab1DTO findDetailTabPhanLoai(Long id, int enabled) {
+        return projectReportRepository.findDetailTabPhanLoai(id, enabled);
     }
 }

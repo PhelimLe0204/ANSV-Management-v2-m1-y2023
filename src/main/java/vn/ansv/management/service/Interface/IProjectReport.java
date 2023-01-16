@@ -10,5 +10,5 @@ public interface IProjectReport {
 
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(int enabled, Long type, int week, int year);
 
-    ReportDetailTab1DTO findDetailTab1(Long id, int enabled);
+    ReportDetailTab1DTO findDetailTabPhanLoai(Long id, int enabled);
 }

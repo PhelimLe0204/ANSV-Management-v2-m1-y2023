@@ -24,10 +24,11 @@
                 <tr>
                     <td class="font-weight-bold">Mức độ ưu tiên</td>
                     <td style="padding-top: 12px;">
-                        <th:block th:each="projectPriorityItem : ${projectPriority}">
+                        <th:block th:each="optionPriorityItem : ${optionPriority}">
                             <div class="btn pt-1"
-                                th:classappend="${projectPriorityItem.getId() == detailTabPhanLoai.getPriorityId()} ? 'btn-primary' : 'disabled btn-outline-secondary'"
-                                style="height: 30px; width: 120px;" th:text="${projectPriorityItem.getDisplay()}">
+                                th:classappend="${optionPriorityItem.getId() == detailTabPhanLoai.getPriorityId()} ? 'btn-primary' : 'disabled btn-outline-secondary'"
+                                style="height: 30px; width: 120px;"
+                                th:text="${optionPriorityItem.getPriorityDisplay()}">
                             </div>
                         </th:block>
                     </td>
@@ -148,26 +149,28 @@
                                             </div>
                                             <div class="col-md-3 font-weight-bold">Mức độ ưu tiên</div>
                                             <div class="col-md-9 priority-class">
-                                                <th:block th:each="projectPriorityItem : ${projectPriority}">
+                                                <th:block th:each="optionPriorityItem : ${optionPriority}">
                                                     <th:block
-                                                        th:if="${projectPriorityItem.getId() != detailTabPhanLoai.getPriorityId()}">
+                                                        th:if="${optionPriorityItem.getId() != detailTabPhanLoai.getPriorityId()}">
                                                         <div class="project-priority btn disabled btn-outline-secondary pt-1"
-                                                            th:id="'project-priority-' + ${projectPriorityItem.getId()}"
-                                                            th:data-input="${projectPriorityItem.getId()}"
+                                                            th:id="'project-priority-' + ${optionPriorityItem.getId()}"
+                                                            th:data-input="${optionPriorityItem.getId()}"
                                                             data-status="notActive" style="height: 30px; width: 165px;">
                                                             <i class="fa-light fa-circle-1"></i>
-                                                            <th:block th:text="${projectPriorityItem.getDisplay()}">
+                                                            <th:block
+                                                                th:text="${optionPriorityItem.getPriorityDisplay()}">
                                                             </th:block>
                                                         </div>
                                                     </th:block>
                                                     <th:block
-                                                        th:if="${projectPriorityItem.getId() == detailTabPhanLoai.getPriorityId()}">
+                                                        th:if="${optionPriorityItem.getId() == detailTabPhanLoai.getPriorityId()}">
                                                         <div class="project-priority btn btn-primary pt-1"
-                                                            th:id="'project-priority-' + ${projectPriorityItem.getId()}"
-                                                            th:data-input="${projectPriorityItem.getId()}"
+                                                            th:id="'project-priority-' + ${optionPriorityItem.getId()}"
+                                                            th:data-input="${optionPriorityItem.getId()}"
                                                             data-status="active" style="height: 30px; width: 165px;">
                                                             <i class="fa-light fa-circle-1"></i>
-                                                            <th:block th:text="${projectPriorityItem.getDisplay()}">
+                                                            <th:block
+                                                                th:text="${optionPriorityItem.getPriorityDisplay()}">
                                                             </th:block>
                                                         </div>
                                                     </th:block>

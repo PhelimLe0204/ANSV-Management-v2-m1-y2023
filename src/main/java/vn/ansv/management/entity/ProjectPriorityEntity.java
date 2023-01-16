@@ -4,9 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
+
+/* ===== ProjectPriorityRepository.findAllOption() ===== */
+@NamedNativeQuery(name = "ProjectPriorityEntity.findAllOption", query = "SELECT "
+        + "pp.id, pp.priority_name AS priorityDisplay FROM project_priority AS pp", resultSetMapping = "Mapping.OptionProjectPriorityDTO")
+
+/* ===== Set mapping: OptionProjectPriorityDTO ===== */
+@SqlResultSetMapping(name = "Mapping.OptionProjectPriorityDTO", classes = @ConstructorResult(targetClass = OptionProjectPriorityDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "priorityDisplay", type = String.class) }))
 
 @Entity
 @Table(name = "project_priority")

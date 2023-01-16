@@ -52,5 +52,5 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      * -------------------------------------------
      */
     @Query(nativeQuery = true)
-    ReportDetailTab1DTO findDetailTab1(@Param("id") Long id, @Param("enabled") int enabled);
+    ReportDetailTab1DTO findDetailTabPhanLoai(@Param("id") Long id, @Param("enabled") int enabled);
 }

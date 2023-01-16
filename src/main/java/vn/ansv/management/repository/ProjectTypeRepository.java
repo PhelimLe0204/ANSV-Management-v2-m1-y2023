@@ -9,12 +9,6 @@ import vn.ansv.management.dto.selectOption.OptionProjectTypeDTO;
 import vn.ansv.management.entity.ProjectTypeEntity;
 
 public interface ProjectTypeRepository extends JpaRepository<ProjectTypeEntity, Long> {
-    /*
-     * -------------------------------------------
-     * Chi tiết báo cáo dự án theo ID và Enabled
-     * View: Detail
-     * -------------------------------------------
-     */
     @Query(nativeQuery = true)
     List<OptionProjectTypeDTO> findAllOption();
 }
