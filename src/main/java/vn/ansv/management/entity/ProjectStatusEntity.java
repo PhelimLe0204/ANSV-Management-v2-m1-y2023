@@ -4,9 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import vn.ansv.management.dto.selectOption.OptionProjectStatusDTO;
+
+/* ===== ProjectStatusRepository.findAllOption() ===== */
+@NamedNativeQuery(name = "ProjectStatusEntity.findAllOption", query = "SELECT "
+        + "ps.id, ps.status_name AS statusDisplay, ps.color AS statusColor FROM project_status AS ps", resultSetMapping = "Mapping.OptionProjectStatusDTO")
+
+/* ===== Set mapping: OptionProjectStatusDTO ===== */
+@SqlResultSetMapping(name = "Mapping.OptionProjectStatusDTO", classes = @ConstructorResult(targetClass = OptionProjectStatusDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "statusDisplay", type = String.class),
+        @ColumnResult(name = "statusColor", type = String.class) }))
 
 @Entity
 @Table(name = "project_status")

@@ -36,10 +36,10 @@
                 <tr>
                     <td class="font-weight-bold">Trạng thái</td>
                     <td style="padding-top: 12px;">
-                        <th:block th:each="projectStatusItem : ${projectStatus}">
+                        <th:block th:each="optionStatusItem : ${optionStatus}">
                             <div class="btn pt-1"
-                                th:classappend="${projectStatusItem.getId() == detailTabPhanLoai.getStatusId()} ? 'btn-' + ${projectStatusItem.getColor()} : 'disabled btn-outline-' + ${projectStatusItem.getColor()}"
-                                style="height: 30px; width: 120px;" th:text="${projectStatusItem.getDisplay()}">
+                                th:classappend="${optionStatusItem.getId() == detailTabPhanLoai.getStatusId()} ? 'btn-' + ${optionStatusItem.getStatusColor()} : 'disabled btn-outline-' + ${optionStatusItem.getStatusColor()}"
+                                style="height: 30px; width: 120px;" th:text="${optionStatusItem.getStatusDisplay()}">
                             </div>
                         </th:block>
                     </td>
@@ -114,7 +114,7 @@
                                             </div>
                                             <div class="col-md-3 font-weight-bold">Giai đoạn</div>
                                             <div class="col-md-9 step-class">
-                                                <th:block th:each="projectTypeItem : ${projectType}">
+                                                <th:block th:each="optionTypeItem : ${optionType}">
                                                     <th:block
                                                         th:if="${optionTypeItem.getId() != detailTabPhanLoai.getTypeId()}">
                                                         <div class="project-step btn disabled btn-outline-secondary pt-1"
@@ -127,7 +127,7 @@
                                                         </div>
                                                     </th:block>
                                                     <th:block
-                                                        th:if="${optionTypeItem.getId() == detailTabPhanLoai.getProjectTypeId()}">
+                                                        th:if="${optionTypeItem.getId() == detailTabPhanLoai.getTypeId()}">
                                                         <div class="project-step btn btn-primary pt-1"
                                                             th:id="'project-type-' + ${optionTypeItem.getId()}"
                                                             th:data-input="${optionTypeItem.getId()}"
@@ -186,32 +186,32 @@
                                             </div>
                                             <div class="col-md-3 font-weight-bold">Trạng thái</div>
                                             <div class="col-md-9 status-class">
-                                                <th:block th:each="projectStatusItem : ${projectStatus}">
+                                                <th:block th:each="optionStatusItem : ${optionStatus}">
                                                     <th:block
-                                                        th:if="${projectStatusItem.getId() != detailTabPhanLoai.getProjectStatusId()}">
+                                                        th:if="${optionStatusItem.getId() != detailTabPhanLoai.getStatusId()}">
                                                         <div class="project-status btn pt-1 disabled"
-                                                            th:classappend="'btn-outline-' + ${projectStatusItem.getColor()}"
-                                                            th:id="'project-status-' + ${projectStatusItem.getId()}"
-                                                            th:data-input="${projectStatusItem.getId()}"
+                                                            th:classappend="'btn-outline-' + ${optionStatusItem.getStatusColor()}"
+                                                            th:id="'project-status-' + ${optionStatusItem.getId()}"
+                                                            th:data-input="${optionStatusItem.getId()}"
                                                             data-status="notActive"
-                                                            th:data-color="${projectStatusItem.getColor()}"
+                                                            th:data-color="${optionStatusItem.getStatusColor()}"
                                                             style="height: 30px; width: 165px;">
                                                             <i class="fa-light fa-circle-1"></i>
-                                                            <th:block th:text="${projectStatusItem.getDisplay()}">
+                                                            <th:block th:text="${optionStatusItem.getStatusDisplay()}">
                                                             </th:block>
                                                         </div>
                                                     </th:block>
                                                     <th:block
-                                                        th:if="${projectStatusItem.getId() == detailTabPhanLoai.getProjectStatusId()}">
+                                                        th:if="${optionStatusItem.getId() == detailTabPhanLoai.getStatusId()}">
                                                         <div class="project-status btn pt-1"
-                                                            th:classappend="'btn-' + ${projectStatusItem.getColor()}"
-                                                            th:id="'project-status-' + ${projectStatusItem.getId()}"
-                                                            th:data-input="${projectStatusItem.getId()}"
+                                                            th:classappend="'btn-' + ${optionStatusItem.getStatusColor()}"
+                                                            th:id="'project-status-' + ${optionStatusItem.getId()}"
+                                                            th:data-input="${optionStatusItem.getId()}"
                                                             data-status="active"
-                                                            th:data-color="${projectStatusItem.getColor()}"
+                                                            th:data-color="${optionStatusItem.getStatusColor()}"
                                                             style="height: 30px; width: 165px;">
                                                             <i class="fa-light fa-circle-1"></i>
-                                                            <th:block th:text="${projectStatusItem.getDisplay()}">
+                                                            <th:block th:text="${optionStatusItem.getStatusDisplay()}">
                                                             </th:block>
                                                         </div>
                                                     </th:block>

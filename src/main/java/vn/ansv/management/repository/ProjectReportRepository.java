@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
 public interface ProjectReportRepository extends JpaRepository<ProjectReportEntity, Long> {
@@ -52,5 +52,5 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      * -------------------------------------------
      */
     @Query(nativeQuery = true)
-    ReportDetailTab1DTO findDetailTabPhanLoai(@Param("id") Long id, @Param("enabled") int enabled);
+    ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(@Param("id") Long id, @Param("enabled") int enabled);
 }

@@ -11,7 +11,6 @@ import vn.ansv.management.service.Interface.IProjectPriority;
 
 @Service
 public class ProjectPriorityService implements IProjectPriority {
-
     @Autowired
     private ProjectPriorityRepository projectPriorityRepository;
 
@@ -19,5 +18,4 @@ public class ProjectPriorityService implements IProjectPriority {
     public List<OptionProjectPriorityDTO> findAllOption() {
         return projectPriorityRepository.findAllOption();
     }
-
 }

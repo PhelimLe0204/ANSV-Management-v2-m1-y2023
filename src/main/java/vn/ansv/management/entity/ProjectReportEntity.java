@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 
 /* ===== ProjectReportRepository.findAllDashboardProjectStep2() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep1", query = "SELECT "
@@ -56,7 +56,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
         + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "INNER JOIN currency_unit AS cu ON pr.currency_unit_id = cu.id "
-        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTab1DTO")
+        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabPhanLoaiDTO")
 
 /* ===== Set mapping: ProjectDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {
@@ -68,8 +68,8 @@ import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
         @ColumnResult(name = "statusColor", type = String.class),
         @ColumnResult(name = "tinhTrangDuAn", type = String.class) }))
 
-/* ===== Set mapping: ReportDetailTab1DTO ===== */
-@SqlResultSetMapping(name = "Mapping.ReportDetailTab1DTO", classes = @ConstructorResult(targetClass = ReportDetailTab1DTO.class, columns = {
+/* ===== Set mapping: ReportDetailTabPhanLoaiDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ReportDetailTabPhanLoaiDTO", classes = @ConstructorResult(targetClass = ReportDetailTabPhanLoaiDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "jobName", type = String.class),
         @ColumnResult(name = "projectId", type = Long.class),

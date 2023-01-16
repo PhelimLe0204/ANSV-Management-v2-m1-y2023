@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTab1DTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.service.Interface.IProjectReport;
 
@@ -26,7 +26,7 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public ReportDetailTab1DTO findDetailTabPhanLoai(Long id, int enabled) {
+    public ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled) {
         return projectReportRepository.findDetailTabPhanLoai(id, enabled);
     }
 }

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReportDetailTab1DTO {
+public class ReportDetailTabPhanLoaiDTO {
 
     private Long id;
     private String jobName;
@@ -33,7 +33,7 @@ public class ReportDetailTab1DTO {
     private Long currencyUnitId;
     private String currencyUnitDisplay; // Đơn vị tiền tệ
 
-    public ReportDetailTab1DTO(Long id, String jobName, Long projectId, String projectName, String customerName,
+    public ReportDetailTabPhanLoaiDTO(Long id, String jobName, Long projectId, String projectName, String customerName,
             Long typeId, String typeDisplay, Long priorityId, String priorityDisplay, Long statusId, String statusColor,
             String statusDisplay, Integer week, Integer year, String maHopDong, String maKeToan, Long currencyUnitId,
             String currencyUnitDisplay) {
