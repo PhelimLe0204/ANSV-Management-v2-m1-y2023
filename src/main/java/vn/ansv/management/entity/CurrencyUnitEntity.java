@@ -7,9 +7,26 @@ import java.util.List;
 // import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
+
+/* ===== CurrencyUnitRepository.findAllSelectOption() ===== */
+@NamedNativeQuery(name = "CurrencyUnitEntity.findAllSelectOption", query = "SELECT "
+        + "cu.id, cu.currency_unit AS currencyUnit, cu.description "
+        + "FROM currency_unit AS cu", resultSetMapping = "Mapping.OptionCurrencyUnitDTO")
+
+/* ===== Set mapping: OptionCurrencyUnitDTO ===== */
+@SqlResultSetMapping(name = "Mapping.OptionCurrencyUnitDTO", classes = @ConstructorResult(targetClass = OptionCurrencyUnitDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "currencyUnit", type = String.class),
+        @ColumnResult(name = "description", type = String.class) }))
 
 @Entity
 @Table(name = "currency_unit")

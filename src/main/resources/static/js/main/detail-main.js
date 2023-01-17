@@ -123,15 +123,15 @@ $("#phan-loai-open-modal-edit").click(function () {
                         '<div class="row">'
                         + '<div class="col-md-2">'
                         + '<img src="/images/logo/'
-                        + (data.customer_avatar ? data.customer_avatar : 'image_undefined.jpg')
+                        + (data.customerAvatar ? data.customerAvatar : 'image_undefined.jpg')
                         + '" class="img-flag" style="width: 45px; height: 45px; margin-left: 10px;" />'
                         + '</div>'
                         + '<div class="col-md-10">'
                         + '<span class="font-weight-bold">'
-                        + (data.project_name ? data.project_name : '. . . . .')
+                        + (data.projectName ? data.projectName : '. . . . .')
                         + '</span><br>'
                         + '<span>'
-                        + (data.customer_name ? data.customer_name : '. . . . .')
+                        + (data.customerName ? data.customerName : '. . . . .')
                         + '</span>'
                         + '</div>'
                         + '</div>'
@@ -151,17 +151,17 @@ $("#phan-loai-open-modal-edit").click(function () {
                         + '</div>'
                     );
 
-                    if (data.id && data.project_name) {
+                    if (data.id && data.projectName) {
                         var $state = $(
                             '<div class="row">'
                             + '<div class="col-md-2 pb-1">'
                             + '<img src="/images/logo/'
-                            + (data.customer_avatar ? data.customer_avatar : 'image_undefined.jpg')
+                            + (data.customerAvatar ? data.customerAvatar : 'image_undefined.jpg')
                             + '" class="img-flag" style="width: 54px; height: 54px; margin-left: 5px; padding-top: 5px;" />'
                             + '</div>'
                             + '<div class="col-md-10">'
-                            + '<span class="font-weight-bold">' + data.project_name + '</span><br>'
-                            + '<span>' + (data.customer_name ? data.customer_name : '. . . . .') + '</span>'
+                            + '<span class="font-weight-bold">' + data.projectName + '</span><br>'
+                            + '<span>' + (data.customerName ? data.customerName : '. . . . .') + '</span>'
                             + '</div>'
                             + '</div>'
                         );
@@ -256,11 +256,11 @@ $("#phan-loai-open-modal-edit").click(function () {
             for (let i = 0; i < result.data.length; i++) {
                 if (result.data[i].id == $first_currency_unit_id) {
                     htmlSelectCurrencyUnit += '<option value="' + result.data[i].id
-                        + '" class="text-white bg-secondary font-weight-bold" selected>'
-                        + result.data[i].currency_unit + '</option>';
+                        + '" class="pt-2 pb-2 text-white bg-secondary font-weight-bold" selected>'
+                        + result.data[i].currencyUnit + ' | ' + result.data[i].description + '</option>';
                 } else {
-                    htmlSelectCurrencyUnit += '<option value="' + result.data[i].id + '">'
-                        + result.data[i].currency_unit + '</option>';
+                    htmlSelectCurrencyUnit += '<option value="' + result.data[i].id + '" class="pt-2 pb-2">'
+                        + result.data[i].currencyUnit + ' | ' + result.data[i].description + '</option>';
                 }
             }
             $("#currency_unit_id").html(htmlSelectCurrencyUnit);

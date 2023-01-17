@@ -4,11 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import vn.ansv.management.dto.selectOption.OptionProjectDTO;
+
+/* ===== ProjectRepository.findAllSelectOption() ===== */
+@NamedNativeQuery(name = "ProjectEntity.findAllSelectOption", query = "SELECT "
+        + "p.id, c.customer_name AS customerName, c.avatar AS customerAvatar, p.project_name AS projectName, "
+        + "(SELECT u1.fullname FROM user AS u1 WHERE u1.id = (SELECT u2.id FROM project_report AS pr INNER JOIN user AS u2 ON pr.am_id = u2.id WHERE pr.project_id = p.id ORDER BY pr.created_date DESC LIMIT 1) LIMIT 1) AS currentAm, "
+        + "(SELECT u1.fullname FROM user AS u1 WHERE u1.id = (SELECT u2.id FROM project_report AS pr INNER JOIN user AS u2 ON pr.pm_id = u2.id WHERE pr.project_id = p.id ORDER BY pr.created_date DESC LIMIT 1) LIMIT 1) AS currentPm "
+        + "FROM project AS p "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "WHERE p.enabled = 1", resultSetMapping = "Mapping.OptionProjectDTO")
+
+/* ===== Set mapping: OptionProjectDTO ===== */
+@SqlResultSetMapping(name = "Mapping.OptionProjectDTO", classes = @ConstructorResult(targetClass = OptionProjectDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "customerAvatar", type = String.class),
+        @ColumnResult(name = "projectName", type = String.class),
+        @ColumnResult(name = "currentAm", type = String.class),
+        @ColumnResult(name = "currentPm", type = String.class) }))
 
 @Entity
 @Table(name = "project")
