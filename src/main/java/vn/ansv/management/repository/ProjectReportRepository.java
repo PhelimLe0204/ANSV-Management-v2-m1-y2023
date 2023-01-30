@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
@@ -76,4 +77,13 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("priorityId") Long priorityId, @Param("statusId") Long statusId, @Param("week") int week,
             @Param("year") int year, @Param("maHopDong") String maHopDong, @Param("maKeToan") String maKeToan,
             @Param("currencyUnitId") Long currencyUnitId);
+
+    /*
+     * -------------------------------------------
+     * Chi tiết báo cáo dự án theo ID và Enabled
+     * View: Detail (tab Dự thầu)
+     * -------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    ReportDetailTabDuThauDTO findDetailTabDuThau(@Param("id") Long id, @Param("enabled") int enabled);
 }

@@ -15,9 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 
-/* ===== ProjectReportRepository.findAllDashboardProjectStep2() ===== */
+/* ===== ProjectReportRepository.findAllDashboardProjectStep1() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep1", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
@@ -58,6 +59,17 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
         + "INNER JOIN currency_unit AS cu ON pr.currency_unit_id = cu.id "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabPhanLoaiDTO")
 
+/* ===== ProjectReportRepository.findDetailTabDuThau() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailTabDuThau", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, pr.description, pr.phan_tich_swoot AS phanTichSwoot, "
+        + "c.customer_name AS customerName, pr.hinh_thuc_dau_tu AS hinhThucDauTu, "
+        + "pr.pham_vi_cung_cap AS phamViCungCap, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, "
+        + "pr.muc_do_kha_thi AS mucDoKhaThi "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabDuThauDTO")
+
 /* ===== Set mapping: ProjectDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
@@ -88,6 +100,18 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
         @ColumnResult(name = "maKeToan", type = String.class),
         @ColumnResult(name = "currencyUnitId", type = Long.class),
         @ColumnResult(name = "currencyUnitDisplay", type = String.class) }))
+
+/* ===== Set mapping: ReportDetailTabDuThauDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ReportDetailTabDuThauDTO", classes = @ConstructorResult(targetClass = ReportDetailTabDuThauDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "description", type = String.class),
+        @ColumnResult(name = "phanTichSwoot", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "hinhThucDauTu", type = String.class),
+        @ColumnResult(name = "phamViCungCap", type = String.class),
+        @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
+        @ColumnResult(name = "mucDoKhaThi", type = Integer.class) }))
 
 @Entity
 @Table(name = "project_report")

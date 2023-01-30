@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
-import vn.ansv.management.dto.Layout.LayoutMenuDTO;
+// import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.MenuCategoryRepository;
-import vn.ansv.management.repository.MenuRepository;
+// import vn.ansv.management.repository.MenuRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.ProjectService;
@@ -37,8 +37,8 @@ public class ApiController {
     @Autowired
     private MenuCategoryRepository menuCategoryRepository;
 
-    @Autowired
-    private MenuRepository menuRepository;
+    // @Autowired
+    // private MenuRepository menuRepository;
 
     @Autowired
     private ProjectService projectService;
@@ -49,8 +49,9 @@ public class ApiController {
     @GetMapping("/project")
     ResponseEntity<ResponseObject> getAllProject() {
         Iterable<ProjectEntity> data = projectRepository.findAll();
-        List<LayoutMenuCategoryDTO> menuCategoryTest = menuCategoryRepository.findAllLayout();
-        List<LayoutMenuDTO> menuTest = menuRepository.findAllLayoutLevel1(1l, 1);
+        // List<LayoutMenuCategoryDTO> menuCategoryTest =
+        // menuCategoryRepository.findAllLayout();
+        // List<LayoutMenuDTO> menuTest = menuRepository.findAllLayoutLevel1(1l, 1);
         List<LayoutMenuCategoryDTO> menuCategoryLayout = menuCategoryRepository.findAllLayout();
         // System.out.println("--- menuCategoryTest: " + menuCategoryTest);
         // System.out.println("--- menuTest: " + menuTest);
@@ -59,7 +60,7 @@ public class ApiController {
             ModelMapper mapper = new ModelMapper();
             List<ProjectDTO> dataDto = mapper.map(data, new TypeToken<List<ProjectDTO>>() {
             }.getType());
-            System.out.println(dataDto);
+            System.out.println("--- dataDto: " + dataDto);
             // return ResponseEntity.status(HttpStatus.OK).body(
             // new ResponseObject("success", "Dữ liệu bảng project", dataDto));
             return ResponseEntity.status(HttpStatus.OK).body(

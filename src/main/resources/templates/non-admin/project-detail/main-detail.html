@@ -88,12 +88,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase" id="thanh-vien-tab" data-toggle="tab"
-                                        href="#thanh-vien" role="tab" aria-controls="thanh-vien" aria-selected="false">
-                                        Thành viên
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link text-uppercase" id="du-thau-tab" data-toggle="tab"
                                         href="#du-thau" role="tab" aria-controls="du-thau" aria-selected="false">
                                         Dự thầu
@@ -112,14 +106,20 @@
                                         Quá trình
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="thanh-vien-tab" data-toggle="tab"
+                                        href="#thanh-vien" role="tab" aria-controls="thanh-vien" aria-selected="false">
+                                        Thành viên
+                                    </a>
+                                </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <th:block th:insert="non-admin/project-detail/detail-tab-phan-loai :: body"></th:block>
-                                <th:block th:insert="non-admin/project-detail/detail-tab-thanh-vien :: body"></th:block>
                                 <th:block th:insert="non-admin/project-detail/detail-tab-du-thau :: body"></th:block>
                                 <th:block th:insert="non-admin/project-detail/detail-tab-chi-phi-thoi-gian :: body">
                                 </th:block>
                                 <th:block th:insert="non-admin/project-detail/detail-tab-qua-trinh :: body"></th:block>
+                                <th:block th:insert="non-admin/project-detail/detail-tab-thanh-vien :: body"></th:block>
                             </div>
                         </div>
                     </div>

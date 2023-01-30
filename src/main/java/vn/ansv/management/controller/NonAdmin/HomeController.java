@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
@@ -86,21 +87,17 @@ public class HomeController extends BaseController {
             return new ModelAndView("redirect:/");
         }
         Long project_id = Long.parseLong(request.getParameter("id"));
-        ReportDetailTabPhanLoaiDTO projectDetailTab1 = projectReportService.findDetailTabPhanLoai(project_id, 1);
+        ReportDetailTabPhanLoaiDTO projectDetailTabPhanLoai = projectReportService.findDetailTabPhanLoai(project_id, 1);
+        ReportDetailTabDuThauDTO projectDetailTabDuThau = projectReportService.findDetailTabDuThau(project_id, 1);
         List<OptionProjectTypeDTO> optionProjectTypeDTO = projectTypeService.findAllOption();
         List<OptionProjectPriorityDTO> optionProjectPriorityDTO = projectPriorityService.findAllOption();
         List<OptionProjectStatusDTO> optionProjectStatusDTO = projectStatusService.findAllOption();
-        // List<ProjectStatus> projectStatus =
-        // projectStatusService.findAll_detailProject();
 
         Init(); // Lấy dữ liệu cơ bản
-        // _mvShare.addObject("projectDetail", projectDetail);
-        _mvShare.addObject("detailTabPhanLoai", projectDetailTab1);
-        // _mvShare.addObject("projectType", projectType);
+        _mvShare.addObject("detailTabPhanLoai", projectDetailTabPhanLoai);
+        _mvShare.addObject("detailTabDuThau", projectDetailTabDuThau);
         _mvShare.addObject("optionType", optionProjectTypeDTO);
-        // _mvShare.addObject("projectPriority", projectPriority);
         _mvShare.addObject("optionPriority", optionProjectPriorityDTO);
-        // _mvShare.addObject("projectStatus", projectStatus);
         _mvShare.addObject("optionStatus", optionProjectStatusDTO);
 
         _mvShare.setViewName("non-admin/project-detail/main-detail");

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.repository.ProjectReportRepository;
@@ -26,6 +27,11 @@ public class ProjectReportService implements IProjectReport {
         return projectReportRepository.findAllDashboardProjectStep2(enabled, type, week, year);
     }
 
+    /*
+     * =======================================
+     * ----- Start: Detail tab phân loại -----
+     * =======================================
+     */
     @Override
     public ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled) {
         return projectReportRepository.findDetailTabPhanLoai(id, enabled);
@@ -45,4 +51,16 @@ public class ProjectReportService implements IProjectReport {
         }
         return true;
     }
+    /* ========== End: Detail tab phân loại ========== */
+
+    /*
+     * =====================================
+     * ----- Start: Detail tab dự thầu -----
+     * =====================================
+     */
+    @Override
+    public ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled) {
+        return projectReportRepository.findDetailTabDuThau(id, enabled);
+    }
+    /* ========== End: Detail tab dự thầu ========== */
 }
