@@ -84,7 +84,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form th:action="@{/chi-tiet/update/{id}(id=${detailTabPhanLoai.getId()})} + '?tab=1'"
+                        <form th:action="@{/chi-tiet/update/1/{id}(id=${detailTabPhanLoai.getId()})}"
                             id="form-tab-phan-loai-edit" method="post">
                             <div class="modal-body">
                                 <div class="row">
@@ -102,7 +102,8 @@
                                         <div class="row">
                                             <div class="col-md-3 font-weight-bold pt-3">Dự án</div>
                                             <div id="project-name-selection" class="col-md-9">
-                                                <select id="project_id" name="project_id"
+                                                <!-- Form input: projectId -->
+                                                <select id="project_id" name="projectId"
                                                     th:data-first="${detailTabPhanLoai.getProjectId()}">
                                                     <option th:value="${detailTabPhanLoai.getProjectId()}"
                                                         th:text="${detailTabPhanLoai.getProjectName()}" selected>
@@ -138,9 +139,9 @@
                                                         </div>
                                                     </th:block>
                                                 </th:block>
-                                                <!-- Input project_type_id -->
+                                                <!-- Form input: projectTypeId -->
                                                 <input type="text" class="d-none" id="project_type_id"
-                                                    name="project_type_id"
+                                                    name="projectTypeId"
                                                     th:data-first="${detailTabPhanLoai.getTypeId()}"
                                                     th:value="${detailTabPhanLoai.getTypeId()}">
                                             </div>
@@ -175,9 +176,9 @@
                                                         </div>
                                                     </th:block>
                                                 </th:block>
-                                                <!-- Input project_priority_id -->
+                                                <!-- Form input: projectPriorityId -->
                                                 <input type="text" class="d-none" id="project_priority_id"
-                                                    name="project_priority_id"
+                                                    name="projectPriorityId"
                                                     th:data-first="${detailTabPhanLoai.getPriorityId()}"
                                                     th:value="${detailTabPhanLoai.getPriorityId()}">
                                             </div>
@@ -216,9 +217,9 @@
                                                         </div>
                                                     </th:block>
                                                 </th:block>
-                                                <!-- Input project_status_id -->
+                                                <!-- Form input: projectStatusId -->
                                                 <input type="text" class="d-none" id="project_status_id"
-                                                    name="project_status_id"
+                                                    name="projectStatusId"
                                                     th:data-first="${detailTabPhanLoai.getStatusId()}"
                                                     th:value="${detailTabPhanLoai.getStatusId()}">
                                             </div>
@@ -228,6 +229,7 @@
                                         <div class="row">
                                             <div class="col-md-4 font-weight-bold pt-2">Tuần</div>
                                             <div class="col-md-8">
+                                                <!-- Form input: week -->
                                                 <select id="week" name="week" class="form-control bg-white"
                                                     th:data-first="${detailTabPhanLoai.getWeek()}">
                                                     <option th:value="${detailTabPhanLoai.getWeek()}"
@@ -236,6 +238,7 @@
                                             </div>
                                             <div class="col-md-4 font-weight-bold pt-2 mt-2">Năm</div>
                                             <div class="col-md-8 mt-2">
+                                                <!-- Form input: year -->
                                                 <select id="year" name="year" class="form-control bg-white"
                                                     th:data-first="${detailTabPhanLoai.getYear()}">
                                                     <option th:value="${detailTabPhanLoai.getYear()}"
@@ -244,21 +247,24 @@
                                             </div>
                                             <div class="col-md-4 font-weight-bold pt-2 mt-2">Mã hợp đồng</div>
                                             <div class="col-md-8 mt-2">
-                                                <input type="text" id="ma_hop_dong" name="ma_hop_dong"
+                                                <!-- Form input: maHopDong -->
+                                                <input type="text" id="ma_hop_dong" name="maHopDong"
                                                     th:data-first="${detailTabPhanLoai.getMaHopDong()}"
                                                     th:value="${detailTabPhanLoai.getMaHopDong()} ? ${detailTabPhanLoai.getMaHopDong()} : ''"
                                                     class="form-control bg-white" placeholder="Mã hợp đồng...">
                                             </div>
                                             <div class="col-md-4 font-weight-bold pt-2 mt-2">Mã kế toán</div>
                                             <div class="col-md-8 mt-2">
-                                                <input type="text" id="ma_ke_toan" name="ma_ke_toan"
+                                                <!-- Form input: maKeToan -->
+                                                <input type="text" id="ma_ke_toan" name="maKeToan"
                                                     th:data-first="${detailTabPhanLoai.getMaKeToan()}"
                                                     th:value="${detailTabPhanLoai.getMaKeToan()} ? ${detailTabPhanLoai.getMaKeToan()} : ''"
                                                     class="form-control bg-white" placeholder="Mã kế toán...">
                                             </div>
                                             <div class="col-md-4 font-weight-bold pt-2 mt-2">Đơn vị tiền tệ</div>
                                             <div class="col-md-8 mt-2">
-                                                <select id="currency_unit_id" name="currency_unit_id"
+                                                <!-- Form input: currencyUnitId -->
+                                                <select id="currency_unit_id" name="currencyUnitId"
                                                     class="form-control bg-white"
                                                     th:data-first="${detailTabPhanLoai.getCurrencyUnitId()}">
                                                     <option th:value="${detailTabPhanLoai.getCurrencyUnitId()}"

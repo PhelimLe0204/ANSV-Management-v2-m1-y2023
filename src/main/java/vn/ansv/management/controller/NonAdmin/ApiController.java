@@ -52,8 +52,8 @@ public class ApiController {
         List<LayoutMenuCategoryDTO> menuCategoryTest = menuCategoryRepository.findAllLayout();
         List<LayoutMenuDTO> menuTest = menuRepository.findAllLayoutLevel1(1l, 1);
         List<LayoutMenuCategoryDTO> menuCategoryLayout = menuCategoryRepository.findAllLayout();
-        System.out.println("--- menuCategoryTest: " + menuCategoryTest);
-        System.out.println("--- menuTest: " + menuTest);
+        // System.out.println("--- menuCategoryTest: " + menuCategoryTest);
+        // System.out.println("--- menuTest: " + menuTest);
 
         if (data.iterator().hasNext()) {
             ModelMapper mapper = new ModelMapper();
@@ -86,12 +86,12 @@ public class ApiController {
     @GetMapping("/getCurrencyUnitSelectOption")
     ResponseEntity<ResponseObject> getCurrencyUnitSelectOption() {
         Iterable<OptionCurrencyUnitDTO> data = currencyUnitService.findAllSelectOption();
-        data.forEach((dataItem) -> {
-            System.out.println("--------------------------------------------");
-            System.out.println("id: " + dataItem.getId());
-            System.out.println("Currency unit: " + dataItem.getCurrencyUnit());
-            System.out.println("Description: " + dataItem.getDescription());
-        });
+        // data.forEach((dataItem) -> {
+        // System.out.println("--------------------------------------------");
+        // System.out.println("id: " + dataItem.getId());
+        // System.out.println("Currency unit: " + dataItem.getCurrencyUnit());
+        // System.out.println("Description: " + dataItem.getDescription());
+        // });
 
         if (data.iterator().hasNext()) {
             return ResponseEntity.status(HttpStatus.OK).body(

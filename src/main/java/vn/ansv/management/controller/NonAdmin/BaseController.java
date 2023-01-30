@@ -38,11 +38,12 @@ public class BaseController {
         LocalDate dateTest = LocalDate.of(current_year, Month.FEBRUARY, 01);
         // Xác định ngày đầu tiên trong năm
         LocalDate firstDayOfYear = dateTest.with(TemporalAdjusters.firstDayOfYear());
-        System.out.println("--- firstDayOfYear: " + firstDayOfYear);
+        // System.out.println("--- firstDayOfYear: " + firstDayOfYear);
         DayOfWeek dayOfWeek = firstDayOfYear.getDayOfWeek(); // Xác định ngày thứ mấy trong tuần
         // In ra giá trị nằm trong khoảng từ 1 đến 7 tương ứng thứ 2 - Chủ nhật
-        System.out.println("--- dayOfWeek.getValue(): " + dayOfWeek.getValue());
-        System.out.println("--- First week of this year has: " + (8 - dayOfWeek.getValue()) + " days.");
+        // System.out.println("--- dayOfWeek.getValue(): " + dayOfWeek.getValue());
+        // System.out.println("--- First week of this year has: " + (8 -
+        // dayOfWeek.getValue()) + " days.");
 
         /* === Determine week of year === */
         Calendar calendar = new GregorianCalendar();

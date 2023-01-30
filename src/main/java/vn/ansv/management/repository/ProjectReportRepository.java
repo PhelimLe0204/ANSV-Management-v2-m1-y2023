@@ -2,14 +2,19 @@ package vn.ansv.management.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
+@Repository
 public interface ProjectReportRepository extends JpaRepository<ProjectReportEntity, Long> {
     @Query(value = "SELECT pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
             + "(SELECT u.fullname FROM tbl_user AS u WHERE u.id = pr.am_id) AS picName, "
@@ -23,7 +28,7 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     // Danh sách báo cáo dự án trên Dashboard
     List<ProjectDashboardDTO> findAllDashboardProjectType1(@Param("enabled") int enabled,
             @Param("project_type_id") int project_type_id, @Param("week") int week,
-            @Param("year") int year);
+            @Param("year") int year); // --- TEST
 
     /*
      * -------------------------------------------------------------------
@@ -48,9 +53,27 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     /*
      * -------------------------------------------
      * Chi tiết báo cáo dự án theo ID và Enabled
-     * View: Detail
+     * View: Detail (tab Phân loại)
      * -------------------------------------------
      */
     @Query(nativeQuery = true)
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(@Param("id") Long id, @Param("enabled") int enabled);
+
+    /*
+     * -------------------------------------------
+     * Cập nhật chi tiết báo cáo dự án
+     * View: Detail (tab Phân loại)
+     * -------------------------------------------
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE project_report AS pr SET pr.project_id = :projectId, pr.project_type_id = :typeId, "
+            + "pr.project_priority_id = :priorityId, pr.project_status_id = :statusId, pr.week = :week, "
+            + "pr.year = :year, pr.ma_hop_dong = :maHopDong, pr.ma_ke_toan = :maKeToan, pr.currency_unit_id = :currencyUnitId "
+            + "WHERE pr.id = :id", nativeQuery = true)
+    void updateDetailTabPhanLoai(
+            @Param("id") Long id, @Param("projectId") Long projectId, @Param("typeId") Long typeId,
+            @Param("priorityId") Long priorityId, @Param("statusId") Long statusId, @Param("week") int week,
+            @Param("year") int year, @Param("maHopDong") String maHopDong, @Param("maKeToan") String maKeToan,
+            @Param("currencyUnitId") Long currencyUnitId);
 }
