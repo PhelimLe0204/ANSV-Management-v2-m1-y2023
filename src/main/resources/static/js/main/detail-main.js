@@ -1,9 +1,12 @@
 var $week = null;
 var $current_year = null;
+
 var $first_project_id = null;
 var $first_project_type_id = null;
 var $first_project_priority_id = null;
 var $first_project_status_id = null;
+
+var $first_customer_id = null;
 
 $(document).ready(function () {
     alertify.confirm().set({
@@ -36,7 +39,9 @@ $(document).ready(function () {
     $week = week + 1;
 });
 
-/* ===== Start: Tab 1 ===== */
+
+
+/* ===== Start: Tab phân loại ===== */
 $("#phan-loai-open-modal-edit").click(function () {
     $first_project_id = $("#project_id").attr("data-first");
     $first_project_type_id = $("#project_type_id").attr("data-first");
@@ -47,7 +52,7 @@ $("#phan-loai-open-modal-edit").click(function () {
     // var $first_ma_hop_dong = $("#ma_hop_dong").attr("data-first");
     // var $first_ma_ke_toan = $("#ma_ke_toan").attr("data-first");
     var $first_currency_unit_id = $("#currency_unit_id").attr("data-first");
-    var $formDataOrigin = getFormData($("#form-tab-phan-loai-edit"));
+    var $formDataOrigin = getFormData($("#form-tab-phan-loai-edit")); // old form data
 
     var data_project_select_option;
 
@@ -79,7 +84,7 @@ $("#phan-loai-open-modal-edit").click(function () {
         );
     });
 
-    // Bắt sự kiện reset form
+    // Bắt sự kiện reset form tab 1
     $("#btn-tab-phan-loai-edit-reset").click(function () {
         var dataCompare = getFormData($("#form-tab-phan-loai-edit"));
         if (dataCompare == $formDataOrigin) {
@@ -293,11 +298,148 @@ $("#phan-loai-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab 1 ===== */
+/* ===== End: Tab phân loại ===== */
 
 
 
-/* ===== Start: Tab 2 ===== */
+/* ===== Start: Tab dự thầu ===== */
+$("#du-thau-open-modal-edit").click(function () {
+    var data_customer_select_option;
+    var $formDataOrigin = getFormData($("#form-tab-du-thau-edit")); // old form data
+
+    $first_customer_id = $("#customer_id").attr("data-first");
+
+    $.ajax({
+        url: "/api/getCustomerSelectOption",
+        success: function (result) {
+            console.log(result.data);
+            data_customer_select_option = result.data;
+
+            $("#customer_id").select2({
+                dropdownParent: $('#customer-selection'),
+                placeholder: 'Khách hàng...',
+                data: data_customer_select_option,
+                allowClear: true,
+                selectOnClose: true,
+                templateResult: function (data, container) {
+                    var $state = $(
+                        '<div class="row">'
+                        + '<div class="col-md-2">'
+                        + '<img src="/images/logo/'
+                        + (data.avatar ? data.avatar : 'image_undefined.jpg')
+                        + '" class="img-flag" style="width: 40px; height: 40px; margin-left: 10px;" />'
+                        + '</div>'
+                        + '<div class="col-md-10 pt-1">'
+                        + '<span class="font-weight-bold" style="font-size: 20px;">'
+                        + (data.customerName ? data.customerName : '. . . . .')
+                        + '</span>'
+                        + '</div>'
+                        + '</div>'
+                    );
+
+                    return $state;
+                },
+                templateSelection: function (data, container) {
+                    var $state = $(
+                        '<div class="row">'
+                        + '<div class="col-md-2 pb-1">'
+                        + '<img src="/images/logo/image_undefined.jpg" class="img-flag" style="width: 54px; height: 54px; margin-left: 5px; padding-top: 5px;" />'
+                        + '</div>'
+                        + '<div class="col-md-10 pt-3">'
+                        + '<span class="font-weight-bold">Mời chọn khách hàng...</span>'
+                        + '</div>'
+                        + '</div>'
+                    );
+
+                    if (data.id && data.customerName) {
+                        var $state = $(
+                            '<div class="row">'
+                            + '<div class="col-md-2 pb-1">'
+                            + '<img src="/images/logo/'
+                            + (data.avatar ? data.avatar : 'image_undefined.jpg')
+                            + '" class="img-flag" style="width: 50px; height: 50px; margin-left: 5px; padding-top: 5px;" />'
+                            + '</div>'
+                            + '<div class="col-md-10 pt-3">'
+                            + '<span class="font-weight-bold" style="font-size: 25px;">'
+                            + (data.customerName ? data.customerName : '. . . . .')
+                            + '</span>'
+                            + '</div>'
+                            + '</div>'
+                        );
+                        return $state;
+                    }
+
+                    return $state;
+                },
+            }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
+
+            $("#customer_id").select2("val", $first_customer_id);
+        }
+    });
+
+    $("#muc_do_kha_thi").ionRangeSlider({
+        min: 0,
+        max: 100
+        // from: 550
+    });
+
+    // Close Modal update tab 2
+    $(".tab-du-thau-edit-modal-close").click(function () {
+        var dataCompare = getFormData($("#form-tab-du-thau-edit"));
+        if (dataCompare == $formDataOrigin) {
+            $('#tabDuThauEditModal').modal('hide');
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận hủy',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">DỰ THẦU</span><br>'
+            + 'Bạn chắc chắn muốn hủy?'
+            + '</p>',
+            function () {
+                // Ok => Reset modal update, then close modal
+                resetModalUpdate(2);
+                $('#tabDuThauEditModal').modal('hide');
+            },
+            function () {
+                // Cancel => Do nothing
+            }
+        );
+    });
+
+    // Bắt sự kiện reset form tab 2
+    $("#btn-tab-du-thau-edit-reset").click(function () {
+        var dataCompare = getFormData($("#form-tab-du-thau-edit"));
+        if (dataCompare == $formDataOrigin) {
+            alertify.warning('Bạn chưa thay đổi dữ liệu!').delay(1.5);
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận hoàn tác',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Hoàn tác dữ liệu đã thay đổi<br><span class="text-primary font-weight-bold">DỰ THẦU</span><br>'
+            + 'Bạn chắc chứ?'
+            + '</p>',
+            function () {
+                // Ok => Reset modal update
+                resetModalUpdate(2);
+                alertify.success('Dữ liệu hoàn tác!').delay(1);
+            },
+            function () {
+                // Cancel => Do nothing
+            }
+        );
+    });
+});
+/* ===== End: Tab dự thầu ===== */
+
+
+
+/* ===== Start: Tab thành viên ===== */
 $("#thanh-vien-open-modal-edit").click(function () {
     console.log("thanh-vien-open-modal-edit");
 
@@ -374,23 +516,25 @@ $("#thanh-vien-open-modal-edit").click(function () {
         }
     });
 });
-/* ===== End: Tab 2 ===== */
+/* ===== End: Tab thành viên ===== */
+
+
 
 function detectMessage(data) {
     if (data == 1) {
         return 'PHÂN LOẠI';
     }
     if (data == 2) {
-        return 'THÀNH VIÊN';
-    }
-    if (data == 3) {
         return 'DỰ THẦU';
     }
-    if (data == 4) {
+    if (data == 3) {
         return 'CHI PHÍ & THỜI GIAN';
     }
+    if (data == 4) {
+        return 'QUÁ TRÌNH';
+    }
     if (data == 5) {
-        return 'QUA TRÌNH';
+        return 'THÀNH VIÊN';
     }
     return null;
 }
@@ -453,8 +597,18 @@ function resetModalUpdate(tab) {
         // console.log("Dữ liệu form trước khi thay đổi: " + $formDataOrigin);
         // console.log("Dữ liệu form sau khi thay đổi: " + dataCompare);
         return;
-    } else {
-        alertify.warning('Không xác định đối tượng!').delay(1);
+    }
+
+    if (tab == 2) {
+        $("#customer_id").select2("val", $first_customer_id); // Reset khách hàng
+
+        // Reset mức độ khả thi
+        $("#muc_do_kha_thi").data("ionRangeSlider").update({
+            from: $("#muc_do_kha_thi").attr("data-first")
+        });
+
+        $("#form-tab-du-thau-edit")[0].reset(); // Hoàn tác dữ liệu form
+        return;
     }
 }
 

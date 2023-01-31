@@ -18,6 +18,7 @@ import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 // import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
+import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
@@ -25,6 +26,7 @@ import vn.ansv.management.repository.MenuCategoryRepository;
 // import vn.ansv.management.repository.MenuRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
+import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.ProjectService;
 
 @RestController
@@ -42,6 +44,9 @@ public class ApiController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private CustomerService customerService;
 
     @Autowired
     private CurrencyUnitService currencyUnitService;
@@ -78,6 +83,19 @@ public class ApiController {
         if (data.size() > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", "Danh sách dự án sử dụng cho select option", data));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("success", "null", ""));
+        }
+    }
+
+    @GetMapping("/getCustomerSelectOption")
+    ResponseEntity<ResponseObject> getCustomerSelectOption() {
+        List<OptionCustomerDTO> data = customerService.findAllSelectOption();
+
+        if (data.size() > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Danh sách khách hàng sử dụng cho select option", data));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("success", "null", ""));

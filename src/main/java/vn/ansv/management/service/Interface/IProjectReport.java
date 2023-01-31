@@ -5,6 +5,7 @@ import java.util.List;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 
 public interface IProjectReport {
@@ -16,5 +17,7 @@ public interface IProjectReport {
 
     ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled);
 
-    Boolean updateDetailTabPhanLoai(UpdateDetailTabPhanLoaiDTO dataUpdate);
+    Boolean updateDetailTabPhanLoai(Long id, UpdateDetailTabPhanLoaiDTO dataUpdate);
+
+    Boolean updateDetailTabDuThau(Long id, UpdateDetailTabDuThauDTO dataUpdate);
 }

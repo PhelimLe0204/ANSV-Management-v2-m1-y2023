@@ -61,10 +61,10 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(@Param("id") Long id, @Param("enabled") int enabled);
 
     /*
-     * -------------------------------------------
+     * ---------------------------------
      * Cập nhật chi tiết báo cáo dự án
      * View: Detail (tab Phân loại)
-     * -------------------------------------------
+     * ---------------------------------
      */
     @Transactional
     @Modifying
@@ -86,4 +86,22 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      */
     @Query(nativeQuery = true)
     ReportDetailTabDuThauDTO findDetailTabDuThau(@Param("id") Long id, @Param("enabled") int enabled);
+
+    /*
+     * ---------------------------------
+     * Cập nhật chi tiết báo cáo dự án
+     * View: Detail (tab Dự thầu)
+     * ---------------------------------
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE project_report AS pr SET pr.job_name = :jobName, pr.description = :description, "
+            + "pr.phan_tich_swoot = :phanTichSwoot, pr.hinh_thuc_dau_tu = :hinhThucDauTu, pr.pham_vi_cung_cap = :phamViCungCap, "
+            + "pr.tong_muc_dau_tu_du_kien = :tongMucDauTuDuKien, pr.muc_do_kha_thi = :mucDoKhaThi "
+            + "WHERE pr.id = :id", nativeQuery = true)
+    void updateDetailTabDuThau(
+            @Param("id") Long id, @Param("jobName") String jobName, @Param("description") String description,
+            @Param("phanTichSwoot") String phanTichSwoot, @Param("hinhThucDauTu") String hinhThucDauTu,
+            @Param("phamViCungCap") String phamViCungCap, @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
+            @Param("mucDoKhaThi") int mucDoKhaThi);
 }

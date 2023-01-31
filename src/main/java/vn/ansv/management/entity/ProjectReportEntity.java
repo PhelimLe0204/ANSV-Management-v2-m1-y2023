@@ -62,7 +62,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 /* ===== ProjectReportRepository.findDetailTabDuThau() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findDetailTabDuThau", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, pr.description, pr.phan_tich_swoot AS phanTichSwoot, "
-        + "c.customer_name AS customerName, pr.hinh_thuc_dau_tu AS hinhThucDauTu, "
+        + "c.id AS customerId, c.customer_name AS customerName, pr.hinh_thuc_dau_tu AS hinhThucDauTu, "
         + "pr.pham_vi_cung_cap AS phamViCungCap, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, "
         + "pr.muc_do_kha_thi AS mucDoKhaThi "
         + "FROM project_report AS pr "
@@ -107,6 +107,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
         @ColumnResult(name = "jobName", type = String.class),
         @ColumnResult(name = "description", type = String.class),
         @ColumnResult(name = "phanTichSwoot", type = String.class),
+        @ColumnResult(name = "customerId", type = Long.class),
         @ColumnResult(name = "customerName", type = String.class),
         @ColumnResult(name = "hinhThucDauTu", type = String.class),
         @ColumnResult(name = "phamViCungCap", type = String.class),

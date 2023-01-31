@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectStatusDTO;
@@ -104,19 +105,25 @@ public class HomeController extends BaseController {
         return _mvShare;
     }
 
-    @PostMapping("/chi-tiet/update/{tab}/{id}")
-    public String addUser(@PathVariable int id, @PathVariable int tab,
+    @PostMapping("/chi-tiet/update/1/{id}")
+    public String updateDetailTabPhanLoai(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabPhanLoaiDTO dataUpdate, Model model, HttpServletRequest request) {
-        if (tab < 1 || tab > 5) {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false";
+        System.out.println("----- HomeController.updateDetailTabPhanLoai - id: " + dataUpdate.getId());
+        if (projectReportService.updateDetailTabPhanLoai(id, dataUpdate)) {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 1;
+        } else {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 1;
         }
-        if (!projectReportService.updateDetailTabPhanLoai(dataUpdate)) {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + tab;
-        }
+    }
 
-        // System.out.println("=== URL thành công ID - " + id);
-        // System.out.println("=== URL thành công: project_id - " +
-        // detailTab1Dto.getProject_id());
-        return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + tab;
+    @PostMapping("/chi-tiet/update/2/{id}")
+    public String updateDetailTabDuThau(@PathVariable Long id,
+            @ModelAttribute UpdateDetailTabDuThauDTO dataUpdate, Model model, HttpServletRequest request) {
+        System.out.println("----- HomeController.updateDetailTabDuThau - id: " + dataUpdate.getId());
+        if (projectReportService.updateDetailTabDuThau(id, dataUpdate)) {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 2;
+        } else {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 2;
+        }
     }
 }

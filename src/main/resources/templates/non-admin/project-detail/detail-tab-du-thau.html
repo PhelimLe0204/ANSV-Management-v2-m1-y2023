@@ -26,7 +26,7 @@
                         class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
                         Phân tích SWOOT</span>
                 </div>
-                <textarea class="form-control" aria-label="Phân tích SWOOT" id="jobDescription" rows="2"
+                <textarea class="form-control" aria-label="Phân tích SWOOT" id="phanTichSwoot" rows="2"
                     th:text="${detailTabDuThau.getPhanTichSwoot()}" readonly></textarea>
             </div>
             <div class="form-group row pl-1">
@@ -126,6 +126,132 @@
                 <input type="text" class="form-control" style="height: 63.5px;" id="tongMucDauTuDuKien"
                     th:value="${detailTabDuThau.getTongMucDauTuDuKien()}" readonly>
             </div>
+        </div>
+        <div class="col-md-12 pb-4">
+            <hr class="mt-0">
+            <div id="tabDuThauEditModal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="tabDuThauEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="max-width: 1100px !important;">
+                    <div class="modal-content">
+                        <div class="modal-header pt-2 pb-2">
+                            <h5 class="modal-title" id="tabDuThauEditModalLabel">
+                                Thay đổi thông tin (Mục: Dự thầu)
+                            </h5>
+                            <button type="button" class="tab-phan-loai-edit-modal-close close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/chi-tiet/update/2/{id}(id=${detailTabDuThau.getId()})}"
+                            id="form-tab-du-thau-edit" method="post">
+                            <div class="modal-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend w-25 text-center">
+                                                <span
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                                                    Công việc
+                                                </span>
+                                            </div>
+                                            <textarea class="form-control" aria-label="Công việc" name="jobName"
+                                                rows="2" th:text="${detailTabDuThau.getJobName()}"></textarea>
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend bg-primary w-25">
+                                                <span
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                                                    Mô tả</span>
+                                            </div>
+                                            <textarea class="form-control" aria-label="Mô tả" name="description"
+                                                rows="2" th:text="${detailTabDuThau.getDescription()}"></textarea>
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend bg-primary w-25">
+                                                <span
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                                                    Phân tích SWOOT</span>
+                                            </div>
+                                            <textarea class="form-control" aria-label="Phân tích SWOOT"
+                                                name="phanTichSwoot" rows="2"
+                                                th:text="${detailTabDuThau.getPhanTichSwoot()}"></textarea>
+                                        </div>
+                                        <div class="form-group row pl-1">
+                                            <label for="mucDoKhaThi" class="col-sm-3 col-form-label font-weight-bold"
+                                                style="padding-top: 20px !important;">
+                                                Mức độ khả thi(%)
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="hidden" name="mucDoKhaThi" id="muc_do_kha_thi"
+                                                    class="irs-hidden-input"
+                                                    th:data-first="${detailTabDuThau.getMucDoKhaThi()}"
+                                                    th:value="${detailTabDuThau.getMucDoKhaThi()}" tabindex="-1"
+                                                    readonly="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-4" id="customer-selection">
+                                            <div class="input-group-prepend bg-primary w-100">
+                                                <label
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold"
+                                                    for="customer_id">Khách hàng</label>
+                                            </div>
+                                            <select id="customer_id" name="customerId" class="custom-select"
+                                                th:data-first="${detailTabDuThau.getCustomerId()}">
+                                                <option th:value="${detailTabDuThau.getCustomerId()}"
+                                                    th:text="${detailTabDuThau.getCustomerName()}" selected>
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend bg-primary w-25">
+                                                <span
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                                                    Hình thức đầu tư</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="hinhThucDauTu"
+                                                th:value="${detailTabDuThau.getHinhThucDauTu()}">
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend bg-primary w-25">
+                                                <span
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                                                    Phạm vi cung cấp</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="phamViCungCap"
+                                                th:value="${detailTabDuThau.getPhamViCungCap()}">
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend bg-primary w-25">
+                                                <span
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                                                    Tổng mức đầu tư<br>(dự kiến)</span>
+                                            </div>
+                                            <input type="text" class="form-control" style="height: 63.5px;"
+                                                name="tongMucDauTuDuKien"
+                                                th:value="${detailTabDuThau.getTongMucDauTuDuKien()}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer pr-2 pt-2 pb-2">
+                                <button type="button" class="tab-du-thau-edit-modal-close btn btn-secondary pt-1"
+                                    style="height: 30px; width: 100px;">Hủy</button>
+                                <button type="button" id="btn-tab-du-thau-edit-reset" class="btn btn-light pt-1"
+                                    style="height: 30px; width: 100px;">
+                                    Hoàn tác</button>
+                                <button type="submit" id="btn-tab-du-thau-edit-submit" class="btn btn-primary pt-1"
+                                    style="height: 30px; width: 100px;">
+                                    Cập nhật</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="du-thau-open-modal-edit" class="btn btn-warning pt-1 float-right"
+                data-toggle="modal" data-target="#tabDuThauEditModal" style="height: 30px; width: 130px;">
+                <i class="feather mr-2 icon-edit"></i>Chỉnh sửa
+            </button>
         </div>
     </div>
 </div>
