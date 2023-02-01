@@ -2,6 +2,15 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="input-group mb-3">
+                <div class="input-group-prepend bg-primary w-25">
+                    <span
+                        class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                        Khách hàng</span>
+                </div>
+                <input type="text" class="form-control" id="customerName"
+                    th:value="${detailTabDuThau.getCustomerName()}" readonly>
+            </div>
+            <div class="input-group mb-3">
                 <div class="input-group-prepend w-25 text-center">
                     <span
                         class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
@@ -19,15 +28,6 @@
                 </div>
                 <textarea class="form-control" aria-label="Mô tả" id="jobDescription" rows="2"
                     th:text="${detailTabDuThau.getDescription()}" readonly></textarea>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend bg-primary w-25">
-                    <span
-                        class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                        Phân tích SWOOT</span>
-                </div>
-                <textarea class="form-control" aria-label="Phân tích SWOOT" id="phanTichSwoot" rows="2"
-                    th:text="${detailTabDuThau.getPhanTichSwoot()}" readonly></textarea>
             </div>
             <div class="form-group row pl-1">
                 <label for="mucDoKhaThi" class="col-sm-3 col-form-label font-weight-bold">
@@ -94,10 +94,10 @@
                 <div class="input-group-prepend bg-primary w-25">
                     <span
                         class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                        Khách hàng</span>
+                        Tổng mức đầu tư<br>(dự kiến)</span>
                 </div>
-                <input type="text" class="form-control" id="customerName"
-                    th:value="${detailTabDuThau.getCustomerName()}" readonly>
+                <input type="text" class="form-control" style="height: 63.5px;" id="tongMucDauTuDuKien"
+                    th:value="${detailTabDuThau.getTongMucDauTuDuKien()}" readonly>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend bg-primary w-25">
@@ -117,14 +117,14 @@
                 <input type="text" class="form-control" id="phamViCungCap"
                     th:value="${detailTabDuThau.getPhamViCungCap()}" readonly>
             </div>
-            <div class="input-group">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend bg-primary w-25">
                     <span
                         class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                        Tổng mức đầu tư<br>(dự kiến)</span>
+                        Phân tích SWOOT</span>
                 </div>
-                <input type="text" class="form-control" style="height: 63.5px;" id="tongMucDauTuDuKien"
-                    th:value="${detailTabDuThau.getTongMucDauTuDuKien()}" readonly>
+                <textarea class="form-control" aria-label="Phân tích SWOOT" id="phanTichSwoot" rows="2"
+                    th:text="${detailTabDuThau.getPhanTichSwoot()}" readonly></textarea>
             </div>
         </div>
         <div class="col-md-12 pb-4">
@@ -137,7 +137,7 @@
                             <h5 class="modal-title" id="tabDuThauEditModalLabel">
                                 Thay đổi thông tin (Mục: Dự thầu)
                             </h5>
-                            <button type="button" class="tab-phan-loai-edit-modal-close close" aria-label="Close">
+                            <button type="button" class="tab-du-thau-edit-modal-close close" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -146,6 +146,19 @@
                             <div class="modal-body">
                                 <div class="row mb-4">
                                     <div class="col-md-6">
+                                        <div class="input-group mb-4" id="customer-selection">
+                                            <div class="input-group-prepend bg-primary w-100">
+                                                <label
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold"
+                                                    for="customer_id">Khách hàng</label>
+                                            </div>
+                                            <select id="customer_id" name="customerId" class="custom-select"
+                                                th:data-first="${detailTabDuThau.getCustomerId()}">
+                                                <option th:value="${detailTabDuThau.getCustomerId()}"
+                                                    th:text="${detailTabDuThau.getCustomerName()}" selected>
+                                                </option>
+                                            </select>
+                                        </div>
                                         <div class="input-group mb-4">
                                             <div class="input-group-prepend w-25 text-center">
                                                 <span
@@ -165,20 +178,10 @@
                                             <textarea class="form-control" aria-label="Mô tả" name="description"
                                                 rows="2" th:text="${detailTabDuThau.getDescription()}"></textarea>
                                         </div>
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend bg-primary w-25">
-                                                <span
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Phân tích SWOOT</span>
-                                            </div>
-                                            <textarea class="form-control" aria-label="Phân tích SWOOT"
-                                                name="phanTichSwoot" rows="2"
-                                                th:text="${detailTabDuThau.getPhanTichSwoot()}"></textarea>
-                                        </div>
-                                        <div class="form-group row pl-1">
-                                            <label for="mucDoKhaThi" class="col-sm-3 col-form-label font-weight-bold"
-                                                style="padding-top: 20px !important;">
-                                                Mức độ khả thi(%)
+                                        <div class="form-group row">
+                                            <label for="mucDoKhaThi"
+                                                class="col-sm-3 col-form-label font-weight-bold pr-0"
+                                                style="padding-left: 20px; padding-top: 19px;">Mức khả thi (%)
                                             </label>
                                             <div class="col-sm-9">
                                                 <input type="hidden" name="mucDoKhaThi" id="muc_do_kha_thi"
@@ -190,18 +193,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-group mb-4" id="customer-selection">
-                                            <div class="input-group-prepend bg-primary w-100">
-                                                <label
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold"
-                                                    for="customer_id">Khách hàng</label>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend bg-primary w-25">
+                                                <span
+                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
+                                                    Tổng mức đầu tư<br>(dự kiến)</span>
                                             </div>
-                                            <select id="customer_id" name="customerId" class="custom-select"
-                                                th:data-first="${detailTabDuThau.getCustomerId()}">
-                                                <option th:value="${detailTabDuThau.getCustomerId()}"
-                                                    th:text="${detailTabDuThau.getCustomerName()}" selected>
-                                                </option>
-                                            </select>
+                                            <input type="text" class="form-control" style="height: 63.5px;"
+                                                name="tongMucDauTuDuKien"
+                                                th:value="${detailTabDuThau.getTongMucDauTuDuKien()}">
                                         </div>
                                         <div class="input-group mb-4">
                                             <div class="input-group-prepend bg-primary w-25">
@@ -221,15 +221,15 @@
                                             <input type="text" class="form-control" name="phamViCungCap"
                                                 th:value="${detailTabDuThau.getPhamViCungCap()}">
                                         </div>
-                                        <div class="input-group">
+                                        <div class="input-group mb-4">
                                             <div class="input-group-prepend bg-primary w-25">
                                                 <span
                                                     class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Tổng mức đầu tư<br>(dự kiến)</span>
+                                                    Phân tích SWOOT</span>
                                             </div>
-                                            <input type="text" class="form-control" style="height: 63.5px;"
-                                                name="tongMucDauTuDuKien"
-                                                th:value="${detailTabDuThau.getTongMucDauTuDuKien()}">
+                                            <textarea class="form-control" aria-label="Phân tích SWOOT"
+                                                name="phanTichSwoot" rows="2"
+                                                th:text="${detailTabDuThau.getPhanTichSwoot()}"></textarea>
                                         </div>
                                     </div>
                                 </div>
