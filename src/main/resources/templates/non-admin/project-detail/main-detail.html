@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active text-uppercase" id="phan-loai-tab" data-toggle="tab"
                                         href="#phan-loai" role="tab" aria-controls="phan-loai" aria-selected="true">
@@ -125,6 +125,110 @@
                     </div>
                 </div>
                 <!-- Project end -->
+
+                <!-- <div class="col-xl-6 col-md-12">
+                    <div class="card latest-update-card">
+                        <div class="card-header">
+                            <h5>Latest Updates</h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i
+                                                        class="feather icon-maximize"></i> maximize</span><span
+                                                    style="display:none"><i class="feather icon-minimize"></i>
+                                                    Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i
+                                                        class="feather icon-minus"></i> collapse</span><span
+                                                    style="display:none"><i class="feather icon-plus"></i>
+                                                    expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i
+                                                    class="feather icon-refresh-cw"></i> reload</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="latest-update-box mb-4">
+                                <div class="row p-t-35 p-b-35">
+                                    <div class="col-auto text-right update-meta">
+                                        <p class="text-muted m-b-0 d-inline-flex">Công việc</p>
+                                        <i class="feather icon-briefcase bg-c-blue update-icon"></i>
+                                    </div>
+                                    <div class="col">
+                                        <h6 th:text="${detailTabDuThau.getJobName()}"></h6>
+                                    </div>
+                                </div>
+                                <div class="row p-b-35">
+                                    <div class="col-auto text-right update-meta">
+                                        <p class="text-muted m-b-0 d-inline-flex">Khách hàng</p>
+                                        <i class="feather icon-users bg-c-blue update-icon"></i>
+                                    </div>
+                                    <div class="col">
+                                        <h6 th:text="${detailTabDuThau.getCustomerName()}"></h6>
+                                    </div>
+                                </div>
+                                <div class="row p-b-35">
+                                    <div class="col-auto text-right update-meta">
+                                        <p class="text-muted m-b-0 d-inline-flex">Mô tả</p>
+                                        <i class="feather icon-file-text bg-c-blue update-icon"></i>
+                                    </div>
+                                    <div class="col">
+                                        <h6 th:text="${detailTabDuThau.getDescription()}"></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-auto text-right update-meta">
+                                        <p class="text-muted m-b-0 d-inline-flex">Khả thi</p>
+                                        <i class="feather icon-trending-up bg-c-blue update-icon"></i>
+                                    </div>
+                                    <div class="col">
+                                        <div class="bar-holder" style="margin-top: -20px;">
+                                            <th:block
+                                                th:if="${detailTabDuThau.getMucDoKhaThi() >= 0 && detailTabDuThau.getMucDoKhaThi() <= 20}">
+                                                <div class="font-weight-bold bar-20"
+                                                    th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
+                                                    th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
+                                                </div>
+                                            </th:block>
+                                            <th:block
+                                                th:if="${detailTabDuThau.getMucDoKhaThi() > 20 && detailTabDuThau.getMucDoKhaThi() <= 40}">
+                                                <div class="font-weight-bold bar-40"
+                                                    th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
+                                                    th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
+                                                </div>
+                                            </th:block>
+                                            <th:block
+                                                th:if="${detailTabDuThau.getMucDoKhaThi() > 40 && detailTabDuThau.getMucDoKhaThi() <= 60}">
+                                                <div class="font-weight-bold bar-60"
+                                                    th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
+                                                    th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
+                                                </div>
+                                            </th:block>
+                                            <th:block
+                                                th:if="${detailTabDuThau.getMucDoKhaThi() > 60 && detailTabDuThau.getMucDoKhaThi() <= 80}">
+                                                <div class="font-weight-bold bar-80"
+                                                    th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
+                                                    th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
+                                                </div>
+                                            </th:block>
+                                            <th:block
+                                                th:if="${detailTabDuThau.getMucDoKhaThi() > 80 && detailTabDuThau.getMucDoKhaThi() <= 100}">
+                                                <div class="font-weight-bold bar-100"
+                                                    th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
+                                                    th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
+                                                </div>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
             <!-- [ Main Content ] end -->
         </div>

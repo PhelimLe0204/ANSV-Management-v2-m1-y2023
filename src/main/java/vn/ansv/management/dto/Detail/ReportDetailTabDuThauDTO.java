@@ -11,6 +11,7 @@ public class ReportDetailTabDuThauDTO {
     private String description;
     private String phanTichSwoot;
     private Long customerId;
+    private String customerAvatar;
     private String customerName;
     private String hinhThucDauTu;
     private String phamViCungCap;
@@ -18,13 +19,14 @@ public class ReportDetailTabDuThauDTO {
     private Integer mucDoKhaThi;
 
     public ReportDetailTabDuThauDTO(Long id, String jobName, String description, String phanTichSwoot, Long customerId,
-            String customerName, String hinhThucDauTu, String phamViCungCap, String tongMucDauTuDuKien,
-            Integer mucDoKhaThi) {
+            String customerAvatar, String customerName, String hinhThucDauTu, String phamViCungCap,
+            String tongMucDauTuDuKien, Integer mucDoKhaThi) {
         this.id = id;
         this.jobName = jobName;
         this.description = description;
         this.phanTichSwoot = phanTichSwoot;
         this.customerId = customerId;
+        this.customerAvatar = customerAvatar;
         this.customerName = customerName;
         this.hinhThucDauTu = hinhThucDauTu;
         this.phamViCungCap = phamViCungCap;
