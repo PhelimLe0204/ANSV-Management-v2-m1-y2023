@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
 
 /* ===== ProjectReportRepository.findAllDashboardProjectStep1() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep1", query = "SELECT "
@@ -70,6 +71,17 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabDuThauDTO")
 
+/* ===== ProjectReportRepository.findDetailTabChiPhiThoiGian() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailTabChiPhiThoiGian", query = "SELECT "
+        + "pr.id, "
+        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, pr.thuc_te_dac AS thucTeDac, "
+        + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, pr.thuc_te_pac AS thucTePac, "
+        + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, pr.thuc_te_fac AS thucTeFac, "
+        + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
+        + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng "
+        + "FROM project_report AS pr "
+        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabCpttDTO")
+
 /* ===== Set mapping: ProjectDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
@@ -114,6 +126,25 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
         @ColumnResult(name = "phamViCungCap", type = String.class),
         @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
         @ColumnResult(name = "mucDoKhaThi", type = Integer.class) }))
+
+/* ===== Set mapping: ReportDetailTabCpttDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ReportDetailTabCpttDTO", classes = @ConstructorResult(targetClass = ReportDetailTabCpttDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "soTienDac", type = String.class),
+        @ColumnResult(name = "hopDongDac", type = String.class),
+        @ColumnResult(name = "mucTieuDac", type = String.class),
+        @ColumnResult(name = "thucTeDac", type = String.class),
+        @ColumnResult(name = "soTienPac", type = String.class),
+        @ColumnResult(name = "hopDongPac", type = String.class),
+        @ColumnResult(name = "mucTieuPac", type = String.class),
+        @ColumnResult(name = "thucTePac", type = String.class),
+        @ColumnResult(name = "soTienFac", type = String.class),
+        @ColumnResult(name = "hopDongFac", type = String.class),
+        @ColumnResult(name = "mucTieuFac", type = String.class),
+        @ColumnResult(name = "thucTeFac", type = String.class),
+        @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
+        @ColumnResult(name = "soTienTamUng", type = String.class),
+        @ColumnResult(name = "keHoachTamUng", type = String.class) }))
 
 @Entity
 @Table(name = "project_report")

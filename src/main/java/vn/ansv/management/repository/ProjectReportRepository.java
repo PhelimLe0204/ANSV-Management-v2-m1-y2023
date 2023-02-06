@@ -13,10 +13,12 @@ import org.springframework.stereotype.Repository;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
 @Repository
 public interface ProjectReportRepository extends JpaRepository<ProjectReportEntity, Long> {
+    /* TEST */
     @Query(value = "SELECT pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
             + "(SELECT u.fullname FROM tbl_user AS u WHERE u.id = pr.am_id) AS picName, "
             + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
@@ -28,8 +30,7 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "ORDER BY pr.job_name", nativeQuery = true)
     // Danh sách báo cáo dự án trên Dashboard
     List<ProjectDashboardDTO> findAllDashboardProjectType1(@Param("enabled") int enabled,
-            @Param("project_type_id") int project_type_id, @Param("week") int week,
-            @Param("year") int year); // --- TEST
+            @Param("project_type_id") int project_type_id, @Param("week") int week, @Param("year") int year);
 
     /*
      * -------------------------------------------------------------------
@@ -104,4 +105,13 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("phanTichSwoot") String phanTichSwoot, @Param("hinhThucDauTu") String hinhThucDauTu,
             @Param("phamViCungCap") String phamViCungCap, @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
             @Param("mucDoKhaThi") int mucDoKhaThi);
+
+    /*
+     * -------------------------------------------
+     * Chi tiết báo cáo dự án theo ID và Enabled
+     * View: Detail (tab Chi phí & thời gian)
+     * -------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    ReportDetailTabCpttDTO findDetailTabChiPhiThoiGian(@Param("id") Long id, @Param("enabled") int enabled);
 }
