@@ -171,3 +171,7 @@
 .table-td-note {
     padding-top: 28px !important;
 }
+
+.input-datepicker:focus {
+    background-color: #FFF;
+}
