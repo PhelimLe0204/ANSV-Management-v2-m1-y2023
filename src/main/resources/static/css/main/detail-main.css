@@ -1,4 +1,4 @@
-/* Start: Alertify custom */
+/* ===== Start: Alertify custom ===== */
 .ajs-dialog-custom {
     max-width: 25% !important;
     min-width: 380px !important;
@@ -52,10 +52,12 @@
     border-color: #fd7e14;
 }
 
-/* end: Alertify custom */
+/* ===== End: Alertify custom ===== */
 
+
+
+/* ===== Start: Progress bar ===== */
 /* INDIVIDUAL BAR HOLDER */
-
 .bar-holder {
     width: 100%;
     background-color: rgb(231, 231, 231);
@@ -150,4 +152,22 @@
     margin-top: 20px;
     font-weight: 400;
     background-image: linear-gradient(100deg, red, orange, yellow, green, blue);
+}
+
+/* ===== End: Progress bar ===== */
+
+.table-td-data-none {
+    background-color: #BEBEBE !important;
+    font-weight: bold;
+    font-size: 31px;
+    color: #FFF;
+    text-align: center !important;
+}
+
+.table-bg-form-input {
+    background-color: #e9ecef;
+}
+
+.table-td-note {
+    padding-top: 28px !important;
 }

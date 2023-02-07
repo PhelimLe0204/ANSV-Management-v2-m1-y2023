@@ -439,6 +439,19 @@ $("#du-thau-open-modal-edit").click(function () {
 
 
 
+/* ===== Start: Tab thời gian & chi phí ===== */
+$("#chi-phi-thoi-gian-open-modal-edit").click(function () {
+    $(
+        "#hop_dong_dac, #muc_tieu_dac, #thuc_te_dac, #hop_dong_pac, #muc_tieu_pac, #thuc_te_pac, "
+        + "#hop_dong_fac, #muc_tieu_fac, #thuc_te_fac, #ke_hoach_tam_ung"
+    ).datepicker({
+        dateFormat: 'dd / mm / yy'
+    });
+});
+/* ===== End: Tab thời gian & chi phí ===== */
+
+
+
 /* ===== Start: Tab thành viên ===== */
 $("#thanh-vien-open-modal-edit").click(function () {
     console.log("thanh-vien-open-modal-edit");
