@@ -148,16 +148,20 @@
                                                     <td class="p-2">
                                                         <input type="text" name="mucTieuDac" id="muc_tieu_dac"
                                                             class="form-control text-center input-datepicker"
+                                                            data-related-id="thuc_te_dac"
+                                                            data-calculate-result="chenh_lech_dac"
                                                             th:data-first="${detailTabCPTT.getMucTieuDac()}"
                                                             th:value="${detailTabCPTT.getMucTieuDac()}" readonly="">
                                                     </td>
                                                     <td class="p-2">
                                                         <input type="text" name="thucTeDac" id="thuc_te_dac"
                                                             class="form-control text-center input-datepicker"
+                                                            data-related-id="muc_tieu_dac"
+                                                            data-calculate-result="chenh_lech_dac"
                                                             th:data-first="${detailTabCPTT.getThucTeDac()}"
                                                             th:value="${detailTabCPTT.getThucTeDac()}" readonly="">
                                                     </td>
-                                                    <td class="align-middle text-center"
+                                                    <td class="align-middle text-center" id="chenh_lech_dac"
                                                         th:text="${detailTabCPTT.getChenhLechDac()}">
                                                     </td>
                                                 </tr>

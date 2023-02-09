@@ -59,6 +59,7 @@ public class ReportDetailTabCpttDTO {
                 // Không có ngày thực tế (chưa hoàn thành công việc)
                 thuc_te = LocalDate.now();
                 long dif = Duration.between(thuc_te.atStartOfDay(), muc_tieu.atStartOfDay()).toDays();
+
                 if (dif > 0) {
                     result = "Còn " + Math.abs(dif) + " ngày";
                 }
@@ -66,19 +67,20 @@ public class ReportDetailTabCpttDTO {
                     result = "Deadline";
                 }
                 if (dif < 0) {
-                    result = "Đã chậm " + Math.abs(dif) + " ngày";
+                    result = "Quá hạn " + Math.abs(dif) + " ngày";
                 }
             } else {
+                // Đã có ngày thực tế (hoàn thành công việc)
                 thuc_te = LocalDate.parse(dateThucTe, dateFormatter);
                 long dif = Duration.between(thuc_te.atStartOfDay(), muc_tieu.atStartOfDay()).toDays();
+
                 if (dif > 0) {
                     result = "Sớm " + Math.abs(dif) + " ngày";
-                }
-                if (dif == 0) {
+                } else if (dif == 0) {
                     result = "Đúng hạn";
-                }
-                if (dif < 0) {
-                    result = "Bị chậm " + Math.abs(dif) + " ngày";
+                } else {
+                    // dif < 0
+                    result = "Chậm " + Math.abs(dif) + " ngày";
                 }
             }
         }
@@ -87,9 +89,9 @@ public class ReportDetailTabCpttDTO {
     }
 
     public ReportDetailTabCpttDTO(Long id, String soTienDac, String hopDongDac, String mucTieuDac, String thucTeDac,
-            String soTienPac,
-            String hopDongPac, String mucTieuPac, String thucTePac, String soTienFac, String hopDongFac,
-            String mucTieuFac, String thucTeFac, String tongGiaTriThucTe, String soTienTamUng, String keHoachTamUng) {
+            String soTienPac, String hopDongPac, String mucTieuPac, String thucTePac, String soTienFac,
+            String hopDongFac, String mucTieuFac, String thucTeFac, String tongGiaTriThucTe, String soTienTamUng,
+            String keHoachTamUng) {
         this.id = id;
         this.soTienDac = soTienDac;
         this.hopDongDac = hopDongDac;

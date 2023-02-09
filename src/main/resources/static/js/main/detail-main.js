@@ -441,11 +441,78 @@ $("#du-thau-open-modal-edit").click(function () {
 
 /* ===== Start: Tab thời gian & chi phí ===== */
 $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
-    $(
-        "#hop_dong_dac, #muc_tieu_dac, #thuc_te_dac, #hop_dong_pac, #muc_tieu_pac, #thuc_te_pac, "
-        + "#hop_dong_fac, #muc_tieu_fac, #thuc_te_fac, #ke_hoach_tam_ung"
-    ).datepicker({
+    $("#hop_dong_dac, #hop_dong_pac, #hop_dong_fac, #ke_hoach_tam_ung").datepicker({
         dateFormat: 'dd / mm / yy'
+    });
+
+    $("#muc_tieu_dac, #muc_tieu_pac, #muc_tieu_fac").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateMucTieu) {
+            var related_id = $(this).attr("data-related-id"); // ID ngày thực tế tương ứng
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateThucTe = $("#" + $(this).attr("data-related-id")).val();
+            console.log("========================================================================");
+            console.log("Ngày mục tiêu: " + dateMucTieu);
+            console.log("ID ngày thực tế tương ứng: " + related_id);
+            console.log("Ngày thực tế: " + dateThucTe);
+            console.log("Selected date: " + dateMucTieu + "; input's current value: " + this.value);
+
+            // To set two dates to two variables
+            var date1 = new Date(dateMucTieu.slice(11, 15), dateMucTieu.slice(5, 7), dateMucTieu.slice(0, 2));
+            var date2 = new Date(dateThucTe.slice(11, 15), dateThucTe.slice(5, 7), dateThucTe.slice(0, 2));
+            // var date1 = new Date("06/30/2019");
+            // var date2 = new Date("07/30/2019");
+
+            // To calculate the time difference of two dates
+            var Difference_In_Time = date2.getTime() - date1.getTime();
+            // To calculate the no. of days between two dates
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+            //To display the final no. of days (result)
+            console.log("Số ngày chênh lệch: " + Difference_In_Days);
+
+            if (Difference_In_Days == 0) {
+                $("#" + calculate_result_id).html(("Đúng tiến độ"));
+            } else if (Difference_In_Days < 0) {
+                $("#" + calculate_result_id).html(("Sớm " + Math.abs(Difference_In_Days) + " ngày"));
+            } else {
+                $("#" + calculate_result_id).html(("Chậm " + Difference_In_Days + " ngày"));
+            }
+        }
+    });
+
+    $("#thuc_te_dac, #thuc_te_pac, #thuc_te_fac").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateThucTe) {
+            var related_id = $(this).attr("data-related-id"); // ID ngày mục tiêu tương ứng
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateMucTieu = $("#" + $(this).attr("data-related-id")).val();
+            console.log("========================================================================");
+            console.log("Ngày thực tế: " + dateThucTe);
+            console.log("ID ngày mục tiêu tương ứng: " + related_id);
+            console.log("Ngày mục tiêu: " + dateMucTieu);
+            console.log("Selected date: " + dateThucTe + "; input's current value: " + this.value);
+
+            // To set two dates to two variables
+            var date1 = new Date(dateThucTe.slice(11, 15), dateThucTe.slice(5, 7), dateThucTe.slice(0, 2));
+            var date2 = new Date(dateMucTieu.slice(11, 15), dateMucTieu.slice(5, 7), dateMucTieu.slice(0, 2));
+            // var date1 = new Date("06/30/2019");
+            // var date2 = new Date("07/30/2019");
+
+            // To calculate the time difference of two dates
+            var Difference_In_Time = date2.getTime() - date1.getTime();
+            // To calculate the no. of days between two dates
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+            //To display the final no. of days (result)
+            console.log("Số ngày chênh lệch: " + Difference_In_Days);
+
+            if (Difference_In_Days == 0) {
+                $("#" + calculate_result_id).html(("Đúng tiến độ"));
+            } else if (Difference_In_Days < 0) {
+                $("#" + calculate_result_id).html(("Chậm " + Math.abs(Difference_In_Days) + " ngày"));
+            } else {
+                $("#" + calculate_result_id).html(("Sớm " + Difference_In_Days + " ngày"));
+            }
+        }
     });
 });
 /* ===== End: Tab thời gian & chi phí ===== */
