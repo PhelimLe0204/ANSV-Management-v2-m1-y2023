@@ -514,6 +514,18 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
             }
         }
     });
+
+    $(".btn-delete-input").click(function () {
+        var target_id = $(this).attr("data-target");
+        $("#" + target_id).val("");
+
+        if ($("#" + target_id).attr("data-allow-change-status") == "1") {
+            if ($("[data-status-for=" + target_id + "]").hasClass("fa-square-check")) {
+                $("[data-status-for=" + target_id + "]").removeAttr('class');
+                $("[data-status-for=" + target_id + "]").attr('class', 'fa-solid fa-square text-secondary');
+            }
+        }
+    });
 });
 /* ===== End: Tab thời gian & chi phí ===== */
 
