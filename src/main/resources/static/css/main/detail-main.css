@@ -168,8 +168,16 @@
     background-color: #e9ecef;
 }
 
+.table-td-date {
+    width: 180px !important;
+}
+
 .table-td-note {
     padding-top: 28px !important;
+}
+
+.input-datepicker {
+    width: 136px;
 }
 
 .input-datepicker:focus {
