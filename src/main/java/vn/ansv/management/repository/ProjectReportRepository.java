@@ -114,4 +114,29 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      */
     @Query(nativeQuery = true)
     ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(@Param("id") Long id, @Param("enabled") int enabled);
+
+    /*
+     * ----------------------------------------
+     * Cập nhật chi tiết báo cáo dự án
+     * View: Detail (tab Chi phí & thời gian)
+     * ----------------------------------------
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE project_report AS pr SET "
+            + "pr.so_tien_dac = :soTienDac, pr.hop_dong_dac = :hopDongDac, pr.muc_tieu_dac = :mucTieuDac, pr.thuc_te_dac = :thucTeDac, "
+            + "pr.so_tien_pac = :soTienPac, pr.hop_dong_pac = :hopDongPac, pr.muc_tieu_pac = :mucTieuPac, pr.thuc_te_pac = :thucTePac, "
+            + "pr.so_tien_fac = :soTienFac, pr.hop_dong_fac = :hopDongFac, pr.muc_tieu_fac = :mucTieuFac, pr.thuc_te_fac = :thucTeFac, "
+            + "pr.tong_gia_tri_thuc_te = :tongGiaTriThucTe, pr.so_tien_tam_ung = :soTienTamUng, pr.ke_hoach_tam_ung = :keHoachTamUng "
+            + "WHERE pr.id = :id", nativeQuery = true)
+    void updateDetailTabCptg(
+            @Param("id") Long id,
+            @Param("soTienDac") String soTienDac, @Param("hopDongDac") String hopDongDac,
+            @Param("mucTieuDac") String mucTieuDac, @Param("thucTeDac") String thucTeDac,
+            @Param("soTienPac") String soTienPac, @Param("hopDongPac") String hopDongPac,
+            @Param("mucTieuPac") String mucTieuPac, @Param("thucTePac") String thucTePac,
+            @Param("soTienFac") String soTienFac, @Param("hopDongFac") String hopDongFac,
+            @Param("mucTieuFac") String mucTieuFac, @Param("thucTeFac") String thucTeFac,
+            @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("soTienTamUng") String soTienTamUng,
+            @Param("keHoachTamUng") String keHoachTamUng);
 }

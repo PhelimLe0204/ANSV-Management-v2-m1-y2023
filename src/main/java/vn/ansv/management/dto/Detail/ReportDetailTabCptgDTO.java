@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReportDetailTabCptgDTO {
+    // DTO for tab "Thoi gian & chi phi" (detail + update)
     private Long id;
 
     private String soTienDac;

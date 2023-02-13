@@ -137,12 +137,12 @@ public class HomeController extends BaseController {
 
     @PostMapping("/chi-tiet/update/3/{id}")
     public String updateDetailTabCPTT(@PathVariable Long id,
-            @ModelAttribute UpdateDetailTabDuThauDTO dataUpdate, Model model, HttpServletRequest request) {
-        System.out.println("----- HomeController.updateDetailTabDuThau - id: " + dataUpdate.getId());
-        if (projectReportService.updateDetailTabDuThau(id, dataUpdate)) {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 2;
+            @ModelAttribute ReportDetailTabCptgDTO dataUpdate, Model model, HttpServletRequest request) {
+        System.out.println("----- HomeController.updateDetailTabCPTT - id: " + dataUpdate.getId());
+        if (projectReportService.updateDetailTabCptg(id, dataUpdate)) {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 3;
         } else {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 2;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 3;
         }
     }
 }

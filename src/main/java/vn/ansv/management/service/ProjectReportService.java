@@ -103,4 +103,20 @@ public class ProjectReportService implements IProjectReport {
         return projectReportRepository.findDetailTabChiPhiThoiGian(id, enabled);
     }
     /* ========== End: Detail tab chi phí & thời gian ========== */
+
+    @Override
+    public Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate) {
+        try {
+            projectReportRepository.updateDetailTabCptg(id,
+                    dataUpdate.getSoTienDac(), dataUpdate.getHopDongDac(), dataUpdate.getMucTieuDac(), dataUpdate.getThucTeDac(),
+                    dataUpdate.getSoTienPac(), dataUpdate.getHopDongPac(), dataUpdate.getMucTieuPac(), dataUpdate.getThucTePac(),
+                    dataUpdate.getSoTienFac(), dataUpdate.getHopDongFac(), dataUpdate.getMucTieuFac(), dataUpdate.getThucTeFac(),
+                    dataUpdate.getTongGiaTriThucTe(), dataUpdate.getSoTienTamUng(), dataUpdate.getKeHoachTamUng());
+        } catch (Exception e) {
+            System.out.println("----- Error ----- ProjectReportService.updateDetailTabCptg(): " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
