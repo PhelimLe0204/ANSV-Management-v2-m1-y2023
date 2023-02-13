@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.repository.ProjectReportRepository;
@@ -99,7 +99,7 @@ public class ProjectReportService implements IProjectReport {
      * =================================================
      */
     @Override
-    public ReportDetailTabCpttDTO findDetailTabChiPhiThoiGian(Long id, int enabled) {
+    public ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(Long id, int enabled) {
         return projectReportRepository.findDetailTabChiPhiThoiGian(id, enabled);
     }
     /* ========== End: Detail tab chi phí & thời gian ========== */

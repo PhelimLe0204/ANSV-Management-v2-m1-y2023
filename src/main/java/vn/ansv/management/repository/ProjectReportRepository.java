@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
 @Repository
@@ -113,5 +113,5 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      * -------------------------------------------
      */
     @Query(nativeQuery = true)
-    ReportDetailTabCpttDTO findDetailTabChiPhiThoiGian(@Param("id") Long id, @Param("enabled") int enabled);
+    ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(@Param("id") Long id, @Param("enabled") int enabled);
 }

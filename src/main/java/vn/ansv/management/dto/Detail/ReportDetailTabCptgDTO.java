@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReportDetailTabCpttDTO {
+public class ReportDetailTabCptgDTO {
     private Long id;
 
     private String soTienDac;
@@ -88,7 +88,7 @@ public class ReportDetailTabCpttDTO {
         return result;
     }
 
-    public ReportDetailTabCpttDTO(Long id, String soTienDac, String hopDongDac, String mucTieuDac, String thucTeDac,
+    public ReportDetailTabCptgDTO(Long id, String soTienDac, String hopDongDac, String mucTieuDac, String thucTeDac,
             String soTienPac, String hopDongPac, String mucTieuPac, String thucTePac, String soTienFac,
             String hopDongFac, String mucTieuFac, String thucTeFac, String tongGiaTriThucTe, String soTienTamUng,
             String keHoachTamUng) {

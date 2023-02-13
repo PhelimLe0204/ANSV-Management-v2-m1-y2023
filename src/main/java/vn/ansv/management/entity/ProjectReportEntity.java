@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 
 /* ===== ProjectReportRepository.findAllDashboardProjectStep1() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep1", query = "SELECT "
@@ -80,7 +80,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
         + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
         + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng "
         + "FROM project_report AS pr "
-        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabCpttDTO")
+        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabCptgDTO")
 
 /* ===== Set mapping: ProjectDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {
@@ -127,8 +127,8 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
         @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
         @ColumnResult(name = "mucDoKhaThi", type = Integer.class) }))
 
-/* ===== Set mapping: ReportDetailTabCpttDTO ===== */
-@SqlResultSetMapping(name = "Mapping.ReportDetailTabCpttDTO", classes = @ConstructorResult(targetClass = ReportDetailTabCpttDTO.class, columns = {
+/* ===== Set mapping: ReportDetailTabCptgDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ReportDetailTabCptgDTO", classes = @ConstructorResult(targetClass = ReportDetailTabCptgDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "soTienDac", type = String.class),
         @ColumnResult(name = "hopDongDac", type = String.class),

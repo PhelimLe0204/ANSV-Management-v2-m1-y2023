@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTabCpttDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
@@ -92,7 +92,7 @@ public class HomeController extends BaseController {
 
         ReportDetailTabPhanLoaiDTO projectDetailTabPhanLoai = projectReportService.findDetailTabPhanLoai(project_id, 1);
         ReportDetailTabDuThauDTO projectDetailTabDuThau = projectReportService.findDetailTabDuThau(project_id, 1);
-        ReportDetailTabCpttDTO projectDetailTabCPTT = projectReportService
+        ReportDetailTabCptgDTO projectDetailTabCPTg = projectReportService
                 .findDetailTabChiPhiThoiGian(project_id, 1);
 
         List<OptionProjectTypeDTO> optionProjectTypeDTO = projectTypeService.findAllOption();
@@ -103,7 +103,7 @@ public class HomeController extends BaseController {
 
         _mvShare.addObject("detailTabPhanLoai", projectDetailTabPhanLoai);
         _mvShare.addObject("detailTabDuThau", projectDetailTabDuThau);
-        _mvShare.addObject("detailTabCPTT", projectDetailTabCPTT);
+        _mvShare.addObject("detailTabCptg", projectDetailTabCPTg);
 
         _mvShare.addObject("optionType", optionProjectTypeDTO);
         _mvShare.addObject("optionPriority", optionProjectPriorityDTO);
@@ -126,6 +126,17 @@ public class HomeController extends BaseController {
 
     @PostMapping("/chi-tiet/update/2/{id}")
     public String updateDetailTabDuThau(@PathVariable Long id,
+            @ModelAttribute UpdateDetailTabDuThauDTO dataUpdate, Model model, HttpServletRequest request) {
+        System.out.println("----- HomeController.updateDetailTabDuThau - id: " + dataUpdate.getId());
+        if (projectReportService.updateDetailTabDuThau(id, dataUpdate)) {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 2;
+        } else {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 2;
+        }
+    }
+
+    @PostMapping("/chi-tiet/update/3/{id}")
+    public String updateDetailTabCPTT(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabDuThauDTO dataUpdate, Model model, HttpServletRequest request) {
         System.out.println("----- HomeController.updateDetailTabDuThau - id: " + dataUpdate.getId());
         if (projectReportService.updateDetailTabDuThau(id, dataUpdate)) {
