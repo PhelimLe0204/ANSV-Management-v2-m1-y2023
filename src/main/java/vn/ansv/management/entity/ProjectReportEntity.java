@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 
 /* ===== ProjectReportRepository.findAllDashboardProjectStep1() ===== */
@@ -82,6 +83,14 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "FROM project_report AS pr "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabCptgDTO")
 
+/* ===== ProjectReportRepository.findDetailTabQuaTrinh() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailTabQuaTrinh", query = "SELECT "
+        + "pr.id, pr.general_issue AS generalIssue, pr.solution, pr.ke_hoach_tuan_nay AS keHoachTuanNay, "
+        + "pr.ke_hoach_tuan_sau AS keHoachTuanSau, pr.ket_qua_tuan_truoc AS ketQuaTuanTruoc, "
+        + "pr.ket_qua_tuan_nay AS ketQuaTuanNay "
+        + "FROM project_report AS pr "
+        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabQuaTrinhDTO")
+
 /* ===== Set mapping: ProjectDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
@@ -145,6 +154,16 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
         @ColumnResult(name = "soTienTamUng", type = String.class),
         @ColumnResult(name = "keHoachTamUng", type = String.class) }))
+
+/* ===== Set mapping: ReportDetailTabQuaTrinhDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ReportDetailTabQuaTrinhDTO", classes = @ConstructorResult(targetClass = ReportDetailTabQuaTrinhDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "generalIssue", type = String.class),
+        @ColumnResult(name = "solution", type = String.class),
+        @ColumnResult(name = "keHoachTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanSau", type = String.class),
+        @ColumnResult(name = "ketQuaTuanTruoc", type = String.class),
+        @ColumnResult(name = "ketQuaTuanNay", type = String.class) }))
 
 @Entity
 @Table(name = "project_report")

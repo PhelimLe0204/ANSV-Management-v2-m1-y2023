@@ -1,28 +1,27 @@
 <div class="tab-pane fade" id="qua-trinh" role="tabpanel" aria-labelledby="qua-trinh-tab" th:fragment="body">
-    <h1>Body quá trình</h1>
     <!-- <div class="row">
         <div class="col-md-4">
             <div class="form-group">
                 <div class="btn btn-primary w-100" style="font-size: 20px;">
                     Khó khăn
                 </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getGeneral_issue()}"></p>
+                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getGeneralIssue()}"></p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kế hoạch tuần này (tuần ' + ${projectDetail.getWeek()} + ')'">
+                    th:text="'Kế hoạch tuần này (tuần ' + ${detailTabPhanLoai.getWeek()} + ')'">
                 </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKe_hoach_tuan_nay()}"></p>
+                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKeHoachTuanNay()}"></p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kết quả tuần trước (tuần ' + ${projectDetail.getWeek() - 1} + ')'">
+                    th:text="'Kết quả tuần trước (tuần ' + ${detailTabPhanLoai.getWeek() - 1} + ')'">
                 </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKet_qua_tuan_truoc()}"></p>
+                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKetQuaTuanTruoc()}"></p>
             </div>
         </div>
     </div>
@@ -32,24 +31,129 @@
                 <div class="btn btn-primary w-100" style="font-size: 20px;">
                     Giải pháp
                 </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getSolution()}"></p>
+                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getSolution()}"></p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group pt-1">
                 <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kết quả tuần này (tuần ' + ${projectDetail.getWeek()} + ')'">
+                    th:text="'Kết quả tuần này (tuần ' + ${detailTabPhanLoai.getWeek()} + ')'">
                 </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKet_qua_tuan_nay()}"></p>
+                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKetQuaTuanNay()}"></p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group pt-1">
                 <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kế hoạch tuần sau (tuần ' + ${projectDetail.getWeek() + 1} + ')'">
+                    th:text="'Kế hoạch tuần sau (tuần ' + ${detailTabPhanLoai.getWeek() + 1} + ')'">
                 </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${projectDetail.getKe_hoach_tuan_sau()}"></p>
+                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKeHoachTuanSau()}"></p>
             </div>
         </div>
     </div> -->
+
+    <div class="demo pt-4 pb-4">
+        <div class="container" style="max-width: 100%;">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="pricingTable">
+                        <div class="pricingTable-header">
+                            <!-- <i class="fa fa-adjust"></i> -->
+                            <i class="fa fa-briefcase"></i>
+                            <div class="price-value">
+                                Kết quả<span class="month">Tuần này / Tuần trước</span>
+                            </div>
+                        </div>
+                        <h5 class="heading">
+                            Tuần này: [[${detailTabPhanLoai.getWeek()}]]
+                        </h5>
+                        <div class="pricing-content text-left pt-0 pr-3 pb-0 pl-3">
+                            <span class="text-dark">
+                                [(${detailTabQuaTrinh.getKetQuaTuanNay()})]
+                            </span>
+                        </div>
+                        <hr class="bg-warning mr-2 ml-2">
+                        <h5 class="heading">
+                            Tuần trước: [[${detailTabPhanLoai.getWeek() - 1}]]
+                        </h5>
+                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                            <span class="text-dark">
+                                [(${detailTabQuaTrinh.getKetQuaTuanTruoc()})]
+                            </span>
+                        </div>
+                        <div class="pricingTable-signup">
+                            <a href="#">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="pricingTable green">
+                        <div class="pricingTable-header">
+                            <!-- <i class="fa fa-briefcase"></i> -->
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <div class="price-value">
+                                Kế hoạch<span class="month">Tuần sau / Tuần này</span>
+                            </div>
+                        </div>
+                        <h5 class="heading">
+                            Tuần sau: [[${detailTabPhanLoai.getWeek() + 1}]]
+                        </h5>
+                        <div class="pricing-content text-left pt-0 pr-3 pb-0 pl-3">
+                            <span class="text-dark">
+                                [(${detailTabQuaTrinh.getKeHoachTuanSau()})]
+                            </span>
+                        </div>
+                        <hr class="bg-success mr-2 ml-2">
+                        <h5 class="heading">
+                            Tuần này: [[${detailTabPhanLoai.getWeek()}]]
+                        </h5>
+                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                            <span class="text-dark">
+                                [(${detailTabQuaTrinh.getKeHoachTuanNay()})]
+                            </span>
+                        </div>
+                        <div class="pricingTable-signup">
+                            <a href="#">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="pricingTable blue">
+                        <div class="pricingTable-header">
+                            <!-- <i class="fa fa-diamond"></i> -->
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <div class="price-value">Khó khăn</div>
+                        </div>
+                        <h3 class="heading">Nội dung</h3>
+                        <div class="pricing-content text-left p-3">
+                            <span class="text-dark">
+                                [(${detailTabQuaTrinh.getGeneralIssue()})]
+                            </span>
+                        </div>
+                        <div class="pricingTable-signup">
+                            <a href="#">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="pricingTable red">
+                        <div class="pricingTable-header">
+                            <!-- <i class="fa fa-cube"></i> -->
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <div class="price-value">Giải pháp</div>
+                        </div>
+                        <h3 class="heading">Nội dung</h3>
+                        <div class="pricing-content text-left p-3">
+                            <span class="text-dark">
+                                [(${detailTabQuaTrinh.getSolution()})]
+                            </span>
+                        </div>
+                        <div class="pricingTable-signup">
+                            <a href="#">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

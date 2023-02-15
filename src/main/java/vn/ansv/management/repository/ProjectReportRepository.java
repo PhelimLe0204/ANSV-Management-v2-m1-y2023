@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
@@ -139,4 +140,13 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("mucTieuFac") String mucTieuFac, @Param("thucTeFac") String thucTeFac,
             @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("soTienTamUng") String soTienTamUng,
             @Param("keHoachTamUng") String keHoachTamUng);
+
+    /*
+     * -------------------------------------------
+     * Chi tiết báo cáo dự án theo ID và Enabled
+     * View: Detail (tab Quá trình)
+     * -------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(@Param("id") Long id, @Param("enabled") int enabled);
 }

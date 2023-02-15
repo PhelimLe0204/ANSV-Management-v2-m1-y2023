@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -102,15 +103,17 @@ public class ProjectReportService implements IProjectReport {
     public ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(Long id, int enabled) {
         return projectReportRepository.findDetailTabChiPhiThoiGian(id, enabled);
     }
-    /* ========== End: Detail tab chi phí & thời gian ========== */
 
     @Override
     public Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate) {
         try {
             projectReportRepository.updateDetailTabCptg(id,
-                    dataUpdate.getSoTienDac(), dataUpdate.getHopDongDac(), dataUpdate.getMucTieuDac(), dataUpdate.getThucTeDac(),
-                    dataUpdate.getSoTienPac(), dataUpdate.getHopDongPac(), dataUpdate.getMucTieuPac(), dataUpdate.getThucTePac(),
-                    dataUpdate.getSoTienFac(), dataUpdate.getHopDongFac(), dataUpdate.getMucTieuFac(), dataUpdate.getThucTeFac(),
+                    dataUpdate.getSoTienDac(), dataUpdate.getHopDongDac(), dataUpdate.getMucTieuDac(),
+                    dataUpdate.getThucTeDac(),
+                    dataUpdate.getSoTienPac(), dataUpdate.getHopDongPac(), dataUpdate.getMucTieuPac(),
+                    dataUpdate.getThucTePac(),
+                    dataUpdate.getSoTienFac(), dataUpdate.getHopDongFac(), dataUpdate.getMucTieuFac(),
+                    dataUpdate.getThucTeFac(),
                     dataUpdate.getTongGiaTriThucTe(), dataUpdate.getSoTienTamUng(), dataUpdate.getKeHoachTamUng());
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportService.updateDetailTabCptg(): " + e.getMessage());
@@ -119,4 +122,16 @@ public class ProjectReportService implements IProjectReport {
         }
         return true;
     }
+    /* ========== End: Detail tab chi phí & thời gian ========== */
+
+    /*
+     * =======================================
+     * ----- Start: Detail tab quá trình -----
+     * =======================================
+     */
+    @Override
+    public ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(Long id, int enabled) {
+        return projectReportRepository.findDetailTabQuaTrinh(id, enabled);
+    }
+    /* ========== End: Detail tab quá trình ========== */
 }

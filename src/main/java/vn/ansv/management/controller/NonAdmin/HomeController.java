@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -92,8 +93,8 @@ public class HomeController extends BaseController {
 
         ReportDetailTabPhanLoaiDTO projectDetailTabPhanLoai = projectReportService.findDetailTabPhanLoai(project_id, 1);
         ReportDetailTabDuThauDTO projectDetailTabDuThau = projectReportService.findDetailTabDuThau(project_id, 1);
-        ReportDetailTabCptgDTO projectDetailTabCPTg = projectReportService
-                .findDetailTabChiPhiThoiGian(project_id, 1);
+        ReportDetailTabCptgDTO projectDetailTabCptg = projectReportService.findDetailTabChiPhiThoiGian(project_id, 1);
+        ReportDetailTabQuaTrinhDTO projectDetailTabQuaTrinh = projectReportService.findDetailTabQuaTrinh(project_id, 1);
 
         List<OptionProjectTypeDTO> optionProjectTypeDTO = projectTypeService.findAllOption();
         List<OptionProjectPriorityDTO> optionProjectPriorityDTO = projectPriorityService.findAllOption();
@@ -103,7 +104,8 @@ public class HomeController extends BaseController {
 
         _mvShare.addObject("detailTabPhanLoai", projectDetailTabPhanLoai);
         _mvShare.addObject("detailTabDuThau", projectDetailTabDuThau);
-        _mvShare.addObject("detailTabCptg", projectDetailTabCPTg);
+        _mvShare.addObject("detailTabCptg", projectDetailTabCptg);
+        _mvShare.addObject("detailTabQuaTrinh", projectDetailTabQuaTrinh);
 
         _mvShare.addObject("optionType", optionProjectTypeDTO);
         _mvShare.addObject("optionPriority", optionProjectPriorityDTO);
