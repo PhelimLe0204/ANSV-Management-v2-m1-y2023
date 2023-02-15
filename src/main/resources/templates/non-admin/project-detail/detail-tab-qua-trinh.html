@@ -64,25 +64,28 @@
                                 Kết quả<span class="month">Tuần này / Tuần trước</span>
                             </div>
                         </div>
-                        <h5 class="heading">
+                        <h5 class="card-1-1 heading">
                             Tuần này: [[${detailTabPhanLoai.getWeek()}]]
                         </h5>
-                        <div class="pricing-content text-left pt-0 pr-3 pb-0 pl-3">
+                        <div class="card-1-1 pricing-content text-left pt-0 pr-3 pb-3 pl-3">
                             <span class="text-dark">
                                 [(${detailTabQuaTrinh.getKetQuaTuanNay()})]
                             </span>
                         </div>
-                        <hr class="bg-warning mr-2 ml-2">
-                        <h5 class="heading">
+                        <!-- <hr class="bg-warning mr-2 ml-2"> -->
+                        <h5 class="card-1-2 heading">
                             Tuần trước: [[${detailTabPhanLoai.getWeek() - 1}]]
                         </h5>
-                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                        <div class="card-1-2 pricing-content text-left pt-0 pr-3 pb-3 pl-3">
                             <span class="text-dark">
                                 [(${detailTabQuaTrinh.getKetQuaTuanTruoc()})]
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="#">Xem thêm</a>
+                            <a href="javascript:void(0)" class="card-1-1 btn-change-data-view" data-origin="card-1-1"
+                                data-change="card-1-2">Xem tuần trước</a>
+                            <a href="javascript:void(0)" class="card-1-2 btn-change-data-view" data-origin="card-1-2"
+                                data-change="card-1-1">Xem tuần này</a>
                         </div>
                     </div>
                 </div>
@@ -95,25 +98,28 @@
                                 Kế hoạch<span class="month">Tuần sau / Tuần này</span>
                             </div>
                         </div>
-                        <h5 class="heading">
+                        <h5 class="card-2-1 heading">
                             Tuần sau: [[${detailTabPhanLoai.getWeek() + 1}]]
                         </h5>
-                        <div class="pricing-content text-left pt-0 pr-3 pb-0 pl-3">
+                        <div class="card-2-1 pricing-content text-left pt-0 pr-3 pb-3 pl-3">
                             <span class="text-dark">
                                 [(${detailTabQuaTrinh.getKeHoachTuanSau()})]
                             </span>
                         </div>
-                        <hr class="bg-success mr-2 ml-2">
-                        <h5 class="heading">
+                        <!-- <hr class="bg-success mr-2 ml-2"> -->
+                        <h5 class="card-2-2 heading">
                             Tuần này: [[${detailTabPhanLoai.getWeek()}]]
                         </h5>
-                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                        <div class="card-2-2 pricing-content text-left pt-0 pr-3 pb-3 pl-3">
                             <span class="text-dark">
                                 [(${detailTabQuaTrinh.getKeHoachTuanNay()})]
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="#">Xem thêm</a>
+                            <a href="javascript:void(0)" class="card-2-1 btn-change-data-view" data-origin="card-2-1"
+                                data-change="card-2-2">Xem tuần này</a>
+                            <a href="javascript:void(0)" class="card-2-2 btn-change-data-view" data-origin="card-2-2"
+                                data-change="card-2-1">Xem tuần sau</a>
                         </div>
                     </div>
                 </div>
@@ -122,7 +128,7 @@
                         <div class="pricingTable-header">
                             <!-- <i class="fa fa-diamond"></i> -->
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            <div class="price-value">Khó khăn</div>
+                            <div class="price-value">Khó khăn<span class="month">General Issue</span></div>
                         </div>
                         <h3 class="heading">Nội dung</h3>
                         <div class="pricing-content text-left p-3">
@@ -131,7 +137,7 @@
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="#">Xem thêm</a>
+                            <a href="javascript:void(0)">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -140,7 +146,7 @@
                         <div class="pricingTable-header">
                             <!-- <i class="fa fa-cube"></i> -->
                             <i class="fa-solid fa-lightbulb"></i>
-                            <div class="price-value">Giải pháp</div>
+                            <div class="price-value">Giải pháp<span class="month">Solution</span></div>
                         </div>
                         <h3 class="heading">Nội dung</h3>
                         <div class="pricing-content text-left p-3">
@@ -149,7 +155,7 @@
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="#">Xem thêm</a>
+                            <a href="javascript:void(0)">Xem thêm</a>
                         </div>
                     </div>
                 </div>

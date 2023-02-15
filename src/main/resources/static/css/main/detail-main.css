@@ -250,6 +250,10 @@ a {
     text-transform: uppercase;
 }
 
+.pricingTable .pricing-content {
+    min-height: 200px;
+}
+
 .pricingTable .pricing-content ul {
     list-style: none;
     padding: 0;

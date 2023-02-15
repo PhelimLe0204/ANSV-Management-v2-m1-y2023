@@ -679,6 +679,20 @@ function dateDifferences(tab) {
 
 
 
+$(".card-1-2, .card-2-2").hide();
+/* ===== Start: Tab quá trình ===== */
+$(".btn-change-data-view").click(function () {
+    // var data_origin = $(this).attr("data-origin");
+    // var data_change = $(this).attr("data-change");
+    $("." + $(this).attr("data-origin")).hide();
+    $("." + $(this).attr("data-change")).show();
+    // $(this).attr('data-origin', data_change);
+    // $(this).attr('data-change', data_origin);
+});
+/* ===== End: Tab quá trình ===== */
+
+
+
 /* ===== Start: Tab thành viên ===== */
 $("#thanh-vien-open-modal-edit").click(function () {
     console.log("thanh-vien-open-modal-edit");
