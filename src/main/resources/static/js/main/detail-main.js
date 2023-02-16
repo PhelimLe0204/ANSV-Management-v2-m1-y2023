@@ -679,15 +679,20 @@ function dateDifferences(tab) {
 
 
 
-$(".card-1-2, .card-2-2").hide();
+$(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 /* ===== Start: Tab quá trình ===== */
 $(".btn-change-data-view").click(function () {
-    // var data_origin = $(this).attr("data-origin");
-    // var data_change = $(this).attr("data-change");
-    $("." + $(this).attr("data-origin")).hide();
-    $("." + $(this).attr("data-change")).show();
-    // $(this).attr('data-origin', data_change);
-    // $(this).attr('data-change', data_origin);
+    // var data_showing = $(this).attr("data-showing");
+    // var data_hiding = $(this).attr("data-hiding");
+    $("." + $(this).attr("data-showing")).hide();
+    $("." + $(this).attr("data-hiding")).show();
+    // $(this).attr('data-showing', data_hiding);
+    // $(this).attr('data-hiding', data_showing);
+});
+
+$(".detail-tab4-show-more").click(function () {
+    $("." + $(this).attr("data-showing")).hide();
+    $("." + $(this).attr("data-hiding")).show();
 });
 /* ===== End: Tab quá trình ===== */
 

@@ -1,57 +1,4 @@
 <div class="tab-pane fade" id="qua-trinh" role="tabpanel" aria-labelledby="qua-trinh-tab" th:fragment="body">
-    <!-- <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <div class="btn btn-primary w-100" style="font-size: 20px;">
-                    Khó khăn
-                </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getGeneralIssue()}"></p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kế hoạch tuần này (tuần ' + ${detailTabPhanLoai.getWeek()} + ')'">
-                </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKeHoachTuanNay()}"></p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kết quả tuần trước (tuần ' + ${detailTabPhanLoai.getWeek() - 1} + ')'">
-                </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKetQuaTuanTruoc()}"></p>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group pt-1">
-                <div class="btn btn-primary w-100" style="font-size: 20px;">
-                    Giải pháp
-                </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getSolution()}"></p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group pt-1">
-                <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kết quả tuần này (tuần ' + ${detailTabPhanLoai.getWeek()} + ')'">
-                </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKetQuaTuanNay()}"></p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group pt-1">
-                <div class="btn btn-primary w-100" style="font-size: 20px;"
-                    th:text="'Kế hoạch tuần sau (tuần ' + ${detailTabPhanLoai.getWeek() + 1} + ')'">
-                </div>
-                <p class="pt-2 pl-2 pr-2" th:utext="${detailTabQuaTrinh.getKeHoachTuanSau()}"></p>
-            </div>
-        </div>
-    </div> -->
-
     <div class="demo pt-4 pb-4">
         <div class="container" style="max-width: 100%;">
             <div class="row">
@@ -82,10 +29,10 @@
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="javascript:void(0)" class="card-1-1 btn-change-data-view" data-origin="card-1-1"
-                                data-change="card-1-2">Xem tuần trước</a>
-                            <a href="javascript:void(0)" class="card-1-2 btn-change-data-view" data-origin="card-1-2"
-                                data-change="card-1-1">Xem tuần này</a>
+                            <a href="javascript:void(0)" class="card-1-1 btn-change-data-view" data-showing="card-1-1"
+                                data-hiding="card-1-2">Xem tuần trước</a>
+                            <a href="javascript:void(0)" class="card-1-2 btn-change-data-view" data-showing="card-1-2"
+                                data-hiding="card-1-1">Xem tuần này</a>
                         </div>
                     </div>
                 </div>
@@ -116,10 +63,10 @@
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="javascript:void(0)" class="card-2-1 btn-change-data-view" data-origin="card-2-1"
-                                data-change="card-2-2">Xem tuần này</a>
-                            <a href="javascript:void(0)" class="card-2-2 btn-change-data-view" data-origin="card-2-2"
-                                data-change="card-2-1">Xem tuần sau</a>
+                            <a href="javascript:void(0)" class="card-2-1 btn-change-data-view" data-showing="card-2-1"
+                                data-hiding="card-2-2">Xem tuần này</a>
+                            <a href="javascript:void(0)" class="card-2-2 btn-change-data-view" data-showing="card-2-2"
+                                data-hiding="card-2-1">Xem tuần sau</a>
                         </div>
                     </div>
                 </div>
@@ -132,12 +79,18 @@
                         </div>
                         <h3 class="heading">Nội dung</h3>
                         <div class="pricing-content text-left p-3">
-                            <span class="text-dark">
+                            <span class="text-dark card-3-1">
+                                [(${#strings.abbreviate(detailTabQuaTrinh.getGeneralIssue(), 190)})]
+                            </span>
+                            <span class="text-dark card-3-2">
                                 [(${detailTabQuaTrinh.getGeneralIssue()})]
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="javascript:void(0)">Xem thêm</a>
+                            <a href="javascript:void(0)" class="card-3-1 detail-tab4-show-more" data-showing="card-3-1"
+                                data-hiding="card-3-2">Xem thêm</a>
+                            <a href="javascript:void(0)" class="card-3-2 detail-tab4-show-more" data-showing="card-3-2"
+                                data-hiding="card-3-1">Thu gọn</a>
                         </div>
                     </div>
                 </div>
@@ -150,12 +103,18 @@
                         </div>
                         <h3 class="heading">Nội dung</h3>
                         <div class="pricing-content text-left p-3">
-                            <span class="text-dark">
+                            <span class="text-dark card-4-1">
+                                [(${#strings.abbreviate(detailTabQuaTrinh.getSolution(), 190)})]
+                            </span>
+                            <span class="text-dark card-4-2">
                                 [(${detailTabQuaTrinh.getSolution()})]
                             </span>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="javascript:void(0)">Xem thêm</a>
+                            <a href="javascript:void(0)" class="card-4-1 detail-tab4-show-more" data-showing="card-4-1"
+                                data-hiding="card-4-2">Xem thêm</a>
+                            <a href="javascript:void(0)" class="card-4-2 detail-tab4-show-more" data-showing="card-4-2"
+                                data-hiding="card-4-1">Thu gọn</a>
                         </div>
                     </div>
                 </div>
