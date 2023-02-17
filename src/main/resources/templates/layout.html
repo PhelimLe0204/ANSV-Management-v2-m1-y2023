@@ -18,12 +18,15 @@
     <!-- Main css -->
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
     <th:block th:if="${#httpServletRequest.requestURI == '/chi-tiet'}">
-        <link rel="stylesheet" type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.min.css">
-        <link rel="stylesheet" type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.skinFlat.min.css">
+        <!-- https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.min.css -->
+        <link rel="stylesheet" type="text/css" th:href="@{/vendors/ion-rangeSlider/ion.rangeSlider.min.css}">
+        <!-- https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.skinFlat.min.css -->
+        <link rel="stylesheet" type="text/css" th:href="@{/vendors/ion-rangeSlider/ion.rangeSlider.skinFlat.min.css}">
         <link rel="stylesheet" th:href="@{/css/main/detail-main.css}">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <!-- //code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css -->
+        <link rel="stylesheet" type="text/css" th:href="@{/vendors/jquery/ui/1.13.2/themes/base/jquery-ui.css}">
+
+        <!-- <link rel="stylesheet" type="text/css" href="https://www.tiny.cloud/css/codepen.min.css"> -->
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI != '/login'}">
@@ -104,6 +107,8 @@
     <th:block th:if="${#httpServletRequest.requestURI == '/chi-tiet'}">
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/js/ion.rangeSlider.min.js"></script>
+        <script
+            src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/4/tinymce.min.js"></script>
         <script th:src="@{/js/main/detail-main.js}"></script>
     </th:block>
 </body>

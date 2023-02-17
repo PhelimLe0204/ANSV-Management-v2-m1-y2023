@@ -679,8 +679,8 @@ function dateDifferences(tab) {
 
 
 
-$(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 /* ===== Start: Tab quá trình ===== */
+$(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 $(".btn-change-data-view").click(function () {
     // var data_showing = $(this).attr("data-showing");
     // var data_hiding = $(this).attr("data-hiding");
@@ -693,6 +693,28 @@ $(".btn-change-data-view").click(function () {
 $(".detail-tab4-show-more").click(function () {
     $("." + $(this).attr("data-showing")).hide();
     $("." + $(this).attr("data-hiding")).show();
+});
+
+$("#qua-trinh-open-modal-edit").click(function () {
+    tinymce.init({
+        selector: 'textarea#basic-example',
+        ui_container: '#tinymce-body',
+        height: 500,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        mobile: {
+            theme: 'mobile'
+        },
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tiny.cloud/css/codepen.min.css'
+        ],
+    });
 });
 /* ===== End: Tab quá trình ===== */
 

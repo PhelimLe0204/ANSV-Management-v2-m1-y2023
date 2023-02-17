@@ -118,6 +118,152 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-12 pt-4">
+                    <div id="tabQuaTrinhEditModal" class="modal fade" tabindex="-1" role="dialog"
+                        aria-labelledby="tabQuaTrinhEditModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document" style="max-width: 1100px !important;">
+                            <div class="modal-content">
+                                <div class="modal-header pt-2 pb-2">
+                                    <h5 class="modal-title" id="tabQuaTrinhEditModalLabel">
+                                        Thay đổi thông tin (Mục: Quá trình)
+                                    </h5>
+                                    <button type="button" class="tab-qua-trinh-edit-modal-close close"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/chi-tiet/update/4/{id}(id=${detailTabPhanLoai.getId()})}"
+                                    id="form-tab-qua-trinh-edit" method="post">
+                                    <div class="modal-body p-0">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card shadow-none mb-0">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-3 col-sm-12">
+                                                                <ul class="nav flex-column nav-pills pt-3"
+                                                                    id="v-pills-tab" role="tablist"
+                                                                    aria-orientation="vertical">
+                                                                    <li>
+                                                                        <a class="nav-link text-left active"
+                                                                            id="v-pills-ket-qua-tuan-truoc-tab"
+                                                                            data-toggle="pill"
+                                                                            href="#v-pills-ket-qua-tuan-truoc"
+                                                                            role="tab"
+                                                                            aria-controls="v-pills-ket-qua-tuan-truoc"
+                                                                            aria-selected="false">Kết quả tuần trước</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="nav-link text-left"
+                                                                            id="v-pills-ke-hoach-tuan-nay-tab"
+                                                                            data-toggle="pill"
+                                                                            href="#v-pills-ke-hoach-tuan-nay" role="tab"
+                                                                            aria-controls="v-pills-ke-hoach-tuan-nay"
+                                                                            aria-selected="false">Kế hoạch tuần này</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="nav-link text-left"
+                                                                            id="v-pills-ket-qua-tuan-nay-tab"
+                                                                            data-toggle="pill"
+                                                                            href="#v-pills-ket-qua-tuan-nay" role="tab"
+                                                                            aria-controls="v-pills-ket-qua-tuan-nay"
+                                                                            aria-selected="false">Kết quả tuần này</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="nav-link text-left"
+                                                                            id="v-pills-kho-khan-tab" data-toggle="pill"
+                                                                            href="#v-pills-kho-khan" role="tab"
+                                                                            aria-controls="v-pills-kho-khan"
+                                                                            aria-selected="false">Khó khăn</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="nav-link text-left"
+                                                                            id="v-pills-giai-phap-tab"
+                                                                            data-toggle="pill" href="#v-pills-giai-phap"
+                                                                            role="tab" aria-controls="v-pills-giai-phap"
+                                                                            aria-selected="false">Giải pháp</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="nav-link text-left"
+                                                                            id="v-pills-ke-hoach-tuan-sau-tab"
+                                                                            data-toggle="pill"
+                                                                            href="#v-pills-ke-hoach-tuan-sau" role="tab"
+                                                                            aria-controls="v-pills-ke-hoach-tuan-sau"
+                                                                            aria-selected="true">Kế hoạch tuần sau</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-md-9 col-sm-12" id="tinymce-body">
+                                                                <div class="tab-content pt-3" id="v-pills-tabContent">
+                                                                    <div class="tab-pane fade show active"
+                                                                        id="v-pills-ket-qua-tuan-truoc" role="tabpanel"
+                                                                        aria-labelledby="v-pills-ket-qua-tuan-truoc-tab">
+                                                                        <textarea id="basic-example"></textarea>
+                                                                    </div>
+                                                                    <div class="tab-pane fade show"
+                                                                        id="v-pills-ke-hoach-tuan-nay" role="tabpanel"
+                                                                        aria-labelledby="v-pills-ke-hoach-tuan-nay-tab">
+                                                                        <p class="mb-0">
+                                                                            Nội dung cần sửa cho kế hoạch tuần này.
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="tab-pane fade show"
+                                                                        id="v-pills-ket-qua-tuan-nay" role="tabpanel"
+                                                                        aria-labelledby="v-pills-ket-qua-tuan-nay-tab">
+                                                                        <p class="mb-0">
+                                                                            Nội dung cần sửa cho kết quả tuần này.
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="tab-pane fade show"
+                                                                        id="v-pills-kho-khan" role="tabpanel"
+                                                                        aria-labelledby="v-pills-kho-khan-tab">
+                                                                        <p class="mb-0">
+                                                                            Nội dung cần sửa cho khó khăn.
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="tab-pane fade show"
+                                                                        id="v-pills-giai-phap" role="tabpanel"
+                                                                        aria-labelledby="v-pills-giai-phap-tab">
+                                                                        <p class="mb-0">
+                                                                            Nội dung cần sửa cho giải pháp.
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="tab-pane fade"
+                                                                        id="v-pills-ke-hoach-tuan-sau" role="tabpanel"
+                                                                        aria-labelledby="v-pills-ke-hoach-tuan-sau-tab">
+                                                                        <p class="mb-0">
+                                                                            Nội dung cần sửa cho kế hoạch tuần sau.
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer pr-2 pt-2 pb-2">
+                                        <button type="button"
+                                            class="tab-qua-trinh-edit-modal-close btn btn-secondary pt-1"
+                                            style="height: 30px; width: 100px;">Hủy</button>
+                                        <button type="button" id="btn-tab-qua-trinh-edit-reset"
+                                            class="btn btn-light pt-1" style="height: 30px; width: 100px;">
+                                            Hoàn tác</button>
+                                        <button type="submit" id="btn-tab-qua-trinh-edit-submit"
+                                            class="btn btn-primary pt-1" style="height: 30px; width: 100px;">
+                                            Cập nhật</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="qua-trinh-open-modal-edit" class="btn btn-warning pt-1 float-right"
+                        data-toggle="modal" data-target="#tabQuaTrinhEditModal" style="height: 30px; width: 130px;">
+                        <i class="feather mr-2 icon-edit"></i>Chỉnh sửa
+                    </button>
+                </div>
             </div>
         </div>
     </div>
