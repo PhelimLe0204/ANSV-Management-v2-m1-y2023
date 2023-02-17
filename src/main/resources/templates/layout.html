@@ -19,9 +19,10 @@
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
     <th:block th:if="${#httpServletRequest.requestURI == '/chi-tiet'}">
         <!-- https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.min.css -->
-        <link rel="stylesheet" type="text/css" th:href="@{/vendors/ion-rangeSlider/ion.rangeSlider.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendors/ion-rangeSlider/2.2.0/css/ion.rangeSlider.min.css}">
         <!-- https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.skinFlat.min.css -->
-        <link rel="stylesheet" type="text/css" th:href="@{/vendors/ion-rangeSlider/ion.rangeSlider.skinFlat.min.css}">
+        <link rel="stylesheet" type="text/css"
+            th:href="@{/vendors/ion-rangeSlider/2.2.0/css/ion.rangeSlider.skinFlat.min.css}">
         <link rel="stylesheet" th:href="@{/css/main/detail-main.css}">
         <!-- //code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css -->
         <link rel="stylesheet" type="text/css" th:href="@{/vendors/jquery/ui/1.13.2/themes/base/jquery-ui.css}">
@@ -36,14 +37,14 @@
         <!-- Select2 - CSS -->
         <link th:href="@{/vendors/select2/css/select2.min.css}" rel="stylesheet" />
 
-        <!-- AlertifyJS - CSS -->
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-        <!-- AlertifyJS - Default theme -->
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-        <!-- AlertifyJS - Semantic UI theme -->
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
-        <!-- AlertifyJS - Bootstrap theme -->
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+        <!-- AlertifyJS - CSS: //cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css -->
+        <link rel="stylesheet" th:href="@{/vendors/alertifyJS/css/alertify.min.css}" />
+        <!-- AlertifyJS - Default theme: //cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css -->
+        <link rel="stylesheet" th:href="@{/vendors/alertifyJS/css/default.min.css}" />
+        <!-- AlertifyJS - Semantic UI theme: //cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css -->
+        <link rel="stylesheet" th:href="@{/vendors/alertifyJS/css/semantic.min.css}" />
+        <!-- AlertifyJS - Bootstrap theme: //cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css -->
+        <link rel="stylesheet" th:href="@{/vendors/alertifyJS/css/bootstrap.min.css}" />
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI == '/dashboard'}">
@@ -96,8 +97,8 @@
         <!-- Select2 - JS -->
         <script th:src="@{/vendors/select2/js/select2.min.js}"></script>
 
-        <!-- AlertifyJS - JS -->
-        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <!-- AlertifyJS - JS: //cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js -->
+        <script th:src="@{/vendors/alertifyJS/js/alertify.min.js}"></script>
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI == '/dashboard'}">
@@ -105,8 +106,11 @@
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI == '/chi-tiet'}">
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/js/ion.rangeSlider.min.js"></script>
+        <!-- https://code.jquery.com/ui/1.13.2/jquery-ui.js -->
+        <script th:src="@{/vendors/jquery/ui/1.13.2/jquery-ui.js}"></script>
+
+        <!-- https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/js/ion.rangeSlider.min.js -->
+        <script th:src="@{/vendors/ion-rangeSlider/2.2.0/js/ion.rangeSlider.min.js}"></script>
         <script
             src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/4/tinymce.min.js"></script>
         <script th:src="@{/js/main/detail-main.js}"></script>
