@@ -697,23 +697,20 @@ $(".detail-tab4-show-more").click(function () {
 
 $("#qua-trinh-open-modal-edit").click(function () {
     tinymce.init({
-        selector: 'textarea#basic-example',
-        ui_container: '#tinymce-body',
-        height: 500,
-        menubar: false,
+        promotion: false,
+        selector: 'textarea.tinymce-content',
+        ui_container: '#tinymce-group',
+        height: 250,
         plugins: [
-            'advlist autolink lists link image charmap print preview anchor textcolor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code help wordcount'
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
         ],
-        mobile: {
-            theme: 'mobile'
-        },
-        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-        content_css: [
-            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-            '//www.tiny.cloud/css/codepen.min.css'
-        ],
+        toolbar: 'undo redo | blocks | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
     });
 });
 /* ===== End: Tab quá trình ===== */

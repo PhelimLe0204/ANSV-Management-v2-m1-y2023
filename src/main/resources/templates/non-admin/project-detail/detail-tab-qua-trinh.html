@@ -6,7 +6,7 @@
                     <div class="pricingTable">
                         <div class="pricingTable-header">
                             <!-- <i class="fa fa-adjust"></i> -->
-                            <i class="fa fa-briefcase"></i>
+                            <i class="fa-solid fa-list-check"></i>
                             <div class="price-value">
                                 Kết quả<span class="month">Tuần này / Tuần trước</span>
                             </div>
@@ -152,7 +152,11 @@
                                                                             href="#v-pills-ket-qua-tuan-truoc"
                                                                             role="tab"
                                                                             aria-controls="v-pills-ket-qua-tuan-truoc"
-                                                                            aria-selected="false">Kết quả tuần trước</a>
+                                                                            aria-selected="false">
+                                                                            <i
+                                                                                class="fa-solid fa-list-check icon-bills-tab"></i>
+                                                                            <span>Kết quả tuần trước</span>
+                                                                        </a>
                                                                     </li>
                                                                     <li>
                                                                         <a class="nav-link text-left"
@@ -160,7 +164,11 @@
                                                                             data-toggle="pill"
                                                                             href="#v-pills-ke-hoach-tuan-nay" role="tab"
                                                                             aria-controls="v-pills-ke-hoach-tuan-nay"
-                                                                            aria-selected="false">Kế hoạch tuần này</a>
+                                                                            aria-selected="false">
+                                                                            <i
+                                                                                class="fa-solid fa-paper-plane icon-bills-tab"></i>
+                                                                            <span>Kế hoạch tuần này</span>
+                                                                        </a>
                                                                     </li>
                                                                     <li>
                                                                         <a class="nav-link text-left"
@@ -168,21 +176,33 @@
                                                                             data-toggle="pill"
                                                                             href="#v-pills-ket-qua-tuan-nay" role="tab"
                                                                             aria-controls="v-pills-ket-qua-tuan-nay"
-                                                                            aria-selected="false">Kết quả tuần này</a>
+                                                                            aria-selected="false">
+                                                                            <i
+                                                                                class="fa-solid fa-list-check icon-bills-tab"></i>
+                                                                            <span>Kết quả tuần này</span>
+                                                                        </a>
                                                                     </li>
                                                                     <li>
                                                                         <a class="nav-link text-left"
                                                                             id="v-pills-kho-khan-tab" data-toggle="pill"
                                                                             href="#v-pills-kho-khan" role="tab"
                                                                             aria-controls="v-pills-kho-khan"
-                                                                            aria-selected="false">Khó khăn</a>
+                                                                            aria-selected="false">
+                                                                            <i
+                                                                                class="fa-solid fa-triangle-exclamation icon-bills-tab"></i>
+                                                                            <span>Khó khăn</span>
+                                                                        </a>
                                                                     </li>
                                                                     <li>
                                                                         <a class="nav-link text-left"
                                                                             id="v-pills-giai-phap-tab"
                                                                             data-toggle="pill" href="#v-pills-giai-phap"
                                                                             role="tab" aria-controls="v-pills-giai-phap"
-                                                                            aria-selected="false">Giải pháp</a>
+                                                                            aria-selected="false">
+                                                                            <i
+                                                                                class="fa-solid fa-lightbulb icon-bills-tab"></i>
+                                                                            <span>Giải pháp</span>
+                                                                        </a>
                                                                     </li>
                                                                     <li>
                                                                         <a class="nav-link text-left"
@@ -190,51 +210,53 @@
                                                                             data-toggle="pill"
                                                                             href="#v-pills-ke-hoach-tuan-sau" role="tab"
                                                                             aria-controls="v-pills-ke-hoach-tuan-sau"
-                                                                            aria-selected="true">Kế hoạch tuần sau</a>
+                                                                            aria-selected="true">
+                                                                            <i
+                                                                                class="fa-solid fa-paper-plane icon-bills-tab"></i>
+                                                                            <span>Kế hoạch tuần sau</span>
+                                                                        </a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                            <div class="col-md-9 col-sm-12" id="tinymce-body">
+                                                            <div class="col-md-9 col-sm-12" id="tinymce-group">
                                                                 <div class="tab-content pt-3" id="v-pills-tabContent">
                                                                     <div class="tab-pane fade show active"
                                                                         id="v-pills-ket-qua-tuan-truoc" role="tabpanel"
                                                                         aria-labelledby="v-pills-ket-qua-tuan-truoc-tab">
-                                                                        <textarea id="basic-example"></textarea>
+                                                                        <textarea class="tinymce-content"
+                                                                            name="ketQuaTuanTruoc"
+                                                                            placeholder="Mời nhập nội dung KẾT QUẢ TUẦN TRƯỚC..."></textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-ke-hoach-tuan-nay" role="tabpanel"
                                                                         aria-labelledby="v-pills-ke-hoach-tuan-nay-tab">
-                                                                        <p class="mb-0">
-                                                                            Nội dung cần sửa cho kế hoạch tuần này.
-                                                                        </p>
+                                                                        <textarea class="tinymce-content"
+                                                                            name="keHoachTuanNay"
+                                                                            placeholder="Mời nhập nội dung KẾ HOẠCH TUẦN NÀY..."></textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-ket-qua-tuan-nay" role="tabpanel"
                                                                         aria-labelledby="v-pills-ket-qua-tuan-nay-tab">
-                                                                        <p class="mb-0">
-                                                                            Nội dung cần sửa cho kết quả tuần này.
-                                                                        </p>
+                                                                        <textarea class="tinymce-content"
+                                                                            name="ketQuaTuanNay"></textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-kho-khan" role="tabpanel"
                                                                         aria-labelledby="v-pills-kho-khan-tab">
-                                                                        <p class="mb-0">
-                                                                            Nội dung cần sửa cho khó khăn.
-                                                                        </p>
+                                                                        <textarea class="tinymce-content"
+                                                                            name="generalIssue"></textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-giai-phap" role="tabpanel"
                                                                         aria-labelledby="v-pills-giai-phap-tab">
-                                                                        <p class="mb-0">
-                                                                            Nội dung cần sửa cho giải pháp.
-                                                                        </p>
+                                                                        <textarea class="tinymce-content"
+                                                                            name="solution"></textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade"
                                                                         id="v-pills-ke-hoach-tuan-sau" role="tabpanel"
                                                                         aria-labelledby="v-pills-ke-hoach-tuan-sau-tab">
-                                                                        <p class="mb-0">
-                                                                            Nội dung cần sửa cho kế hoạch tuần sau.
-                                                                        </p>
+                                                                        <textarea class="tinymce-content"
+                                                                            name="keHoachTuanSau"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
