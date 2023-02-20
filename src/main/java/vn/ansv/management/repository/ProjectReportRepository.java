@@ -149,4 +149,22 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      */
     @Query(nativeQuery = true)
     ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(@Param("id") Long id, @Param("enabled") int enabled);
+
+    /*
+     * ----------------------------------------
+     * Cập nhật chi tiết báo cáo dự án
+     * View: Detail (tab Quá trình)
+     * ----------------------------------------
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE project_report AS pr SET "
+            + "pr.general_issue = :generalIssue, pr.solution = :solution, pr.ke_hoach_tuan_nay = :keHoachTuanNay, "
+            + "pr.ke_hoach_tuan_sau = :keHoachTuanSau, pr.ket_qua_tuan_truoc = :ketQuaTuanTruoc, "
+            + "pr.ket_qua_tuan_nay = :ketQuaTuanNay "
+            + "WHERE pr.id = :id", nativeQuery = true)
+    void updateDetailTabQuaTrinh(
+            @Param("id") Long id, @Param("generalIssue") String generalIssue, @Param("solution") String solution,
+            @Param("keHoachTuanNay") String keHoachTuanNay, @Param("keHoachTuanSau") String keHoachTuanSau,
+            @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc, @Param("ketQuaTuanNay") String ketQuaTuanNay);
 }

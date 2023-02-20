@@ -696,6 +696,8 @@ $(".detail-tab4-show-more").click(function () {
 });
 
 $("#qua-trinh-open-modal-edit").click(function () {
+    var tinymceOriginal = [];
+
     tinymce.init({
         promotion: false,
         selector: 'textarea.tinymce-content',
@@ -710,7 +712,84 @@ $("#qua-trinh-open-modal-edit").click(function () {
             'bold italic backcolor | alignleft aligncenter ' +
             'alignright alignjustify | bullist numlist outdent indent | ' +
             'removeformat | help',
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+        setup: function (editor) {
+            editor.on('init', function (e) {
+                // console.log("editor.id: " + editor.id);
+                // console.log("data-position: " + $("#" + editor.id).attr("data-position"));
+                var position = parseInt($("#" + editor.id).attr("data-position"));
+                var a = { id: (position + 1), tinymceId: editor.id, dataOrrigin: editor.getContent() };
+                tinymceOriginal.push(a);
+                // console.log(tinymceOriginal);
+            });
+        }
+    });
+
+    // Bắt sự kiện SUBMIT form tab "Quá trình"
+    $("#form-tab-qua-trinh-edit").submit(function (e) {
+        e.preventDefault();
+
+        var changeStatus = false;
+        for (let i = 0; i < 6; i++) {
+            if (tinymce.get(tinymceOriginal[i].tinymceId).getContent() != tinymceOriginal[i].dataOrrigin) {
+                changeStatus = true;
+                break;
+            }
+        }
+
+        if (changeStatus == false) {
+            alertify.warning('Bạn chưa thay đổi dữ liệu!').delay(1.5);
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận cập nhật',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Cập nhật mục "<span class="text-primary font-weight-bold">QUÁ TRÌNH</span>"<br>'
+            + 'Bạn chắc chứ?'
+            + '</p>',
+            function () {
+                e.currentTarget.submit(); // OK => Allow form submit
+            },
+            function () {
+                // Cancel => Do nothing
+            }
+        );
+    });
+
+    // Bắt sự kiện RESET form tab "Quá trình"
+    $("#btn-tab-qua-trinh-edit-reset").click(function () {
+        var changeStatus = false;
+        for (let i = 0; i < 6; i++) {
+            if (tinymce.get(tinymceOriginal[i].tinymceId).getContent() != tinymceOriginal[i].dataOrrigin) {
+                changeStatus = true;
+                break;
+            }
+        }
+
+        if (changeStatus == false) {
+            alertify.warning('Bạn chưa thay đổi dữ liệu!').delay(1.5);
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận hoàn tác',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Hoàn tác dữ liệu đã thay đổi<br>'
+            + '<span class="text-primary font-weight-bold">QUÁ TRÌNH</span><br>'
+            + 'Bạn chắc chứ?'
+            + '</p>',
+            function () {
+                // Ok => Reset modal update
+                resetModalUpdate(4, tinymceOriginal);
+                alertify.success('Dữ liệu hoàn tác!').delay(1); // Return success notification
+            },
+            function () {
+                // Cancel => Do nothing
+            }
+        );
     });
 });
 /* ===== End: Tab quá trình ===== */
@@ -824,7 +903,9 @@ function getFormData(form) {
 }
 
 // Reset form data and modal template
-function resetModalUpdate(tab) {
+function resetModalUpdate(tab, dataTinymce) {
+    if (dataTinymce === undefined) { dataTinymce = null; }
+
     if (tab == 1) {
         /* Tab "Phân loại" */
         $("#project_id").select2("val", $first_project_id); // Reset dự án
@@ -887,6 +968,12 @@ function resetModalUpdate(tab) {
         /* Tab "Chi phí & thời gian" */
         $("#form-tab-chi-phi-thoi-gian-edit")[0].reset(); // Hoàn tác dữ liệu form
         return;
+    }
+
+    if (tab == 4) {
+        for (let i = 0; i < 6; i++) {
+            tinyMCE.get(dataTinymce[i].tinymceId).setContent(dataTinymce[i].dataOrrigin);
+        }
     }
 }
 

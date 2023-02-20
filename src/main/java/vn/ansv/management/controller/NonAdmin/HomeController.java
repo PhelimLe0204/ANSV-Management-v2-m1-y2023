@@ -147,4 +147,14 @@ public class HomeController extends BaseController {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 3;
         }
     }
+
+    @PostMapping("/chi-tiet/update/4/{id}")
+    public String updateDetailTabQuaTrinh(@PathVariable Long id,
+            @ModelAttribute ReportDetailTabQuaTrinhDTO dataUpdate, Model model, HttpServletRequest request) {
+        if (projectReportService.updateDetailTabQuaTrinh(id, dataUpdate)) {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 4;
+        } else {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 4;
+        }
+    }
 }

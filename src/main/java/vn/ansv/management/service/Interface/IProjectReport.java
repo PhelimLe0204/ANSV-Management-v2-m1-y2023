@@ -28,4 +28,6 @@ public interface IProjectReport {
     Boolean updateDetailTabDuThau(Long id, UpdateDetailTabDuThauDTO dataUpdate);
 
     Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate);
+
+    Boolean updateDetailTabQuaTrinh(Long id, ReportDetailTabQuaTrinhDTO dataUpdate);
 }

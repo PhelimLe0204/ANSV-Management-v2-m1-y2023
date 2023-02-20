@@ -79,12 +79,12 @@
                         </div>
                         <h3 class="heading">Nội dung</h3>
                         <div class="pricing-content text-left p-3">
-                            <span class="text-dark card-3-1">
+                            <div class="text-dark card-3-1">
                                 [(${#strings.abbreviate(detailTabQuaTrinh.getGeneralIssue(), 190)})]
-                            </span>
-                            <span class="text-dark card-3-2">
+                            </div>
+                            <div class="text-dark card-3-2">
                                 [(${detailTabQuaTrinh.getGeneralIssue()})]
-                            </span>
+                            </div>
                         </div>
                         <div class="pricingTable-signup">
                             <a href="javascript:void(0)" class="card-3-1 detail-tab4-show-more" data-showing="card-3-1"
@@ -103,12 +103,12 @@
                         </div>
                         <h3 class="heading">Nội dung</h3>
                         <div class="pricing-content text-left p-3">
-                            <span class="text-dark card-4-1">
+                            <div class="text-dark card-4-1">
                                 [(${#strings.abbreviate(detailTabQuaTrinh.getSolution(), 190)})]
-                            </span>
-                            <span class="text-dark card-4-2">
+                            </div>
+                            <div class="text-dark card-4-2">
                                 [(${detailTabQuaTrinh.getSolution()})]
-                            </span>
+                            </div>
                         </div>
                         <div class="pricingTable-signup">
                             <a href="javascript:void(0)" class="card-4-1 detail-tab4-show-more" data-showing="card-4-1"
@@ -224,39 +224,61 @@
                                                                         id="v-pills-ket-qua-tuan-truoc" role="tabpanel"
                                                                         aria-labelledby="v-pills-ket-qua-tuan-truoc-tab">
                                                                         <textarea class="tinymce-content"
-                                                                            name="ketQuaTuanTruoc"
-                                                                            placeholder="Mời nhập nội dung KẾT QUẢ TUẦN TRƯỚC..."></textarea>
+                                                                            id="tinymce-ket-qua-tuan-truoc"
+                                                                            data-position="0" name="ketQuaTuanTruoc"
+                                                                            placeholder="Mời nhập nội dung KẾT QUẢ TUẦN TRƯỚC...">
+                                                                            [(${detailTabQuaTrinh.getKetQuaTuanTruoc()})]
+                                                                        </textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-ke-hoach-tuan-nay" role="tabpanel"
                                                                         aria-labelledby="v-pills-ke-hoach-tuan-nay-tab">
                                                                         <textarea class="tinymce-content"
-                                                                            name="keHoachTuanNay"
-                                                                            placeholder="Mời nhập nội dung KẾ HOẠCH TUẦN NÀY..."></textarea>
+                                                                            id="tinymce-ke-hoach-tuan-nay"
+                                                                            data-position="1" name="keHoachTuanNay"
+                                                                            placeholder="Mời nhập nội dung KẾ HOẠCH TUẦN NÀY...">
+                                                                            [(${detailTabQuaTrinh.getKeHoachTuanNay()})]
+                                                                        </textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-ket-qua-tuan-nay" role="tabpanel"
                                                                         aria-labelledby="v-pills-ket-qua-tuan-nay-tab">
                                                                         <textarea class="tinymce-content"
-                                                                            name="ketQuaTuanNay"></textarea>
+                                                                            id="tinymce-ket-qua-tuan-nay"
+                                                                            data-position="2" name="ketQuaTuanNay"
+                                                                            placeholder="Mời nhập nội dung KẾT QUẢ TUẦN NÀY...">
+                                                                            [(${detailTabQuaTrinh.getKetQuaTuanNay()})]
+                                                                        </textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-kho-khan" role="tabpanel"
                                                                         aria-labelledby="v-pills-kho-khan-tab">
                                                                         <textarea class="tinymce-content"
-                                                                            name="generalIssue"></textarea>
+                                                                            id="tinymce-general-issue" data-position="3"
+                                                                            name="generalIssue"
+                                                                            placeholder="Mời nhập nội dung KHÓ KHĂN...">
+                                                                            [(${detailTabQuaTrinh.getGeneralIssue()})]
+                                                                        </textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade show"
                                                                         id="v-pills-giai-phap" role="tabpanel"
                                                                         aria-labelledby="v-pills-giai-phap-tab">
                                                                         <textarea class="tinymce-content"
-                                                                            name="solution"></textarea>
+                                                                            id="tinymce-solution" data-position="4"
+                                                                            name="solution"
+                                                                            placeholder="Mời nhập nội dung GIẢI PHÁP...">
+                                                                            [(${detailTabQuaTrinh.getSolution()})]
+                                                                        </textarea>
                                                                     </div>
                                                                     <div class="tab-pane fade"
                                                                         id="v-pills-ke-hoach-tuan-sau" role="tabpanel"
                                                                         aria-labelledby="v-pills-ke-hoach-tuan-sau-tab">
                                                                         <textarea class="tinymce-content"
-                                                                            name="keHoachTuanSau"></textarea>
+                                                                            id="tinymce-ke-hoach-tuan-sau"
+                                                                            data-position="5" name="keHoachTuanSau"
+                                                                            placeholder="Mời nhập nội dung KẾ HOẠCH TUẦN SAU...">
+                                                                            [(${detailTabQuaTrinh.getKeHoachTuanSau()})]
+                                                                        </textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>

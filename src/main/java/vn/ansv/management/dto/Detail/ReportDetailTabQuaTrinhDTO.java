@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReportDetailTabQuaTrinhDTO {
+    // DTO truy vấn và cập nhật dữ liệu tab "Quá trình"
     private Long id;
     private String generalIssue;
     private String solution;

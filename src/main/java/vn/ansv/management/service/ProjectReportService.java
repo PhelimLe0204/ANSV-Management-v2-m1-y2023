@@ -133,5 +133,19 @@ public class ProjectReportService implements IProjectReport {
     public ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(Long id, int enabled) {
         return projectReportRepository.findDetailTabQuaTrinh(id, enabled);
     }
+
+    @Override
+    public Boolean updateDetailTabQuaTrinh(Long id, ReportDetailTabQuaTrinhDTO dataUpdate) {
+        try {
+            projectReportRepository.updateDetailTabQuaTrinh(id, dataUpdate.getGeneralIssue(),
+                    dataUpdate.getSolution(), dataUpdate.getKeHoachTuanNay(), dataUpdate.getKeHoachTuanSau(),
+                    dataUpdate.getKetQuaTuanTruoc(), dataUpdate.getKetQuaTuanNay());
+        } catch (Exception e) {
+            System.out.println("----- Error ----- ProjectReportService.updateDetailTabQuaTrinh(): " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
     /* ========== End: Detail tab quá trình ========== */
 }
