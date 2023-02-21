@@ -157,4 +157,11 @@ public class HomeController extends BaseController {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 4;
         }
     }
+
+    @RequestMapping(value = "thanh-vien/bdc", method = RequestMethod.GET)
+    public ModelAndView membersBDC() {
+        Init(); // Lấy dữ liệu cơ bản
+        _mvShare.setViewName("non-admin/members/bdc");
+        return _mvShare;
+    }
 }
