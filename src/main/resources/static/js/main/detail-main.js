@@ -695,35 +695,39 @@ $(".detail-tab4-show-more").click(function () {
     $("." + $(this).attr("data-hiding")).show();
 });
 
+var $tinymceChange = false;
+var $tinymceOriginal = [];
 $("#qua-trinh-open-modal-edit").click(function () {
-    var tinymceOriginal = [];
+    if (!$tinymceChange) {
+        tinymce.init({
+            promotion: false,
+            selector: 'textarea.tinymce-content',
+            ui_container: '#tinymce-group',
+            height: 250,
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+            setup: function (editor) {
+                editor.on('init', function (e) {
+                    // console.log("editor.id: " + editor.id);
+                    // console.log("data-position: " + $("#" + editor.id).attr("data-position"));
+                    var position = parseInt($("#" + editor.id).attr("data-position"));
+                    var a = { id: (position + 1), tinymceId: editor.id, dataOrrigin: editor.getContent() };
+                    $tinymceOriginal.push(a);
+                    // console.log($tinymceOriginal);
+                });
+            }
+        });
 
-    tinymce.init({
-        promotion: false,
-        selector: 'textarea.tinymce-content',
-        ui_container: '#tinymce-group',
-        height: 250,
-        plugins: [
-            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-            'insertdatetime', 'media', 'table', 'help', 'wordcount'
-        ],
-        toolbar: 'undo redo | blocks | ' +
-            'bold italic backcolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | help',
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
-        setup: function (editor) {
-            editor.on('init', function (e) {
-                // console.log("editor.id: " + editor.id);
-                // console.log("data-position: " + $("#" + editor.id).attr("data-position"));
-                var position = parseInt($("#" + editor.id).attr("data-position"));
-                var a = { id: (position + 1), tinymceId: editor.id, dataOrrigin: editor.getContent() };
-                tinymceOriginal.push(a);
-                // console.log(tinymceOriginal);
-            });
-        }
-    });
+        $tinymceChange = true;
+    }
 
     // Bắt sự kiện SUBMIT form tab "Quá trình"
     $("#form-tab-qua-trinh-edit").submit(function (e) {
@@ -731,7 +735,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
 
         var changeStatus = false;
         for (let i = 0; i < 6; i++) {
-            if (tinymce.get(tinymceOriginal[i].tinymceId).getContent() != tinymceOriginal[i].dataOrrigin) {
+            if (tinymce.get($tinymceOriginal[i].tinymceId).getContent() != $tinymceOriginal[i].dataOrrigin) {
                 changeStatus = true;
                 break;
             }
@@ -762,7 +766,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
     $("#btn-tab-qua-trinh-edit-reset").click(function () {
         var changeStatus = false;
         for (let i = 0; i < 6; i++) {
-            if (tinymce.get(tinymceOriginal[i].tinymceId).getContent() != tinymceOriginal[i].dataOrrigin) {
+            if (tinymce.get($tinymceOriginal[i].tinymceId).getContent() != $tinymceOriginal[i].dataOrrigin) {
                 changeStatus = true;
                 break;
             }
@@ -783,8 +787,44 @@ $("#qua-trinh-open-modal-edit").click(function () {
             + '</p>',
             function () {
                 // Ok => Reset modal update
-                resetModalUpdate(4, tinymceOriginal);
+                resetModalUpdate(4, $tinymceOriginal);
                 alertify.success('Dữ liệu hoàn tác!').delay(1); // Return success notification
+            },
+            function () {
+                // Cancel => Do nothing
+            }
+        );
+    });
+
+    // CLOSE Modal update tab "Quá trình"
+    $(".tab-qua-trinh-edit-modal-close").click(function () {
+        var changeStatus = false;
+        console.log($tinymceOriginal);
+        for (let i = 0; i < 6; i++) {
+            if (tinymce.get($tinymceOriginal[i].tinymceId).getContent() != $tinymceOriginal[i].dataOrrigin) {
+                console.log("$tinymceOriginal[i].tinymceId - " + $tinymceOriginal[i].tinymceId);
+                changeStatus = true;
+                break;
+            }
+        }
+
+        if (changeStatus == false) {
+            $('#tabQuaTrinhEditModal').modal('hide');
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận hủy',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br>'
+            + '<span class="text-primary font-weight-bold">QUÁ TRÌNH</span><br>'
+            + 'Bạn chắc chắn muốn hủy?'
+            + '</p>',
+            function () {
+                // Ok => Reset modal update, then close modal
+                resetModalUpdate(4, $tinymceOriginal);
+                $('#tabQuaTrinhEditModal').modal('hide');
             },
             function () {
                 // Cancel => Do nothing
