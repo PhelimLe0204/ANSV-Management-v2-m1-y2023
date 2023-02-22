@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -110,5 +111,14 @@ public class UserEntity extends BaseEntity {
     public void setEnabled(Integer enabled) {
         this.enabled = enabled;
     }
+
+    @ManyToOne
+    /*
+     * @JoinColumn(name =
+     * "khóa ngoại trong bảng 'user' kết nối với bảng 'work_center' (work_center_id)"
+     * )
+     */
+    @JoinColumn(name = "work_center_id")
+    private WorkCenterEntity workCenter; // 1 'user' sử dụng 1 'work_center' => hứng 1 bản ghi
 
 }
