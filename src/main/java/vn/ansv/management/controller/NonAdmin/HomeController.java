@@ -24,6 +24,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectStatusDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectTypeDTO;
@@ -31,6 +32,7 @@ import vn.ansv.management.service.ProjectPriorityService;
 import vn.ansv.management.service.ProjectReportService;
 import vn.ansv.management.service.ProjectStatusService;
 import vn.ansv.management.service.ProjectTypeService;
+import vn.ansv.management.service.UserService;
 
 @Controller
 @RequestMapping(path = "")
@@ -48,6 +50,9 @@ public class HomeController extends BaseController {
 
     @Autowired // Inject "ProjectStatusService" - Dependency Injection
     private ProjectStatusService projectStatusService;
+
+    @Autowired // Inject "UserService" - Dependency Injection
+    private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String firstPage() {
@@ -161,6 +166,9 @@ public class HomeController extends BaseController {
     @RequestMapping(value = "thanh-vien/bdc", method = RequestMethod.GET)
     public ModelAndView membersBDC() {
         Init(); // Lấy dữ liệu cơ bản
+        List<ListAllMemberDTO> data = userService.findAllByWorkCenter(1L);
+
+        _mvShare.addObject("listUserBDC", data);
         _mvShare.setViewName("non-admin/members/bdc");
         return _mvShare;
     }

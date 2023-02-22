@@ -4,12 +4,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import vn.ansv.management.dto.member.ListAllMemberDTO;
+
+/* ===== UserRepository.findAllByWorkCenter() ===== */
+@NamedNativeQuery(name = "UserEntity.findAllByWorkCenter", query = "SELECT "
+        + "u.id, u.uid, u.avatar, u.employee_code AS employeeCode, u.fullname, "
+        + "u.position_assigned_by AS positionAssignedBy, u.username, u.enabled, p.id AS positionId, "
+        + "p.position_name AS positionName, p.position_explain AS positionExplain, "
+        + "p.note AS positionDisplay, wc.id AS workCenterId, wc.center_name AS centerName, "
+        + "wc.name_display AS centerDisplay, wc.description AS centerDescription "
+        + "FROM user AS u "
+        + "INNER JOIN position AS p ON u.position_id = p.id "
+        + "INNER JOIN work_center AS wc ON u.work_center_id = wc.id "
+        + "WHERE wc.id = :centerId "
+        + "ORDER BY u.fullname", resultSetMapping = "Mapping.ListAllMemberDTO")
+
+/* ===== Set mapping: ListAllMemberDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ListAllMemberDTO", classes = @ConstructorResult(targetClass = ListAllMemberDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "uid", type = Long.class),
+        @ColumnResult(name = "avatar", type = String.class),
+        @ColumnResult(name = "employeeCode", type = String.class),
+        @ColumnResult(name = "fullname", type = String.class),
+        @ColumnResult(name = "positionAssignedBy", type = String.class),
+        @ColumnResult(name = "username", type = String.class),
+        @ColumnResult(name = "enabled", type = Integer.class),
+
+        @ColumnResult(name = "positionId", type = Long.class),
+        @ColumnResult(name = "positionName", type = String.class),
+        @ColumnResult(name = "positionExplain", type = String.class),
+        @ColumnResult(name = "positionDisplay", type = String.class),
+
+        @ColumnResult(name = "workCenterId", type = Long.class),
+        @ColumnResult(name = "centerName", type = String.class),
+        @ColumnResult(name = "centerDisplay", type = String.class),
+        @ColumnResult(name = "centerDescription", type = String.class) }))
 
 @Entity
 @Table(name = "user")
