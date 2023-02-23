@@ -1,7 +1,11 @@
 package vn.ansv.management.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +22,14 @@ public class PositionEntity extends BaseEntity {
 
     @Column(name = "level")
     private Integer level;
+
+    /*
+     * @ManyToMany(mappedBy =
+     * "tên biến hứng dữ liệu từ PositionEntity trong UserEntity (positions)")
+     */
+    @ManyToMany(mappedBy = "positions")
+    // 1 'position' gồm nhiều 'user' => dùng List để hứng mảng dữ liệu
+    private List<UserEntity> users = new ArrayList<>();
 
     public String getPositionName() {
         return this.positionName;
