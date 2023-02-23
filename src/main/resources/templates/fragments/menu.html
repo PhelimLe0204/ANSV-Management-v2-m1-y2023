@@ -52,7 +52,9 @@
                                 "></li> -->
                             <li class="nav-item"
                                 th:classappend="${menu_level_1.getInclude() == 1} ? 'pcoded-hasmenu' : ''">
-                                <a th:href="${menu_level_1.getLink()}" class="nav-link">
+                                <a th:href="${menu_level_1.getLink() } != 'javascript:void(0)' 
+                                ? @{'/' + ${menu_level_1.getLink()}}
+                                : ${menu_level_1.getLink() }" class="nav-link">
                                     <span class="pcoded-micon">
                                         <i class="feather" th:classappend="${menu_level_1.getIcon()}"></i>
                                     </span>
@@ -63,7 +65,7 @@
                                     <ul class="pcoded-submenu">
                                         <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
                                             <li>
-                                                <a th:href="${menu_level_2.getLink()}"
+                                                <a th:href="'/' + ${menu_level_2.getLink()}"
                                                     th:text="${menu_level_2.getMenuName()}"></a>
                                             </li>
                                         </th:block>
