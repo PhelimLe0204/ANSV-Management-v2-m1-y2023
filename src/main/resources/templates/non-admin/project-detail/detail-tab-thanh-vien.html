@@ -1,273 +1,227 @@
 <div class="tab-pane fade" id="thanh-vien" role="tabpanel" aria-labelledby="thanh-vien-tab" th:fragment="body">
     <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="latest-update-card">
-                <div class="card-body pl-0 pr-0">
-                    <div class="latest-update-box mb-4">
-                        <div class="row p-t-35 p-b-35">
-                            <div class="col-auto text-right update-meta">
-                                <p class="text-muted m-b-0 d-inline-flex">Công việc</p>
-                                <i class="feather icon-briefcase bg-c-blue update-icon"></i>
-                            </div>
-                            <div class="col">
-                                <h6 th:text="${detailTabDuThau.getJobName()}"></h6>
-                            </div>
-                        </div>
-                        <div class="row p-b-35">
-                            <div class="col-auto text-right update-meta">
-                                <p class="text-muted m-b-0 d-inline-flex">Khách hàng</p>
-                                <i class="feather icon-users bg-c-blue update-icon"></i>
-                            </div>
-                            <div class="col">
-                                <h6 th:text="${detailTabDuThau.getCustomerName()}"></h6>
-                            </div>
-                        </div>
-                        <div class="row p-b-35">
-                            <div class="col-auto text-right update-meta">
-                                <p class="text-muted m-b-0 d-inline-flex">Mô tả</p>
-                                <i class="feather icon-file-text bg-c-blue update-icon"></i>
-                            </div>
-                            <div class="col">
-                                <h6 th:text="${detailTabDuThau.getDescription()}"></h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-auto text-right update-meta">
-                                <p class="text-muted m-b-0 d-inline-flex">Khả thi</p>
-                                <i class="feather icon-percent bg-c-blue update-icon"></i>
-                            </div>
-                            <div class="col">
-                                <div class="bar-holder" style="margin-top: -21px;">
-                                    <th:block
-                                        th:if="${detailTabDuThau.getMucDoKhaThi() >= 0 && detailTabDuThau.getMucDoKhaThi() <= 20}">
-                                        <div class="font-weight-bold bar-20"
-                                            th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
-                                            th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
-                                        </div>
-                                    </th:block>
-                                    <th:block
-                                        th:if="${detailTabDuThau.getMucDoKhaThi() > 20 && detailTabDuThau.getMucDoKhaThi() <= 40}">
-                                        <div class="font-weight-bold bar-40"
-                                            th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
-                                            th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
-                                        </div>
-                                    </th:block>
-                                    <th:block
-                                        th:if="${detailTabDuThau.getMucDoKhaThi() > 40 && detailTabDuThau.getMucDoKhaThi() <= 60}">
-                                        <div class="font-weight-bold bar-60"
-                                            th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
-                                            th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
-                                        </div>
-                                    </th:block>
-                                    <th:block
-                                        th:if="${detailTabDuThau.getMucDoKhaThi() > 60 && detailTabDuThau.getMucDoKhaThi() <= 80}">
-                                        <div class="font-weight-bold bar-80"
-                                            th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
-                                            th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
-                                        </div>
-                                    </th:block>
-                                    <th:block
-                                        th:if="${detailTabDuThau.getMucDoKhaThi() > 80 && detailTabDuThau.getMucDoKhaThi() <= 100}">
-                                        <div class="font-weight-bold bar-100"
-                                            th:style="'width: ' + ${detailTabDuThau.getMucDoKhaThi()} + '% !important;'"
-                                            th:text="${detailTabDuThau.getMucDoKhaThi()} + '%'">
-                                        </div>
-                                    </th:block>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="latest-update-card">
-                <div class="card-body pl-0 pr-0">
-                    <div class="latest-update-box mb-4">
-                        <div class="row p-t-15 p-b-10">
-                            <div class="col-auto text-right update-meta">
-                                <div class="w-50 float-left">
-                                    <p class="text-muted m-b-0 d-inline-flex">
-                                        Tổng mức<br>đầu tư<br>(dự kiến)
-                                    </p>
-                                </div>
-                                <div class="w-50 float-left" style="padding-top: 21px;">
-                                    <i class="feather icon-briefcase bg-c-blue update-icon"></i>
-                                </div>
-                            </div>
-                            <!-- <div class="col d-flex align-items-center justify-content-center"> -->
-                            <div class="col d-flex align-items-center">
-                                <h6 class="pt-2" th:text="${detailTabDuThau.getTongMucDauTuDuKien()}"></h6>
-                            </div>
-                        </div>
-                        <div class="row p-b-20">
-                            <div class="col-auto text-right update-meta">
-                                <div class="w-50 float-left">
-                                    <p class="text-muted m-b-0 d-inline-flex">Hình thức<br>đầu tư</p>
-                                </div>
-                                <div class="w-50 float-left" style="padding-top: 11px;">
-                                    <i class="feather icon-users bg-c-blue update-icon"></i>
-                                </div>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <h6 class="pt-2" th:text="${detailTabDuThau.getHinhThucDauTu()}"></h6>
-                            </div>
-                        </div>
-                        <div class="row p-b-20">
-                            <div class="col-auto text-right update-meta">
-                                <div class="w-50 float-left">
-                                    <p class="text-muted m-b-0 d-inline-flex">Phạm vi<br>cung cấp</p>
-                                </div>
-                                <div class="w-50 float-left" style="padding-top: 11px;">
-                                    <i class="feather icon-file-text bg-c-blue update-icon"></i>
-                                </div>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <h6 class="pt-2" th:text="${detailTabDuThau.getPhamViCungCap()}"></h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-auto text-right update-meta">
-                                <div class="w-50 float-left">
-                                    <p class="text-muted m-b-0 d-inline-flex">Phân tích<br>SWOOT</p>
-                                </div>
-                                <div class="w-50 float-left" style="padding-top: 11px;">
-                                    <i class="feather icon-percent bg-c-blue update-icon"></i>
-                                </div>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <h6 class="pt-2" th:text="${detailTabDuThau.getPhanTichSwoot()}"></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-md-12">
-            <hr class="mt-0">
-            <div id="tabDuThauEditModal" class="modal fade" tabindex="-1" role="dialog"
-                aria-labelledby="tabDuThauEditModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="max-width: 1100px !important;">
-                    <div class="modal-content">
-                        <div class="modal-header pt-2 pb-2">
-                            <h5 class="modal-title" id="tabDuThauEditModalLabel">
-                                Thay đổi thông tin (Mục: Dự thầu)
-                            </h5>
-                            <button type="button" class="tab-du-thau-edit-modal-close close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+            <div class="l-grid">
+                <div class="l-grid__item l-grid__item--sm u-hide--mobile">
+                    <div class="c-card">
+                        <div class="c-card__header">
+                            <div class="c-card__title">Add New Member</div>
+                            <div class="l-actions">
+                                <div class="c-button c-button--default c-button--sm" id="closeMobileAdd">Close</div>
+                            </div>
                         </div>
-                        <form th:action="@{/chi-tiet/update/2/{id}(id=${detailTabDuThau.getId()})}"
-                            id="form-tab-du-thau-edit" method="post">
-                            <div class="modal-body">
-                                <div class="row mb-4">
-                                    <div class="col-md-6">
-                                        <div class="input-group mb-4" id="customer-selection">
-                                            <div class="input-group-prepend bg-primary w-100">
-                                                <label
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold"
-                                                    for="customer_id">Khách hàng</label>
-                                            </div>
-                                            <select id="customer_id" name="customerId" class="custom-select"
-                                                th:data-first="${detailTabDuThau.getCustomerId()}">
-                                                <option th:value="${detailTabDuThau.getCustomerId()}"
-                                                    th:text="${detailTabDuThau.getCustomerName()}" selected>
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend w-25 text-center">
-                                                <span
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Công việc
-                                                </span>
-                                            </div>
-                                            <textarea class="form-control" aria-label="Công việc" name="jobName"
-                                                rows="2" th:text="${detailTabDuThau.getJobName()}"></textarea>
-                                        </div>
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend bg-primary w-25">
-                                                <span
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Mô tả</span>
-                                            </div>
-                                            <textarea class="form-control" aria-label="Mô tả" name="description"
-                                                rows="2" th:text="${detailTabDuThau.getDescription()}"></textarea>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="mucDoKhaThi"
-                                                class="col-sm-3 col-form-label font-weight-bold pr-0"
-                                                style="padding-left: 20px; padding-top: 19px;">Mức khả thi (%)
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="hidden" name="mucDoKhaThi" id="muc_do_kha_thi"
-                                                    class="irs-hidden-input"
-                                                    th:data-first="${detailTabDuThau.getMucDoKhaThi()}"
-                                                    th:value="${detailTabDuThau.getMucDoKhaThi()}" tabindex="-1"
-                                                    readonly="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend bg-primary w-25">
-                                                <span
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Tổng mức đầu tư<br>(dự kiến)</span>
-                                            </div>
-                                            <input type="text" class="form-control" style="height: 63.5px;"
-                                                name="tongMucDauTuDuKien"
-                                                th:value="${detailTabDuThau.getTongMucDauTuDuKien()}">
-                                        </div>
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend bg-primary w-25">
-                                                <span
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Hình thức đầu tư</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="hinhThucDauTu"
-                                                th:value="${detailTabDuThau.getHinhThucDauTu()}">
-                                        </div>
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend bg-primary w-25">
-                                                <span
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Phạm vi cung cấp</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="phamViCungCap"
-                                                th:value="${detailTabDuThau.getPhamViCungCap()}">
-                                        </div>
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend bg-primary w-25">
-                                                <span
-                                                    class="d-flex justify-content-center input-group-text w-100 bg-primary text-white font-weight-bold">
-                                                    Phân tích SWOOT</span>
-                                            </div>
-                                            <textarea class="form-control" aria-label="Phân tích SWOOT"
-                                                name="phanTichSwoot" rows="2"
-                                                th:text="${detailTabDuThau.getPhanTichSwoot()}"></textarea>
-                                        </div>
-                                    </div>
+                        <div class="c-card__body" id="addForm">
+                            <div class="c-form-field">
+                                <label class="c-form-field__label" for="newInviteName">Name</label>
+                                <input class="c-form-field__input" id="newInviteName" type="text"
+                                    placeholder="Kimi Raikkonen" />
+                            </div>
+                            <div class="c-form-field">
+                                <label class="c-form-field__label" for="newInvitePosition">Position</label>
+                                <input class="c-form-field__input" id="newInvitePosition" type="text"
+                                    placeholder="Senior Driver" />
+                            </div>
+                            <button class="c-button c-button--primary c-button--full" id="addMember">Add to
+                                Team</button>
+                        </div>
+                    </div>
+                    <div class="c-card">
+                        <div class="c-card__body">
+                            <div class="l-actions">
+                                <div class="u-text--bold">
+                                    <label class="label">
+                                        <svg class="label__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            fill="currentColor" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                        </svg><small class="label__text">Dark Mode:</small>
+                                    </label>
+                                </div>
+                                <div class="c-toggle" id="sup">
+                                    <div class="c-toggle__handle"></div>
                                 </div>
                             </div>
-                            <div class="modal-footer pr-2 pt-2 pb-2">
-                                <button type="button" class="tab-du-thau-edit-modal-close btn btn-secondary pt-1"
-                                    style="height: 30px; width: 100px;">Hủy</button>
-                                <button type="button" id="btn-tab-du-thau-edit-reset" class="btn btn-light pt-1"
-                                    style="height: 30px; width: 100px;">
-                                    Hoàn tác</button>
-                                <button type="submit" id="btn-tab-du-thau-edit-submit" class="btn btn-primary pt-1"
-                                    style="height: 30px; width: 100px;">
-                                    Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="l-grid__item l-grid__item--md">
+                    <div class="c-card">
+                        <div class="c-card__header">
+                            <div class="c-card__title">Team Directory</div>
+                            <div class="l-actions">
+                                <div class="c-button c-button--primary c-button--sm" id="mobileAddBtn">Invite +</div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="c-card__body">
+                            <div class="c-media">
+                                <div class="c-media__avatar"><span>A</span></div>
+                                <div class="c-media__content">
+                                    <h5 class="c-media__subtitle u-text--regular">TEAM</h5>
+                                    <div class="u-text--bold">Anaheim Electronics <small
+                                            class="u-text--default u-text--regular" id="teamCount">(10 team
+                                            members)</small></div>
+                                </div>
+                            </div>
+                            <p>Manage the current members of this team and customize your team settings.</p>
+                        </div>
+                        <ul class="c-list">
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=707b9c33066bf8808c934c8ab394dff6">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Miyah Myles</div><small
+                                            class="c-contact__description">Clerical</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://randomuser.me/api/portraits/women/44.jpg">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">June Cha</div><small
+                                            class="c-contact__description">Delivery
+                                            Driver</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://randomuser.me/api/portraits/women/68.jpg">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Iida Niskanen</div><small
+                                            class="c-contact__description">Product Designer</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://randomuser.me/api/portraits/women/65.jpg">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Renee Sims</div><small
+                                            class="c-contact__description">Administrative Assistant</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://randomuser.me/api/portraits/men/43.jpg">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Jonathan Nuñez</div><small
+                                            class="c-contact__description">Graphic Designer</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?h=350&amp;auto=compress&amp;cs=tinysrgb">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Sasha Ho</div><small
+                                            class="c-contact__description">Marketing</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=a72ca28288878f8404a795f39642a46f">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Abdullah Hadley</div><small
+                                            class="c-contact__description">Data
+                                            Entry</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://randomuser.me/api/portraits/men/97.jpg">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Veeti Seppanen</div><small
+                                            class="c-contact__description">Accountant</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://randomuser.me/api/portraits/women/26.jpg">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Bonnie Riley</div><small
+                                            class="c-contact__description">Customer Service</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://tinyfac.es/data/avatars/B0298C36-9751-48EF-BE15-80FB9CD11143-500w.jpeg">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Thomas Stock</div><small
+                                            class="c-contact__description">Product
+                                            Designer</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <button type="button" id="du-thau-open-modal-edit" class="btn btn-warning pt-1 float-right"
-                data-toggle="modal" data-target="#tabDuThauEditModal" style="height: 30px; width: 130px;">
-                <i class="feather mr-2 icon-edit"></i>Chỉnh sửa
-            </button>
         </div>
         <!-- <div class="col-md-6 table-responsive">
             <table class="table table-striped table-hover custom-table">
