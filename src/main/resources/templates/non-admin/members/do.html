@@ -3,7 +3,7 @@
     layout:decorate="~{layout}">
 
 <head>
-    <title>Thành Viên | BDC</title>
+    <title>Thành Viên | DO</title>
 </head>
 
 <body>
@@ -37,7 +37,7 @@
                 <div class="col-xl-12 col-md-12">
                     <div class="card table-card">
                         <div class="card-header">
-                            <h5>Danh sách thành viên BDC</h5>
+                            <h5>Danh sách thành viên DO</h5>
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
@@ -75,21 +75,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="listUserBdcItem : ${listUserBDC}">
+                                        <tr th:each="listUserDoItem : ${listUserDO}">
                                             <td>
                                                 <div class="d-inline-block align-middle">
-                                                    <img th:src="${listUserBdcItem.getAvatar()} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${listUserBdcItem.getAvatar()}}"
+                                                    <img th:src="${listUserDoItem.getAvatar()} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${listUserDoItem.getAvatar()}}"
                                                         alt="user image" class="img-radius wid-40 align-top m-r-15">
                                                     <div class="d-inline-block">
-                                                        <h6 th:text="${listUserBdcItem.getFullname()}"></h6>
-                                                        <p class="text-muted m-b-0" th:text="${listUserBdcItem.getUsername()}"></p>
+                                                        <h6 th:text="${listUserDoItem.getFullname()}"></h6>
+                                                        <p class="text-muted m-b-0" th:text="${listUserDoItem.getUsername()}"></p>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td th:text = "${listUserBdcItem.getEmployeeCode()}"></td>
-                                            <td th:text="${listUserBdcItem.getPositionExplain()}"></td>
+                                            <td th:text = "${listUserDoItem.getEmployeeCode()}"></td>
+                                            <td th:text="${listUserDoItem.getPositionExplain()}"></td>
                                             
-                                            <td class="text-center" th:switch="${listUserBdcItem.getEnabled() == 1}">
+                                            <td class="text-center" th:switch="${listUserDoItem.getEnabled() == 1}">
                                                 <span th:case="${true}"><i class="fa-solid fa-check"></i></span>
                                                 <span th:case="*"><i class="fa-solid fa-xmark"></i></span>
                                             </td>

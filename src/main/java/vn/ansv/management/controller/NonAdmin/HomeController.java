@@ -172,4 +172,15 @@ public class HomeController extends BaseController {
         _mvShare.setViewName("non-admin/members/bdc");
         return _mvShare;
     }
+
+    @RequestMapping(value = "thanh-vien/do", method = RequestMethod.GET)
+    public ModelAndView membersDO() {
+        
+        Init(); // Lấy dữ liệu cơ bản
+        List<ListAllMemberDTO> data = userService.findAllByWorkCenter(2L);
+
+        _mvShare.addObject("listUserDO", data);
+        _mvShare.setViewName("non-admin/members/do");
+        return _mvShare;
+    }
 }
