@@ -5,64 +5,62 @@
                 <div class="l-grid__item l-grid__item--sm u-hide--mobile">
                     <div class="c-card">
                         <div class="c-card__header">
-                            <div class="c-card__title">Add New Member</div>
+                            <div class="c-card__title">Thêm thành viên mới</div>
                             <div class="l-actions">
-                                <div class="c-button c-button--default c-button--sm" id="closeMobileAdd">Close</div>
+                                <div class="c-button c-button--default c-button--sm" id="closeMobileAdd">Đóng</div>
                             </div>
                         </div>
                         <div class="c-card__body" id="addForm">
                             <div class="c-form-field">
-                                <label class="c-form-field__label" for="newInviteName">Name</label>
+                                <label class="c-form-field__label" for="newInviteName">Tên</label>
                                 <input class="c-form-field__input" id="newInviteName" type="text"
-                                    placeholder="Kimi Raikkonen" />
+                                    placeholder="Nguyễn Văn A" />
                             </div>
                             <div class="c-form-field">
-                                <label class="c-form-field__label" for="newInvitePosition">Position</label>
-                                <input class="c-form-field__input" id="newInvitePosition" type="text"
-                                    placeholder="Senior Driver" />
+                                <label class="c-form-field__label" for="newInvitePosition">Vai trò</label>
+
+                                <select id="newInvitePosition" class="c-form-field__input">
+                                    <option value="truongBanDo">Trưởng ban DO</option>
+                                    <option value="phoBanDO">Phó ban DO</option>
+                                    <option value="projectManager">Project Manager</option>
+                                    <option value="pmMembers">PM Members</option>
+
+                                    <option value="Trưởng ban BDC">Trưởng ban BDC</option>
+                                    <option value="Phó ban BDC">Phó ban BDC</option>
+                                    <option value="Project Manager">Account Manager</option>
+                                    <option value="PM Members">AM Members</option>
+                                </select>
+
+                                <!-- <input class="c-form-field__input" id="newInvitePosition" type="text"
+                                    placeholder="Phó ban DO" /> -->
                             </div>
-                            <button class="c-button c-button--primary c-button--full" id="addMember">Add to
-                                Team</button>
-                        </div>
-                    </div>
-                    <div class="c-card">
-                        <div class="c-card__body">
-                            <div class="l-actions">
-                                <div class="u-text--bold">
-                                    <label class="label">
-                                        <svg class="label__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                                        </svg><small class="label__text">Dark Mode:</small>
-                                    </label>
-                                </div>
-                                <div class="c-toggle" id="sup">
-                                    <div class="c-toggle__handle"></div>
-                                </div>
-                            </div>
+                            <button class="c-button c-button--primary c-button--full" style="font-size: 16px;"
+                                id="addMember">
+                                Thêm vào dự án</button>
                         </div>
                     </div>
                 </div>
                 <div class="l-grid__item l-grid__item--md">
                     <div class="c-card">
                         <div class="c-card__header">
-                            <div class="c-card__title">Team Directory</div>
+                            <div class="c-card__title">Danh sách thành viên</div>
                             <div class="l-actions">
-                                <div class="c-button c-button--primary c-button--sm" id="mobileAddBtn">Invite +</div>
+                                <div class="c-button c-button--primary c-button--sm" id="mobileAddBtn">Thêm +</div>
                             </div>
                         </div>
                         <div class="c-card__body">
                             <div class="c-media">
                                 <div class="c-media__avatar"><span>A</span></div>
                                 <div class="c-media__content">
-                                    <h5 class="c-media__subtitle u-text--regular">TEAM</h5>
-                                    <div class="u-text--bold">Anaheim Electronics <small
-                                            class="u-text--default u-text--regular" id="teamCount">(10 team
-                                            members)</small></div>
+                                    <h5 class="c-media__subtitle u-text--regular">Đội ngũ</h5>
+                                    <div class="u-text--bold">
+                                        Tham gia dự án
+                                        <small class="u-text--default u-text--regular" id="teamCount">
+                                            (10 thành viên)</small>
+                                    </div>
                                 </div>
                             </div>
-                            <p>Manage the current members of this team and customize your team settings.</p>
+                            <!-- <p>Manage the current members of this team and customize your team settings.</p> -->
                         </div>
                         <ul class="c-list">
                             <li class="c-contact">
@@ -71,8 +69,23 @@
                                         data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=707b9c33066bf8808c934c8ab394dff6">
                                     </div>
                                     <div class="c-contact__content">
-                                        <div class="c-contact__name">Miyah Myles</div><small
-                                            class="c-contact__description">Clerical</small>
+                                        <div class="c-contact__name">Vũ Tuấn Khanh</div>
+                                        <small class="c-contact__description">Trưởng ban DO</small>
+                                    </div>
+                                </div>
+                                <div class="l-actions contact__right">
+                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
+                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                </div>
+                            </li>
+                            <li class="c-contact">
+                                <div class="c-contact__left">
+                                    <div class="c-contact__avatar"
+                                        data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=707b9c33066bf8808c934c8ab394dff6">
+                                    </div>
+                                    <div class="c-contact__content">
+                                        <div class="c-contact__name">Trần Văn Hùng</div>
+                                        <small class="c-contact__description">Phó trưởng ban DO</small>
                                     </div>
                                 </div>
                                 <div class="l-actions contact__right">
@@ -86,9 +99,8 @@
                                         data-avatar="https://randomuser.me/api/portraits/women/44.jpg">
                                     </div>
                                     <div class="c-contact__content">
-                                        <div class="c-contact__name">June Cha</div><small
-                                            class="c-contact__description">Delivery
-                                            Driver</small>
+                                        <div class="c-contact__name">Nguyễn Anh Tuấn</div>
+                                        <small class="c-contact__description">Project Manager</small>
                                     </div>
                                 </div>
                                 <div class="l-actions contact__right">
@@ -102,8 +114,8 @@
                                         data-avatar="https://randomuser.me/api/portraits/women/68.jpg">
                                     </div>
                                     <div class="c-contact__content">
-                                        <div class="c-contact__name">Iida Niskanen</div><small
-                                            class="c-contact__description">Product Designer</small>
+                                        <div class="c-contact__name">Nguyễn Văn A</div>
+                                        <small class="c-contact__description">Project Manager</small>
                                     </div>
                                 </div>
                                 <div class="l-actions contact__right">
@@ -117,8 +129,8 @@
                                         data-avatar="https://randomuser.me/api/portraits/women/65.jpg">
                                     </div>
                                     <div class="c-contact__content">
-                                        <div class="c-contact__name">Renee Sims</div><small
-                                            class="c-contact__description">Administrative Assistant</small>
+                                        <div class="c-contact__name">Lê Văn B</div>
+                                        <small class="c-contact__description">Project Manager</small>
                                     </div>
                                 </div>
                                 <div class="l-actions contact__right">
@@ -132,8 +144,8 @@
                                         data-avatar="https://randomuser.me/api/portraits/men/43.jpg">
                                     </div>
                                     <div class="c-contact__content">
-                                        <div class="c-contact__name">Jonathan Nuñez</div><small
-                                            class="c-contact__description">Graphic Designer</small>
+                                        <div class="c-contact__name">Bùi Thị C</div>
+                                        <small class="c-contact__description">Project Manager</small>
                                     </div>
                                 </div>
                                 <div class="l-actions contact__right">
@@ -147,8 +159,8 @@
                                         data-avatar="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?h=350&amp;auto=compress&amp;cs=tinysrgb">
                                     </div>
                                     <div class="c-contact__content">
-                                        <div class="c-contact__name">Sasha Ho</div><small
-                                            class="c-contact__description">Marketing</small>
+                                        <div class="c-contact__name">Kim Quang Bành Thị Long Lanh Lấp Lánh</div>
+                                        <small class="c-contact__description">PM Member</small>
                                     </div>
                                 </div>
                                 <div class="l-actions contact__right">
@@ -162,9 +174,9 @@
                                         data-avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=a72ca28288878f8404a795f39642a46f">
                                     </div>
                                     <div class="c-contact__content">
-                                        <div class="c-contact__name">Abdullah Hadley</div><small
-                                            class="c-contact__description">Data
-                                            Entry</small>
+                                        <div class="c-contact__name">Tiều Thị Vân Dung</div>
+                                        <small class="c-contact__description">
+                                            Phương châm sống: TIÊU THÌ VẪN DÙNG</small>
                                     </div>
                                 </div>
                                 <div class="l-actions contact__right">
