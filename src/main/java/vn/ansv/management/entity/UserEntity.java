@@ -57,8 +57,8 @@ public class UserEntity extends BaseEntity {
     // @Column(name = "position_id", nullable = false)
     // private Integer positionId;
 
-    @Column(name = "position_assigned_by", nullable = false)
-    private String positionAssignedBy;
+    // @Column(name = "position_assigned_by", nullable = false)
+    // private String positionAssignedBy;
 
     @Column(name = "employee_code")
     private String employeeCode;
@@ -88,17 +88,6 @@ public class UserEntity extends BaseEntity {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles = new ArrayList<>(); // 1 'user' có nhiều 'role' => dùng List để hứng mảng dữ liệu
 
-    @ManyToMany
-    /*
-     * @JoinTable(name = "tên bảng trung gian", joinColumns = @JoinColumn(name =
-     * "khóa ngoại của bảng trung gian kết nối đến bảng hiện tại (user)"),
-     * inverseJoinColumns = @JoinColumn(name =
-     * "khóa ngoại của bảng trung gian kết nối đến bảng còn lại (role)"))
-     */
-    @JoinTable(name = "user_position", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "position_id"))
-    // 1 'user' có nhiều 'position' => dùng List để hứng mảng dữ liệu
-    private List<PositionEntity> positions = new ArrayList<>();
-
     // public Integer getPositionId() {
     // return this.positionId;
     // }
@@ -107,13 +96,13 @@ public class UserEntity extends BaseEntity {
     // this.positionId = positionId;
     // }
 
-    public String getPositionAssignedBy() {
-        return this.positionAssignedBy;
-    }
+    // public String getPositionAssignedBy() {
+    // return this.positionAssignedBy;
+    // }
 
-    public void setPositionAssignedBy(String positionAssignedBy) {
-        this.positionAssignedBy = positionAssignedBy;
-    }
+    // public void setPositionAssignedBy(String positionAssignedBy) {
+    // this.positionAssignedBy = positionAssignedBy;
+    // }
 
     public String getEmployeeCode() {
         return this.employeeCode;
