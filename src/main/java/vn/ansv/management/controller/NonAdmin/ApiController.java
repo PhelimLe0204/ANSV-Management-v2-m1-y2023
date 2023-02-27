@@ -1,6 +1,7 @@
 package vn.ansv.management.controller.NonAdmin;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,12 +25,15 @@ import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
+import vn.ansv.management.entity.UserEntity;
 import vn.ansv.management.repository.MenuCategoryRepository;
 // import vn.ansv.management.repository.MenuRepository;
 import vn.ansv.management.repository.ProjectRepository;
+import vn.ansv.management.repository.UserRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.ProjectService;
+import vn.ansv.management.service.UserService;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -41,6 +47,8 @@ public class ApiController {
 
     // @Autowired
     // private MenuRepository menuRepository;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ProjectService projectService;
@@ -118,6 +126,17 @@ public class ApiController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("success", "null", ""));
+        }
+    }
+
+    @GetMapping("/updateEnabled/{id}/{enabled}")
+    ResponseEntity<ResponseObject> updateEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
+        if (userService.updateUserEnabled(id, enabled)) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cập nhật trạng thái thành công", ""));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("failed", "Cập nhật trạng thái thất bại", ""));
         }
     }
 }

@@ -26,4 +26,14 @@ public class UserService implements IUser {
         return null;
     }
 
+    public boolean updateUserEnabled(Long id, Integer enabled) {
+        try {
+            userRepository.updateUserEnabled(id, enabled);
+            return true;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+            return false;
+        }
+    }
+
 }

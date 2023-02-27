@@ -89,9 +89,11 @@
                                             <td th:text = "${listUserBdcItem.getEmployeeCode()}"></td>
                                             <td th:text="${listUserBdcItem.getPositionExplain()}"></td>
                                             
-                                            <td class="text-center" th:switch="${listUserBdcItem.getEnabled() == 1}">
-                                                <span th:case="${true}"><i class="fa-solid fa-check"></i></span>
-                                                <span th:case="*"><i class="fa-solid fa-xmark"></i></span>
+                                            <td class="text-center">
+                                                <input class="checkEnabled"  th:data-value="${listUserBdcItem.getEnabled()}" 
+                                                type="checkbox" th:checked="${listUserBdcItem.getEnabled()}" data-toggle="toggle"
+                                                 data-onstyle="primary" th:data-id="${listUserBdcItem.getId()}" th:id="${listUserBdcItem.getId()}">
+                                                <!-- <input class="checked"  data-value="0" type="checkbox"  data-toggle="toggle" data-onstyle="primary"> -->
                                             </td>
                                         </tr>
 
