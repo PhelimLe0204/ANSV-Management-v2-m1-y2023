@@ -48,8 +48,15 @@ public class BaseController {
         /* === Determine week of year === */
         Calendar calendar = new GregorianCalendar();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        
         // Xác định tuần đầu tiên trong năm có mấy ngày
-        calendar.setMinimalDaysInFirstWeek(8 - dayOfWeek.getValue());
+        int daysOfFirstWeek = 8 - dayOfWeek.getValue();
+        if (daysOfFirstWeek < 2) {
+            calendar.setMinimalDaysInFirstWeek(2);
+        } else {
+            calendar.setMinimalDaysInFirstWeek(8 - dayOfWeek.getValue());
+        }
+        
         calendar.setTime(date);
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
 
