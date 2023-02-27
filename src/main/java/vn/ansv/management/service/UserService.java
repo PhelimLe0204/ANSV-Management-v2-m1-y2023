@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.member.ListAllMemberDTO;
+import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.repository.UserRepository;
 import vn.ansv.management.service.Interface.IUser;
 
@@ -24,6 +25,11 @@ public class UserService implements IUser {
             System.out.println("--- e ---" + e);
         }
         return null;
+    }
+
+    @Override
+    public List<OptionUserDTO> findAllUserOption() {
+        return userRepository.findAllUserOption();
     }
 
 }

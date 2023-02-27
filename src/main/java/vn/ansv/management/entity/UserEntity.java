@@ -16,6 +16,18 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import vn.ansv.management.dto.member.ListAllMemberDTO;
+import vn.ansv.management.dto.selectOption.OptionUserDTO;
+
+/* ===== UserRepository.findAllUserOption() ===== */
+@NamedNativeQuery(name = "UserEntity.findAllUserOption", query = "SELECT "
+        + "u.id, u.employee_code AS employeeCode, u.fullname, u.avatar, p.position_name AS position, "
+        + "wc.name_display AS workCenter "
+        + "FROM user AS u "
+        + "INNER JOIN user_position AS up ON u.id = up.user_id "
+        + "INNER JOIN position AS p ON up.position_id = p.id "
+        + "INNER JOIN work_center AS wc ON u.work_center_id = wc.id "
+        + "WHERE u.enabled = 1 "
+        + "ORDER BY u.fullname", resultSetMapping = "Mapping.OptionUserDTO")
 
 /* ===== UserRepository.findAllByWorkCenter() ===== */
 @NamedNativeQuery(name = "UserEntity.findAllByWorkCenter", query = "SELECT "
@@ -29,6 +41,15 @@ import vn.ansv.management.dto.member.ListAllMemberDTO;
         + "INNER JOIN work_center AS wc ON u.work_center_id = wc.id "
         + "WHERE wc.id = :centerId "
         + "ORDER BY u.fullname", resultSetMapping = "Mapping.ListAllMemberDTO")
+
+/* ===== Set mapping: OptionUserDTO ===== */
+@SqlResultSetMapping(name = "Mapping.OptionUserDTO", classes = @ConstructorResult(targetClass = OptionUserDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "employeeCode", type = String.class),
+        @ColumnResult(name = "fullname", type = String.class),
+        @ColumnResult(name = "avatar", type = String.class),
+        @ColumnResult(name = "position", type = String.class),
+        @ColumnResult(name = "workCenter", type = String.class) }))
 
 /* ===== Set mapping: ListAllMemberDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ListAllMemberDTO", classes = @ConstructorResult(targetClass = ListAllMemberDTO.class, columns = {

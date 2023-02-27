@@ -20,6 +20,7 @@ import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
 import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
+import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.MenuCategoryRepository;
@@ -28,6 +29,7 @@ import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.ProjectService;
+import vn.ansv.management.service.UserService;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -50,6 +52,9 @@ public class ApiController {
 
     @Autowired
     private CurrencyUnitService currencyUnitService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/project")
     ResponseEntity<ResponseObject> getAllProject() {
@@ -119,5 +124,18 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("success", "null", ""));
         }
+    }
+
+    @GetMapping("/getUserSelectOption")
+    ResponseEntity<ResponseObject> getUserSelectOption() {
+        List<OptionUserDTO> data = userService.findAllUserOption();
+        String message = "Danh sách user dùng cho select option";
+
+        if (data.isEmpty()) {
+            message = "null";
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("success", message, data));
     }
 }

@@ -837,10 +837,9 @@ $("#qua-trinh-open-modal-edit").click(function () {
 
 
 /* ===== Start: Tab thành viên ===== */
-$("#thanh-vien-open-modal-edit").click(function () {
+$("#thanh-vien-tab").click(function () {
     console.log("thanh-vien-open-modal-edit");
 
-    $first_am_manager_id = $("#am_manager").attr("data-first");
     var data_user_select_option;
 
     // Ajax get data for project's selection
@@ -849,9 +848,9 @@ $("#thanh-vien-open-modal-edit").click(function () {
         success: function (result) {
             data_user_select_option = result.data;
 
-            $("#am_manager").select2({
-                dropdownParent: $('#manager-am-selection'),
-                placeholder: 'Quản lý AM / Phó ban BDC...',
+            $("#userOption").select2({
+                // dropdownParent: $('#userOption'),
+                placeholder: 'Chọn thành viên...',
                 data: data_user_select_option,
                 allowClear: true,
                 selectOnClose: true,
@@ -868,7 +867,7 @@ $("#thanh-vien-open-modal-edit").click(function () {
                         + (data.fullname ? data.fullname : '. . . . .')
                         + '</span><br>'
                         + '<span>Mã: '
-                        + (data.employee_code ? data.employee_code : '. . . . .')
+                        + (data.employeeCode ? data.employeeCode : '. . . . .')
                         + '</span>'
                         + '</div>'
                         + '</div>'
@@ -877,13 +876,14 @@ $("#thanh-vien-open-modal-edit").click(function () {
                     return $state;
                 },
                 templateSelection: function (data, container) {
+                    // Hiển thị option đã chọn
                     var $state = $(
                         '<div class="row">'
                         + '<div class="col-md-2 pb-1">'
                         + '<img src="/images/logo/image_undefined.jpg" class="img-flag" style="width: 54px; height: 54px; margin-left: 5px; padding-top: 5px;" />'
                         + '</div>'
                         + '<div class="col-md-10 pt-3">'
-                        + '<span class="font-weight-bold">Mời chọn người quản lý AM...</span>'
+                        + '<span class="font-weight-bold">Mời chọn thành viên...</span>'
                         + '</div>'
                         + '</div>'
                     );
@@ -898,7 +898,7 @@ $("#thanh-vien-open-modal-edit").click(function () {
                             + '</div>'
                             + '<div class="col-md-9">'
                             + '<span class="font-weight-bold">' + data.fullname + '</span><br>'
-                            + '<span>Mã: ' + (data.employee_code ? data.employee_code : '. . . . .') + '</span>'
+                            + '<span>Mã: ' + (data.employeeCode ? data.employeeCode : '. . . . .') + '</span>'
                             + '</div>'
                             + '</div>'
                         );
@@ -908,8 +908,6 @@ $("#thanh-vien-open-modal-edit").click(function () {
                     return $state;
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
-
-            $("#am_manager").select2("val", $first_am_manager_id);
         }
     });
 });
