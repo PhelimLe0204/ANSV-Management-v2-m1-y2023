@@ -897,8 +897,10 @@ $("#thanh-vien-tab").click(function () {
                             + '" class="img-flag" style="width: 54px; height: 54px; margin-left: 5px; padding-top: 5px;" />'
                             + '</div>'
                             + '<div class="col-md-9">'
-                            + '<span class="font-weight-bold">' + data.fullname + '</span><br>'
-                            + '<span>Mã: ' + (data.employeeCode ? data.employeeCode : '. . . . .') + '</span>'
+                            + '<span class="font-weight-bold" id="fullname-' + data.id + '">'
+                            + data.fullname + '</span><br>'
+                            + '<span>Vị trí: <span id="position-' + data.id + '">'
+                            + (data.position ? data.position : '. . . . .') + '</span></span>'
                             + '</div>'
                             + '</div>'
                         );
@@ -907,7 +909,19 @@ $("#thanh-vien-tab").click(function () {
 
                     return $state;
                 },
-            }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
+            }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { }).on('select2:select', function (e) {
+                var select2_target = $(this).val();
+
+                // Call Ajax add member
+
+
+                // Get value
+                var select2_fullname = $("#fullname-" + select2_target).text();
+                var select2_position = $("#position-" + select2_target).text();
+                // Set value
+                $("#newInviteName").val(select2_fullname);
+                $("#newInvitePosition").val(select2_position);
+            });
         }
     });
 });
