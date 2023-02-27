@@ -16,6 +16,18 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import vn.ansv.management.dto.member.ListAllMemberDTO;
+import vn.ansv.management.dto.selectOption.OptionUserDTO;
+
+/* ===== UserRepository.findAllUserOption() ===== */
+@NamedNativeQuery(name = "UserEntity.findAllUserOption", query = "SELECT "
+        + "u.id, u.employee_code AS employeeCode, u.fullname, u.avatar, p.position_name AS position, "
+        + "wc.name_display AS workCenter "
+        + "FROM user AS u "
+        + "INNER JOIN user_position AS up ON u.id = up.user_id "
+        + "INNER JOIN position AS p ON up.position_id = p.id "
+        + "INNER JOIN work_center AS wc ON u.work_center_id = wc.id "
+        + "WHERE u.enabled = 1 "
+        + "ORDER BY u.fullname", resultSetMapping = "Mapping.OptionUserDTO")
 
 /* ===== UserRepository.findAllByWorkCenter() ===== */
 @NamedNativeQuery(name = "UserEntity.findAllByWorkCenter", query = "SELECT "
@@ -29,6 +41,15 @@ import vn.ansv.management.dto.member.ListAllMemberDTO;
         + "INNER JOIN work_center AS wc ON u.work_center_id = wc.id "
         + "WHERE wc.id = :centerId "
         + "ORDER BY u.fullname", resultSetMapping = "Mapping.ListAllMemberDTO")
+
+/* ===== Set mapping: OptionUserDTO ===== */
+@SqlResultSetMapping(name = "Mapping.OptionUserDTO", classes = @ConstructorResult(targetClass = OptionUserDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "employeeCode", type = String.class),
+        @ColumnResult(name = "fullname", type = String.class),
+        @ColumnResult(name = "avatar", type = String.class),
+        @ColumnResult(name = "position", type = String.class),
+        @ColumnResult(name = "workCenter", type = String.class) }))
 
 /* ===== Set mapping: ListAllMemberDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ListAllMemberDTO", classes = @ConstructorResult(targetClass = ListAllMemberDTO.class, columns = {
@@ -54,11 +75,11 @@ import vn.ansv.management.dto.member.ListAllMemberDTO;
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
-    @Column(name = "position_id", nullable = false)
-    private Integer positionId;
+    // @Column(name = "position_id", nullable = false)
+    // private Integer positionId;
 
-    @Column(name = "position_assigned_by", nullable = false)
-    private String positionAssignedBy;
+    // @Column(name = "position_assigned_by", nullable = false)
+    // private String positionAssignedBy;
 
     @Column(name = "employee_code")
     private String employeeCode;
@@ -88,21 +109,21 @@ public class UserEntity extends BaseEntity {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles = new ArrayList<>(); // 1 'user' có nhiều 'role' => dùng List để hứng mảng dữ liệu
 
-    public Integer getPositionId() {
-        return this.positionId;
-    }
+    // public Integer getPositionId() {
+    // return this.positionId;
+    // }
 
-    public void setPositionId(Integer positionId) {
-        this.positionId = positionId;
-    }
+    // public void setPositionId(Integer positionId) {
+    // this.positionId = positionId;
+    // }
 
-    public String getPositionAssignedBy() {
-        return this.positionAssignedBy;
-    }
+    // public String getPositionAssignedBy() {
+    // return this.positionAssignedBy;
+    // }
 
-    public void setPositionAssignedBy(String positionAssignedBy) {
-        this.positionAssignedBy = positionAssignedBy;
-    }
+    // public void setPositionAssignedBy(String positionAssignedBy) {
+    // this.positionAssignedBy = positionAssignedBy;
+    // }
 
     public String getEmployeeCode() {
         return this.employeeCode;
