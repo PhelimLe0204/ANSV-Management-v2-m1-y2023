@@ -25,9 +25,8 @@ public class ListAllMemberDTO {
     private String centerDescription;
 
     public ListAllMemberDTO(Long id, Long uid, String avatar, String employeeCode, String fullname, String username,
-            Integer enabled, Long positionId, String positionName,
-            String positionExplain, String positionDisplay, Long workCenterId, String centerName, String centerDisplay,
-            String centerDescription) {
+            Integer enabled, Long positionId, String positionName, String positionExplain, String positionDisplay,
+            Long workCenterId, String centerName, String centerDisplay, String centerDescription) {
         this.id = id;
         this.uid = uid;
         this.avatar = avatar;
