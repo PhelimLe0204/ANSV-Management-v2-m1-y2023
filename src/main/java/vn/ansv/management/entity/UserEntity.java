@@ -32,12 +32,13 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
 /* ===== UserRepository.findAllByWorkCenter() ===== */
 @NamedNativeQuery(name = "UserEntity.findAllByWorkCenter", query = "SELECT "
         + "u.id, u.uid, u.avatar, u.employee_code AS employeeCode, u.fullname, "
-        + "u.position_assigned_by AS positionAssignedBy, u.username, u.enabled, p.id AS positionId, "
+        + "u.username, u.enabled, p.id AS positionId, "
         + "p.position_name AS positionName, p.position_explain AS positionExplain, "
         + "p.note AS positionDisplay, wc.id AS workCenterId, wc.center_name AS centerName, "
         + "wc.name_display AS centerDisplay, wc.description AS centerDescription "
         + "FROM user AS u "
-        + "INNER JOIN position AS p ON u.position_id = p.id "
+        + "INNER JOIN user_position AS up ON u.id = up.user_id "
+        + "INNER JOIN position AS p ON up.position_id = p.id "
         + "INNER JOIN work_center AS wc ON u.work_center_id = wc.id "
         + "WHERE wc.id = :centerId "
         + "ORDER BY u.fullname", resultSetMapping = "Mapping.ListAllMemberDTO")
@@ -58,7 +59,6 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
         @ColumnResult(name = "avatar", type = String.class),
         @ColumnResult(name = "employeeCode", type = String.class),
         @ColumnResult(name = "fullname", type = String.class),
-        @ColumnResult(name = "positionAssignedBy", type = String.class),
         @ColumnResult(name = "username", type = String.class),
         @ColumnResult(name = "enabled", type = Integer.class),
 

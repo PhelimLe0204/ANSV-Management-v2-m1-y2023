@@ -11,7 +11,6 @@ public class ListAllMemberDTO {
     private String avatar;
     private String employeeCode;
     private String fullname;
-    private String positionAssignedBy;
     private String username;
     private Integer enabled;
 
@@ -25,8 +24,8 @@ public class ListAllMemberDTO {
     private String centerDisplay;
     private String centerDescription;
 
-    public ListAllMemberDTO(Long id, Long uid, String avatar, String employeeCode, String fullname,
-            String positionAssignedBy, String username, Integer enabled, Long positionId, String positionName,
+    public ListAllMemberDTO(Long id, Long uid, String avatar, String employeeCode, String fullname, String username,
+            Integer enabled, Long positionId, String positionName,
             String positionExplain, String positionDisplay, Long workCenterId, String centerName, String centerDisplay,
             String centerDescription) {
         this.id = id;
@@ -34,7 +33,6 @@ public class ListAllMemberDTO {
         this.avatar = avatar;
         this.employeeCode = employeeCode;
         this.fullname = fullname;
-        this.positionAssignedBy = positionAssignedBy;
         this.username = username;
         this.enabled = enabled;
         this.positionId = positionId;
