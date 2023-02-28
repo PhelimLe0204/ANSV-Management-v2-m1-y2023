@@ -45,13 +45,6 @@ public class ProjectReportMemberEntity extends BaseEntity {
     @JoinColumn(name = "project_id")
     private ProjectEntity project; // 1 'project_report_member' thuộc 1 'project' => hứng 1 bản ghi
 
-    // public Long getProjectReportId() {
-    // return this.projectReportId;
-    // }
-    // public void setProjectReportId(Long projectReportId) {
-    // this.projectReportId = projectReportId;
-    // }
-
     public String getJobAssinged() {
         return this.jobAssinged;
     }
@@ -68,12 +61,28 @@ public class ProjectReportMemberEntity extends BaseEntity {
         this.jobDetail = jobDetail;
     }
 
+    public UserEntity getUser() {
+        return this.user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
     public ProjectReportEntity getProjectReport() {
         return this.projectReport;
     }
 
     public void setProjectReport(ProjectReportEntity projectReport) {
         this.projectReport = projectReport;
+    }
+
+    public ProjectEntity getProject() {
+        return this.project;
+    }
+
+    public void setProject(ProjectEntity project) {
+        this.project = project;
     }
 
 }
