@@ -866,8 +866,8 @@ $("#thanh-vien-tab").click(function () {
                         + '<span class="font-weight-bold">'
                         + (data.fullname ? data.fullname : '. . . . .')
                         + '</span><br>'
-                        + '<span>Mã: '
-                        + (data.employeeCode ? data.employeeCode : '. . . . .')
+                        + '<span>Vị trí: '
+                        + (data.position ? data.position : '. . . . .')
                         + '</span>'
                         + '</div>'
                         + '</div>'
@@ -910,10 +910,16 @@ $("#thanh-vien-tab").click(function () {
                     return $state;
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { }).on('select2:select', function (e) {
-                var select2_target = $(this).val();
+                var select2_target = $(this).val(); // data.id
+                console.log(select2_target);
 
                 // Call Ajax add member
+                // $.ajax({
+                //     url: "/api/addMemberIntoReport",
+                //     success: function (result) {
 
+                //     }
+                // });
 
                 // Get value
                 var select2_fullname = $("#fullname-" + select2_target).text();
