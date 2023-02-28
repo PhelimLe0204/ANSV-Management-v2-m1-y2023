@@ -21,11 +21,29 @@ public class ProjectReportMemberEntity extends BaseEntity {
     @ManyToOne
     /*
      * @JoinColumn(name =
-     * "khóa ngoại trong bảng 'project_report_member' kết nối với bảng 'project_report' (project_report_id)"
+     * "khóa ngoại trong bảng 'project_report_member' kết nối với bảng 'user' (user_id)"
      * )
      */
-    @JoinColumn(name = "project_report_id")
+    @JoinColumn(name = "user_id")
+    private UserEntity user; // 1 'project_report_member' sử dụng 1 'user' => hứng 1 bản ghi
+
+    @ManyToOne
+    /*
+     * @JoinColumn(name =
+     * "khóa ngoại trong bảng 'project_report_member' kết nối với bảng 'project_report' (first_report_id)"
+     * )
+     */
+    @JoinColumn(name = "first_report_id")
     private ProjectReportEntity projectReport; // 1 'project_report_member' sử dụng 1 'project_report' => hứng 1 bản ghi
+
+    @ManyToOne
+    /*
+     * @JoinColumn(name =
+     * "khóa ngoại trong bảng 'project_report_member' kết nối với bảng 'project' (project_id)"
+     * )
+     */
+    @JoinColumn(name = "project_id")
+    private ProjectEntity project; // 1 'project_report_member' thuộc 1 'project' => hứng 1 bản ghi
 
     // public Long getProjectReportId() {
     // return this.projectReportId;
