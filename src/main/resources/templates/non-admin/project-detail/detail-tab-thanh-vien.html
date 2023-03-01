@@ -11,30 +11,35 @@
                             </div>
                         </div>
                         <div class="c-card__body" id="addForm">
-                            <div class="c-form-field">
-                                <input type="hidden" th:value="${detailTabPhanLoai.getId()}"
-                                    id="tabThanhVienReportId" />
-                                <label class="c-form-field__label" for="userOption">Thành viên</label>
-                                <select id="userOption"></select>
-                            </div>
-                            <div class="c-form-field">
-                                <label class="c-form-field__label" for="newInviteName">Tên</label>
-                                <input class="c-form-field__input" id="newInviteName" type="text"
-                                    placeholder="Nguyễn Văn A" readonly />
-                            </div>
-                            <div class="c-form-field">
-                                <label class="c-form-field__label" for="newInvitePosition">Vai trò</label>
-                                <input class="c-form-field__input" id="newInvitePosition" type="text"
-                                    placeholder="Phó ban DO" readonly />
-                            </div>
-                            <div class="c-form-field">
-                                <label class="c-form-field__label" for="formJobAssinged">Công việc phân bổ</label>
-                                <textarea class="tinymce-content-job-assigned" id="formJobAssinged"
-                                    placeholder="Mời nhập nội dung CÔNG VIỆC PHÂN BỔ..."></textarea>
-                            </div>
-                            <button class="c-button c-button--primary c-button--full" style="font-size: 16px;"
-                                id="addMember">
-                                Thêm vào dự án</button>
+                            <form id="formAddMember" method="post">
+                                <div class="c-form-field">
+                                    <input type="hidden" name="projectId" th:value="${detailTabPhanLoai.getProjectId()}"
+                                        id="tabThanhVienProjectId" />
+                                    <input type="hidden" name="reportId" th:value="${detailTabPhanLoai.getId()}"
+                                        id="tabThanhVienReportId" />
+                                    <label class="c-form-field__label" for="userOption">Thành viên</label>
+                                    <select id="userOption" name="userId"></select>
+                                </div>
+                                <div class="c-form-field">
+                                    <label class="c-form-field__label" for="newInviteName">Tên</label>
+                                    <input class="c-form-field__input" id="newInviteName" type="text"
+                                        placeholder="Nguyễn Văn A" readonly />
+                                </div>
+                                <div class="c-form-field">
+                                    <label class="c-form-field__label" for="newInvitePosition">Vai trò</label>
+                                    <input class="c-form-field__input" id="newInvitePosition" type="text"
+                                        placeholder="Phó ban DO" readonly />
+                                </div>
+                                <div class="c-form-field">
+                                    <label class="c-form-field__label" for="newJobAssigned">Công việc phân bổ</label>
+                                    <textarea class="tinymce-content-job-assigned" id="newJobAssigned"
+                                        name="jobAssinged"
+                                        placeholder="Mời nhập nội dung CÔNG VIỆC PHÂN BỔ..."></textarea>
+                                </div>
+                                <button class="c-button c-button--primary c-button--full" style="font-size: 16px;"
+                                    id="addMember">
+                                    Thêm vào dự án</button>
+                            </form>
                         </div>
                     </div>
                 </div>

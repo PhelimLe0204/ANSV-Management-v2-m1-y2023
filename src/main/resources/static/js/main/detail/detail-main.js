@@ -912,28 +912,9 @@ $("#thanh-vien-tab").click(function () {
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { }).on('select2:select', function (e) {
                 var select2_target = $(this).val(); // data.id (user's id)
-                console.log(select2_target);
-
-                const formData = new FormData();
-                formData.append("jobAssinged", $("#formJobAssinged").val());
-                formData.append("projectId", $("#formProjectId").val());
-                formData.append("firstReportId", $("#tabThanhVienReportId").val());
-                formData.append("userId", select2_target);
-
-                // Call Ajax add member
-                // $.ajax({
-                //     url: "/api/addMemberIntoReport",
-                //     success: function (result) {
-
-                //     }
-                // });
-
-                // Get value
-                var select2_fullname = $("#fullname-" + select2_target).text();
-                var select2_position = $("#position-" + select2_target).text();
                 // Set value
-                $("#newInviteName").val(select2_fullname);
-                $("#newInvitePosition").val(select2_position);
+                $("#newInviteName").val($("#fullname-" + select2_target).text());
+                $("#newInvitePosition").val($("#position-" + select2_target).text());
             });
         }
     });
@@ -942,7 +923,7 @@ $("#thanh-vien-tab").click(function () {
     if (!$tinymceChangeTabThanhVien) {
         tinymce.init({
             promotion: false,
-            selector: 'textarea#formJobAssinged',
+            selector: 'textarea#newJobAssigned',
             ui_container: '#tinymce-group',
             height: 250,
             plugins: [
@@ -954,12 +935,60 @@ $("#thanh-vien-tab").click(function () {
                 'bold italic backcolor | alignleft aligncenter ' +
                 'alignright alignjustify | bullist numlist outdent indent | ' +
                 'removeformat | help',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+            setup: function (editor) {
+                editor.on('init', function (e) {
+                    // editor.getContent();
+                    $("#newJobAssigned").val(editor.getContent());
+                });
+            }
         });
 
         $tinymceChangeTabThanhVien = true;
     }
+
+    // $("#addMember").click(function () {
+    //     const formData = new FormData();
+    //     formData.append("jobAssinged", $("#newJobAssigned").val());
+    //     formData.append("projectId", $("#formProjectId").val());
+    //     formData.append("firstReportId", $("#tabThanhVienReportId").val());
+    //     formData.append("userId", select2_target);
+
+    //     // Call Ajax add member
+    //     $.ajax({
+    //         url: "/api/addMemberIntoReport",
+    //         success: function (result) {
+
+    //         }
+    //     });
+    // });
 });
+
+function addMember(jobAssignedInput) {
+    var status = false;
+
+    // const formData = new FormData();
+    // formData.append("jobAssinged", jobAssignedInput);
+    // formData.append("projectId", document.getElementById('tabThanhVienProjectId').value);
+    // formData.append("firstReportId", document.getElementById('tabThanhVienReportId').value);
+    // formData.append("userId", document.getElementById('userOption').value);
+
+    // Call Ajax add member
+    $.ajax({
+        type: "POST",
+        url: "/api/addMemberIntoReport",
+        data: $('#formAddMember').serialize(),
+        success: function (result) {
+            status = true;
+        },
+        error: function (e) {
+            console.log('Thêm thành viên thất bại.');
+            console.log(e);
+        },
+    });
+
+    return status;
+}
 /* ===== End: Tab thành viên ===== */
 
 
