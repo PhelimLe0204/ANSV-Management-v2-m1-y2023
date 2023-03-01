@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.service.ProjectReportService;
 
 @Controller
@@ -29,13 +30,9 @@ public class ProjectReportController extends BaseController {
         // 1, 3l, week, year);
 
         Init(); // Lấy dữ liệu cơ bản
-        // _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh
-        // Vien thong
-        // _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du
-        // an kinh doanh Chuyen doi so
-        // _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien
-        // khai
-        _mvShare.setViewName("non-admin/danh-sach/kd-vien-thong");
+        List<ListReport12DTO> dataType1 = projectReportService.findAllReportType12(1L);
+        _mvShare.addObject("listReportType1", dataType1);
+        _mvShare.setViewName("non-admin/report/kd-vien-thong");
         return _mvShare;
     }
 }

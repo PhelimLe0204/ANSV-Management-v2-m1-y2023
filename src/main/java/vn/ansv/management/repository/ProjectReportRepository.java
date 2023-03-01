@@ -14,6 +14,7 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
@@ -31,7 +32,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "ORDER BY pr.job_name", nativeQuery = true)
     // Danh sách báo cáo dự án trên Dashboard
     List<ProjectDashboardDTO> findAllDashboardProjectType1(@Param("enabled") int enabled,
-            @Param("project_type_id") int project_type_id, @Param("week") int week, @Param("year") int year);
+            @Param("project_type_id") int project_type_id, @Param("week") int week,
+            @Param("year") int year);
 
     /*
      * -------------------------------------------------------------------
@@ -41,7 +43,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      */
     @Query(nativeQuery = true)
     List<ProjectDashboardDTO> findAllDashboardProjectStep1(@Param("enabled") int enabled,
-            @Param("project_type_id") Long project_type_id, @Param("week") int week, @Param("year") int year);
+            @Param("project_type_id") Long project_type_id, @Param("week") int week,
+            @Param("year") int year);
 
     /*
      * ---------------------------------------------------
@@ -51,7 +54,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
      */
     @Query(nativeQuery = true)
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(@Param("enabled") int enabled,
-            @Param("project_type_id") Long project_type_id, @Param("week") int week, @Param("year") int year);
+            @Param("project_type_id") Long project_type_id, @Param("week") int week,
+            @Param("year") int year);
 
     /*
      * -------------------------------------------
@@ -77,7 +81,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     void updateDetailTabPhanLoai(
             @Param("id") Long id, @Param("projectId") Long projectId, @Param("typeId") Long typeId,
             @Param("priorityId") Long priorityId, @Param("statusId") Long statusId, @Param("week") int week,
-            @Param("year") int year, @Param("maHopDong") String maHopDong, @Param("maKeToan") String maKeToan,
+            @Param("year") int year, @Param("maHopDong") String maHopDong,
+            @Param("maKeToan") String maKeToan,
             @Param("currencyUnitId") Long currencyUnitId);
 
     /*
@@ -102,9 +107,11 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "pr.tong_muc_dau_tu_du_kien = :tongMucDauTuDuKien, pr.muc_do_kha_thi = :mucDoKhaThi "
             + "WHERE pr.id = :id", nativeQuery = true)
     void updateDetailTabDuThau(
-            @Param("id") Long id, @Param("jobName") String jobName, @Param("description") String description,
+            @Param("id") Long id, @Param("jobName") String jobName,
+            @Param("description") String description,
             @Param("phanTichSwoot") String phanTichSwoot, @Param("hinhThucDauTu") String hinhThucDauTu,
-            @Param("phamViCungCap") String phamViCungCap, @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
+            @Param("phamViCungCap") String phamViCungCap,
+            @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
             @Param("mucDoKhaThi") int mucDoKhaThi);
 
     /*
@@ -151,6 +158,14 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(@Param("id") Long id, @Param("enabled") int enabled);
 
     /*
+     * Danh sách các báo cáo dựa án Kinh doanh viễn thông và chuyển đổi số
+     * View: Thống kê
+     */
+
+    @Query(nativeQuery = true)
+    List<ListReport12DTO> findAllReportType12(@Param("project_type_id") Long project_type_id);
+
+    /*
      * ----------------------------------------
      * Cập nhật chi tiết báo cáo dự án
      * View: Detail (tab Quá trình)
@@ -164,7 +179,9 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "pr.ket_qua_tuan_nay = :ketQuaTuanNay "
             + "WHERE pr.id = :id", nativeQuery = true)
     void updateDetailTabQuaTrinh(
-            @Param("id") Long id, @Param("generalIssue") String generalIssue, @Param("solution") String solution,
+            @Param("id") Long id, @Param("generalIssue") String generalIssue,
+            @Param("solution") String solution,
             @Param("keHoachTuanNay") String keHoachTuanNay, @Param("keHoachTuanSau") String keHoachTuanSau,
             @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc, @Param("ketQuaTuanNay") String ketQuaTuanNay);
+
 }

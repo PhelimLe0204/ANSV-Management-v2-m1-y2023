@@ -9,11 +9,14 @@ import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Report.ListReport12DTO;
 
 public interface IProjectReport {
     List<ProjectDashboardDTO> findAllDashboardProjectStep1(int enabled, Long type, int week, int year);
 
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(int enabled, Long type, int week, int year);
+
+    List<ListReport12DTO> findAllReportType12(Long type);
 
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 

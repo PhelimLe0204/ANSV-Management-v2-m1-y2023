@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Danh sách dự án | Kinh doanh viễn thông</title>
+</head>
+
+<body>
+    <div class="pcoded-main-container" layout:fragment="content">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="page-header-title"></div>
+                            <ul class="breadcrumb float-right">
+                                <li class="breadcrumb-item">
+                                    <a href="/dashboard"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row" style="margin-top: -20px;">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Danh sách dự án KD Viễn Thông</h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-maximize"></i> maximize</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-minimize"></i>Restore
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item minimize-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-minus"></i> collapse</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-plus"></i> expand
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item reload-card">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-refresh-cw"></i> reload
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item close-card">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-trash"></i> remove
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="tab-content" id="myTabContent">
+
+
+                                <div class="table-responsive">
+
+                                    <table class="table table-striped table-hover" id="table-vien-thong">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">STT</th>
+                                                <th>Tên dự án</th>
+                                                <th class="text-center">Mức độ khả thi</th>
+                                                <th class="text-center">Tổng mức đầu tư</th>
+                                                <th class="text-center">Khách hàng</th>
+                                                <th class="text-center">Người thực hiện (AM)</th>
+                                                <th class="text-center">Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="listReportType1Item : ${listReportType1}">
+                                                <td class="text-center" th:text="${listReportType1ItemStat.index + 1}"></td>
+                                                <td>
+                                                    <a th:href="@{/chi-tiet?id=} + ${listReportType1Item.getId()}"
+                                                        th:text="${#strings.abbreviate(listReportType1Item.getJobName(),60)}"
+                                                            data-toggle="tooltip"
+                                                            th:title="'Tuần ' + ${listReportType1Item.getWeek()} + ' tháng ' + ${listReportType1Item.getYear()}"></a>
+                                                </td>
+                                                <td class="text-center" th:text="${listReportType1Item.getMucDoKhaThi()}+ '%'"></td>
+                                                <td class="text-center" th:text="${listReportType1Item.getTongMucDauTuDuKien()}"></td>
+                                                <td class="text-center" th:text="${listReportType1Item.getCustomerName()}"></td>
+                                                <td class="text-center" th:text="${listReportType1Item.getPicName()}"></td>
+                                                <td class="text-center">
+                                                    <button type="button"
+                                                        th:class="'btn btn-' + ${listReportType1Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
+                                                        data-toggle="popover" data-html="true"
+                                                        data-placement="right" title=""
+                                                        th:attr="data-content=${listReportType1Item.getTinhTrangDuAn()}"
+                                                        data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                        th:text="${listReportType1Item.getStatusDisplay()}">
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+</body>
+
+</html>
