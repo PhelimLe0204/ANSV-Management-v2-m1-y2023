@@ -12,6 +12,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.Interface.IProjectReport;
@@ -148,4 +149,16 @@ public class ProjectReportService implements IProjectReport {
         return true;
     }
     /* ========== End: Detail tab quá trình ========== */
+
+    @Override
+    public List<ListReport12DTO> findAllReportType12(Long type) {
+        try {
+            List<ListReport12DTO> result = projectReportRepository.findAllReportType12(type);
+            return result;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+        }
+        return null;
+
+    }
 }

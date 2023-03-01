@@ -18,6 +18,7 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 
 /* ===== ProjectReportRepository.findAllDashboardProjectStep1() ===== */
@@ -90,6 +91,35 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "pr.ket_qua_tuan_nay AS ketQuaTuanNay "
         + "FROM project_report AS pr "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabQuaTrinhDTO")
+
+/* ===== ProjectReportRepository.findAllReportType12 ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllReportType12", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn, "
+        + "pr.muc_do_kha_thi AS mucDoKhaThi, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, pr.week, pr.year "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.project_type_id = :project_type_id "
+        + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport12DTO")
+
+/* ===== Set mapping: ListReport12DTO ===== */
+@SqlResultSetMapping(name = "Mapping.ListReport12DTO", classes = @ConstructorResult(targetClass = ListReport12DTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "picName", type = String.class),
+        @ColumnResult(name = "statusDisplay", type = String.class),
+        @ColumnResult(name = "statusColor", type = String.class),
+        @ColumnResult(name = "tinhTrangDuAn", type = String.class),
+        @ColumnResult(name = "mucDoKhaThi", type = Integer.class),
+        @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
+        @ColumnResult(name = "week", type = Integer.class),
+        @ColumnResult(name = "year", type = Integer.class)
+
+}))
 
 /* ===== Set mapping: ProjectDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ProjectDashboardDTO", classes = @ConstructorResult(targetClass = ProjectDashboardDTO.class, columns = {
