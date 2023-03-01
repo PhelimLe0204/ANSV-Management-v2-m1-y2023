@@ -695,10 +695,10 @@ $(".detail-tab4-show-more").click(function () {
     $("." + $(this).attr("data-hiding")).show();
 });
 
-var $tinymceChange = false;
+var $tinymceChangeTabQuaTrinh = false;
 var $tinymceOriginal = [];
 $("#qua-trinh-open-modal-edit").click(function () {
-    if (!$tinymceChange) {
+    if (!$tinymceChangeTabQuaTrinh) {
         tinymce.init({
             promotion: false,
             selector: 'textarea.tinymce-content',
@@ -726,7 +726,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
             }
         });
 
-        $tinymceChange = true;
+        $tinymceChangeTabQuaTrinh = true;
     }
 
     // Bắt sự kiện SUBMIT form tab "Quá trình"
@@ -837,6 +837,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
 
 
 /* ===== Start: Tab thành viên ===== */
+var $tinymceChangeTabThanhVien = false;
 $("#thanh-vien-tab").click(function () {
     console.log("thanh-vien-open-modal-edit");
 
@@ -936,6 +937,28 @@ $("#thanh-vien-tab").click(function () {
             });
         }
     });
+
+    // tinymce: job assigned
+    if (!$tinymceChangeTabThanhVien) {
+        tinymce.init({
+            promotion: false,
+            selector: 'textarea#formJobAssinged',
+            ui_container: '#tinymce-group',
+            height: 250,
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+        });
+
+        $tinymceChangeTabThanhVien = true;
+    }
 });
 /* ===== End: Tab thành viên ===== */
 

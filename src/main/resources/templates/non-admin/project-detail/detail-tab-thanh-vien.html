@@ -12,11 +12,6 @@
                         </div>
                         <div class="c-card__body" id="addForm">
                             <div class="c-form-field">
-                                <p>
-                                    <th:block th:each="detailTabThanhVienItem : ${detailTabThanhVien}">
-                                        - [[${detailTabThanhVienItem.getFullname()}]]
-                                    </th:block>
-                                </p>
                                 <input type="hidden" th:value="${detailTabPhanLoai.getId()}"
                                     id="tabThanhVienReportId" />
                                 <label class="c-form-field__label" for="userOption">Thành viên</label>
@@ -65,29 +60,34 @@
                             </div>
                             <!-- <p>Manage the current members of this team and customize your team settings.</p> -->
                         </div>
-                        <ul class="c-list">
+                        <ul class="c-list list-member-overflow">
                             <th:block th:each="detailTabThanhVienItem : ${detailTabThanhVien}">
-                                - [[${detailTabThanhVienItem.getFullname()}]]
                                 <li class="c-contact">
                                     <div class="c-contact__left">
-                                        <div class="c-contact__avatar" data-avatar="@{/images/user/ANSV_logo.png}">
+                                        <div class="c-contact__avatar"
+                                            th:data-avatar="@{/images/user/} + ${detailTabThanhVienItem.getAvatar()}">
                                         </div>
                                         <div class="c-contact__content">
-                                            <div class="c-contact__name">Vũ Tuấn Khanh</div>
-                                            <small class="c-contact__description">Trưởng ban DO</small>
+                                            <div class="c-contact__name">
+                                                [[${detailTabThanhVienItem.getFullname()}]]</div>
+                                            <small class="c-contact__description">
+                                                [[${detailTabThanhVienItem.getPosition()}]]</small>
                                         </div>
                                     </div>
                                     <div class="l-actions contact__right">
-                                        <div class="c-button c-button--danger c-button--sm c-button--delete">Delete
-                                        </div>
-                                        <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                        <div th:data-id="${detailTabThanhVienItem.getId()}"
+                                            class="c-button c-button--danger c-button--sm c-button--delete btn-delete-report-member">
+                                            Delete</div>
+                                        <div th:data-id="${detailTabThanhVienItem.getId()}"
+                                            class="c-button c-button--default c-button--sm c-button--view btn-view-report-member">
+                                            View</div>
                                     </div>
                                 </li>
                             </th:block>
 
 
 
-                            <li class="c-contact">
+                            <!-- <li class="c-contact">
                                 <div class="c-contact__left">
                                     <div class="c-contact__avatar"
                                         data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=707b9c33066bf8808c934c8ab394dff6">
@@ -101,159 +101,7 @@
                                     <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
                                     <div class="c-button c-button--default c-button--sm c-button--view">View</div>
                                 </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=707b9c33066bf8808c934c8ab394dff6">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Trần Văn Hùng</div>
-                                        <small class="c-contact__description">Phó trưởng ban DO</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://randomuser.me/api/portraits/women/44.jpg">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Nguyễn Anh Tuấn</div>
-                                        <small class="c-contact__description">Project Manager</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://randomuser.me/api/portraits/women/68.jpg">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Nguyễn Văn A</div>
-                                        <small class="c-contact__description">Project Manager</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://randomuser.me/api/portraits/women/65.jpg">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Lê Văn B</div>
-                                        <small class="c-contact__description">Project Manager</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://randomuser.me/api/portraits/men/43.jpg">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Bùi Thị C</div>
-                                        <small class="c-contact__description">Project Manager</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?h=350&amp;auto=compress&amp;cs=tinysrgb">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Kim Quang Bành Thị Long Lanh Lấp Lánh</div>
-                                        <small class="c-contact__description">PM Member</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=a72ca28288878f8404a795f39642a46f">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Tiều Thị Vân Dung</div>
-                                        <small class="c-contact__description">
-                                            Phương châm sống: TIÊU THÌ VẪN DÙNG</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://randomuser.me/api/portraits/men/97.jpg">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Veeti Seppanen</div><small
-                                            class="c-contact__description">Accountant</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://randomuser.me/api/portraits/women/26.jpg">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Bonnie Riley</div><small
-                                            class="c-contact__description">Customer Service</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
-                            <li class="c-contact">
-                                <div class="c-contact__left">
-                                    <div class="c-contact__avatar"
-                                        data-avatar="https://tinyfac.es/data/avatars/B0298C36-9751-48EF-BE15-80FB9CD11143-500w.jpeg">
-                                    </div>
-                                    <div class="c-contact__content">
-                                        <div class="c-contact__name">Thomas Stock</div><small
-                                            class="c-contact__description">Product
-                                            Designer</small>
-                                    </div>
-                                </div>
-                                <div class="l-actions contact__right">
-                                    <div class="c-button c-button--danger c-button--sm c-button--delete">Delete</div>
-                                    <div class="c-button c-button--default c-button--sm c-button--view">View</div>
-                                </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
