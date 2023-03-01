@@ -150,4 +150,15 @@ public class ApiController {
                     new ResponseObject("failed", "Cập nhật trạng thái thất bại", ""));
         }
     }
+
+    // @GetMapping("/addMemberIntoReport/{reportId}/{userId}")
+    // ResponseEntity<ResponseObject> addMemberIntoReport(@PathVariable Long reportId, @PathVariable Long userId) {
+    //     if (userService.updateUserEnabled(id, enabled)) {
+    //         return ResponseEntity.status(HttpStatus.OK).body(
+    //                 new ResponseObject("success", "Cập nhật trạng thái thành công", ""));
+    //     } else {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+    //                 new ResponseObject("failed", "Cập nhật trạng thái thất bại", ""));
+    //     }
+    // }
 }
