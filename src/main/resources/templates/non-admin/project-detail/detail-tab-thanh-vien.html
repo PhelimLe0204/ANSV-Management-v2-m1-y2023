@@ -12,6 +12,13 @@
                         </div>
                         <div class="c-card__body" id="addForm">
                             <div class="c-form-field">
+                                <p>
+                                    <th:block th:each="detailTabThanhVienItem : ${detailTabThanhVien}">
+                                        - [[${detailTabThanhVienItem.getFullname()}]]
+                                    </th:block>
+                                </p>
+                                <input type="hidden" th:value="${detailTabPhanLoai.getId()}"
+                                    id="tabThanhVienReportId" />
                                 <label class="c-form-field__label" for="userOption">Thành viên</label>
                                 <select id="userOption"></select>
                             </div>
@@ -22,21 +29,13 @@
                             </div>
                             <div class="c-form-field">
                                 <label class="c-form-field__label" for="newInvitePosition">Vai trò</label>
-
-                                <!-- <select id="newInvitePosition" class="c-form-field__input">
-                                    <option value="truongBanDo">Trưởng ban DO</option>
-                                    <option value="phoBanDO">Phó ban DO</option>
-                                    <option value="projectManager">Project Manager</option>
-                                    <option value="pmMembers">PM Members</option>
-
-                                    <option value="Trưởng ban BDC">Trưởng ban BDC</option>
-                                    <option value="Phó ban BDC">Phó ban BDC</option>
-                                    <option value="Project Manager">Account Manager</option>
-                                    <option value="PM Members">AM Members</option>
-                                </select> -->
-
                                 <input class="c-form-field__input" id="newInvitePosition" type="text"
                                     placeholder="Phó ban DO" readonly />
+                            </div>
+                            <div class="c-form-field">
+                                <label class="c-form-field__label" for="formJobAssinged">Công việc phân bổ</label>
+                                <textarea class="tinymce-content-job-assigned" id="formJobAssinged"
+                                    placeholder="Mời nhập nội dung CÔNG VIỆC PHÂN BỔ..."></textarea>
                             </div>
                             <button class="c-button c-button--primary c-button--full" style="font-size: 16px;"
                                 id="addMember">
@@ -67,6 +66,27 @@
                             <!-- <p>Manage the current members of this team and customize your team settings.</p> -->
                         </div>
                         <ul class="c-list">
+                            <th:block th:each="detailTabThanhVienItem : ${detailTabThanhVien}">
+                                - [[${detailTabThanhVienItem.getFullname()}]]
+                                <li class="c-contact">
+                                    <div class="c-contact__left">
+                                        <div class="c-contact__avatar" data-avatar="@{/images/user/ANSV_logo.png}">
+                                        </div>
+                                        <div class="c-contact__content">
+                                            <div class="c-contact__name">Vũ Tuấn Khanh</div>
+                                            <small class="c-contact__description">Trưởng ban DO</small>
+                                        </div>
+                                    </div>
+                                    <div class="l-actions contact__right">
+                                        <div class="c-button c-button--danger c-button--sm c-button--delete">Delete
+                                        </div>
+                                        <div class="c-button c-button--default c-button--sm c-button--view">View</div>
+                                    </div>
+                                </li>
+                            </th:block>
+
+
+
                             <li class="c-contact">
                                 <div class="c-contact__left">
                                     <div class="c-contact__avatar"

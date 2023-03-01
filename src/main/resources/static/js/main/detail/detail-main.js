@@ -910,8 +910,14 @@ $("#thanh-vien-tab").click(function () {
                     return $state;
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { }).on('select2:select', function (e) {
-                var select2_target = $(this).val(); // data.id
+                var select2_target = $(this).val(); // data.id (user's id)
                 console.log(select2_target);
+
+                const formData = new FormData();
+                formData.append("jobAssinged", $("#formJobAssinged").val());
+                formData.append("projectId", $("#formProjectId").val());
+                formData.append("firstReportId", $("#tabThanhVienReportId").val());
+                formData.append("userId", select2_target);
 
                 // Call Ajax add member
                 // $.ajax({

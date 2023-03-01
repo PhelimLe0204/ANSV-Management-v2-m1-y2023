@@ -21,6 +21,7 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -29,6 +30,7 @@ import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectStatusDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectTypeDTO;
 import vn.ansv.management.service.ProjectPriorityService;
+import vn.ansv.management.service.ProjectReportMemberService;
 import vn.ansv.management.service.ProjectReportService;
 import vn.ansv.management.service.ProjectStatusService;
 import vn.ansv.management.service.ProjectTypeService;
@@ -41,6 +43,9 @@ public class HomeController extends BaseController {
 
     @Autowired // Inject "ProjectReportService" - Dependency Injection
     private ProjectReportService projectReportService;
+
+    @Autowired // Inject "ProjectReportMemberService" - Dependency Injection
+    private ProjectReportMemberService projectReportMemberService;
 
     @Autowired // Inject "ProjectTypeService" - Dependency Injection
     private ProjectTypeService projectTypeService;
@@ -94,12 +99,18 @@ public class HomeController extends BaseController {
         if (request.getParameter("id") == null) {
             return new ModelAndView("redirect:/");
         }
-        Long project_id = Long.parseLong(request.getParameter("id"));
+        Long project_report_id = Long.parseLong(request.getParameter("id"));
 
-        ReportDetailTabPhanLoaiDTO projectDetailTabPhanLoai = projectReportService.findDetailTabPhanLoai(project_id, 1);
-        ReportDetailTabDuThauDTO projectDetailTabDuThau = projectReportService.findDetailTabDuThau(project_id, 1);
-        ReportDetailTabCptgDTO projectDetailTabCptg = projectReportService.findDetailTabChiPhiThoiGian(project_id, 1);
-        ReportDetailTabQuaTrinhDTO projectDetailTabQuaTrinh = projectReportService.findDetailTabQuaTrinh(project_id, 1);
+        ReportDetailTabPhanLoaiDTO projectDetailTabPhanLoai = projectReportService
+                .findDetailTabPhanLoai(project_report_id, 1);
+        ReportDetailTabDuThauDTO projectDetailTabDuThau = projectReportService
+                .findDetailTabDuThau(project_report_id, 1);
+        ReportDetailTabCptgDTO projectDetailTabCptg = projectReportService
+                .findDetailTabChiPhiThoiGian(project_report_id, 1);
+        ReportDetailTabQuaTrinhDTO projectDetailTabQuaTrinh = projectReportService
+                .findDetailTabQuaTrinh(project_report_id, 1);
+        List<ReportDetailTabThanhVienDTO> projectDetailTabThanhVien = projectReportMemberService
+                .findAllMemberByReport(project_report_id);
 
         List<OptionProjectTypeDTO> optionProjectTypeDTO = projectTypeService.findAllOption();
         List<OptionProjectPriorityDTO> optionProjectPriorityDTO = projectPriorityService.findAllOption();
@@ -111,6 +122,7 @@ public class HomeController extends BaseController {
         _mvShare.addObject("detailTabDuThau", projectDetailTabDuThau);
         _mvShare.addObject("detailTabCptg", projectDetailTabCptg);
         _mvShare.addObject("detailTabQuaTrinh", projectDetailTabQuaTrinh);
+        _mvShare.addObject("detailTabThanhVien", projectDetailTabThanhVien);
 
         _mvShare.addObject("optionType", optionProjectTypeDTO);
         _mvShare.addObject("optionPriority", optionProjectPriorityDTO);
@@ -175,7 +187,7 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = "thanh-vien/do", method = RequestMethod.GET)
     public ModelAndView membersDO() {
-        
+
         Init(); // Lấy dữ liệu cơ bản
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(2L);
 
