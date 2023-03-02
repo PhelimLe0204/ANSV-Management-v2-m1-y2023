@@ -11,12 +11,15 @@
                             </div>
                         </div>
                         <div class="c-card__body" id="addForm">
-                            <form id="formAddMember" method="post">
+                            <form th:action="@{/chi-tiet/add-member/{id}(id=${detailTabPhanLoai.getId()})}"
+                                id="form-tab-thanh-vien" method="post">
                                 <div class="c-form-field">
+                                    <input type="hidden" name="createdBy" value="1" />
+                                    <input type="hidden" name="moddifiedBy" value="1" />
                                     <input type="hidden" name="projectId" th:value="${detailTabPhanLoai.getProjectId()}"
                                         id="tabThanhVienProjectId" />
-                                    <input type="hidden" name="reportId" th:value="${detailTabPhanLoai.getId()}"
-                                        id="tabThanhVienReportId" />
+                                    <input type="hidden" name="firstReportId" th:value="${detailTabPhanLoai.getId()}"
+                                        id="tabThanhVienFirstReportId" />
                                     <label class="c-form-field__label" for="userOption">Thành viên</label>
                                     <select id="userOption" name="userId"></select>
                                 </div>
@@ -36,8 +39,8 @@
                                         name="jobAssinged"
                                         placeholder="Mời nhập nội dung CÔNG VIỆC PHÂN BỔ..."></textarea>
                                 </div>
-                                <button class="c-button c-button--primary c-button--full" style="font-size: 16px;"
-                                    id="addMember">
+                                <button type="submit" class="c-button c-button--primary c-button--full"
+                                    style="font-size: 16px;" id="addMember">
                                     Thêm vào dự án</button>
                             </form>
                         </div>

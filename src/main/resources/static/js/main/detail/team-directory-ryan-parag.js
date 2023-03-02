@@ -94,9 +94,9 @@ $(document).ready(function () {
         const randomState = Math.floor(Math.random() * 4);
 
         if (!nameInput.value.length == 0 && !positionInput.value.length == 0 && !jobAssignedInput.length == 0) {
-            if (addMember(jobAssignedInput) == true) {
-                console.log("Thêm thành viên mới thành công!");
-            }
+            // if (addMember(jobAssignedInput) == true) {
+            //     console.log("Thêm thành viên mới thành công!");
+            // }
 
             const list = document.querySelector('.c-list');
             const newItem = document.createElement('li');

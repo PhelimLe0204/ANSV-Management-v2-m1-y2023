@@ -951,7 +951,7 @@ $("#thanh-vien-tab").click(function () {
     //     const formData = new FormData();
     //     formData.append("jobAssinged", $("#newJobAssigned").val());
     //     formData.append("projectId", $("#formProjectId").val());
-    //     formData.append("firstReportId", $("#tabThanhVienReportId").val());
+    //     formData.append("firstReportId", $("#tabThanhVienFirstReportId").val());
     //     formData.append("userId", select2_target);
 
     //     // Call Ajax add member
@@ -962,33 +962,53 @@ $("#thanh-vien-tab").click(function () {
     //         }
     //     });
     // });
+
+    // $("#form-tab-thanh-vien").submit(function (event) {
+    //     alert("Handler for .submit() called.");
+    //     event.preventDefault();
+    // });
 });
 
-function addMember(jobAssignedInput) {
-    var status = false;
+// function addMember(jobAssignedInput) {
+//     var status = false;
 
-    // const formData = new FormData();
-    // formData.append("jobAssinged", jobAssignedInput);
-    // formData.append("projectId", document.getElementById('tabThanhVienProjectId').value);
-    // formData.append("firstReportId", document.getElementById('tabThanhVienReportId').value);
-    // formData.append("userId", document.getElementById('userOption').value);
+//     const formData = new FormData();
+//     formData.append("jobAssinged", jobAssignedInput);
+//     formData.append("projectId", document.getElementById('tabThanhVienProjectId').value);
+//     formData.append("firstReportId", document.getElementById('tabThanhVienFirstReportId').value);
+//     formData.append("userId", document.getElementById('userOption').value);
 
-    // Call Ajax add member
-    $.ajax({
-        type: "POST",
-        url: "/api/addMemberIntoReport",
-        data: $('#formAddMember').serialize(),
-        success: function (result) {
-            status = true;
-        },
-        error: function (e) {
-            console.log('Thêm thành viên thất bại.');
-            console.log(e);
-        },
-    });
+//     // Call Ajax add member
+//     // $.ajax({
+//     //     type: "POST",
+//     //     url: "/api/addMemberIntoReport",
+//     //     data: $('#formAddMember').serialize(),
+//     //     success: function (result) {
+//     //         status = true;
+//     //     },
+//     //     error: function (e) {
+//     //         console.log('Thêm thành viên thất bại.');
+//     //         console.log(e);
+//     //     },
+//     // });
 
-    return status;
-}
+//     $.ajax({
+//         type: "POST",
+//         url: "api/abc",
+//         data: {
+//             "jobAssinged": "test jobAssinged",
+//             "projectId": 1,
+//             "firstReportId": 1,
+//             "userId": 1
+//         },
+//         cache: false,
+//         success: function (result) {
+//             console.log(result);
+//         }
+//     });
+
+//     return status;
+// }
 /* ===== End: Tab thành viên ===== */
 
 

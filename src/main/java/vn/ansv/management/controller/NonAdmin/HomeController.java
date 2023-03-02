@@ -25,6 +25,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.member.AddMemberDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectStatusDTO;
@@ -194,5 +195,14 @@ public class HomeController extends BaseController {
         _mvShare.addObject("listUserDO", data);
         _mvShare.setViewName("non-admin/members/do");
         return _mvShare;
+    }
+
+    @PostMapping("/chi-tiet/add-member/{id}")
+    public String addMember(@PathVariable Long id, @ModelAttribute AddMemberDTO addMemberDTO) {
+        if (projectReportMemberService.addMember(addMemberDTO)) {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 5;
+        } else {
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 5;
+        }
     }
 }

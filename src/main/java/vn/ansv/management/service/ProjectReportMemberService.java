@@ -29,7 +29,8 @@ public class ProjectReportMemberService implements IProjectReportMember {
 
             data = projectReportMemberRepository.findAllMemberByReport(projectId, id);
         } catch (Exception e) {
-            System.out.println("----- Error ----- ProjectReportMemberService.findAllMemberByReport(): " + e.getMessage());
+            System.out.println("----- Error ----- ProjectReportMemberService.findAllMemberByReport(): "
+                    + e.getMessage());
             e.printStackTrace();
         }
         return data;
@@ -38,8 +39,9 @@ public class ProjectReportMemberService implements IProjectReportMember {
     @Override
     public Boolean addMember(AddMemberDTO dataInsert) {
         try {
-            projectReportMemberRepository.addMember(dataInsert.getJobAssinged(), dataInsert.getProjectId(),
-                    dataInsert.getFirstReportId(), dataInsert.getUserId());
+            projectReportMemberRepository.addMember(dataInsert.getCreatedBy(), dataInsert.getModdifiedBy(),
+                    dataInsert.getJobAssinged(), dataInsert.getProjectId(), dataInsert.getFirstReportId(),
+                    dataInsert.getUserId());
             return true;
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportMemberService.addMember(): " + e.getMessage());

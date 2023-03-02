@@ -5,8 +5,6 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
-// import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
-// import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
 import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
@@ -25,7 +22,6 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.MenuCategoryRepository;
-// import vn.ansv.management.repository.MenuRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
@@ -48,6 +44,9 @@ public class ApiController {
     @Autowired
     private ProjectService projectService;
 
+    // @Autowired
+    // private ProjectReportMemberService projectReportMemberService;
+
     @Autowired
     private CustomerService customerService;
 
@@ -58,7 +57,7 @@ public class ApiController {
     private UserService userService;
 
     @GetMapping("/project")
-    ResponseEntity<ResponseObject> getAllProject() {
+    public ResponseEntity<ResponseObject> getAllProject() {
         Iterable<ProjectEntity> data = projectRepository.findAll();
         // List<LayoutMenuCategoryDTO> menuCategoryTest =
         // menuCategoryRepository.findAllLayout();
@@ -83,7 +82,7 @@ public class ApiController {
     }
 
     @GetMapping("/getProjectSelectOption")
-    ResponseEntity<ResponseObject> getProjectSelectOption() {
+    public ResponseEntity<ResponseObject> getProjectSelectOption() {
         List<OptionProjectDTO> data = projectService.findAllSelectOption();
 
         if (data.size() > 0) {
@@ -96,7 +95,7 @@ public class ApiController {
     }
 
     @GetMapping("/getCustomerSelectOption")
-    ResponseEntity<ResponseObject> getCustomerSelectOption() {
+    public ResponseEntity<ResponseObject> getCustomerSelectOption() {
         List<OptionCustomerDTO> data = customerService.findAllSelectOption();
 
         if (data.size() > 0) {
@@ -109,7 +108,7 @@ public class ApiController {
     }
 
     @GetMapping("/getCurrencyUnitSelectOption")
-    ResponseEntity<ResponseObject> getCurrencyUnitSelectOption() {
+    public ResponseEntity<ResponseObject> getCurrencyUnitSelectOption() {
         Iterable<OptionCurrencyUnitDTO> data = currencyUnitService.findAllSelectOption();
         // data.forEach((dataItem) -> {
         // System.out.println("--------------------------------------------");
@@ -128,7 +127,7 @@ public class ApiController {
     }
 
     @GetMapping("/getUserSelectOption")
-    ResponseEntity<ResponseObject> getUserSelectOption() {
+    public ResponseEntity<ResponseObject> getUserSelectOption() {
         List<OptionUserDTO> data = userService.findAllUserOption();
         String message = "Danh sách user dùng cho select option";
 
@@ -141,7 +140,7 @@ public class ApiController {
     }
 
     @GetMapping("/updateEnabled/{id}/{enabled}")
-    ResponseEntity<ResponseObject> updateEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
+    public ResponseEntity<ResponseObject> updateEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
         if (userService.updateUserEnabled(id, enabled)) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", "Cập nhật trạng thái thành công", ""));
@@ -151,14 +150,16 @@ public class ApiController {
         }
     }
 
-    // @GetMapping("/addMemberIntoReport/{reportId}/{userId}")
-    // ResponseEntity<ResponseObject> addMemberIntoReport(@PathVariable Long reportId, @PathVariable Long userId) {
-    //     if (userService.updateUserEnabled(id, enabled)) {
+    // @PostMapping("/addMemberIntoReport")
+    // public ResponseEntity<ResponseObject> addMemberIntoReport(@RequestBody AddMemberDTO dataInsert) {
+    //     System.out.println("================== OK OK");
+
+    //     if (projectReportMemberService.addMember(dataInsert)) {
     //         return ResponseEntity.status(HttpStatus.OK).body(
-    //                 new ResponseObject("success", "Cập nhật trạng thái thành công", ""));
+    //                 new ResponseObject("success", "Thêm thành viên thành công.", ""));
     //     } else {
     //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-    //                 new ResponseObject("failed", "Cập nhật trạng thái thất bại", ""));
+    //                 new ResponseObject("failed", "Thêm thành viên thất bại.", ""));
     //     }
     // }
 }

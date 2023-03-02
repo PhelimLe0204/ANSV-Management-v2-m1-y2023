@@ -30,8 +30,10 @@ public interface ProjectReportMemberRepository extends JpaRepository<ProjectRepo
      */
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO project_report_member (job_assinged, project_id, first_report_id, user_id) "
-            + "VALUES (:jobAssinged, :projectId, :firstReportId, :userId)", nativeQuery = true)
-    void addMember(@Param("jobAssinged") String jobAssinged, @Param("projectId") Long projectId,
+    @Query(value = "INSERT INTO project_report_member (created_by, moddified_by, job_assinged, "
+            + "project_id, first_report_id, user_id) "
+            + "VALUES (:createdBy, :moddifiedBy, :jobAssinged, :projectId, :firstReportId, :userId)", nativeQuery = true)
+    void addMember(@Param("createdBy") Long createdBy, @Param("moddifiedBy") Long moddifiedBy,
+            @Param("jobAssinged") String jobAssinged, @Param("projectId") Long projectId,
             @Param("firstReportId") Long firstReportId, @Param("userId") Long userId);
 }
