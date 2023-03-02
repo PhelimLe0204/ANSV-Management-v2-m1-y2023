@@ -13,6 +13,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
+import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.Interface.IProjectReport;
@@ -160,5 +161,16 @@ public class ProjectReportService implements IProjectReport {
         }
         return null;
 
+    }
+
+    @Override
+    public List<ListReport3DTO> findAllReportType3(Long type) {
+        try {
+            List<ListReport3DTO> result = projectReportRepository.findAllReportType3(type);
+            return result;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+        }
+        return null;
     }
 }
