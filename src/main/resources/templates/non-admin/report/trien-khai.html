@@ -3,7 +3,7 @@
     layout:decorate="~{layout}">
 
 <head>
-    <title>Danh sách dự án | Kinh doanh viễn thông</title>
+    <title>Danh sách dự án | Triển khai</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
                 <div class="page-block">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            
+
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -34,7 +34,7 @@
                 <div class="col-xl-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Danh sách dự án KD Viễn Thông</h5>
+                            <h5>Danh sách dự án Triển Khai</h5>
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
@@ -84,8 +84,7 @@
                                             <tr>
                                                 <th class="text-center">STT</th>
                                                 <th>Tên dự án</th>
-                                                <th class="text-center">Mức độ khả thi</th>
-                                                <th class="text-center">Tổng mức đầu tư</th>
+                                                <th class="text-center">Tổng giá trị thực tế</th>
                                                 <th class="text-center">Khách hàng</th>
                                                 <th class="text-center">Người thực hiện (AM)</th>
                                                 <th class="text-center">Trạng thái</th>
@@ -93,27 +92,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="listReportType1Item : ${listReportType1}">
-                                                <td class="text-center" th:text="${listReportType1ItemStat.index + 1}"></td>
-                                                <td>
-                                                    <a th:href="@{/chi-tiet?id=} + ${listReportType1Item.getId()}"
-                                                        th:text="${#strings.abbreviate(listReportType1Item.getJobName(),60)}"
-                                                            data-toggle="tooltip"
-                                                            th:title="${listReportType1Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType1Item.getWeek()} + ' tháng ' + ${listReportType1Item.getYear()}"></p>
+                                            <tr th:each="listReportType3Item : ${listReportType3}">
+                                                <td class="text-center" th:text="${listReportType3ItemStat.index + 1}">
                                                 </td>
-                                                <td class="text-center" th:text="${listReportType1Item.getMucDoKhaThi()}+ '%'"></td>
-                                                <td class="text-center" th:text="${listReportType1Item.getTongMucDauTuDuKien()}"></td>
-                                                <td class="text-center" th:text="${listReportType1Item.getCustomerName()}"></td>
-                                                <td class="text-center" th:text="${listReportType1Item.getPicName()}"></td>
+                                                <td>
+                                                    <a th:href="@{/chi-tiet?id=} + ${listReportType3Item.getId()}"
+                                                        th:text="${#strings.abbreviate(listReportType3Item.getJobName(),60)}"
+                                                            data-toggle="tooltip"
+                                                            th:title="${listReportType3Item.getJobName()}"></a>
+                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType3Item.getWeek()} + ' năm ' + ${listReportType3Item.getYear()}"></p>
+                                                </td>
+                                                <td class="text-center" th:text="${listReportType3Item.getTongGiaTriThucTe()}"></td>
+                                                <td class="text-center" th:text="${listReportType3Item.getCustomerName()}"></td>
+                                                <td class="text-center" th:text="${listReportType3Item.getPicName()}"></td>
                                                 <td class="text-center">
                                                     <button type="button"
-                                                        th:class="'btn btn-' + ${listReportType1Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
+                                                        th:class="'btn btn-' + ${listReportType3Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
                                                         data-toggle="popover" data-html="true"
                                                         data-placement="right" title=""
-                                                        th:attr="data-content=${listReportType1Item.getTinhTrangDuAn()}"
+                                                        th:attr="data-content=${listReportType3Item.getTinhTrangDuAn()}"
                                                         data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                        th:text="${listReportType1Item.getStatusDisplay()}">
+                                                        th:text="${listReportType3Item.getStatusDisplay()}">
                                                     </button>
                                                 </td>
                                                 <td class="text-center">
