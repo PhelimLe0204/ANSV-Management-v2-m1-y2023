@@ -52,22 +52,77 @@ $(document).ready(function () {
     };
 
     function deleteItem() {
+        // const transitionTime = 250;
+        // const contact = this.parentNode.parentNode;
+        // contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
+        // contact.style.transform = 'translateX(4rem)';
+        // contact.style.opacity = 0;
+        // setTimeout(() => {
+        //     if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
+        //         emptyState(contact.parentNode);
+        //     } else {
+        //         if (contact.parentNode.querySelector('.c-empty-state')) {
+        //             document.querySelector('.c-empty-state').remove();
+        //         }
+        //     }
+        //     contact.remove();
+        //     updateCount();
+        // }, transitionTime);
+
         const transitionTime = 250;
         const contact = this.parentNode.parentNode;
-        contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
-        contact.style.transform = 'translateX(4rem)';
-        contact.style.opacity = 0;
-        setTimeout(() => {
-            if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
-                emptyState(contact.parentNode);
-            } else {
-                if (contact.parentNode.querySelector('.c-empty-state')) {
-                    document.querySelector('.c-empty-state').remove();
+
+        let thisDataId = this.getAttribute('data-id');
+
+        if (thisDataId) {
+            // Call ajax deleteMember
+            $.ajax({
+                url: "/api/deleteMember/" + thisDataId,
+                success: function (result) {
+                    if (result.status == "success") {
+                        contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
+                        contact.style.transform = 'translateX(4rem)';
+                        contact.style.opacity = 0;
+                        setTimeout(() => {
+                            if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
+                                emptyState(contact.parentNode);
+                            } else {
+                                if (contact.parentNode.querySelector('.c-empty-state')) {
+                                    document.querySelector('.c-empty-state').remove();
+                                }
+                            }
+                            contact.remove();
+                            updateCount();
+                        }, transitionTime);
+
+                        alertify.success(result.message).delay(1.5);
+                        return;
+                    }
+                    if (result.status == "failed") {
+                        alertify.error(result.message).delay(1.5);
+                        return;
+                    }
+                },
+                error: function () {
+                    alertify.error("Thất bại! Vui lòng thử lại sau.").delay(1.5);
                 }
-            }
-            contact.remove();
-            updateCount();
-        }, transitionTime);
+            });
+        } else {
+            contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
+            contact.style.transform = 'translateX(4rem)';
+            contact.style.opacity = 0;
+            setTimeout(() => {
+                if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
+                    emptyState(contact.parentNode);
+                } else {
+                    if (contact.parentNode.querySelector('.c-empty-state')) {
+                        document.querySelector('.c-empty-state').remove();
+                    }
+                }
+                contact.remove();
+                updateCount();
+            }, transitionTime);
+        }
     }
 
     const states = ['info', 'primary', 'danger', 'success', 'warning'];
@@ -121,8 +176,7 @@ $(document).ready(function () {
                 document.getElementById('addForm').querySelector('.c-alert').remove();
             }
             createAlert(document.getElementById('addForm'), 'success', `${nameInput.value} added to team!`);
-            newItem.querySelector('.c-button--delete').
-                addEventListener('click', deleteItem);
+            newItem.querySelector('.c-button--delete').addEventListener('click', deleteItem);
             list.prepend(newItem);
             nameInput.value = '';
             positionInput.value = '';

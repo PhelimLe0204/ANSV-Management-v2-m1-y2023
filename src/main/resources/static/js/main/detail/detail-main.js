@@ -840,7 +840,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
 /* ===== Start: Tab thành viên ===== */
 var $tinymceChangeTabThanhVien = false;
 $("#thanh-vien-tab").click(function () {
-    console.log("thanh-vien-open-modal-edit");
+    console.log("TEST thanh-vien-open-modal-edit");
 
     var data_user_select_option;
 
@@ -969,64 +969,27 @@ $("#thanh-vien-tab").click(function () {
     //     event.preventDefault();
     // });
 
-    $(".c-button--delete").click(function () {
-        var deleteMemberId = $(this).attr("data-id");
+    // $(".c-button--delete").click(function (event) {
+    //     event.preventDefault();
+    //     var deleteMemberId = $(this).attr("data-id");
 
-        // Call Ajax add member
-        $.ajax({
-            url: "/api/deleteMember/" + deleteMemberId,
-            success: function (result) {
-                if (result.status == "success") {
-                    alertify.success(result.message).delay(1.5);
-                }
-                if (result.status == "failed") {
-                    alertify.error(result.message).delay(1.5);
-                }
-            }
-        });
-    });
+    //     // Call Ajax add member
+    //     $.ajax({
+    //         url: "/api/deleteMember/" + deleteMemberId,
+    //         success: function (result) {
+    //             if (result.status == "success") {
+    //                 alertify.success(result.message).delay(1.5);
+    //             }
+    //             if (result.status == "failed") {
+    //                 alertify.error(result.message).delay(1.5);
+    //             }
+    //         },
+    //         error: function () {
+    //             alertify.error("Thất bại! Vui lòng thử lại sau.").delay(1.5);
+    //         }
+    //     });
+    // });
 });
-
-// function addMember(jobAssignedInput) {
-//     var status = false;
-
-//     const formData = new FormData();
-//     formData.append("jobAssinged", jobAssignedInput);
-//     formData.append("projectId", document.getElementById('tabThanhVienProjectId').value);
-//     formData.append("firstReportId", document.getElementById('tabThanhVienFirstReportId').value);
-//     formData.append("userId", document.getElementById('userOption').value);
-
-//     // Call Ajax add member
-//     // $.ajax({
-//     //     type: "POST",
-//     //     url: "/api/addMemberIntoReport",
-//     //     data: $('#formAddMember').serialize(),
-//     //     success: function (result) {
-//     //         status = true;
-//     //     },
-//     //     error: function (e) {
-//     //         console.log('Thêm thành viên thất bại.');
-//     //         console.log(e);
-//     //     },
-//     // });
-
-//     $.ajax({
-//         type: "POST",
-//         url: "api/abc",
-//         data: {
-//             "jobAssinged": "test jobAssinged",
-//             "projectId": 1,
-//             "firstReportId": 1,
-//             "userId": 1
-//         },
-//         cache: false,
-//         success: function (result) {
-//             console.log(result);
-//         }
-//     });
-
-//     return status;
-// }
 /* ===== End: Tab thành viên ===== */
 
 
