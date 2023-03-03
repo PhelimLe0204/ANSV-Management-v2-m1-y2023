@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.clear();
+    // console.clear();
 
     const contactItems = document.querySelectorAll('.c-contact');
 

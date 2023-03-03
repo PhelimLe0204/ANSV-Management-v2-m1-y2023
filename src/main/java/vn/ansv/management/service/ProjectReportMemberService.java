@@ -37,16 +37,26 @@ public class ProjectReportMemberService implements IProjectReportMember {
     }
 
     @Override
-    public Boolean addMember(AddMemberDTO dataInsert) {
+    public Integer addMember(AddMemberDTO dataInsert) {
+        // 0 - Thất bại, 1 - Thành công, 2 - Đã tồn tại thành viên
         try {
+            // Kiểm tra thành viên đã tồn tại trong báo cáo chưa
+            int count = projectReportMemberRepository.checkMemberIsset(dataInsert.getProjectId(),
+                    dataInsert.getFirstReportId(), dataInsert.getUserId());
+
+            if (count > 0) {
+                return 2;
+            }
+
+            // Add member
             projectReportMemberRepository.addMember(dataInsert.getCreatedBy(), dataInsert.getModdifiedBy(),
                     dataInsert.getJobAssinged(), dataInsert.getProjectId(), dataInsert.getFirstReportId(),
                     dataInsert.getUserId());
-            return true;
+            return 1;
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportMemberService.addMember(): " + e.getMessage());
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 

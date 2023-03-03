@@ -14,7 +14,10 @@ $(document).ready(function () {
             $(".ajs-dialog").addClass("ajs-dialog-custom");
         }
     });
+
     var urlParams = new URLSearchParams(window.location.search);
+    // Thay đổi url đã xóa param không cần thiết
+    window.history.pushState({}, document.title, "/chi-tiet?id=" + urlParams.get('id'));
     var updateSuccess = urlParams.get('updateSuccess');
     var tab = urlParams.get('tab');
     var message = detectMessage(tab);
@@ -26,7 +29,11 @@ $(document).ready(function () {
         alertify.success('Cập nhật mục "' + message + '" thành công!').delay(1.5);
     }
     if (updateSuccess == 'false' && message) {
-        alertify.error('Cập nhật mục "' + message + '" không thành công!').delay(1.5);
+        if (urlParams.get('status') == 2) {
+            alertify.error('Thành viên đã tồn tại!').delay(1.5);
+        } else {
+            alertify.error('Cập nhật mục "' + message + '" không thành công!').delay(1.5);
+        }
     }
 
     var currentYear = new Date().getFullYear();
