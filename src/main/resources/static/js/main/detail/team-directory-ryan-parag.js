@@ -75,38 +75,53 @@ $(document).ready(function () {
         let thisDataId = this.getAttribute('data-id');
 
         if (thisDataId) {
-            // Call ajax deleteMember
-            $.ajax({
-                url: "/api/deleteMember/" + thisDataId,
-                success: function (result) {
-                    if (result.status == "success") {
-                        contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
-                        contact.style.transform = 'translateX(4rem)';
-                        contact.style.opacity = 0;
-                        setTimeout(() => {
-                            if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
-                                emptyState(contact.parentNode);
-                            } else {
-                                if (contact.parentNode.querySelector('.c-empty-state')) {
-                                    document.querySelector('.c-empty-state').remove();
-                                }
-                            }
-                            contact.remove();
-                            updateCount();
-                        }, transitionTime);
+            let thisDataFullname = this.getAttribute('data-fullname');
+            alertify.confirm(
+                'Xác nhận xóa',
+                '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+                + '<p class="text-center">'
+                + 'Thành viên này sẽ không thuộc báo cáo hiện tại nữa<br>'
+                + '<span class="text-primary font-weight-bold">' + thisDataFullname + '</span><br>'
+                + 'Bạn chắc chứ?'
+                + '</p>',
+                function () {
+                    // Ok => Call ajax deleteMember
+                    $.ajax({
+                        url: "/api/deleteMember/" + thisDataId,
+                        success: function (result) {
+                            if (result.status == "success") {
+                                contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
+                                contact.style.transform = 'translateX(4rem)';
+                                contact.style.opacity = 0;
+                                setTimeout(() => {
+                                    if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
+                                        emptyState(contact.parentNode);
+                                    } else {
+                                        if (contact.parentNode.querySelector('.c-empty-state')) {
+                                            document.querySelector('.c-empty-state').remove();
+                                        }
+                                    }
+                                    contact.remove();
+                                    updateCount();
+                                }, transitionTime);
 
-                        alertify.success(result.message).delay(1.5);
-                        return;
-                    }
-                    if (result.status == "failed") {
-                        alertify.error(result.message).delay(1.5);
-                        return;
-                    }
+                                alertify.success(result.message).delay(1.5);
+                                return;
+                            }
+                            if (result.status == "failed") {
+                                alertify.error(result.message).delay(1.5);
+                                return;
+                            }
+                        },
+                        error: function () {
+                            alertify.error("Thất bại! Vui lòng thử lại sau.").delay(1.5);
+                        }
+                    });
                 },
-                error: function () {
-                    alertify.error("Thất bại! Vui lòng thử lại sau.").delay(1.5);
+                function () {
+                    // Cancel => Do nothing
                 }
-            });
+            );
         } else {
             contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
             contact.style.transform = 'translateX(4rem)';
