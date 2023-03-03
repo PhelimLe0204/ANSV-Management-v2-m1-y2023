@@ -33,7 +33,7 @@ $(document).ready(function () {
             deleteBtn.addEventListener('click', deleteItem);
 
             viewBtn.addEventListener('click', () => {
-                console.log('asdf');
+                console.log('Mở modal xem chi tiết thành viên báo cáo!');
             });
 
         }

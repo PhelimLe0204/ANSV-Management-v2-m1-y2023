@@ -18,11 +18,16 @@ public interface ProjectReportMemberRepository extends JpaRepository<ProjectRepo
     List<ReportDetailTabThanhVienDTO> findAllMemberByReport(@Param("projectId") Long projectId,
             @Param("id") Long id);
 
-    // Check member's isset
+    // Check member's isset by ID
+    @Query(value = "SELECT COUNT(prm.id) FROM project_report_member AS prm "
+            + "WHERE prm.id = :memberId", nativeQuery = true)
+    Integer checkMemberIssetById(@Param("memberId") Long memberId);
+
+    // Check member's isset advanced
     @Query(value = "SELECT COUNT(prm.id) FROM project_report_member AS prm "
             + "WHERE prm.project_id = :projectId AND prm.first_report_id = :firstReportId "
             + "AND prm.user_id = :userId", nativeQuery = true)
-    Integer checkMemberIsset(@Param("projectId") Long projectId, @Param("firstReportId") Long firstReportId,
+    Integer checkMemberIssetAdvanced(@Param("projectId") Long projectId, @Param("firstReportId") Long firstReportId,
             @Param("userId") Long userId);
 
     // Tìm kiếm mã thành viên theo userId, firstReportId, projectId

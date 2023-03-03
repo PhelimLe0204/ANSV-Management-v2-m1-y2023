@@ -10,5 +10,5 @@ public interface IProjectReportMember {
 
     Integer addMember(AddMemberDTO dataInsert);
 
-    Boolean deleteMember(Long memberId);
+    Integer deleteMember(Long memberId);
 }

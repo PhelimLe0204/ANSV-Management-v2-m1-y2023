@@ -69,6 +69,29 @@
                             <!-- <p>Manage the current members of this team and customize your team settings.</p> -->
                         </div>
                         <ul class="c-list list-member-overflow">
+                            <div id="modalViewMemberDetail" class="modal fade" tabindex="-1" role="dialog"
+                                aria-labelledby="modalViewMemberDetailLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalViewMemberDetailLabel">
+                                                Chi tiết thành viên
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="mb-0">Textarea sử dụng tinymce hiển thị công việc được phân bổ của
+                                                thành viên này</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn  btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <th:block th:each="detailTabThanhVienItem : ${detailTabThanhVien}">
                                 <li class="c-contact">
                                     <div class="c-contact__left">
@@ -88,7 +111,8 @@
                                             class="c-button c-button--danger c-button--sm c-button--delete btn-delete-report-member">
                                             Delete</div>
                                         <div th:data-id="${detailTabThanhVienItem.getId()}"
-                                            class="c-button c-button--default c-button--sm c-button--view btn-view-report-member">
+                                            class="c-button c-button--default c-button--sm c-button--view btn-view-report-member"
+                                            data-toggle="modal" data-target="#modalViewMemberDetail">
                                             View</div>
                                     </div>
                                 </li>

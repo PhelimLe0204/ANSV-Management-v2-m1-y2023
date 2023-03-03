@@ -202,7 +202,6 @@ public class HomeController extends BaseController {
     public String addMember(@PathVariable Long id, @ModelAttribute AddMemberDTO addMemberDTO) {
         // 0 - Thất bại, 1 - Thành công, 2 - Đã tồn tại thành viên
         int count = projectReportMemberService.addMember(addMemberDTO);
-        String result = "";
 
         if (count == 0) {
             // Thêm thành viên thất bại
@@ -216,6 +215,6 @@ public class HomeController extends BaseController {
             // Thành viên đã tồn tại
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&status=2&tab=" + 5;
         }
-        return result;
+        return "redirect:/chi-tiet?id=" + id;
     }
 }

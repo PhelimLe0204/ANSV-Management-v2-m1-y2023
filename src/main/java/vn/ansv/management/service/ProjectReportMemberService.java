@@ -41,7 +41,7 @@ public class ProjectReportMemberService implements IProjectReportMember {
         // 0 - Thất bại, 1 - Thành công, 2 - Đã tồn tại thành viên
         try {
             // Kiểm tra thành viên đã tồn tại trong báo cáo chưa
-            int count = projectReportMemberRepository.checkMemberIsset(dataInsert.getProjectId(),
+            int count = projectReportMemberRepository.checkMemberIssetAdvanced(dataInsert.getProjectId(),
                     dataInsert.getFirstReportId(), dataInsert.getUserId());
 
             if (count > 0) {
@@ -61,14 +61,22 @@ public class ProjectReportMemberService implements IProjectReportMember {
     }
 
     @Override
-    public Boolean deleteMember(Long memberId) {
+    public Integer deleteMember(Long memberId) {
+        // 0 - Thất bại, 1 - Thành công, 2 - Bản ghi không tồn tại
         try {
+            // Kiểm tra bản ghi có tồn tại không
+            int count = projectReportMemberRepository.checkMemberIssetById(memberId);
+
+            if (count == 0) {
+                return 2;
+            }
+
             projectReportMemberRepository.deleteMemberById(memberId);
-            return true;
+            return 1;
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportMemberService.deleteMember(): " + e.getMessage());
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 

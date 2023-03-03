@@ -167,12 +167,19 @@ public class ApiController {
 
     @GetMapping("/deleteMember/{memberId}")
     public ResponseEntity<ResponseObject> deleteMember(@PathVariable Long memberId) {
-        if (projectReportMemberService.deleteMember(memberId)) {
+        if (projectReportMemberService.deleteMember(memberId) == 1) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", "Đã xóa thành viên khỏi dự án", ""));
-        } else {
+        }
+        if (projectReportMemberService.deleteMember(memberId) == 0) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Thất bại! Vui lòng thử lại sau", ""));
         }
+        if (projectReportMemberService.deleteMember(memberId) == 2) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Đối tượng không xác định", ""));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", "Lỗi hệ thống! Vui lòng thử lại sau", ""));
     }
 }
