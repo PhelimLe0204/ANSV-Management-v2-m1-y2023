@@ -60,4 +60,16 @@ public class ProjectReportMemberService implements IProjectReportMember {
         }
     }
 
+    @Override
+    public Boolean deleteMember(Long memberId) {
+        try {
+            projectReportMemberRepository.deleteMemberById(memberId);
+            return true;
+        } catch (Exception e) {
+            System.out.println("----- Error ----- ProjectReportMemberService.deleteMember(): " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

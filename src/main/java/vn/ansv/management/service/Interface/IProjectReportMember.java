@@ -9,4 +9,6 @@ public interface IProjectReportMember {
     List<ReportDetailTabThanhVienDTO> findAllMemberByReport(Long id);
 
     Integer addMember(AddMemberDTO dataInsert);
+
+    Boolean deleteMember(Long memberId);
 }

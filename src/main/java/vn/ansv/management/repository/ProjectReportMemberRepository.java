@@ -13,12 +13,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
 import vn.ansv.management.entity.ProjectReportMemberEntity;
 
 public interface ProjectReportMemberRepository extends JpaRepository<ProjectReportMemberEntity, Long> {
-    /*
-     * -------------------------------------------
-     * Chi tiết báo cáo dự án theo ID và Enabled
-     * View: Detail (tab Thành viên)
-     * -------------------------------------------
-     */
+    // Danh sách dữ liệu thành viên trên báo cáo chi tiết
     @Query(nativeQuery = true)
     List<ReportDetailTabThanhVienDTO> findAllMemberByReport(@Param("projectId") Long projectId,
             @Param("id") Long id);
@@ -30,11 +25,14 @@ public interface ProjectReportMemberRepository extends JpaRepository<ProjectRepo
     Integer checkMemberIsset(@Param("projectId") Long projectId, @Param("firstReportId") Long firstReportId,
             @Param("userId") Long userId);
 
-    /*
-     * -------------------------------
-     * Thêm mới thành viên vào dự án
-     * -------------------------------
-     */
+    // Tìm kiếm mã thành viên theo userId, firstReportId, projectId
+    @Query(value = "SELECT prm.id FROM project_report_member AS prm "
+            + "WHERE prm.project_id = :projectId AND prm.first_report_id = :firstReportId "
+            + "AND prm.user_id = :userId Limit 1", nativeQuery = true)
+    Long findMemberId(@Param("projectId") Long projectId, @Param("firstReportId") Long firstReportId,
+            @Param("userId") Long userId);
+
+    // Thêm mới thành viên vào dự án
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO project_report_member (created_by, moddified_by, job_assinged, "
@@ -43,4 +41,10 @@ public interface ProjectReportMemberRepository extends JpaRepository<ProjectRepo
     void addMember(@Param("createdBy") Long createdBy, @Param("moddifiedBy") Long moddifiedBy,
             @Param("jobAssinged") String jobAssinged, @Param("projectId") Long projectId,
             @Param("firstReportId") Long firstReportId, @Param("userId") Long userId);
+
+    // Delete member by id
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM project_report_member WHERE id = :memberId", nativeQuery = true)
+    int deleteMemberById(@Param("memberId") Long memberId);
 }

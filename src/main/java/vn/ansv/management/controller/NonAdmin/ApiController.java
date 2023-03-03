@@ -25,6 +25,7 @@ import vn.ansv.management.repository.MenuCategoryRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
+import vn.ansv.management.service.ProjectReportMemberService;
 import vn.ansv.management.service.ProjectService;
 import vn.ansv.management.service.UserService;
 
@@ -44,8 +45,8 @@ public class ApiController {
     @Autowired
     private ProjectService projectService;
 
-    // @Autowired
-    // private ProjectReportMemberService projectReportMemberService;
+    @Autowired
+    private ProjectReportMemberService projectReportMemberService;
 
     @Autowired
     private CustomerService customerService;
@@ -151,15 +152,27 @@ public class ApiController {
     }
 
     // @PostMapping("/addMemberIntoReport")
-    // public ResponseEntity<ResponseObject> addMemberIntoReport(@RequestBody AddMemberDTO dataInsert) {
-    //     System.out.println("================== OK OK");
+    // public ResponseEntity<ResponseObject> addMemberIntoReport(@RequestBody
+    // AddMemberDTO dataInsert) {
+    // System.out.println("================== OK OK");
 
-    //     if (projectReportMemberService.addMember(dataInsert)) {
-    //         return ResponseEntity.status(HttpStatus.OK).body(
-    //                 new ResponseObject("success", "Thêm thành viên thành công.", ""));
-    //     } else {
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-    //                 new ResponseObject("failed", "Thêm thành viên thất bại.", ""));
-    //     }
+    // if (projectReportMemberService.addMember(dataInsert)) {
+    // return ResponseEntity.status(HttpStatus.OK).body(
+    // new ResponseObject("success", "Thêm thành viên thành công.", ""));
+    // } else {
+    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+    // new ResponseObject("failed", "Thêm thành viên thất bại.", ""));
     // }
+    // }
+
+    @GetMapping("/deleteMember/{memberId}")
+    public ResponseEntity<ResponseObject> deleteMember(@PathVariable Long memberId) {
+        if (projectReportMemberService.deleteMember(memberId)) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Đã xóa thành viên khỏi dự án", ""));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Thất bại! Vui lòng thử lại sau", ""));
+        }
+    }
 }

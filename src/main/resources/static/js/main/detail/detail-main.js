@@ -680,12 +680,6 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
 
 
 
-function dateDifferences(tab) {
-
-}
-
-
-
 /* ===== Start: Tab quá trình ===== */
 $(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 $(".btn-change-data-view").click(function () {
@@ -974,6 +968,23 @@ $("#thanh-vien-tab").click(function () {
     //     alert("Handler for .submit() called.");
     //     event.preventDefault();
     // });
+
+    $(".c-button--delete").click(function () {
+        var deleteMemberId = $(this).attr("data-id");
+
+        // Call Ajax add member
+        $.ajax({
+            url: "/api/deleteMember/" + deleteMemberId,
+            success: function (result) {
+                if (result.status == "success") {
+                    alertify.success(result.message).delay(1.5);
+                }
+                if (result.status == "failed") {
+                    alertify.error(result.message).delay(1.5);
+                }
+            }
+        });
+    });
 });
 
 // function addMember(jobAssignedInput) {
