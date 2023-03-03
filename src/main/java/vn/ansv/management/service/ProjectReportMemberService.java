@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
 import vn.ansv.management.dto.member.AddMemberDTO;
+import vn.ansv.management.dto.member.DetailMemberDTO;
 import vn.ansv.management.repository.ProjectReportMemberRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.Interface.IProjectReportMember;
@@ -50,7 +51,7 @@ public class ProjectReportMemberService implements IProjectReportMember {
 
             // Add member
             projectReportMemberRepository.addMember(dataInsert.getCreatedBy(), dataInsert.getModdifiedBy(),
-                    dataInsert.getJobAssinged(), dataInsert.getProjectId(), dataInsert.getFirstReportId(),
+                    dataInsert.getJobAssigned(), dataInsert.getProjectId(), dataInsert.getFirstReportId(),
                     dataInsert.getUserId());
             return 1;
         } catch (Exception e) {
@@ -78,6 +79,11 @@ public class ProjectReportMemberService implements IProjectReportMember {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    @Override
+    public DetailMemberDTO detailMemberReport(Long memberId) {
+        return projectReportMemberRepository.detailMemberReport(memberId);
     }
 
 }

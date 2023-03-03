@@ -948,9 +948,23 @@ $("#thanh-vien-tab").click(function () {
         $tinymceChangeTabThanhVien = true;
     }
 
+    $(".c-button--view").click(function () {
+        console.log($(this).attr("data-id"));
+
+        $.ajax({
+            url: "/api/detailMember/" + $(this).attr("data-id"),
+            success: function (result) {
+                console.log(result);
+            },
+            error: function () {
+
+            }
+        });
+    });
+
     // $("#addMember").click(function () {
     //     const formData = new FormData();
-    //     formData.append("jobAssinged", $("#newJobAssigned").val());
+    //     formData.append("jobAssigned", $("#newJobAssigned").val());
     //     formData.append("projectId", $("#formProjectId").val());
     //     formData.append("firstReportId", $("#tabThanhVienFirstReportId").val());
     //     formData.append("userId", select2_target);

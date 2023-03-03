@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
+import vn.ansv.management.dto.member.DetailMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
 import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
@@ -181,5 +182,17 @@ public class ApiController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("failed", "Lỗi hệ thống! Vui lòng thử lại sau", ""));
+    }
+
+    @GetMapping("/detailMember/{memberId}")
+    public ResponseEntity<ResponseObject> detailMember(@PathVariable Long memberId) {
+        DetailMemberDTO data = projectReportMemberService.detailMemberReport(memberId);
+        if (data.getId() > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Thông tin 1 thành viên thuộc báo cáo", data));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Đối tượng không xác định", ""));
+        }
     }
 }

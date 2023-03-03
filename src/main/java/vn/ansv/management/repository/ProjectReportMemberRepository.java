@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
+import vn.ansv.management.dto.member.DetailMemberDTO;
 import vn.ansv.management.entity.ProjectReportMemberEntity;
 
 public interface ProjectReportMemberRepository extends JpaRepository<ProjectReportMemberEntity, Long> {
@@ -17,6 +18,10 @@ public interface ProjectReportMemberRepository extends JpaRepository<ProjectRepo
     @Query(nativeQuery = true)
     List<ReportDetailTabThanhVienDTO> findAllMemberByReport(@Param("projectId") Long projectId,
             @Param("id") Long id);
+
+    // Chi tiết thành viên theo báo cáo
+    @Query(nativeQuery = true)
+    DetailMemberDTO detailMemberReport(@Param("memberId") Long memberId);
 
     // Check member's isset by ID
     @Query(value = "SELECT COUNT(prm.id) FROM project_report_member AS prm "
@@ -40,11 +45,11 @@ public interface ProjectReportMemberRepository extends JpaRepository<ProjectRepo
     // Thêm mới thành viên vào dự án
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO project_report_member (created_by, moddified_by, job_assinged, "
+    @Query(value = "INSERT INTO project_report_member (created_by, moddified_by, job_assigned, "
             + "project_id, first_report_id, user_id) "
-            + "VALUES (:createdBy, :moddifiedBy, :jobAssinged, :projectId, :firstReportId, :userId)", nativeQuery = true)
+            + "VALUES (:createdBy, :moddifiedBy, :jobAssigned, :projectId, :firstReportId, :userId)", nativeQuery = true)
     void addMember(@Param("createdBy") Long createdBy, @Param("moddifiedBy") Long moddifiedBy,
-            @Param("jobAssinged") String jobAssinged, @Param("projectId") Long projectId,
+            @Param("jobAssigned") String jobAssigned, @Param("projectId") Long projectId,
             @Param("firstReportId") Long firstReportId, @Param("userId") Long userId);
 
     // Delete member by id
