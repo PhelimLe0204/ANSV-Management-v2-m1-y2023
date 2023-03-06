@@ -1,4 +1,4 @@
-package vn.ansv.management.controller.NonAdmin;
+package vn.ansv.management.controller;
 
 import java.util.Calendar;
 import java.util.Date;
