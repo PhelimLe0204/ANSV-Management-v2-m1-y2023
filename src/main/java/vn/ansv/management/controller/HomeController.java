@@ -136,7 +136,8 @@ public class HomeController extends BaseController {
     @PostMapping("/chi-tiet/update/1/{id}")
     public String updateDetailTabPhanLoai(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabPhanLoaiDTO dataUpdate, Model model, HttpServletRequest request) {
-        System.out.println("----- HomeController.updateDetailTabPhanLoai - id: " + dataUpdate.getId());
+        // System.out.println("----- HomeController.updateDetailTabPhanLoai - id: " +
+        // dataUpdate.getId());
         if (projectReportService.updateDetailTabPhanLoai(id, dataUpdate)) {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 1;
         } else {
@@ -147,7 +148,8 @@ public class HomeController extends BaseController {
     @PostMapping("/chi-tiet/update/2/{id}")
     public String updateDetailTabDuThau(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabDuThauDTO dataUpdate, Model model, HttpServletRequest request) {
-        System.out.println("----- HomeController.updateDetailTabDuThau - id: " + dataUpdate.getId());
+        // System.out.println("----- HomeController.updateDetailTabDuThau - id: " +
+        // dataUpdate.getId());
         if (projectReportService.updateDetailTabDuThau(id, dataUpdate)) {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 2;
         } else {
@@ -156,9 +158,10 @@ public class HomeController extends BaseController {
     }
 
     @PostMapping("/chi-tiet/update/3/{id}")
-    public String updateDetailTabCPTT(@PathVariable Long id,
-            @ModelAttribute ReportDetailTabCptgDTO dataUpdate, Model model, HttpServletRequest request) {
-        System.out.println("----- HomeController.updateDetailTabCPTT - id: " + dataUpdate.getId());
+    public String updateDetailTabCPTT(@PathVariable Long id, @ModelAttribute ReportDetailTabCptgDTO dataUpdate,
+            Model model, HttpServletRequest request) {
+        // System.out.println("----- HomeController.updateDetailTabCPTT - id: " +
+        // dataUpdate.getId());
         if (projectReportService.updateDetailTabCptg(id, dataUpdate)) {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 3;
         } else {

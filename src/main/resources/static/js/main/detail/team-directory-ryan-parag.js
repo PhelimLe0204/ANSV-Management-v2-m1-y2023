@@ -80,8 +80,8 @@ $(document).ready(function () {
                 'Xác nhận xóa',
                 '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
                 + '<p class="text-center">'
-                + 'Thành viên này sẽ không thuộc báo cáo hiện tại nữa<br>'
-                + '<span class="text-primary font-weight-bold">' + thisDataFullname + '</span><br>'
+                + 'Thành viên <span class="text-primary font-weight-bold">' + thisDataFullname
+                + '</span> sẽ không thuộc báo cáo hiện tại nữa.<br>'
                 + 'Bạn chắc chứ?'
                 + '</p>',
                 function () {

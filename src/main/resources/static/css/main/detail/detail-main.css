@@ -343,3 +343,10 @@ a {
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.member-job-overflow {
+    min-height: 40px;
+    max-height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

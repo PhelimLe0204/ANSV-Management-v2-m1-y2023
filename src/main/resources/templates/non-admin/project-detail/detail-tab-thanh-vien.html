@@ -80,9 +80,77 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
-                                        <div class="modal-body">
-                                            <p class="mb-0">Textarea sử dụng tinymce hiển thị công việc được phân bổ của
-                                                thành viên này</p>
+                                        <div class="modal-body pt-0">
+                                            <div class="row">
+                                                <div class="col-md-4 d-flex justify-content-center align-items-center"
+                                                    id="detail_member_avatar"></div>
+                                                <div class="col-md-8 pl-0">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-user"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Họ tên"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_fullname"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Họ tên">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-mail"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Mail"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_mail"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Mail"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-briefcase"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Vai trò"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_position"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Vai trò">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-home"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Ban / Trung tâm"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_work_center"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Ban / Trung tâm"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="font-weight-bold">
+                                                        <i class="feather icon-clipboard"></i>
+                                                        <span class="text-primary pl-1">Công việc được giao</span>
+                                                    </label>
+                                                    <div class="member-job-overflow pl-4"
+                                                        id="detail_member_job_assigned"></div>
+                                                </div>
+                                                <div class="col-md-12 pt-3">
+                                                    <label class="font-weight-bold">
+                                                        <i class="feather icon-clipboard"></i>
+                                                        <span class="text-primary pl-1">Công việc đã làm</span>
+                                                    </label>
+                                                    <div class="member-job-overflow pl-4" id="detail_member_job_detail">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn  btn-secondary"

@@ -948,13 +948,29 @@ $("#thanh-vien-tab").click(function () {
         $tinymceChangeTabThanhVien = true;
     }
 
-    $(".c-button--view").click(function () {
+    $(".btn-view-report-member").click(function () {
         console.log($(this).attr("data-id"));
 
         $.ajax({
             url: "/api/detailMember/" + $(this).attr("data-id"),
             success: function (result) {
                 console.log(result);
+                $("#detail_member_avatar").html(
+                    '<img class="img-radius" src="/images/user/' + result.data.avatar
+                    + '" alt="Generic placeholder image" style="width: 90px; height: 90px;">'
+                );
+                $("#detail_member_fullname").html("<span>" + result.data.fullname + "</span>");
+                $("#detail_member_mail").html("<span>" + result.data.username + "</span>");
+                $("#detail_member_position").html("<span>" + result.data.position + "</span>");
+                $("#detail_member_work_center").html("<span>" + result.data.workCenter + "</span>");
+                $("#detail_member_job_assigned").html(
+                    result.data.jobAssigned ? ('<p>' + result.data.jobAssigned + '</p>')
+                        : ('<span class="text-muted">Dữ liệu trống.</span>')
+                );
+                $("#detail_member_job_detail").html(
+                    result.data.jobDetail ? ("<p>" + result.data.jobDetail + "</p>")
+                        : ('<span class="text-muted">Dữ liệu trống.</span>')
+                );
             },
             error: function () {
 
