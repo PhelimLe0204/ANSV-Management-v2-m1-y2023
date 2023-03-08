@@ -6680,6 +6680,10 @@ a.close.disabled {
         margin: 1.75rem auto;
     }
 
+    .modal-dialog-member-update {
+        margin-right: 2rem !important;
+    }
+
     .modal-dialog-scrollable {
         max-height: calc(100% - 3.5rem);
     }

@@ -71,7 +71,7 @@
                         <ul class="c-list list-member-overflow">
                             <div id="modalViewMemberDetail" class="modal fade" tabindex="-1" role="dialog"
                                 aria-labelledby="modalViewMemberDetailLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog" id="modalViewMemberDetailDialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="modalViewMemberDetailLabel">
@@ -135,26 +135,96 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <label class="font-weight-bold">
-                                                        <i class="feather icon-clipboard"></i>
-                                                        <span class="text-primary pl-1">Công việc được giao</span>
-                                                    </label>
+                                                    <div class="row">
+                                                        <div class="col-sm-8 pt-1">
+                                                            <label class="font-weight-bold">
+                                                                <i class="feather icon-clipboard"></i>
+                                                                <span class="text-primary pl-1">
+                                                                    Công việc phân bổ</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <!-- <button type="button" id="btnMemberUpdateJobDetail"
+                                                                class="btn btn-outline-primary float-right pt-1 pb-1 rounded-pill"
+                                                                data-toggle="modal" data-target="#jobAssignedEditModal">
+                                                                <i class="feather mr-2 icon-edit"></i>sửa</button>
+                                                            </button> -->
+                                                        </div>
+                                                    </div>
                                                     <div class="member-job-overflow pl-4"
                                                         id="detail_member_job_assigned"></div>
                                                 </div>
-                                                <div class="col-md-12 pt-3">
-                                                    <label class="font-weight-bold">
-                                                        <i class="feather icon-clipboard"></i>
-                                                        <span class="text-primary pl-1">Công việc đã làm</span>
-                                                    </label>
+                                                <!-- <div class="col-md-12 pt-3">
+                                                    <div class="row">
+                                                        <div class="col-sm-8 pt-1">
+                                                            <label class="font-weight-bold">
+                                                                <i class="feather icon-clipboard"></i>
+                                                                <span class="text-primary pl-1">
+                                                                    Quá trình làm việc</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <button type="button" id="btnMemberUpdateJobDetail"
+                                                                class="btn btn-outline-primary float-right pt-1 pb-1 rounded-pill"
+                                                                data-toggle="modal" data-target="#jobDetailEditModal">
+                                                                <i class="feather mr-2 icon-edit"></i>sửa</button>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                     <div class="member-job-overflow pl-4" id="detail_member_job_detail">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn  btn-secondary"
+                                            <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="jobAssignedEditModal" class="modal fade" tabindex="-1" role="dialog"
+                                aria-labelledby="jobAssignedEditModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-member-update" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="jobAssignedEditModalLabel">
+                                                Cập nhật công việc phân bổ</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea id="jobAssignedEditModalTinymce" name="jobAssigned"
+                                                placeholder="Mời nhập nội dung CÔNG VIỆC PHÂN BỔ..."></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-primary">Cập nhật</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="jobDetailEditModal" class="modal fade" tabindex="-1" role="dialog"
+                                aria-labelledby="jobDetailEditModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-member-update" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="jobDetailEditModalLabel">
+                                                Cập nhật quá trình làm việc</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea id="jobDetailEditModalTinymce" name="jobDetail"
+                                                placeholder="Mời nhập nội dung QUÁ TRÌNH LÀM VIỆC..."></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-primary">Cập nhật</button>
                                         </div>
                                     </div>
                                 </div>

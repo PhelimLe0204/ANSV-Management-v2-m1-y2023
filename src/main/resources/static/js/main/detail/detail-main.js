@@ -978,6 +978,64 @@ $("#thanh-vien-tab").click(function () {
         });
     });
 
+    // $("#btnMemberUpdateJobAssigned").click(function () {
+    //     console.log("Modal cập nhật công việc phân bổ.");
+    //     tinymce.init({
+    //         promotion: false,
+    //         selector: 'textarea#jobAssignedEditModalTinymce',
+    //         ui_container: '#tinymce-group',
+    //         height: 250,
+    //         plugins: [
+    //             'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+    //             'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+    //             'insertdatetime', 'media', 'table', 'help', 'wordcount'
+    //         ],
+    //         toolbar: 'undo redo | blocks | ' +
+    //             'bold italic backcolor | alignleft aligncenter ' +
+    //             'alignright alignjustify | bullist numlist outdent indent | ' +
+    //             'removeformat | help',
+    //         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+    //         setup: function (editor) {
+    //             editor.on('init', function (e) {
+    //                 $("#jobAssignedEditModalTinymce").val(editor.getContent());
+    //             });
+    //         }
+    //     });
+    // });
+
+    // $("#btnMemberUpdateJobDetail").click(function () {
+    //     console.log("Modal cập nhật quá trình làm việc.");
+    //     tinymce.init({
+    //         promotion: false,
+    //         selector: 'textarea#jobDetailEditModalTinymce',
+    //         ui_container: '#tinymce-group',
+    //         height: 250,
+    //         plugins: [
+    //             'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+    //             'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+    //             'insertdatetime', 'media', 'table', 'help', 'wordcount'
+    //         ],
+    //         toolbar: 'undo redo | blocks | ' +
+    //             'bold italic backcolor | alignleft aligncenter ' +
+    //             'alignright alignjustify | bullist numlist outdent indent | ' +
+    //             'removeformat | help',
+    //         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+    //         setup: function (editor) {
+    //             editor.on('init', function (e) {
+    //                 $("#jobDetailEditModalTinymce").val(editor.getContent());
+    //             });
+    //         }
+    //     });
+    // });
+
+    $('#jobAssignedEditModal, #jobDetailEditModal').on('show.bs.modal', function (event) {
+        $("#modalViewMemberDetailDialog").animate({ "right": "+=100px" }, "slow");
+    });
+
+    $('#jobAssignedEditModal, #jobDetailEditModal').on('hidden.bs.modal', function (event) {
+        $("#modalViewMemberDetailDialog").animate({ "right": "-=100px" }, "slow");
+    });
+
     // $("#addMember").click(function () {
     //     const formData = new FormData();
     //     formData.append("jobAssigned", $("#newJobAssigned").val());
