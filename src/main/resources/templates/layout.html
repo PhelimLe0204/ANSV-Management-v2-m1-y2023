@@ -108,6 +108,11 @@
         <script th:src="@{/js/main/member/member-main.js}"></script>
     </th:block>
 
+    <!-- ListReport scripts  -->
+    <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/')}">
+        <script th:src="@{/js/main/list-report/list-report.js}"></script>
+    </th:block>
+
     <th:block th:if="${#httpServletRequest.requestURI != '/login'}">
         <!-- Select2 - JS -->
         <script th:src="@{/vendors/select2/js/select2.min.js}"></script>
