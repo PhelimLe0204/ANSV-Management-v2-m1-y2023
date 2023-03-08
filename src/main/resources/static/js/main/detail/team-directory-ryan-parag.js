@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.clear();
+    // console.clear();
 
     const contactItems = document.querySelectorAll('.c-contact');
 
@@ -33,7 +33,7 @@ $(document).ready(function () {
             deleteBtn.addEventListener('click', deleteItem);
 
             viewBtn.addEventListener('click', () => {
-                console.log('asdf');
+                console.log('Mở modal xem chi tiết thành viên thuộc báo cáo!');
             });
 
         }
@@ -52,22 +52,92 @@ $(document).ready(function () {
     };
 
     function deleteItem() {
+        // const transitionTime = 250;
+        // const contact = this.parentNode.parentNode;
+        // contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
+        // contact.style.transform = 'translateX(4rem)';
+        // contact.style.opacity = 0;
+        // setTimeout(() => {
+        //     if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
+        //         emptyState(contact.parentNode);
+        //     } else {
+        //         if (contact.parentNode.querySelector('.c-empty-state')) {
+        //             document.querySelector('.c-empty-state').remove();
+        //         }
+        //     }
+        //     contact.remove();
+        //     updateCount();
+        // }, transitionTime);
+
         const transitionTime = 250;
         const contact = this.parentNode.parentNode;
-        contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
-        contact.style.transform = 'translateX(4rem)';
-        contact.style.opacity = 0;
-        setTimeout(() => {
-            if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
-                emptyState(contact.parentNode);
-            } else {
-                if (contact.parentNode.querySelector('.c-empty-state')) {
-                    document.querySelector('.c-empty-state').remove();
+
+        let thisDataId = this.getAttribute('data-id');
+
+        if (thisDataId) {
+            let thisDataFullname = this.getAttribute('data-fullname');
+            alertify.confirm(
+                'Xác nhận xóa',
+                '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+                + '<p class="text-center">'
+                + 'Thành viên <span class="text-primary font-weight-bold">' + thisDataFullname
+                + '</span> sẽ không thuộc báo cáo hiện tại nữa.<br>'
+                + 'Bạn chắc chứ?'
+                + '</p>',
+                function () {
+                    // Ok => Call ajax deleteMember
+                    $.ajax({
+                        url: "/api/deleteMember/" + thisDataId,
+                        success: function (result) {
+                            if (result.status == "success") {
+                                contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
+                                contact.style.transform = 'translateX(4rem)';
+                                contact.style.opacity = 0;
+                                setTimeout(() => {
+                                    if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
+                                        emptyState(contact.parentNode);
+                                    } else {
+                                        if (contact.parentNode.querySelector('.c-empty-state')) {
+                                            document.querySelector('.c-empty-state').remove();
+                                        }
+                                    }
+                                    contact.remove();
+                                    updateCount();
+                                }, transitionTime);
+
+                                alertify.success(result.message).delay(1.5);
+                                return;
+                            }
+                            if (result.status == "failed") {
+                                alertify.error(result.message).delay(1.5);
+                                return;
+                            }
+                        },
+                        error: function () {
+                            alertify.error("Thất bại! Vui lòng thử lại sau.").delay(1.5);
+                        }
+                    });
+                },
+                function () {
+                    // Cancel => Do nothing
                 }
-            }
-            contact.remove();
-            updateCount();
-        }, transitionTime);
+            );
+        } else {
+            contact.style.transition = `all ${transitionTime}ms ease-out 0s`;
+            contact.style.transform = 'translateX(4rem)';
+            contact.style.opacity = 0;
+            setTimeout(() => {
+                if (contact.parentNode.querySelectorAll('.c-contact').length < 2) {
+                    emptyState(contact.parentNode);
+                } else {
+                    if (contact.parentNode.querySelector('.c-empty-state')) {
+                        document.querySelector('.c-empty-state').remove();
+                    }
+                }
+                contact.remove();
+                updateCount();
+            }, transitionTime);
+        }
     }
 
     const states = ['info', 'primary', 'danger', 'success', 'warning'];
@@ -94,9 +164,9 @@ $(document).ready(function () {
         const randomState = Math.floor(Math.random() * 4);
 
         if (!nameInput.value.length == 0 && !positionInput.value.length == 0 && !jobAssignedInput.length == 0) {
-            if (addMember(jobAssignedInput) == true) {
-                console.log("Thêm thành viên mới thành công!");
-            }
+            // if (addMember(jobAssignedInput) == true) {
+            //     console.log("Thêm thành viên mới thành công!");
+            // }
 
             const list = document.querySelector('.c-list');
             const newItem = document.createElement('li');
@@ -121,8 +191,7 @@ $(document).ready(function () {
                 document.getElementById('addForm').querySelector('.c-alert').remove();
             }
             createAlert(document.getElementById('addForm'), 'success', `${nameInput.value} added to team!`);
-            newItem.querySelector('.c-button--delete').
-                addEventListener('click', deleteItem);
+            newItem.querySelector('.c-button--delete').addEventListener('click', deleteItem);
             list.prepend(newItem);
             nameInput.value = '';
             positionInput.value = '';

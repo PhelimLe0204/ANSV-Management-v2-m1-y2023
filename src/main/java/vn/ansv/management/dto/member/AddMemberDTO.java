@@ -6,13 +6,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AddMemberDTO {
-    private String jobAssinged;
+    private Long createdBy;
+    private Long moddifiedBy;
+    private String jobAssigned;
     private Long projectId;
     private Long firstReportId;
     private Long userId;
 
-    public AddMemberDTO(Long firstReportId, String jobAssinged, Long projectId, Long userId) {
-        this.jobAssinged = jobAssinged;
+    public AddMemberDTO(Long createdBy, Long moddifiedBy, String jobAssigned, Long projectId, Long firstReportId,
+            Long userId) {
+        this.createdBy = createdBy;
+        this.moddifiedBy = moddifiedBy;
+        this.jobAssigned = jobAssigned;
         this.projectId = projectId;
         this.firstReportId = firstReportId;
         this.userId = userId;

@@ -11,12 +11,15 @@
                             </div>
                         </div>
                         <div class="c-card__body" id="addForm">
-                            <form id="formAddMember" method="post">
+                            <form th:action="@{/chi-tiet/add-member/{id}(id=${detailTabPhanLoai.getId()})}"
+                                id="form-tab-thanh-vien" method="post">
                                 <div class="c-form-field">
+                                    <input type="hidden" name="createdBy" value="1" />
+                                    <input type="hidden" name="moddifiedBy" value="1" />
                                     <input type="hidden" name="projectId" th:value="${detailTabPhanLoai.getProjectId()}"
                                         id="tabThanhVienProjectId" />
-                                    <input type="hidden" name="reportId" th:value="${detailTabPhanLoai.getId()}"
-                                        id="tabThanhVienReportId" />
+                                    <input type="hidden" name="firstReportId" th:value="${detailTabPhanLoai.getId()}"
+                                        id="tabThanhVienFirstReportId" />
                                     <label class="c-form-field__label" for="userOption">Thành viên</label>
                                     <select id="userOption" name="userId"></select>
                                 </div>
@@ -33,11 +36,11 @@
                                 <div class="c-form-field">
                                     <label class="c-form-field__label" for="newJobAssigned">Công việc phân bổ</label>
                                     <textarea class="tinymce-content-job-assigned" id="newJobAssigned"
-                                        name="jobAssinged"
+                                        name="jobAssigned"
                                         placeholder="Mời nhập nội dung CÔNG VIỆC PHÂN BỔ..."></textarea>
                                 </div>
-                                <button class="c-button c-button--primary c-button--full" style="font-size: 16px;"
-                                    id="addMember">
+                                <button type="submit" class="c-button c-button--primary c-button--full"
+                                    style="font-size: 16px;" id="addMember">
                                     Thêm vào dự án</button>
                             </form>
                         </div>
@@ -66,6 +69,97 @@
                             <!-- <p>Manage the current members of this team and customize your team settings.</p> -->
                         </div>
                         <ul class="c-list list-member-overflow">
+                            <div id="modalViewMemberDetail" class="modal fade" tabindex="-1" role="dialog"
+                                aria-labelledby="modalViewMemberDetailLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalViewMemberDetailLabel">
+                                                Chi tiết thành viên
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body pt-0">
+                                            <div class="row">
+                                                <div class="col-md-4 d-flex justify-content-center align-items-center"
+                                                    id="detail_member_avatar"></div>
+                                                <div class="col-md-8 pl-0">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-user"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Họ tên"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_fullname"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Họ tên">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-mail"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Mail"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_mail"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Mail"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-briefcase"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Vai trò"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_position"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Vai trò">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pt-1 pb-1">
+                                                                        <i class="feather icon-home"
+                                                                            data-toggle="tooltip" data-placement="left"
+                                                                            title="Ban / Trung tâm"></i>
+                                                                    </td>
+                                                                    <td class="pt-1 pb-1" id="detail_member_work_center"
+                                                                        data-toggle="tooltip" data-placement="left"
+                                                                        title="Ban / Trung tâm"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="font-weight-bold">
+                                                        <i class="feather icon-clipboard"></i>
+                                                        <span class="text-primary pl-1">Công việc được giao</span>
+                                                    </label>
+                                                    <div class="member-job-overflow pl-4"
+                                                        id="detail_member_job_assigned"></div>
+                                                </div>
+                                                <div class="col-md-12 pt-3">
+                                                    <label class="font-weight-bold">
+                                                        <i class="feather icon-clipboard"></i>
+                                                        <span class="text-primary pl-1">Công việc đã làm</span>
+                                                    </label>
+                                                    <div class="member-job-overflow pl-4" id="detail_member_job_detail">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn  btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <th:block th:each="detailTabThanhVienItem : ${detailTabThanhVien}">
                                 <li class="c-contact">
                                     <div class="c-contact__left">
@@ -81,10 +175,12 @@
                                     </div>
                                     <div class="l-actions contact__right">
                                         <div th:data-id="${detailTabThanhVienItem.getId()}"
+                                            th:data-fullname="${detailTabThanhVienItem.getFullname()}"
                                             class="c-button c-button--danger c-button--sm c-button--delete btn-delete-report-member">
                                             Delete</div>
                                         <div th:data-id="${detailTabThanhVienItem.getId()}"
-                                            class="c-button c-button--default c-button--sm c-button--view btn-view-report-member">
+                                            class="c-button c-button--default c-button--sm c-button--view btn-view-report-member"
+                                            data-toggle="modal" data-target="#modalViewMemberDetail">
                                             View</div>
                                     </div>
                                 </li>

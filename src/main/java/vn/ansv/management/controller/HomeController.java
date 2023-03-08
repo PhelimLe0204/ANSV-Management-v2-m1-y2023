@@ -1,4 +1,4 @@
-package vn.ansv.management.controller.NonAdmin;
+package vn.ansv.management.controller;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +25,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.member.AddMemberDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectStatusDTO;
@@ -135,7 +136,8 @@ public class HomeController extends BaseController {
     @PostMapping("/chi-tiet/update/1/{id}")
     public String updateDetailTabPhanLoai(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabPhanLoaiDTO dataUpdate, Model model, HttpServletRequest request) {
-        System.out.println("----- HomeController.updateDetailTabPhanLoai - id: " + dataUpdate.getId());
+        // System.out.println("----- HomeController.updateDetailTabPhanLoai - id: " +
+        // dataUpdate.getId());
         if (projectReportService.updateDetailTabPhanLoai(id, dataUpdate)) {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 1;
         } else {
@@ -146,7 +148,8 @@ public class HomeController extends BaseController {
     @PostMapping("/chi-tiet/update/2/{id}")
     public String updateDetailTabDuThau(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabDuThauDTO dataUpdate, Model model, HttpServletRequest request) {
-        System.out.println("----- HomeController.updateDetailTabDuThau - id: " + dataUpdate.getId());
+        // System.out.println("----- HomeController.updateDetailTabDuThau - id: " +
+        // dataUpdate.getId());
         if (projectReportService.updateDetailTabDuThau(id, dataUpdate)) {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 2;
         } else {
@@ -155,9 +158,10 @@ public class HomeController extends BaseController {
     }
 
     @PostMapping("/chi-tiet/update/3/{id}")
-    public String updateDetailTabCPTT(@PathVariable Long id,
-            @ModelAttribute ReportDetailTabCptgDTO dataUpdate, Model model, HttpServletRequest request) {
-        System.out.println("----- HomeController.updateDetailTabCPTT - id: " + dataUpdate.getId());
+    public String updateDetailTabCPTT(@PathVariable Long id, @ModelAttribute ReportDetailTabCptgDTO dataUpdate,
+            Model model, HttpServletRequest request) {
+        // System.out.println("----- HomeController.updateDetailTabCPTT - id: " +
+        // dataUpdate.getId());
         if (projectReportService.updateDetailTabCptg(id, dataUpdate)) {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 3;
         } else {
@@ -194,5 +198,26 @@ public class HomeController extends BaseController {
         _mvShare.addObject("listUserDO", data);
         _mvShare.setViewName("non-admin/members/do");
         return _mvShare;
+    }
+
+    // Tab "Thành viên": Thêm thành viên vào báo cáo
+    @PostMapping("/chi-tiet/add-member/{id}")
+    public String addMember(@PathVariable Long id, @ModelAttribute AddMemberDTO addMemberDTO) {
+        // 0 - Thất bại, 1 - Thành công, 2 - Đã tồn tại thành viên
+        int count = projectReportMemberService.addMember(addMemberDTO);
+
+        if (count == 0) {
+            // Thêm thành viên thất bại
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 5;
+        }
+        if (count == 1) {
+            // Thêm thành viên thành công
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 5;
+        }
+        if (count == 2) {
+            // Thành viên đã tồn tại
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&status=2&tab=" + 5;
+        }
+        return "redirect:/chi-tiet?id=" + id;
     }
 }

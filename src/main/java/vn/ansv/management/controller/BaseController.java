@@ -1,4 +1,4 @@
-package vn.ansv.management.controller.NonAdmin;
+package vn.ansv.management.controller;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

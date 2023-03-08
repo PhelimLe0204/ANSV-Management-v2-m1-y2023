@@ -14,7 +14,10 @@ $(document).ready(function () {
             $(".ajs-dialog").addClass("ajs-dialog-custom");
         }
     });
+
     var urlParams = new URLSearchParams(window.location.search);
+    // Thay đổi url đã xóa param không cần thiết
+    window.history.pushState({}, document.title, "/chi-tiet?id=" + urlParams.get('id'));
     var updateSuccess = urlParams.get('updateSuccess');
     var tab = urlParams.get('tab');
     var message = detectMessage(tab);
@@ -26,7 +29,11 @@ $(document).ready(function () {
         alertify.success('Cập nhật mục "' + message + '" thành công!').delay(1.5);
     }
     if (updateSuccess == 'false' && message) {
-        alertify.error('Cập nhật mục "' + message + '" không thành công!').delay(1.5);
+        if (urlParams.get('status') == 2) {
+            alertify.error('Thành viên đã tồn tại!').delay(1.5);
+        } else {
+            alertify.error('Cập nhật mục "' + message + '" không thành công!').delay(1.5);
+        }
     }
 
     var currentYear = new Date().getFullYear();
@@ -673,12 +680,6 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
 
 
 
-function dateDifferences(tab) {
-
-}
-
-
-
 /* ===== Start: Tab quá trình ===== */
 $(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 $(".btn-change-data-view").click(function () {
@@ -839,7 +840,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
 /* ===== Start: Tab thành viên ===== */
 var $tinymceChangeTabThanhVien = false;
 $("#thanh-vien-tab").click(function () {
-    console.log("thanh-vien-open-modal-edit");
+    console.log("TEST thanh-vien-open-modal-edit");
 
     var data_user_select_option;
 
@@ -947,11 +948,41 @@ $("#thanh-vien-tab").click(function () {
         $tinymceChangeTabThanhVien = true;
     }
 
+    $(".btn-view-report-member").click(function () {
+        console.log($(this).attr("data-id"));
+
+        $.ajax({
+            url: "/api/detailMember/" + $(this).attr("data-id"),
+            success: function (result) {
+                console.log(result);
+                $("#detail_member_avatar").html(
+                    '<img class="img-radius" src="/images/user/' + result.data.avatar
+                    + '" alt="Generic placeholder image" style="width: 90px; height: 90px;">'
+                );
+                $("#detail_member_fullname").html("<span>" + result.data.fullname + "</span>");
+                $("#detail_member_mail").html("<span>" + result.data.username + "</span>");
+                $("#detail_member_position").html("<span>" + result.data.position + "</span>");
+                $("#detail_member_work_center").html("<span>" + result.data.workCenter + "</span>");
+                $("#detail_member_job_assigned").html(
+                    result.data.jobAssigned ? ('<p>' + result.data.jobAssigned + '</p>')
+                        : ('<span class="text-muted">Dữ liệu trống.</span>')
+                );
+                $("#detail_member_job_detail").html(
+                    result.data.jobDetail ? ("<p>" + result.data.jobDetail + "</p>")
+                        : ('<span class="text-muted">Dữ liệu trống.</span>')
+                );
+            },
+            error: function () {
+
+            }
+        });
+    });
+
     // $("#addMember").click(function () {
     //     const formData = new FormData();
-    //     formData.append("jobAssinged", $("#newJobAssigned").val());
+    //     formData.append("jobAssigned", $("#newJobAssigned").val());
     //     formData.append("projectId", $("#formProjectId").val());
-    //     formData.append("firstReportId", $("#tabThanhVienReportId").val());
+    //     formData.append("firstReportId", $("#tabThanhVienFirstReportId").val());
     //     formData.append("userId", select2_target);
 
     //     // Call Ajax add member
@@ -962,33 +993,33 @@ $("#thanh-vien-tab").click(function () {
     //         }
     //     });
     // });
+
+    // $("#form-tab-thanh-vien").submit(function (event) {
+    //     alert("Handler for .submit() called.");
+    //     event.preventDefault();
+    // });
+
+    // $(".c-button--delete").click(function (event) {
+    //     event.preventDefault();
+    //     var deleteMemberId = $(this).attr("data-id");
+
+    //     // Call Ajax add member
+    //     $.ajax({
+    //         url: "/api/deleteMember/" + deleteMemberId,
+    //         success: function (result) {
+    //             if (result.status == "success") {
+    //                 alertify.success(result.message).delay(1.5);
+    //             }
+    //             if (result.status == "failed") {
+    //                 alertify.error(result.message).delay(1.5);
+    //             }
+    //         },
+    //         error: function () {
+    //             alertify.error("Thất bại! Vui lòng thử lại sau.").delay(1.5);
+    //         }
+    //     });
+    // });
 });
-
-function addMember(jobAssignedInput) {
-    var status = false;
-
-    // const formData = new FormData();
-    // formData.append("jobAssinged", jobAssignedInput);
-    // formData.append("projectId", document.getElementById('tabThanhVienProjectId').value);
-    // formData.append("firstReportId", document.getElementById('tabThanhVienReportId').value);
-    // formData.append("userId", document.getElementById('userOption').value);
-
-    // Call Ajax add member
-    $.ajax({
-        type: "POST",
-        url: "/api/addMemberIntoReport",
-        data: $('#formAddMember').serialize(),
-        success: function (result) {
-            status = true;
-        },
-        error: function (e) {
-            console.log('Thêm thành viên thất bại.');
-            console.log(e);
-        },
-    });
-
-    return status;
-}
 /* ===== End: Tab thành viên ===== */
 
 

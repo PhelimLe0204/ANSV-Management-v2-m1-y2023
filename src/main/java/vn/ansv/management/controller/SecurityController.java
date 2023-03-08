@@ -1,4 +1,4 @@
-package vn.ansv.management.controller.Security;
+package vn.ansv.management.controller;
 
 import java.security.Principal;
 

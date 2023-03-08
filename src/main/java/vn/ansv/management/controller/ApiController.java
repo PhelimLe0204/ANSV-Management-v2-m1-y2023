@@ -1,11 +1,9 @@
-package vn.ansv.management.controller.NonAdmin;
+package vn.ansv.management.controller;
 
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-
-// import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
-// import vn.ansv.management.dto.Layout.LayoutMenuDTO;
+import vn.ansv.management.dto.member.DetailMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
 import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
@@ -25,10 +23,10 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.MenuCategoryRepository;
-// import vn.ansv.management.repository.MenuRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
+import vn.ansv.management.service.ProjectReportMemberService;
 import vn.ansv.management.service.ProjectService;
 import vn.ansv.management.service.UserService;
 
@@ -49,6 +47,9 @@ public class ApiController {
     private ProjectService projectService;
 
     @Autowired
+    private ProjectReportMemberService projectReportMemberService;
+
+    @Autowired
     private CustomerService customerService;
 
     @Autowired
@@ -58,7 +59,7 @@ public class ApiController {
     private UserService userService;
 
     @GetMapping("/project")
-    ResponseEntity<ResponseObject> getAllProject() {
+    public ResponseEntity<ResponseObject> getAllProject() {
         Iterable<ProjectEntity> data = projectRepository.findAll();
         // List<LayoutMenuCategoryDTO> menuCategoryTest =
         // menuCategoryRepository.findAllLayout();
@@ -83,7 +84,7 @@ public class ApiController {
     }
 
     @GetMapping("/getProjectSelectOption")
-    ResponseEntity<ResponseObject> getProjectSelectOption() {
+    public ResponseEntity<ResponseObject> getProjectSelectOption() {
         List<OptionProjectDTO> data = projectService.findAllSelectOption();
 
         if (data.size() > 0) {
@@ -96,7 +97,7 @@ public class ApiController {
     }
 
     @GetMapping("/getCustomerSelectOption")
-    ResponseEntity<ResponseObject> getCustomerSelectOption() {
+    public ResponseEntity<ResponseObject> getCustomerSelectOption() {
         List<OptionCustomerDTO> data = customerService.findAllSelectOption();
 
         if (data.size() > 0) {
@@ -109,7 +110,7 @@ public class ApiController {
     }
 
     @GetMapping("/getCurrencyUnitSelectOption")
-    ResponseEntity<ResponseObject> getCurrencyUnitSelectOption() {
+    public ResponseEntity<ResponseObject> getCurrencyUnitSelectOption() {
         Iterable<OptionCurrencyUnitDTO> data = currencyUnitService.findAllSelectOption();
         // data.forEach((dataItem) -> {
         // System.out.println("--------------------------------------------");
@@ -128,7 +129,7 @@ public class ApiController {
     }
 
     @GetMapping("/getUserSelectOption")
-    ResponseEntity<ResponseObject> getUserSelectOption() {
+    public ResponseEntity<ResponseObject> getUserSelectOption() {
         List<OptionUserDTO> data = userService.findAllUserOption();
         String message = "Danh sách user dùng cho select option";
 
@@ -141,7 +142,7 @@ public class ApiController {
     }
 
     @GetMapping("/updateEnabled/{id}/{enabled}")
-    ResponseEntity<ResponseObject> updateEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
+    public ResponseEntity<ResponseObject> updateEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
         if (userService.updateUserEnabled(id, enabled)) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", "Cập nhật trạng thái thành công", ""));
@@ -151,14 +152,47 @@ public class ApiController {
         }
     }
 
-    // @GetMapping("/addMemberIntoReport/{reportId}/{userId}")
-    // ResponseEntity<ResponseObject> addMemberIntoReport(@PathVariable Long reportId, @PathVariable Long userId) {
-    //     if (userService.updateUserEnabled(id, enabled)) {
-    //         return ResponseEntity.status(HttpStatus.OK).body(
-    //                 new ResponseObject("success", "Cập nhật trạng thái thành công", ""));
-    //     } else {
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-    //                 new ResponseObject("failed", "Cập nhật trạng thái thất bại", ""));
-    //     }
+    // @PostMapping("/addMemberIntoReport")
+    // public ResponseEntity<ResponseObject> addMemberIntoReport(@RequestBody
+    // AddMemberDTO dataInsert) {
+    // System.out.println("================== OK OK");
+
+    // if (projectReportMemberService.addMember(dataInsert)) {
+    // return ResponseEntity.status(HttpStatus.OK).body(
+    // new ResponseObject("success", "Thêm thành viên thành công.", ""));
+    // } else {
+    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+    // new ResponseObject("failed", "Thêm thành viên thất bại.", ""));
     // }
+    // }
+
+    @GetMapping("/deleteMember/{memberId}")
+    public ResponseEntity<ResponseObject> deleteMember(@PathVariable Long memberId) {
+        if (projectReportMemberService.deleteMember(memberId) == 1) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Đã xóa thành viên khỏi dự án", ""));
+        }
+        if (projectReportMemberService.deleteMember(memberId) == 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Thất bại! Vui lòng thử lại sau", ""));
+        }
+        if (projectReportMemberService.deleteMember(memberId) == 2) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Đối tượng không xác định", ""));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", "Lỗi hệ thống! Vui lòng thử lại sau", ""));
+    }
+
+    @GetMapping("/detailMember/{memberId}")
+    public ResponseEntity<ResponseObject> detailMember(@PathVariable Long memberId) {
+        DetailMemberDTO data = projectReportMemberService.detailMemberReport(memberId);
+        if (data.getId() > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Thông tin 1 thành viên thuộc báo cáo", data));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Đối tượng không xác định", ""));
+        }
+    }
 }
