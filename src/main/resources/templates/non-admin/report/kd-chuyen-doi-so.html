@@ -123,8 +123,9 @@
                                                             <i class="fa fa-edit fa-w-20"></i>
                                                         </span>
                                                     </a>
-                                                    <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
-                                                        data-toggle="tooltip" title="Delete" data-placement="bottom">
+                                                    <a id="${listReportType2Item.getId()}" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
+                                                        title="Delete" th:data-id="${listReportType2Item.getId()}"
+                                                        th:data-name="${listReportType2Item.getJobName()}">
                                                         <span class="btn-icon-wrapper opacity-8">
                                                             <i class="fa fa-trash fa-w-20"></i>
                                                         </span>
