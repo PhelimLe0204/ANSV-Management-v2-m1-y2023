@@ -14,4 +14,6 @@ public interface IProjectReportMember {
     Integer deleteMember(Long memberId);
 
     DetailMemberDTO detailMemberReport(Long memberId);
+
+    Integer deleteMemberByReportId(Long reportId);
 }
