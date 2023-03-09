@@ -8,13 +8,71 @@
 
 <body>
     <div class="pcoded-main-container" layout:fragment="content">
+        <div id="addNewReportModal" class="modal fade" tabindex="-1" role="dialog"
+            aria-labelledby="addNewReportModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 1400px !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addNewReportModalLabel">Thêm mới báo cáo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body pt-0">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active text-uppercase" id="phan-loai-tab" data-toggle="tab"
+                                    href="#phan-loai" role="tab" aria-controls="phan-loai" aria-selected="true">
+                                    Phân loại
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" id="du-thau-tab" data-toggle="tab" href="#du-thau"
+                                    role="tab" aria-controls="du-thau" aria-selected="false">
+                                    Dự thầu
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" id="chi-phi-va-thoi-gian-tab" data-toggle="tab"
+                                    href="#chi-phi-va-thoi-gian" role="tab" aria-controls="chi-phi-va-thoi-gian"
+                                    aria-selected="false">
+                                    Chi phí & Thời gian
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" id="qua-trinh-tab" data-toggle="tab"
+                                    href="#qua-trinh" role="tab" aria-controls="qua-trinh" aria-selected="false">
+                                    Quá trình
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <th:block th:insert="non-admin/add-new-report/add-new-tab-phan-loai :: body"></th:block>
+                            <th:block th:insert="non-admin/add-new-report/add-new-tab-du-thau :: body"></th:block>
+                            <th:block th:insert="non-admin/add-new-report/add-new-tab-chi-phi-thoi-gian :: body">
+                            </th:block>
+                            <th:block th:insert="non-admin/add-new-report/add-new-tab-qua-trinh :: body"></th:block>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary pt-1 pb-1">Thêm mới</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
             <div class="page-header">
                 <div class="page-block">
                     <div class="row align-items-center">
-                        <div class="col-md-6">
-
+                        <div class="col-md-6 pt-1">
+                            <button type="button" id="btn-open-add-new-report-modal"
+                                class="btn btn-warning pt-1 pb-1 rounded-pill font-weight-bold" data-toggle="modal"
+                                data-target="#addNewReportModal">
+                                <i class="feather mr-2 icon-plus"></i>Thêm mới
+                            </button>
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -22,7 +80,8 @@
                                 <li class="breadcrumb-item">
                                     <a href="/dashboard"><i class="feather icon-home"></i></a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                                <li class="breadcrumb-item text-white font-weight-bold">Danh sách</li>
+                                <li class="breadcrumb-item"><a href="/danh-sach/trien-khai">Triển khai</a></li>
                             </ul>
                         </div>
                     </div>
@@ -58,27 +117,13 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li class="dropdown-item reload-card">
-                                            <a href="javascript:void(0)">
-                                                <i class="feather icon-refresh-cw"></i> reload
-                                            </a>
-                                        </li>
-                                        <li class="dropdown-item close-card">
-                                            <a href="javascript:void(0)">
-                                                <i class="feather icon-trash"></i> remove
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-
                             <div class="tab-content" id="myTabContent">
-
-
                                 <div class="table-responsive">
-
                                     <table class="table table-striped table-hover" id="table-vien-thong">
                                         <thead>
                                             <tr>
@@ -98,26 +143,31 @@
                                                 <td>
                                                     <a th:href="@{/chi-tiet?id=} + ${listReportType3Item.getId()}"
                                                         th:text="${#strings.abbreviate(listReportType3Item.getJobName(),60)}"
-                                                            data-toggle="tooltip"
-                                                            th:title="${listReportType3Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType3Item.getWeek()} + ' năm ' + ${listReportType3Item.getYear()}"></p>
+                                                        data-toggle="tooltip"
+                                                        th:title="${listReportType3Item.getJobName()}"></a>
+                                                    <p class="text-muted m-b-0"
+                                                        th:text="'Tuần ' + ${listReportType3Item.getWeek()} + ' năm ' + ${listReportType3Item.getYear()}">
+                                                    </p>
                                                 </td>
-                                                <td class="text-center" th:text="${listReportType3Item.getTongGiaTriThucTe()}"></td>
-                                                <td class="text-center" th:text="${listReportType3Item.getCustomerName()}"></td>
-                                                <td class="text-center" th:text="${listReportType3Item.getPicName()}"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType3Item.getTongGiaTriThucTe()}"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType3Item.getCustomerName()}"></td>
+                                                <td class="text-center" th:text="${listReportType3Item.getPicName()}">
+                                                </td>
                                                 <td class="text-center">
                                                     <button type="button"
                                                         th:class="'btn btn-' + ${listReportType3Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
-                                                        data-toggle="popover" data-html="true"
-                                                        data-placement="right" title=""
+                                                        data-toggle="popover" data-html="true" data-placement="right"
+                                                        title=""
                                                         th:attr="data-content=${listReportType3Item.getTinhTrangDuAn()}"
                                                         data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
                                                         th:text="${listReportType3Item.getStatusDisplay()}">
                                                     </button>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a data-toggle="tooltip" title="Edit"
-                                                        data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
+                                                    <a data-toggle="tooltip" title="Edit" data-placement="bottom"
+                                                        class="btn btn-outline-warning border-0 btn-sm">
                                                         <span class="btn-icon-wrapper opacity-8">
                                                             <i class="fa fa-edit fa-w-20"></i>
                                                         </span>
@@ -132,11 +182,10 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <!-- [ Main Content ] end -->

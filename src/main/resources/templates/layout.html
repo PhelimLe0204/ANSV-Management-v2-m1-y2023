@@ -57,8 +57,13 @@
     </th:block>
     <!-- Member - CSS -->
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/thanh-vien/')}">
-        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+            rel="stylesheet">
         <link rel="stylesheet" th:href="@{/css/main/member/member.css}" type="text/css" />
+    </th:block>
+
+    <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/')}">
+        <link rel="stylesheet" th:href="@{/css/main/list-report/list-trien-khai.css}" type="text/css" />
     </th:block>
 </head>
 
@@ -102,7 +107,7 @@
         <script th:src="@{/vendors/highcharts/js/main.js}"></script>
     </th:block>
 
-     <!-- Member scripts  -->
+    <!-- Member scripts  -->
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/thanh-vien/')}">
         <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
         <script th:src="@{/js/main/member/member-main.js}"></script>
@@ -111,6 +116,7 @@
     <!-- ListReport scripts  -->
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/')}">
         <script th:src="@{/js/main/list-report/list-report.js}"></script>
+        <script th:src="@{/js/main/list-report/list-trien-khai.js}"></script>
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI != '/login'}">
@@ -132,7 +138,7 @@
         <!-- https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/js/ion.rangeSlider.min.js -->
         <script th:src="@{/vendors/ion-rangeSlider/2.2.0/js/ion.rangeSlider.min.js}"></script>
         <script th:src="@{/vendors/tinymce/js/tinymce/tinymce.min.js}"></script>
-        
+
         <script th:src="@{/js/main/detail/detail-main.js}"></script>
         <script th:src="@{/js/main/detail/team-directory-ryan-parag.js}"></script>
     </th:block>

@@ -1,6 +1,10 @@
 package vn.ansv.management.controller;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,16 +61,10 @@ public class ProjectReportController extends BaseController {
     }
 
     @RequestMapping(value = "/danh-sach/trien-khai", method = RequestMethod.GET)
-    public ModelAndView viewReportType3() {
-        // List<ProjectDashboardDTO> telecomProject =
-        // projectReportService.findAllDashboardProjectStep1(
-        // 1, 1l, week, year);
-        // List<ProjectDashboardDTO> digitalTransferProject =
-        // projectReportService.findAllDashboardProjectStep1(
-        // 1, 2l, week, year);
-        // List<ProjectDashboardDTO> deploymentProject =
-        // projectReportService.findAllDashboardProjectStep2(
-        // 1, 3l, week, year);
+    public ModelAndView viewReportType3(HttpSession session) {
+        Date trialTime = new Date();
+        session.setAttribute("currentWeek", getWeekOfYear(trialTime));
+        session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
 
         Init(); // Lấy dữ liệu cơ bản
         List<ListReport3DTO> dataType3 = projectReportService.findAllReportType3(3L);
