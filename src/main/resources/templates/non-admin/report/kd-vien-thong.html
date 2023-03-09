@@ -100,7 +100,7 @@
                                                         th:text="${#strings.abbreviate(listReportType1Item.getJobName(),60)}"
                                                             data-toggle="tooltip"
                                                             th:title="${listReportType1Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType1Item.getWeek()} + ' tháng ' + ${listReportType1Item.getYear()}"></p>
+                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType1Item.getWeek()} + ' năm ' + ${listReportType1Item.getYear()}"></p>
                                                 </td>
                                                 <td class="text-center" th:text="${listReportType1Item.getMucDoKhaThi()}+ '%'"></td>
                                                 <td class="text-center" th:text="${listReportType1Item.getTongMucDauTuDuKien()}"></td>
@@ -116,15 +116,10 @@
                                                         th:text="${listReportType1Item.getStatusDisplay()}">
                                                     </button>
                                                 </td>
-                                                <td class="text-center">
-                                                    <a data-toggle="tooltip" title="Edit"
-                                                        data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
-                                                        <span class="btn-icon-wrapper opacity-8">
-                                                            <i class="fa fa-edit fa-w-20"></i>
-                                                        </span>
-                                                    </a>
+                                                <td class="text-center" th:id="${listReportType1Item.getId()}">
                                                     <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
-                                                        title="Delete" th:data-id="${listReportType1Item.getId()}" th:data-name="${listReportType1Item.getJobName()}">
+                                                        title="Delete" th:data-id="${listReportType1Item.getId()}"
+                                                        th:data-name="${listReportType1Item.getJobName()}">
                                                         <span class="btn-icon-wrapper opacity-8">
                                                             <i class="fa fa-trash fa-w-20"></i>
                                                         </span>

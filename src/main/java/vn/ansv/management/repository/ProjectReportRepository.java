@@ -193,4 +193,19 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
                         @Param("keHoachTuanNay") String keHoachTuanNay, @Param("keHoachTuanSau") String keHoachTuanSau,
                         @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc, @Param("ketQuaTuanNay") String ketQuaTuanNay);
 
+        // Kiểm tra tồn tại của report
+
+        @Query(value = "SELECT COUNT(p.id) FROM project_report AS p "
+                        + "WHERE p.id = :id", nativeQuery = true)
+        Integer checkReportById(@Param("id") Long id);
+
+        /*
+         * Xoá report
+         * View danh sách
+         */
+
+        @Transactional
+        @Modifying
+        @Query(value = "DELETE FROM project_report WHERE id = :id", nativeQuery = true)
+        int deleteReportById(@Param("id") Long id);
 }

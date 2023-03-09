@@ -173,4 +173,23 @@ public class ProjectReportService implements IProjectReport {
         }
         return null;
     }
+
+    @Override
+    public Integer deleteReportById(Long first_report_id) {
+        try {
+            // Kiểm tra bản ghi có tồn tại không
+            int count = projectReportRepository.checkReportById(first_report_id);
+
+            if (count == 0) {
+                return 2;
+            }
+
+            projectReportRepository.deleteReportById(first_report_id);
+            return 1;
+        } catch (Exception e) {
+            System.out.println("----- Error ----- " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

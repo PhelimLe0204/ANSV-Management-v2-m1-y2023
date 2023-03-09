@@ -115,15 +115,10 @@
                                                         th:text="${listReportType3Item.getStatusDisplay()}">
                                                     </button>
                                                 </td>
-                                                <td class="text-center">
-                                                    <a data-toggle="tooltip" title="Edit"
-                                                        data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
-                                                        <span class="btn-icon-wrapper opacity-8">
-                                                            <i class="fa fa-edit fa-w-20"></i>
-                                                        </span>
-                                                    </a>
+                                                <td class="text-center" th:id="${listReportType3Item.getId()}">
                                                     <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
-                                                        title="Delete" th:data-id="${listReportType3Item.getId()}">
+                                                        title="Delete" th:data-id="${listReportType3Item.getId()}"
+                                                        th:data-name="${listReportType3Item.getJobName()}">
                                                         <span class="btn-icon-wrapper opacity-8">
                                                             <i class="fa fa-trash fa-w-20"></i>
                                                         </span>

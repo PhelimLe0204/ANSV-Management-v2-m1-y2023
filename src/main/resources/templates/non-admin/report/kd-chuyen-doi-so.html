@@ -100,7 +100,7 @@
                                                         th:text="${#strings.abbreviate(listReportType2Item.getJobName(),60)}"
                                                             data-toggle="tooltip"
                                                             th:title="${listReportType2Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType2Item.getWeek()} + ' tháng ' + ${listReportType2Item.getYear()}"></p>
+                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType2Item.getWeek()} + ' năm ' + ${listReportType2Item.getYear()}"></p>
                                                 </td>
                                                 <td class="text-center" th:text="${listReportType2Item.getMucDoKhaThi()}+ '%'"></td>
                                                 <td class="text-center" th:text="${listReportType2Item.getTongMucDauTuDuKien()}"></td>
@@ -116,14 +116,8 @@
                                                         th:text="${listReportType2Item.getStatusDisplay()}">
                                                     </button>
                                                 </td>
-                                                <td class="text-center">
-                                                    <a data-toggle="tooltip" title="Edit"
-                                                        data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
-                                                        <span class="btn-icon-wrapper opacity-8">
-                                                            <i class="fa fa-edit fa-w-20"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a id="${listReportType2Item.getId()}" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
+                                                <td class="text-center" th:id="${listReportType2Item.getId()}">
+                                                    <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
                                                         title="Delete" th:data-id="${listReportType2Item.getId()}"
                                                         th:data-name="${listReportType2Item.getJobName()}">
                                                         <span class="btn-icon-wrapper opacity-8">

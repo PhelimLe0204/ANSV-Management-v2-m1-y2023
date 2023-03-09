@@ -22,11 +22,15 @@ import vn.ansv.management.dto.selectOption.OptionProjectDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
+import vn.ansv.management.repository.FileUploadRepository;
 import vn.ansv.management.repository.MenuCategoryRepository;
+import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
+import vn.ansv.management.service.FileUploadService;
 import vn.ansv.management.service.ProjectReportMemberService;
+import vn.ansv.management.service.ProjectReportService;
 import vn.ansv.management.service.ProjectService;
 import vn.ansv.management.service.UserService;
 
@@ -42,6 +46,12 @@ public class ApiController {
 
     // @Autowired
     // private MenuRepository menuRepository;
+
+    @Autowired
+    private FileUploadService fileUploadService;
+
+    @Autowired
+    private ProjectReportService projectReportService;
 
     @Autowired
     private ProjectService projectService;
@@ -150,6 +160,37 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("failed", "Cập nhật trạng thái thất bại", ""));
         }
+    }
+
+    @GetMapping("/deleteProject/{id}")
+    public ResponseEntity<ResponseObject> deleteProject(@PathVariable Long id) {
+
+        if (fileUploadService.deleteFileUploadByProjectReportId(id) == 1
+                && projectReportMemberService.deleteMemberByReportId(id) == 1
+                && projectReportService.deleteReportById(id) == 1) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Đã xóa report", ""));
+        } else if (fileUploadService.deleteFileUploadByProjectReportId(id) == 2
+                && projectReportMemberService.deleteMemberByReportId(id) == 1
+                && projectReportService.deleteReportById(id) == 1) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Đã xóa report", ""));
+
+        } else if (fileUploadService.deleteFileUploadByProjectReportId(id) == 2
+                && projectReportMemberService.deleteMemberByReportId(id) == 2
+                && projectReportService.deleteReportById(id) == 1) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Đã xóa report", ""));
+
+        } else if (fileUploadService.deleteFileUploadByProjectReportId(id) == 1
+                && projectReportMemberService.deleteMemberByReportId(id) == 2
+                && projectReportService.deleteReportById(id) == 1) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Đã xóa report", ""));
+
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", "Lỗi hệ thống! Vui lòng thử lại sau", ""));
     }
 
     // @PostMapping("/addMemberIntoReport")

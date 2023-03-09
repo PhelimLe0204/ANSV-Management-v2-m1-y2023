@@ -86,4 +86,23 @@ public class ProjectReportMemberService implements IProjectReportMember {
         return projectReportMemberRepository.detailMemberReport(memberId);
     }
 
+    @Override
+    public Integer deleteMemberByReportId(Long reportId) {
+        try {
+            // Kiểm tra bản ghi có tồn tại không
+            int count = projectReportMemberRepository.checkMemberIssetByReportId(reportId);
+
+            if (count == 0) {
+                return 2;
+            }
+
+            projectReportMemberRepository.deleteMemberByReportId(reportId);
+            return 1;
+        } catch (Exception e) {
+            System.out.println("----- Error ----- " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }
