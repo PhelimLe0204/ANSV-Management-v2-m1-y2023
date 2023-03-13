@@ -63,6 +63,9 @@
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/')}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendors/ion-rangeSlider/2.2.0/css/ion.rangeSlider.min.css}">
+        <link rel="stylesheet" type="text/css"
+            th:href="@{/vendors/ion-rangeSlider/2.2.0/css/ion.rangeSlider.skinFlat.min.css}">
         <link rel="stylesheet" th:href="@{/css/main/list-report/list-trien-khai.css}" type="text/css" />
     </th:block>
 </head>
@@ -115,6 +118,7 @@
 
     <!-- ListReport scripts  -->
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/')}">
+        <script th:src="@{/vendors/ion-rangeSlider/2.2.0/js/ion.rangeSlider.min.js}"></script>
         <script th:src="@{/js/main/list-report/list-report.js}"></script>
         <script th:src="@{/js/main/list-report/list-trien-khai.js}"></script>
     </th:block>

@@ -179,4 +179,76 @@ $("#btn-open-add-new-report-modal").click(function () {
 
         $("#form-add-new-report").submit();
     });
+
+    var data_customer_select_option;
+    $.ajax({
+        url: "/api/getCustomerSelectOption",
+        success: function (result) {
+            console.log(result.data);
+            data_customer_select_option = result.data;
+
+            $("#customer_id").select2({
+                dropdownParent: $('#customer-selection'),
+                placeholder: 'Khách hàng...',
+                data: data_customer_select_option,
+                allowClear: true,
+                selectOnClose: true,
+                templateResult: function (data, container) {
+                    var $state = $(
+                        '<div class="row">'
+                        + '<div class="col-md-2">'
+                        + '<img src="/images/logo/'
+                        + (data.avatar ? data.avatar : 'image_undefined.jpg')
+                        + '" class="img-flag" style="width: 40px; height: 40px; margin-left: 10px;" />'
+                        + '</div>'
+                        + '<div class="col-md-10 pt-1">'
+                        + '<span class="font-weight-bold" style="font-size: 20px;">'
+                        + (data.customerName ? data.customerName : '. . . . .')
+                        + '</span>'
+                        + '</div>'
+                        + '</div>'
+                    );
+
+                    return $state;
+                },
+                templateSelection: function (data, container) {
+                    var $state = $(
+                        '<div class="row">'
+                        + '<div class="col-md-2 pb-1">'
+                        + '<img src="/images/logo/image_undefined.jpg" class="img-flag" style="width: 54px; height: 54px; margin-left: 5px; padding-top: 5px;" />'
+                        + '</div>'
+                        + '<div class="col-md-10 pt-3">'
+                        + '<span class="font-weight-bold">Mời chọn khách hàng...</span>'
+                        + '</div>'
+                        + '</div>'
+                    );
+
+                    if (data.id && data.customerName) {
+                        var $state = $(
+                            '<div class="row">'
+                            + '<div class="col-md-2 pb-1">'
+                            + '<img src="/images/logo/'
+                            + (data.avatar ? data.avatar : 'image_undefined.jpg')
+                            + '" class="img-flag" style="width: 50px; height: 50px; margin-left: 5px; padding-top: 5px;" />'
+                            + '</div>'
+                            + '<div class="col-md-10 pt-3">'
+                            + '<span class="font-weight-bold" style="font-size: 25px;">'
+                            + (data.customerName ? data.customerName : '. . . . .')
+                            + '</span>'
+                            + '</div>'
+                            + '</div>'
+                        );
+                        return $state;
+                    }
+
+                    return $state;
+                },
+            }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
+        }
+    });
+
+    $("#muc_do_kha_thi").ionRangeSlider({
+        min: 0,
+        max: 100
+    });
 });
