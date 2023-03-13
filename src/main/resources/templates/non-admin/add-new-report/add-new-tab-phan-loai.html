@@ -1,100 +1,96 @@
 <div class="tab-pane fade show active" id="phan-loai" role="tabpanel" aria-labelledby="phan-loai-tab"
     th:fragment="body">
-    <form th:action="@{report/addNew}" id="form-tab-phan-loai-edit" method="post">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="row">
-                    <div class="col-md-2 font-weight-bold pt-3">Dự án</div>
-                    <div id="project-name-selection" class="col-md-10">
-                        <select id="project_id" name="projectId"></select>
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="col-md-2 font-weight-bold">Giai đoạn</div>
-                    <div class="col-md-10 step-class">
-                        <div class="project-step btn disabled btn-outline-secondary btn-option pt-1" id="project-type-1"
-                            data-input="1" data-status="notActive">
-                            KD Viễn thông</div>
-                        <div class="project-step btn disabled btn-outline-secondary btn-option pt-1" id="project-type-2"
-                            data-input="2" data-status="notActive">
-                            KD Chuyển đổi số</div>
-                        <div class="project-step btn disabled btn-outline-secondary btn-option pt-1" id="project-type-3"
-                            data-input="3" data-status="active">
-                            Triển khai</div>
-                        <!-- Form input: projectTypeId -->
-                        <input type="text" class="d-none" id="project_type_id" name="projectTypeId">
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="col-md-2 font-weight-bold">Mức độ ưu tiên</div>
-                    <div class="col-md-10 priority-class">
-                        <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
-                            id="project-priority-1" data-input="1" data-status="notActive">
-                            High</div>
-                        <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
-                            id="project-priority-2" data-input="2" data-status="notActive">
-                            Medium</div>
-                        <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
-                            id="project-priority-3" data-input="3" data-status="notActive">
-                            Low</div>
-                        <!-- Form input: projectPriorityId -->
-                        <input type="text" class="d-none" id="project_priority_id" name="projectPriorityId">
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div class="col-md-2 font-weight-bold">Trạng thái</div>
-                    <div class="col-md-10 status-class">
-                        <div class="project-status btn pt-1 disabled btn-option btn-outline-success"
-                            id="project-status-1" data-input="1" data-status="notActive" data-color="success">
-                            Ongoing</div>
-                        <div class="project-status btn pt-1 disabled btn-option btn-outline-warning"
-                            id="project-status-2" data-input="2" data-status="notActive" data-color="warning">
-                            Warning</div>
-                        <div class="project-status btn pt-1 disabled btn-option btn-outline-danger"
-                            id="project-status-3" data-input="3" data-status="notActive" data-color="danger">
-                            Danger</div>
-                        <!-- Form input: projectStatusId -->
-                        <input type="text" class="d-none" id="project_status_id" name="projectStatusId">
-                    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-2 font-weight-bold pt-3">Dự án</div>
+                <div id="project-name-selection" class="col-md-10">
+                    <select id="project_id" name="projectId"></select>
                 </div>
-            </div>
-            <div class="col-md-5">
-                <div class="row">
-                    <div class="col-sm-4 font-weight-bold pt-2">Tuần</div>
-                    <div class="col-sm-8">
-                        <select id="week" name="week" class="form-control bg-white"
-                            th:data-first="${session.currentWeek}">
-                            <option value="1">1</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 font-weight-bold pt-2 mt-2">Năm</div>
-                    <div class="col-md-8 mt-2">
-                        <select id="year" name="year" class="form-control bg-white"
-                            th:data-first="${session.currentYear}">
-                            <option value="1">1</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 font-weight-bold pt-2 mt-2">Mã hợp đồng</div>
-                    <div class="col-md-8 mt-2">
-                        <input type="text" id="ma_hop_dong" name="maHopDong" class="form-control bg-white"
-                            placeholder="Mã hợp đồng...">
-                    </div>
-                    <div class="col-md-4 font-weight-bold pt-2 mt-2">Mã kế toán</div>
-                    <div class="col-md-8 mt-2">
-                        <input type="text" id="ma_ke_toan" name="maKeToan" class="form-control bg-white"
-                            placeholder="Mã kế toán...">
-                    </div>
-                    <div class="col-md-4 font-weight-bold pt-2 mt-2">Đơn vị tiền tệ</div>
-                    <div class="col-md-8 mt-2">
-                        <select id="currency_unit_id" name="currencyUnitId" class="form-control bg-white">
-                            <option value="1">1</option>
-                        </select>
-                    </div>
+                <div class="col-md-12">
+                    <hr>
+                </div>
+                <div class="col-md-2 font-weight-bold">Giai đoạn</div>
+                <div class="col-md-10 step-class">
+                    <div class="project-step btn disabled btn-outline-secondary btn-option pt-1" id="project-type-1"
+                        data-input="1" data-status="notActive">
+                        KD Viễn thông</div>
+                    <div class="project-step btn disabled btn-outline-secondary btn-option pt-1" id="project-type-2"
+                        data-input="2" data-status="notActive">
+                        KD Chuyển đổi số</div>
+                    <div class="project-step btn disabled btn-outline-secondary btn-option pt-1" id="project-type-3"
+                        data-input="3" data-status="active">
+                        Triển khai</div>
+                    <!-- Form input: projectTypeId -->
+                    <input type="text" class="d-none" id="project_type_id" name="projectTypeId">
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                </div>
+                <div class="col-md-2 font-weight-bold">Mức độ ưu tiên</div>
+                <div class="col-md-10 priority-class">
+                    <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
+                        id="project-priority-1" data-input="1" data-status="notActive">
+                        High</div>
+                    <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
+                        id="project-priority-2" data-input="2" data-status="notActive">
+                        Medium</div>
+                    <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
+                        id="project-priority-3" data-input="3" data-status="notActive">
+                        Low</div>
+                    <!-- Form input: projectPriorityId -->
+                    <input type="text" class="d-none" id="project_priority_id" name="projectPriorityId">
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                </div>
+                <div class="col-md-2 font-weight-bold">Trạng thái</div>
+                <div class="col-md-10 status-class">
+                    <div class="project-status btn pt-1 disabled btn-option btn-outline-success" id="project-status-1"
+                        data-input="1" data-status="notActive" data-color="success">
+                        Ongoing</div>
+                    <div class="project-status btn pt-1 disabled btn-option btn-outline-warning" id="project-status-2"
+                        data-input="2" data-status="notActive" data-color="warning">
+                        Warning</div>
+                    <div class="project-status btn pt-1 disabled btn-option btn-outline-danger" id="project-status-3"
+                        data-input="3" data-status="notActive" data-color="danger">
+                        Danger</div>
+                    <!-- Form input: projectStatusId -->
+                    <input type="text" class="d-none" id="project_status_id" name="projectStatusId">
                 </div>
             </div>
         </div>
-    </form>
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-sm-4 font-weight-bold pt-2">Tuần</div>
+                <div class="col-sm-8">
+                    <select id="week" name="week" class="form-control bg-white" th:data-first="${session.currentWeek}">
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-md-4 font-weight-bold pt-2 mt-2">Năm</div>
+                <div class="col-md-8 mt-2">
+                    <select id="year" name="year" class="form-control bg-white" th:data-first="${session.currentYear}">
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-md-4 font-weight-bold pt-2 mt-2">Mã hợp đồng</div>
+                <div class="col-md-8 mt-2">
+                    <input type="text" id="ma_hop_dong" name="maHopDong" class="form-control bg-white"
+                        placeholder="Mã hợp đồng...">
+                </div>
+                <div class="col-md-4 font-weight-bold pt-2 mt-2">Mã kế toán</div>
+                <div class="col-md-8 mt-2">
+                    <input type="text" id="ma_ke_toan" name="maKeToan" class="form-control bg-white"
+                        placeholder="Mã kế toán...">
+                </div>
+                <div class="col-md-4 font-weight-bold pt-2 mt-2">Đơn vị tiền tệ</div>
+                <div class="col-md-8 mt-2">
+                    <select id="currency_unit_id" name="currencyUnitId" class="form-control bg-white">
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

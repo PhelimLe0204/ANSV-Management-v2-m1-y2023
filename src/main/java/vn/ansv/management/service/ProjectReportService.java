@@ -2,6 +2,7 @@ package vn.ansv.management.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.repository.ProjectReportRepository;
@@ -188,6 +190,39 @@ public class ProjectReportService implements IProjectReport {
             return 1;
         } catch (Exception e) {
             System.out.println("----- Error ----- " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer addNewReport(AddNewReportDTO dataInsert) {
+        try {
+            String uid = RandomStringUtils.randomAlphanumeric(20);
+            dataInsert.setUid(uid);
+            dataInsert.setAmId(1L); // Test mã AM
+            dataInsert.setJobName("Công việc: " + uid); // Test mã AM
+
+            // Add new report
+            projectReportRepository.addNewReport(dataInsert.getUid(), dataInsert.getAmId(), dataInsert.getAmManagerId(),
+                    dataInsert.getPmId(), dataInsert.getPmManagerId(), dataInsert.getCreatedBy(),
+                    dataInsert.getProjectId(), dataInsert.getProjectTypeId(), dataInsert.getProjectPriorityId(),
+                    dataInsert.getProjectStatusId(), dataInsert.getWeek(), dataInsert.getYear(),
+                    dataInsert.getMaHopDong(), dataInsert.getMaKeToan(), dataInsert.getCurrencyUnitId(),
+                    dataInsert.getJobName(), dataInsert.getDescription(), dataInsert.getMucDoKhaThi(),
+                    dataInsert.getTongMucDauTuDuKien(), dataInsert.getHinhThucDauTu(), dataInsert.getPhamViCungCap(),
+                    dataInsert.getPhanTichSwoot(), dataInsert.getSoTienDac(), dataInsert.getHopDongDac(),
+                    dataInsert.getMucTieuDac(), dataInsert.getThucTeDac(), dataInsert.getSoTienPac(),
+                    dataInsert.getHopDongPac(), dataInsert.getMucTieuPac(), dataInsert.getThucTePac(),
+                    dataInsert.getSoTienFac(), dataInsert.getHopDongFac(), dataInsert.getMucTieuFac(),
+                    dataInsert.getThucTeFac(), dataInsert.getTongGiaTriThucTe(), dataInsert.getSoTienTamUng(),
+                    dataInsert.getKeHoachTamUng(), dataInsert.getGeneralIssue(), dataInsert.getSolution(),
+                    dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(), dataInsert.getKetQuaTuanTruoc(),
+                    dataInsert.getKetQuaTuanNay());
+
+            return 1;
+        } catch (Exception e) {
+            System.out.println("----- Error ----- ProjectReportService.addNewReport(): " + e.getMessage());
             e.printStackTrace();
             return 0;
         }

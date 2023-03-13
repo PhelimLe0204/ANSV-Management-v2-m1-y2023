@@ -8,12 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.service.ProjectReportService;
 
 @Controller
@@ -71,5 +73,19 @@ public class ProjectReportController extends BaseController {
         _mvShare.addObject("listReportType3", dataType3);
         _mvShare.setViewName("non-admin/report/trien-khai");
         return _mvShare;
+    }
+
+    @RequestMapping(value = "report/addNew", method = RequestMethod.POST)
+    public String addNew(@ModelAttribute AddNewReportDTO dataUpdate) {
+        // System.out.println("--- " + dataUpdate.getProjectId());
+        // System.out.println("--- " + dataUpdate.getProjectTypeId());
+        // System.out.println("--- " + dataUpdate.getProjectPriorityId());
+        // System.out.println("--- " + dataUpdate.getProjectStatusId());
+        // System.out.println("--- " + dataUpdate.getWeek());
+        // System.out.println("--- " + dataUpdate.getYear());
+        // System.out.println("--- " + dataUpdate.getMaHopDong());
+        // System.out.println("--- " + dataUpdate.getMaKeToan());
+        // System.out.println("--- " + dataUpdate.getCurrencyUnitId());
+        return "redirect:/danh-sach/trien-khai?addNew=" + projectReportService.addNewReport(dataUpdate);
     }
 }

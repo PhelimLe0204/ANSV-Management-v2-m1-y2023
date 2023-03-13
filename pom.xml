@@ -88,6 +88,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+
 		<!-- Show data in .jsp file -->
 		<dependency>
 			<groupId>jstl</groupId>

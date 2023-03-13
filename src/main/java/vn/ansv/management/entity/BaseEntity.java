@@ -23,8 +23,7 @@ public abstract class BaseEntity {
     private Long id;
 
     @Column(name = "uid", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment
-    private Long uid;
+    private String uid;
 
     @Column(name = "created_by", nullable = false)
     @CreatedBy
@@ -48,11 +47,11 @@ public abstract class BaseEntity {
 
     // Id được set tự tăng => Không có setter
 
-    public Long getUid() {
+    public String getUid() {
         return this.uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

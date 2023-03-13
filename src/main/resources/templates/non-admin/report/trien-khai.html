@@ -47,16 +47,19 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <th:block th:insert="non-admin/add-new-report/add-new-tab-phan-loai :: body"></th:block>
-                            <th:block th:insert="non-admin/add-new-report/add-new-tab-du-thau :: body"></th:block>
-                            <th:block th:insert="non-admin/add-new-report/add-new-tab-chi-phi-thoi-gian :: body">
-                            </th:block>
-                            <th:block th:insert="non-admin/add-new-report/add-new-tab-qua-trinh :: body"></th:block>
+                            <form th:action="@{/report/addNew}" id="form-add-new-report" method="post">
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-phan-loai :: body"></th:block>
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-du-thau :: body"></th:block>
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-chi-phi-thoi-gian :: body">
+                                </th:block>
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-qua-trinh :: body"></th:block>
+                            </form>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary pt-1 pb-1">Thêm mới</button>
+                        <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-report">
+                            Thêm mới</button>
                     </div>
                 </div>
             </div>

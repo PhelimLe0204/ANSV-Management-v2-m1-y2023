@@ -69,7 +69,6 @@ $("#btn-open-add-new-report-modal").click(function () {
 
     // Form input: project_type_id
     $(".project-step").click(function () {
-        console.log("Form input project's type.");
         var onFocus = $(this).hasClass("btn-primary");
 
         if (onFocus == true) {
@@ -160,5 +159,24 @@ $("#btn-open-add-new-report-modal").click(function () {
             }
             $("#currency_unit_id").html(htmlSelectCurrencyUnit);
         }
+    });
+
+    $("#btn-submit-add-new-report").click(function () {
+        let project_id = $("#project_id").val();
+        let project_type_id = $("#project_type_id").val();
+        let project_priority_id = $("#project_priority_id").val();
+        let project_status_id = $("#project_status_id").val();
+        let week = $("#week").val();
+        let year = $("#year").val();
+        // let ma_hop_dong = $("#ma_hop_dong").val();
+        // let ma_ke_toan = $("#ma_ke_toan").val();
+        let currency_unit_id = $("#currency_unit_id").val();
+
+        if (!project_id | !project_type_id | !project_priority_id | !project_status_id | !week | !year | !currency_unit_id) {
+            console.log("Thiếu dữ liệu");
+            return;
+        }
+
+        $("#form-add-new-report").submit();
     });
 });
