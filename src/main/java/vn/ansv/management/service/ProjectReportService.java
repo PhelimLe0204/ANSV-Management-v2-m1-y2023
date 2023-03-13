@@ -201,7 +201,7 @@ public class ProjectReportService implements IProjectReport {
             String uid = RandomStringUtils.randomAlphanumeric(20);
             dataInsert.setUid(uid);
             dataInsert.setAmId(1L); // Test mã AM
-            dataInsert.setJobName("Công việc: " + uid); // Test mã AM
+            dataInsert.setJobName("Công việc: " + uid); // Test tên công việc
 
             // Add new report
             projectReportRepository.addNewReport(dataInsert.getUid(), dataInsert.getAmId(), dataInsert.getAmManagerId(),

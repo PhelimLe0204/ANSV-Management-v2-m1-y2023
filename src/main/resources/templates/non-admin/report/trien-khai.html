@@ -19,42 +19,37 @@
                         </button>
                     </div>
                     <div class="modal-body pt-0">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active text-uppercase" id="phan-loai-tab" data-toggle="tab"
-                                    href="#phan-loai" role="tab" aria-controls="phan-loai" aria-selected="true">
-                                    Phân loại
-                                </a>
+                                <a class="nav-link active text-uppercase" id="add-new-pl-tab" data-toggle="tab"
+                                    href="#add-new-pl" role="tab" aria-controls="add-new-pl" aria-selected="true">
+                                    Phân loại</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase" id="du-thau-tab" data-toggle="tab" href="#du-thau"
-                                    role="tab" aria-controls="du-thau" aria-selected="false">
-                                    Dự thầu
-                                </a>
+                                <a class="nav-link text-uppercase" id="add-new-dt-tab" data-toggle="tab"
+                                    href="#add-new-dt" role="tab" aria-controls="add-new-dt" aria-selected="false">
+                                    Dự thầu</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase" id="chi-phi-va-thoi-gian-tab" data-toggle="tab"
-                                    href="#chi-phi-va-thoi-gian" role="tab" aria-controls="chi-phi-va-thoi-gian"
-                                    aria-selected="false">
-                                    Chi phí & Thời gian
-                                </a>
+                                <a class="nav-link text-uppercase" id="add-new-cptg-tab" data-toggle="tab"
+                                    href="#add-new-cptg" role="tab" aria-controls="add-new-cptg"
+                                    aria-selected="false">Chi phí & thời gian</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase" id="qua-trinh-tab" data-toggle="tab"
-                                    href="#qua-trinh" role="tab" aria-controls="qua-trinh" aria-selected="false">
-                                    Quá trình
-                                </a>
+                                <a class="nav-link text-uppercase" id="add-new-qt-tab" data-toggle="tab"
+                                    href="#add-new-qt" role="tab" aria-controls="add-new-qt" aria-selected="false">
+                                    Quá trình</a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <form th:action="@{/report/addNew}" id="form-add-new-report" method="post">
+                        <form th:action="@{/report/addNew}" id="form-add-new-report" method="post">
+                            <div class="tab-content" id="myTabContent">
                                 <th:block th:insert="non-admin/add-new-report/add-new-tab-phan-loai :: body"></th:block>
                                 <th:block th:insert="non-admin/add-new-report/add-new-tab-du-thau :: body"></th:block>
                                 <th:block th:insert="non-admin/add-new-report/add-new-tab-chi-phi-thoi-gian :: body">
                                 </th:block>
                                 <th:block th:insert="non-admin/add-new-report/add-new-tab-qua-trinh :: body"></th:block>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
