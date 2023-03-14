@@ -18,4 +18,9 @@ public class ProjectService implements IProject {
     public List<OptionProjectDTO> findAllSelectOption() {
         return projectRepository.findAllSelectOption();
     }
+
+    @Override
+    public Long getCustomerIdById(Long id) {
+        return projectRepository.findCustomerIdById(id);
+    }
 }

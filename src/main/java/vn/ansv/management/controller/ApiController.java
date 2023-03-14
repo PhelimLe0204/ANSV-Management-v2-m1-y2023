@@ -22,9 +22,7 @@ import vn.ansv.management.dto.selectOption.OptionProjectDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
-import vn.ansv.management.repository.FileUploadRepository;
 import vn.ansv.management.repository.MenuCategoryRepository;
-import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
@@ -235,5 +233,18 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Đối tượng không xác định", ""));
         }
+    }
+
+    @GetMapping("/getCustomerIdByProjectId/{id}")
+    public ResponseEntity<ResponseObject> getCustomerIdByProjectId(@PathVariable Long id) {
+        Long customerId = projectService.getCustomerIdById(id);
+        String message = null;
+
+        if (customerId > 0) {
+            message = "Customer by project.";
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("success", message, customerId));
     }
 }

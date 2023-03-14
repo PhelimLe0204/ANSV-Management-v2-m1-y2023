@@ -6,4 +6,6 @@ import vn.ansv.management.dto.selectOption.OptionProjectDTO;
 
 public interface IProject {
     List<OptionProjectDTO> findAllSelectOption();
+
+    Long getCustomerIdById(Long id);
 }
