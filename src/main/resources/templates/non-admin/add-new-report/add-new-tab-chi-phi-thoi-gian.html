@@ -22,7 +22,7 @@
                         </td>
                         <td class="p-2">
                             <input type="text" name="soTienDac" id="so_tien_dac"
-                                class="form-control text-center table-bg-form-input">
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền DAC...">
                         </td>
                         <td class="p-2">
                             <input type="text" name="hopDongDac" id="hop_dong_dac"
@@ -57,8 +57,6 @@
                             </button>
                         </td>
                         <td class="align-middle text-center">
-                            <i class="fa-sharp fa-solid fa-square-check text-primary" data-status-for="thuc_te_dac"
-                                style="font-size: 20px;"></i>
                             <i class="fa-solid fa-square" data-status-for="thuc_te_dac" style="font-size: 20px;"></i>
                             <span id="chenh_lech_dac"></span>
                         </td>
@@ -69,7 +67,7 @@
                         </td>
                         <td class="p-2">
                             <input type="text" name="soTienPac" id="so_tien_pac"
-                                class="form-control text-center table-bg-form-input">
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền PAC...">
                         </td>
                         <td class="p-2">
                             <input type="text" name="hopDongPac" id="hop_dong_pac"
@@ -104,8 +102,8 @@
                             </button>
                         </td>
                         <td class="align-middle text-center">
-                            <i class="fa-sharp fa-solid fa-square-check text-primary" data-status-for="thuc_te_pac"
-                                style="font-size: 20px;"></i>
+                            <!-- <i id="pac_status" class="fa-sharp fa-solid fa-square-check text-primary"
+                                data-status-for="thuc_te_pac" style="font-size: 20px;"></i> -->
                             <i class="fa-solid fa-square" data-status-for="thuc_te_pac" style="font-size: 20px;"></i>
                             <span id="chenh_lech_pac"></span>
                         </td>
@@ -116,7 +114,7 @@
                         </td>
                         <td class="p-2">
                             <input type="text" name="soTienFac" id="so_tien_fac"
-                                class="form-control text-center table-bg-form-input">
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền FAC...">
                         </td>
                         <td class="p-2">
                             <input type="text" name="hopDongFac" id="hop_dong_fac"
@@ -151,8 +149,6 @@
                             </button>
                         </td>
                         <td class="align-middle text-center">
-                            <i class="fa-sharp fa-solid fa-square-check text-primary" data-status-for="thuc_te_fac"
-                                style="font-size: 20px;"></i>
                             <i class="fa-solid fa-square" data-status-for="thuc_te_fac" style="font-size: 20px;"></i>
                             <span id="chenh_lech_fac"></span>
                         </td>
@@ -163,7 +159,8 @@
                         </td>
                         <td class="p-2">
                             <input type="text" name="tongGiaTriThucTe" id="tong_gia_tri_thuc_te"
-                                class="form-control text-center table-bg-form-input">
+                                class="form-control text-center table-bg-form-input"
+                                placeholder="Nhập tổng giá trị thực tế...">
                         </td>
                         <td></td>
                         <td></td>
@@ -176,12 +173,19 @@
                         </td>
                         <td class="p-2">
                             <input type="text" name="soTienTamUng" id="so_tien_tam_ung"
-                                class="form-control text-center table-bg-form-input">
+                                class="form-control text-center table-bg-form-input"
+                                placeholder="Nhập số tiền tạm ứng...">
                         </td>
                         <td></td>
                         <td class="p-2">
                             <input type="text" name="keHoachTamUng" id="ke_hoach_tam_ung"
-                                class="form-control text-center input-datepicker" readonly="">
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="ke_hoach_tam_ung">
+                                <i class="feather icon-x"></i>
+                            </button>
                         </td>
                         <td></td>
                         <td></td>
