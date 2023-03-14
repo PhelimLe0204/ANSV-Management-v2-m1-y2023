@@ -2,3 +2,11 @@
     height: 30px;
     width: 32%;
 }
+
+.input-datepicker {
+    width: 89%;
+}
+
+.input-datepicker:focus {
+    background-color: #FFF;
+}
