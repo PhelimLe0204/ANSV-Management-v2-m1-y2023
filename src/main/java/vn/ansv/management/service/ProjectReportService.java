@@ -201,7 +201,9 @@ public class ProjectReportService implements IProjectReport {
             String uid = RandomStringUtils.randomAlphanumeric(20);
             dataInsert.setUid(uid);
             dataInsert.setAmId(1L); // Test mã AM
-            dataInsert.setJobName("Công việc: " + uid); // Test tên công việc
+            if (dataInsert.getJobName().isEmpty()) {
+                dataInsert.setJobName("Công việc: " + uid); // Test tên công việc
+            }
 
             // Add new report
             projectReportRepository.addNewReport(dataInsert.getUid(), dataInsert.getAmId(), dataInsert.getAmManagerId(),
@@ -219,6 +221,11 @@ public class ProjectReportService implements IProjectReport {
                     dataInsert.getKeHoachTamUng(), dataInsert.getGeneralIssue(), dataInsert.getSolution(),
                     dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(), dataInsert.getKetQuaTuanTruoc(),
                     dataInsert.getKetQuaTuanNay());
+
+            // Cập nhật khách hàng
+            if (dataInsert.getCustomerId() != projectRepository.findCustomerIdById(dataInsert.getProjectId())) {
+                projectRepository.updateCustomerById(dataInsert.getProjectId(), dataInsert.getCustomerId());
+            }
 
             return 1;
         } catch (Exception e) {

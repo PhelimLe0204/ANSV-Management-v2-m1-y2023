@@ -247,6 +247,16 @@ $("#btn-open-add-new-report-modal").click(function () {
         }
     });
 
+    $("#add-new-dt-tab").click(function () {
+        // $("#project_id").val();
+        $.ajax({
+            url: "/api/getCustomerIdByProjectId/" + $("#project_id").val(),
+            success: function (result) {
+                $("#customer_id").select2("val", result.data + "");
+            }
+        });
+    });
+
     $("#muc_do_kha_thi").ionRangeSlider({
         min: 0,
         max: 100
