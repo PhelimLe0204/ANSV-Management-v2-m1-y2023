@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +27,10 @@ public class ProjectReportController extends BaseController {
     private ProjectReportService projectReportService;
 
     @RequestMapping(value = "/danh-sach/kd-vien-thong", method = RequestMethod.GET)
-    public ModelAndView viewReportType1(HttpServletRequest request) {
+    public ModelAndView viewReportType1(HttpSession session, HttpServletRequest request) {
+        Date trialTime = new Date();
+        session.setAttribute("currentWeek", getWeekOfYear(trialTime));
+        session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
         // List<ProjectDashboardDTO> telecomProject =
         // projectReportService.findAllDashboardProjectStep1(
         // 1, 1l, week, year);
@@ -50,7 +54,10 @@ public class ProjectReportController extends BaseController {
     }
 
     @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method = RequestMethod.GET)
-    public ModelAndView viewReportType2(HttpServletRequest request) {
+    public ModelAndView viewReportType2(HttpSession session, HttpServletRequest request) {
+        Date trialTime = new Date();
+        session.setAttribute("currentWeek", getWeekOfYear(trialTime));
+        session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
         // List<ProjectDashboardDTO> telecomProject =
         // projectReportService.findAllDashboardProjectStep1(
         // 1, 1l, week, year);
@@ -93,8 +100,19 @@ public class ProjectReportController extends BaseController {
         return _mvShare;
     }
 
-    @RequestMapping(value = "report/addNew", method = RequestMethod.POST)
-    public String addNew(@ModelAttribute AddNewReportDTO dataUpdate) {
-        return "redirect:/danh-sach/trien-khai?addNew=" + projectReportService.addNewReport(dataUpdate);
+    @RequestMapping(value = "report/addNew/{type}", method = RequestMethod.POST)
+    public String addNew(@ModelAttribute AddNewReportDTO dataUpdate, @PathVariable Integer type) {
+        if (type == 3) {
+            return "redirect:/danh-sach/trien-khai?addNew=" + projectReportService.addNewReport(dataUpdate);
+        }
+        if (type == 2) {
+            return "redirect:/danh-sach/kd-chuyen-doi-so?addNew=" + projectReportService.addNewReport(dataUpdate);
+        }
+        if (type == 1) {
+            return "redirect:/danh-sach/kd-vien-thong?addNew=" + projectReportService.addNewReport(dataUpdate);
+        }
+
+        return null;
+
     }
 }

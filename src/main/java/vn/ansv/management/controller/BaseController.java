@@ -44,7 +44,7 @@ public class BaseController {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             System.out.println("---------- " + currentUserName);
-            session.setAttribute("userId", userService.defineUserId(currentUserName));
+            session.setAttribute("userId", userService.userDefine(currentUserName));
             session.setAttribute("username", currentUserName);
             // return currentUserName;
             System.out.println("---------- " + currentUserName);
