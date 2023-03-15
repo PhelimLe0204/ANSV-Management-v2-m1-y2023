@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ProjectReportController extends BaseController {
     private ProjectReportService projectReportService;
 
     @RequestMapping(value = "/danh-sach/kd-vien-thong", method = RequestMethod.GET)
-    public ModelAndView viewReportType1() {
+    public ModelAndView viewReportType1(HttpServletRequest request) {
         // List<ProjectDashboardDTO> telecomProject =
         // projectReportService.findAllDashboardProjectStep1(
         // 1, 1l, week, year);
@@ -35,6 +36,11 @@ public class ProjectReportController extends BaseController {
         // List<ProjectDashboardDTO> deploymentProject =
         // projectReportService.findAllDashboardProjectStep2(
         // 1, 3l, week, year);
+
+        String test = request.getRequestURI();
+        String[] path = test.split("/");
+        String lastPath = path[path.length - 1];
+        _mvShare.addObject("url", lastPath);
 
         Init(); // Lấy dữ liệu cơ bản
         List<ListReport12DTO> dataType1 = projectReportService.findAllReportType12(1L);
@@ -44,7 +50,7 @@ public class ProjectReportController extends BaseController {
     }
 
     @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method = RequestMethod.GET)
-    public ModelAndView viewReportType2() {
+    public ModelAndView viewReportType2(HttpServletRequest request) {
         // List<ProjectDashboardDTO> telecomProject =
         // projectReportService.findAllDashboardProjectStep1(
         // 1, 1l, week, year);
@@ -55,18 +61,30 @@ public class ProjectReportController extends BaseController {
         // projectReportService.findAllDashboardProjectStep2(
         // 1, 3l, week, year);
 
+        // Lấy url
+        String test = request.getRequestURI();
+        String[] path = test.split("/");
+        String lastPath = path[path.length - 1];
+        _mvShare.addObject("url", lastPath);
         Init(); // Lấy dữ liệu cơ bản
         List<ListReport12DTO> dataType2 = projectReportService.findAllReportType12(2L);
         _mvShare.addObject("listReportType2", dataType2);
+
         _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
         return _mvShare;
     }
 
     @RequestMapping(value = "/danh-sach/trien-khai", method = RequestMethod.GET)
-    public ModelAndView viewReportType3(HttpSession session) {
+    public ModelAndView viewReportType3(HttpSession session, HttpServletRequest request) {
         Date trialTime = new Date();
         session.setAttribute("currentWeek", getWeekOfYear(trialTime));
         session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+
+        // Lấy last url
+        String test = request.getRequestURI();
+        String[] path = test.split("/");
+        String lastPath = path[path.length - 1];
+        _mvShare.addObject("url", lastPath);
 
         Init(); // Lấy dữ liệu cơ bản
         List<ListReport3DTO> dataType3 = projectReportService.findAllReportType3(3L);
