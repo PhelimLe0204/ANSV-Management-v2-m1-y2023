@@ -9,18 +9,27 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 import vn.ansv.management.service.MenuCategoryService;
+import vn.ansv.management.service.UserService;
 
 @Controller
 public class BaseController {
 
     @Autowired // Inject "MenuCategoryService" - Dependency Injection
     private MenuCategoryService menuCategoryService;
+
+    @Autowired // Inject "UserService" - Dependency Injection
+    private UserService userService;
 
     public ModelAndView _mvShare = new ModelAndView();
 
@@ -29,6 +38,28 @@ public class BaseController {
         _mvShare.addObject("menuCategoryLayout", menuCategoryLayout);
         return _mvShare;
     }
+
+    public void userSession(HttpSession session) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            System.out.println("---------- " + currentUserName);
+            session.setAttribute("userId", userService.defineUserId(currentUserName));
+            session.setAttribute("username", currentUserName);
+            // return currentUserName;
+            System.out.println("---------- " + currentUserName);
+        }
+    }
+
+    // public String getUsername() {
+    // Authentication authentication =
+    // SecurityContextHolder.getContext().getAuthentication();
+    // if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    // String currentUserName = authentication.getName();
+    // return currentUserName;
+    // }
+    // return null;
+    // }
 
     // Hàm lấy số tuần
     public int getWeekOfYear(Date date) {
@@ -48,7 +79,7 @@ public class BaseController {
         /* === Determine week of year === */
         Calendar calendar = new GregorianCalendar();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
-        
+
         // Xác định tuần đầu tiên trong năm có mấy ngày
         int daysOfFirstWeek = 8 - dayOfWeek.getValue();
         if (daysOfFirstWeek < 2) {
@@ -56,7 +87,7 @@ public class BaseController {
         } else {
             calendar.setMinimalDaysInFirstWeek(8 - dayOfWeek.getValue());
         }
-        
+
         calendar.setTime(date);
         int week = calendar.get(Calendar.WEEK_OF_YEAR);
 

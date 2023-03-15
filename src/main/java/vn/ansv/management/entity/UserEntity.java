@@ -15,8 +15,21 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
+import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
+
+/* ===== UserRepository.defineByUsername() ===== */
+@NamedNativeQuery(name = "UserEntity.defineByUsername", query = "SELECT "
+        + "u.id, r.role_name AS userRole FROM user AS u "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "WHERE u.username = :username", resultSetMapping = "Mapping.UserDefineDTO")
+
+/* ===== Set mapping: UserDefineDTO ===== */
+@SqlResultSetMapping(name = "Mapping.UserDefineDTO", classes = @ConstructorResult(targetClass = UserDefineDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "userRole", type = String.class) }))
 
 /* ===== UserRepository.findAllUserOption() ===== */
 @NamedNativeQuery(name = "UserEntity.findAllUserOption", query = "SELECT "

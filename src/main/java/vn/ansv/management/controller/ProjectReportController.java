@@ -77,15 +77,6 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "report/addNew", method = RequestMethod.POST)
     public String addNew(@ModelAttribute AddNewReportDTO dataUpdate) {
-        // System.out.println("--- " + dataUpdate.getProjectId());
-        // System.out.println("--- " + dataUpdate.getProjectTypeId());
-        // System.out.println("--- " + dataUpdate.getProjectPriorityId());
-        // System.out.println("--- " + dataUpdate.getProjectStatusId());
-        // System.out.println("--- " + dataUpdate.getWeek());
-        // System.out.println("--- " + dataUpdate.getYear());
-        // System.out.println("--- " + dataUpdate.getMaHopDong());
-        // System.out.println("--- " + dataUpdate.getMaKeToan());
-        // System.out.println("--- " + dataUpdate.getCurrencyUnitId());
         return "redirect:/danh-sach/trien-khai?addNew=" + projectReportService.addNewReport(dataUpdate);
     }
 }

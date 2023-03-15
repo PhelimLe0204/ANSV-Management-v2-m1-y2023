@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
@@ -16,6 +19,7 @@ import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.Interface.IProjectReport;
@@ -24,6 +28,9 @@ import vn.ansv.management.service.Interface.IProjectReport;
 public class ProjectReportService implements IProjectReport {
     @Autowired
     private ProjectReportRepository projectReportRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -200,7 +207,35 @@ public class ProjectReportService implements IProjectReport {
         try {
             String uid = RandomStringUtils.randomAlphanumeric(20);
             dataInsert.setUid(uid);
-            dataInsert.setAmId(1L); // Test mã AM
+            dataInsert.setAmId(1L); // Set AM
+
+            // Get username và Set người tạo (AM / PM / AM's manager / PM's manager)
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (!(authentication instanceof AnonymousAuthenticationToken)) {
+                String currentUserName = authentication.getName();
+                // Define user's id
+                UserDefineDTO user_define = userService.userDefine(currentUserName);
+                Long user_id = user_define.getId();
+                String user_role = user_define.getUserRole();
+                switch (user_role) {
+                    case "AM":
+                        dataInsert.setAmId(user_id); // Set AM
+                        break;
+                    case "PM":
+                        dataInsert.setPmId(user_id); // Set PM
+                        break;
+                    case "Manager_AM":
+                        dataInsert.setAmManagerId(user_id); // Set AM's manager
+                        break;
+                    case "Manager_PM":
+                        dataInsert.setPmManagerId(user_id); // Set PM's manager
+                        break;
+                }
+                dataInsert.setCreatedBy(currentUserName); // Set createdBy
+                // return currentUserName;
+                // System.out.println("---------- " + currentUserName);
+            }
+
             if (dataInsert.getJobName().isEmpty()) {
                 dataInsert.setJobName("Công việc: " + uid); // Test tên công việc
             }

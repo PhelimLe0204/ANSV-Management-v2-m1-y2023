@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SecurityController {
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Principal principal) {
         return principal != null ? "redirect:/" : "login";
