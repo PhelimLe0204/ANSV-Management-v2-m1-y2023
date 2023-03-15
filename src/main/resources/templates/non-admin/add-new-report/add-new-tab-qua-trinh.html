@@ -1,3 +1,105 @@
 <div class="tab-pane fade" id="add-new-qt" role="tabpanel" aria-labelledby="add-new-qt-tab" th:fragment="body">
-    <h1>Tab quá trình</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-none mb-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                            <ul class="nav flex-column nav-pills pt-3" id="v-pills-tab" role="tablist"
+                                aria-orientation="vertical">
+                                <li>
+                                    <a class="nav-link text-left active" id="v-pills-ket-qua-tuan-truoc-tab"
+                                        data-toggle="pill" href="#v-pills-ket-qua-tuan-truoc" role="tab"
+                                        aria-controls="v-pills-ket-qua-tuan-truoc" aria-selected="false">
+                                        <i class="fa-solid fa-list-check icon-bills-tab"></i>
+                                        <span>Kết quả tuần trước</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-left" id="v-pills-ke-hoach-tuan-nay-tab" data-toggle="pill"
+                                        href="#v-pills-ke-hoach-tuan-nay" role="tab"
+                                        aria-controls="v-pills-ke-hoach-tuan-nay" aria-selected="false">
+                                        <i class="fa-solid fa-paper-plane icon-bills-tab"></i>
+                                        <span>Kế hoạch tuần này</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-left" id="v-pills-ket-qua-tuan-nay-tab" data-toggle="pill"
+                                        href="#v-pills-ket-qua-tuan-nay" role="tab"
+                                        aria-controls="v-pills-ket-qua-tuan-nay" aria-selected="false">
+                                        <i class="fa-solid fa-list-check icon-bills-tab"></i>
+                                        <span>Kết quả tuần này</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-left" id="v-pills-kho-khan-tab" data-toggle="pill"
+                                        href="#v-pills-kho-khan" role="tab" aria-controls="v-pills-kho-khan"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-triangle-exclamation icon-bills-tab"></i>
+                                        <span>Khó khăn</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-left" id="v-pills-giai-phap-tab" data-toggle="pill"
+                                        href="#v-pills-giai-phap" role="tab" aria-controls="v-pills-giai-phap"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-lightbulb icon-bills-tab"></i>
+                                        <span>Giải pháp</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-left" id="v-pills-ke-hoach-tuan-sau-tab" data-toggle="pill"
+                                        href="#v-pills-ke-hoach-tuan-sau" role="tab"
+                                        aria-controls="v-pills-ke-hoach-tuan-sau" aria-selected="true">
+                                        <i class="fa-solid fa-paper-plane icon-bills-tab"></i>
+                                        <span>Kế hoạch tuần sau</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-9 col-sm-12" id="tinymce-group">
+                            <div class="tab-content pt-3" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-ket-qua-tuan-truoc" role="tabpanel"
+                                    aria-labelledby="v-pills-ket-qua-tuan-truoc-tab">
+                                    <textarea class="tinymce-content" id="tinymce-ket-qua-tuan-truoc" data-position="0"
+                                        name="ketQuaTuanTruoc" placeholder="Mời nhập nội dung KẾT QUẢ TUẦN TRƯỚC...">
+                                    </textarea>
+                                </div>
+                                <div class="tab-pane fade show" id="v-pills-ke-hoach-tuan-nay" role="tabpanel"
+                                    aria-labelledby="v-pills-ke-hoach-tuan-nay-tab">
+                                    <textarea class="tinymce-content" id="tinymce-ke-hoach-tuan-nay" data-position="1"
+                                        name="keHoachTuanNay" placeholder="Mời nhập nội dung KẾ HOẠCH TUẦN NÀY...">
+                                    </textarea>
+                                </div>
+                                <div class="tab-pane fade show" id="v-pills-ket-qua-tuan-nay" role="tabpanel"
+                                    aria-labelledby="v-pills-ket-qua-tuan-nay-tab">
+                                    <textarea class="tinymce-content" id="tinymce-ket-qua-tuan-nay" data-position="2"
+                                        name="ketQuaTuanNay" placeholder="Mời nhập nội dung KẾT QUẢ TUẦN NÀY...">
+                                    </textarea>
+                                </div>
+                                <div class="tab-pane fade show" id="v-pills-kho-khan" role="tabpanel"
+                                    aria-labelledby="v-pills-kho-khan-tab">
+                                    <textarea class="tinymce-content" id="tinymce-general-issue" data-position="3"
+                                        name="generalIssue" placeholder="Mời nhập nội dung KHÓ KHĂN...">
+                                    </textarea>
+                                </div>
+                                <div class="tab-pane fade show" id="v-pills-giai-phap" role="tabpanel"
+                                    aria-labelledby="v-pills-giai-phap-tab">
+                                    <textarea class="tinymce-content" id="tinymce-solution" data-position="4"
+                                        name="solution" placeholder="Mời nhập nội dung GIẢI PHÁP...">
+                                    </textarea>
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-ke-hoach-tuan-sau" role="tabpanel"
+                                    aria-labelledby="v-pills-ke-hoach-tuan-sau-tab">
+                                    <textarea class="tinymce-content" id="tinymce-ke-hoach-tuan-sau" data-position="5"
+                                        name="keHoachTuanSau" placeholder="Mời nhập nội dung KẾ HOẠCH TUẦN SAU...">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
