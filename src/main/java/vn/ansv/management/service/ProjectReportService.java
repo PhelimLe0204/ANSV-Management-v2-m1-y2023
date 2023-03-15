@@ -231,7 +231,7 @@ public class ProjectReportService implements IProjectReport {
                         dataInsert.setPmManagerId(user_id); // Set PM's manager
                         break;
                 }
-                dataInsert.setCreatedBy(currentUserName); // Set createdBy
+                dataInsert.setCreatedBy(currentUserName + " - " + user_id); // Set createdBy
                 // return currentUserName;
                 // System.out.println("---------- " + currentUserName);
             }
