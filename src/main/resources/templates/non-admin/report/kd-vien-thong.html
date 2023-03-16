@@ -8,13 +8,69 @@
 
 <body>
     <div class="pcoded-main-container" layout:fragment="content">
+        <div id="addNewReportModal" class="modal fade" tabindex="-1" role="dialog"
+            aria-labelledby="addNewReportModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 1400px !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addNewReportModalLabel">Thêm mới báo cáo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body pt-0">
+                        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active text-uppercase" id="add-new-pl-tab" data-toggle="tab"
+                                    href="#add-new-pl" role="tab" aria-controls="add-new-pl" aria-selected="true">
+                                    Phân loại</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" id="add-new-dt-tab" data-toggle="tab"
+                                    href="#add-new-dt" role="tab" aria-controls="add-new-dt" aria-selected="false">
+                                    Dự thầu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" id="add-new-cptg-tab" data-toggle="tab"
+                                    href="#add-new-cptg" role="tab" aria-controls="add-new-cptg"
+                                    aria-selected="false">Chi phí & thời gian</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" id="add-new-qt-tab" data-toggle="tab"
+                                    href="#add-new-qt" role="tab" aria-controls="add-new-qt" aria-selected="false">
+                                    Quá trình</a>
+                            </li>
+                        </ul>
+                        <form th:action="@{/report/addNew/1}" id="form-add-new-report" method="post">
+                            <div class="tab-content" id="myTabContent">
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-phan-loai :: body"></th:block>
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-du-thau :: body"></th:block>
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-chi-phi-thoi-gian :: body">
+                                </th:block>
+                                <th:block th:insert="non-admin/add-new-report/add-new-tab-qua-trinh :: body"></th:block>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-report">
+                            Thêm mới</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
             <div class="page-header">
                 <div class="page-block">
                     <div class="row align-items-center">
-                        <div class="col-md-6">
-                            
+                        <div class="col-md-6 pt-1">
+                            <button type="button" id="btn-open-add-new-report-modal"
+                                class="btn btn-warning pt-1 pb-1 rounded-pill font-weight-bold" data-toggle="modal"
+                                data-target="#addNewReportModal">
+                                <i class="feather mr-2 icon-plus"></i>Thêm mới
+                            </button>
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -22,7 +78,8 @@
                                 <li class="breadcrumb-item">
                                     <a href="/dashboard"><i class="feather icon-home"></i></a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                                <li class="breadcrumb-item text-white font-weight-bold">Danh sách</li>
+                                <li class="breadcrumb-item"><a href="/danh-sach/kd-vien-thong">Viễn Thông
                             </ul>
                         </div>
                     </div>

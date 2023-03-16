@@ -32,7 +32,7 @@ $(document).ready(function () {
         selector:'textarea.tinymce-content',
         promotion: false,
         ui_container: '#tinymce-group',
-            height: 250,
+            height: 300,
             plugins: [
                 'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
                 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
