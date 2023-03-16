@@ -3,18 +3,24 @@ package vn.ansv.management.controller;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.service.ProjectReportService;
 
@@ -26,16 +32,6 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "/danh-sach/kd-vien-thong", method = RequestMethod.GET)
     public ModelAndView viewReportType1() {
-        // List<ProjectDashboardDTO> telecomProject =
-        // projectReportService.findAllDashboardProjectStep1(
-        // 1, 1l, week, year);
-        // List<ProjectDashboardDTO> digitalTransferProject =
-        // projectReportService.findAllDashboardProjectStep1(
-        // 1, 2l, week, year);
-        // List<ProjectDashboardDTO> deploymentProject =
-        // projectReportService.findAllDashboardProjectStep2(
-        // 1, 3l, week, year);
-
         Init(); // Lấy dữ liệu cơ bản
         List<ListReport12DTO> dataType1 = projectReportService.findAllReportType12(1L);
         _mvShare.addObject("listReportType1", dataType1);
@@ -45,16 +41,6 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method = RequestMethod.GET)
     public ModelAndView viewReportType2() {
-        // List<ProjectDashboardDTO> telecomProject =
-        // projectReportService.findAllDashboardProjectStep1(
-        // 1, 1l, week, year);
-        // List<ProjectDashboardDTO> digitalTransferProject =
-        // projectReportService.findAllDashboardProjectStep1(
-        // 1, 2l, week, year);
-        // List<ProjectDashboardDTO> deploymentProject =
-        // projectReportService.findAllDashboardProjectStep2(
-        // 1, 3l, week, year);
-
         Init(); // Lấy dữ liệu cơ bản
         List<ListReport12DTO> dataType2 = projectReportService.findAllReportType12(2L);
         _mvShare.addObject("listReportType2", dataType2);
@@ -79,4 +65,81 @@ public class ProjectReportController extends BaseController {
     public String addNew(@ModelAttribute AddNewReportDTO dataUpdate) {
         return "redirect:/danh-sach/trien-khai?addNew=" + projectReportService.addNewReport(dataUpdate);
     }
+
+    // @RequestMapping(value = "/import", method = RequestMethod.POST)
+    // public String mapReapExcelDatatoDB(@RequestParam("file") MultipartFile
+    // reapExcelDataFile) {
+    // List<Map<String, String>> dataError =
+    // projectReportService.checkFileExcelImportReport(reapExcelDataFile);
+    // if (dataError.isEmpty()) {
+    // return "redirect:/danh-sach/trien-khai";
+    // } else {
+    // return "redirect:/danh-sach/trien-khai";
+    // }
+    // }
+    // @RequestMapping(value = "/import", method = RequestMethod.POST)
+    // ResponseEntity<ResponseObject> mapReapExcelDatatoDB(@RequestParam("file")
+    // MultipartFile reapExcelDataFile) {
+    // List<Map<String, String>> dataError =
+    // projectReportService.checkFileExcelImportReport(reapExcelDataFile);
+
+    // if (dataError.isEmpty()) {
+    // // Chưa làm (thực hiện import)
+    // return ResponseEntity.status(HttpStatus.OK).body(
+    // new ResponseObject("success", "Thông tin 1 thành viên thuộc báo cáo", ""));
+    // } else {
+    // return ResponseEntity.status(HttpStatus.OK).body(
+    // new ResponseObject("failed", "File lỗi", dataError));
+    // }
+    // }
+    @RequestMapping(value = "/import", method = RequestMethod.POST)
+    ResponseEntity<ResponseObject> mapReapExcelDatatoDB(@RequestParam("file") MultipartFile readExcelDataFile) {
+        List<Map<String, String>> dataError = projectReportService.checkFileExcelImportReport(readExcelDataFile);
+
+        if (dataError.isEmpty()) {
+            // Chưa làm (thực hiện import)
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cho phép import file", ""));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "File lỗi", dataError));
+        }
+    }
+
+    // public List<Map<String, String>> readExcelData3(MultipartFile readExcelDataFile) throws IOException {
+    //     List<Map<String, String>> dataError = new ArrayList<>();
+
+    //     XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
+    //     XSSFSheet worksheet = workbook.getSheetAt(0);
+
+    //     for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+    //         XSSFRow row = worksheet.getRow(i);
+    //         for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+    //             if (row.getCell(j) != null) {
+    //                 System.out.println("Lần === " + j);
+    //                 switch (row.getCell(j).getCellType()) {
+    //                     case STRING:
+    //                         System.out.println("String: " + row.getCell(j).getStringCellValue());
+    //                         break;
+    //                     case NUMERIC:
+    //                         System.out.println("Number: " + row.getCell(j).getNumericCellValue());
+    //                         break;
+    //                     case BOOLEAN:
+    //                         System.out.println("Boolean: " + row.getCell(j).getBooleanCellValue());
+    //                         break;
+    //                     case BLANK:
+    //                         System.out.println("Blank: " + row.getCell(j).getNumericCellValue());
+    //                         break;
+    //                     default:
+
+    //                 }
+    //             } else {
+    //                 System.out.println("Dòng " + (i + 1) + " rỗng");
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     workbook.close();
+    //     return dataError;
+    // }
 }

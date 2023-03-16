@@ -39,6 +39,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT u.id FROM user AS u WHERE u.username = :username", nativeQuery = true)
     Long findIdByUsername(@Param("username") String username);
 
+    // Check user's isset by customer_name
+    @Query(value = "SELECT COUNT(u.id) FROM user AS u WHERE u.fullname = :fullname", nativeQuery = true)
+    Integer checkIssetByFullname(@Param("fullname") String fullname);
+
     // Thêm mới user
     @Transactional
     @Modifying

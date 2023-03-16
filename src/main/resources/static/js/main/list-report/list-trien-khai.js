@@ -382,3 +382,29 @@ $("#btn-open-add-new-report-modal").click(function () {
         }
     });
 });
+
+$("#btn-open-import-trien-khai-modal").click(function () {
+    $("#formImportReport").submit(function (event) {
+        // console.log("ABC");
+        event.preventDefault();
+
+        var form = document.getElementById('formImportReport');
+        var data = new FormData(form);
+
+        $.ajax({
+            url: '/import',
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (data, textStatus, jqXHR) {
+                alert(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('ERRORS: ' + textStatus);
+            }
+        });
+    });
+});

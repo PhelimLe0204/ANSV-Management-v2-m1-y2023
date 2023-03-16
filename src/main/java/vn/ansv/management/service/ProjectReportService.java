@@ -1,13 +1,21 @@
 package vn.ansv.management.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
@@ -20,8 +28,10 @@ import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
+import vn.ansv.management.repository.CustomerRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectRepository;
+import vn.ansv.management.repository.UserRepository;
 import vn.ansv.management.service.Interface.IProjectReport;
 
 @Service
@@ -33,7 +43,13 @@ public class ProjectReportService implements IProjectReport {
     private UserService userService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public List<ProjectDashboardDTO> findAllDashboardProjectStep1(int enabled, Long type, int week, int year) {
@@ -267,6 +283,363 @@ public class ProjectReportService implements IProjectReport {
             System.out.println("----- Error ----- ProjectReportService.addNewReport(): " + e.getMessage());
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    // public void readExcelData1(MultipartFile readExcelDataFile) throws
+    // IOException {
+    // // List<Test> tempStudentList = new ArrayList<Test>();
+    // XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
+    // XSSFSheet worksheet = workbook.getSheetAt(0);
+
+    // for (int i = 0; i < worksheet.getPhysicalNumberOfRows(); i++) {
+    // // Test tempStudent = new Test();
+
+    // XSSFRow row = worksheet.getRow(i);
+    // if (i == 0) {
+    // for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+    // System.out.println(j + ": " + row.getCell(j).getStringCellValue());
+    // }
+    // } else {
+    // System.out.println("0: " + row.getCell(0).getNumericCellValue());
+    // System.out.println("1: " + row.getCell(1).getStringCellValue());
+    // }
+
+    // // tempStudent.setId((int) row.getCell(0).getNumericCellValue());
+    // // tempStudent.setContent(row.getCell(1).getStringCellValue());
+    // // tempStudentList.add(tempStudent);
+    // }
+    // }
+
+    public List<Map<String, String>> readExcelData34(MultipartFile readExcelDataFile) throws IOException {
+        List<Map<String, String>> dataError = new ArrayList<>();
+
+        XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+
+        for (int i = 0; i < worksheet.getPhysicalNumberOfRows(); i++) {
+            System.out.println("=============================== Tổng số dòng: " + worksheet.getPhysicalNumberOfRows());
+            System.out.println("=============================== Dòng: " + i);
+
+            XSSFRow row = worksheet.getRow(i);
+            System.out.println("=============================== Tổng Số cột: " + row.getPhysicalNumberOfCells());
+            if (i == 0) {
+                for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+                    System.out.println(j + ": " + row.getCell(j).getStringCellValue());
+                }
+            } else {
+                System.out.println(" 0: " + row.getCell(0).getNumericCellValue());
+                System.out.println(" 1: " + row.getCell(1).getStringCellValue());
+                System.out.println(" 2: " + row.getCell(2).getStringCellValue());
+                System.out.println(" 3: " + row.getCell(3).getStringCellValue());
+                System.out.println(" 4: " + row.getCell(4).getStringCellValue());
+                System.out.println(" 5: " + row.getCell(5).getStringCellValue());
+                System.out.println(" 6: " + row.getCell(6).getNumericCellValue());
+                System.out.println(" 7: " + row.getCell(7).getStringCellValue());
+                System.out.println(" 8: " + row.getCell(8).getStringCellValue());
+                System.out.println(" 9: " + row.getCell(9).getStringCellValue());
+                System.out.println("10: " + row.getCell(10).getStringCellValue());
+                System.out.println("11: " + row.getCell(11).getStringCellValue());
+                System.out.println("12: " + row.getCell(12).getStringCellValue());
+                System.out.println("13: " + row.getCell(13).getStringCellValue());
+                System.out.println("14: " + row.getCell(14).getStringCellValue());
+                System.out.println("15: " + row.getCell(15).getStringCellValue());
+                System.out.println("16: " + row.getCell(16).getStringCellValue());
+                System.out.println("17: " + row.getCell(17).getStringCellValue());
+
+                Map<String, String> errors = new HashMap<String, String>();
+
+                /* Check dữ liệu file */
+                // 1. Kiểm tra tên dự án đã tồn tại hay chưa
+                int checkDuAn = projectRepository
+                        .checkIssetByProjectName(row.getCell(1).getStringCellValue());
+                if (checkDuAn > 0) {
+                    errors.put("positon", "B" + (i + 1));
+                    errors.put("error", "Dự án trùng lặp");
+                    // errorPossition = "Dòng " + i + ": Dự án đã tồn tại";
+                    // workbook.close();
+                    // break;
+                }
+
+                // 2. Kiểm tra khách hàng đã tồn tại hay chưa
+                int checkKhachHang = customerRepository
+                        .checkIssetByCustomerName(row.getCell(2).getStringCellValue());
+                if (checkKhachHang == 0) {
+                    errors.put("positon", "C" + (i + 1));
+                    errors.put("error", "Khách hàng không tồn tại");
+                }
+
+                // 3. Kiểm tra Priority
+                String excelPriority = row.getCell(10).getStringCellValue();
+                if (excelPriority != "First" && excelPriority != "Second" && excelPriority != "Third") {
+                    errors.put("positon", "K" + (i + 1));
+                    errors.put("error", "Priority không xác định");
+                }
+
+                // 4. Kiểm tra Status
+                String excelStatus = row.getCell(11).getStringCellValue();
+                if (excelStatus != "High" && excelStatus != "Medium" && excelStatus != "Low") {
+                    errors.put("positon", "L" + (i + 1));
+                    errors.put("error", "Status không xác định");
+                }
+
+                // 4. Kiểm tra PIC
+                int checkPic = userRepository
+                        .checkIssetByFullname(row.getCell(12).getStringCellValue());
+                if (checkPic == 0) {
+                    errors.put("positon", "M" + (i + 1));
+                    errors.put("error", "PIC không tồn tại");
+                }
+
+                // 5. Kiểm tra phó ban
+                int checkPhoBan = userRepository
+                        .checkIssetByFullname(row.getCell(13).getStringCellValue());
+                if (checkPhoBan == 0) {
+                    errors.put("positon", "N" + (i + 1));
+                    errors.put("error", "Phó ban không tồn tại");
+                }
+
+                dataError.add(i, errors); // Đẩy lỗi vào list
+                // AddNewReportDTO data = new AddNewReportDTO();
+
+                // String uid = RandomStringUtils.randomAlphanumeric(20);
+                // data.setUid(uid);
+
+                // System.out.println("0: " + row.getCell(0).getNumericCellValue());
+                // System.out.println("1: " + row.getCell(1).getStringCellValue());
+            }
+            // tempStudent.setId((int) row.getCell(0).getNumericCellValue());
+            // tempStudent.setContent(row.getCell(1).getStringCellValue());
+            // tempStudentList.add(tempStudent);
+        }
+        workbook.close();
+        return dataError;
+    }
+
+    public List<Map<String, String>> checkExcelData3(MultipartFile readExcelDataFile) {
+        List<Map<String, String>> dataError = new ArrayList<>();
+
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
+            XSSFSheet worksheet = workbook.getSheetAt(0);
+
+            for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+                XSSFRow row = worksheet.getRow(i);
+
+                if (row.getCell(0) != null) {
+                    /* Check dữ liệu file */
+                    // 1. Kiểm tra tên dự án đã tồn tại hay chưa
+                    int checkDuAn = projectRepository
+                            .checkIssetByProjectName(row.getCell(1).getStringCellValue());
+                    if (checkDuAn > 0) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("positon", "B" + (i + 1));
+                        errors.put("error", "Dự án trùng lặp");
+                        dataError.add(errors);
+                        // errorPossition = "Dòng " + i + ": Dự án đã tồn tại";
+                        // workbook.close();
+                        // break;
+                    }
+
+                    // 2. Kiểm tra khách hàng đã tồn tại hay chưa
+                    int checkKhachHang = customerRepository
+                            .checkIssetByCustomerName(row.getCell(2).getStringCellValue());
+                    if (checkKhachHang == 0) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("positon", "C" + (i + 1));
+                        errors.put("error", "Khách hàng không tồn tại");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 3. Kiểm tra Priority
+                    String excelPriority = row.getCell(10).getStringCellValue();
+                    if (excelPriority != "First" && excelPriority != "Second" && excelPriority != "Third") {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("positon", "K" + (i + 1));
+                        errors.put("error", "Priority không xác định");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 4. Kiểm tra Status
+                    String excelStatus = row.getCell(11).getStringCellValue();
+                    if (excelStatus != "High" && excelStatus != "Medium" && excelStatus != "Low") {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("positon", "L" + (i + 1));
+                        errors.put("error", "Status không xác định");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 5. Kiểm tra PIC
+                    int checkPic = userRepository
+                            .checkIssetByFullname(row.getCell(12).getStringCellValue());
+                    if (checkPic == 0) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("positon", "M" + (i + 1));
+                        errors.put("error", "PIC không tồn tại");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 6. Kiểm tra phó ban
+                    int checkPhoBan = userRepository
+                            .checkIssetByFullname(row.getCell(13).getStringCellValue());
+                    if (checkPhoBan == 0) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("positon", "N" + (i + 1));
+                        errors.put("error", "Phó ban không tồn tại");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // dataError.add((i - 1), errors); // Đẩy lỗi vào list
+                } else {
+                    System.out.println("Dòng " + i + " rỗng");
+                    break;
+                }
+
+                // for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+                // System.out.println("Cell - " + i);
+                // Map<String, String> errors = new HashMap<String, String>();
+
+                // if (row.getCell(0) != null) {
+                // System.out.println("Dòng " + i + " không rỗng");
+                // /* Check dữ liệu file */
+                // // 1. Kiểm tra tên dự án đã tồn tại hay chưa
+                // int checkDuAn = projectRepository
+                // .checkIssetByProjectName(row.getCell(1).getStringCellValue());
+                // if (checkDuAn > 0) {
+                // errors.put("positon", "B" + (i + 1));
+                // errors.put("error", "Dự án trùng lặp");
+                // dataError.add(errors);
+                // // errorPossition = "Dòng " + i + ": Dự án đã tồn tại";
+                // // workbook.close();
+                // // break;
+                // }
+
+                // // 2. Kiểm tra khách hàng đã tồn tại hay chưa
+                // int checkKhachHang = customerRepository
+                // .checkIssetByCustomerName(row.getCell(2).getStringCellValue());
+                // if (checkKhachHang == 0) {
+                // errors.put("positon", "C" + (i + 1));
+                // errors.put("error", "Khách hàng không tồn tại");
+                // dataError.add(errors); // Đẩy lỗi vào list
+                // }
+
+                // // 3. Kiểm tra Priority
+                // String excelPriority = row.getCell(10).getStringCellValue();
+                // if (excelPriority != "First" && excelPriority != "Second" && excelPriority !=
+                // "Third") {
+                // errors.put("positon", "K" + (i + 1));
+                // errors.put("error", "Priority không xác định");
+                // dataError.add(errors); // Đẩy lỗi vào list
+                // }
+
+                // // 4. Kiểm tra Status
+                // String excelStatus = row.getCell(11).getStringCellValue();
+                // if (excelStatus != "High" && excelStatus != "Medium" && excelStatus != "Low")
+                // {
+                // errors.put("positon", "L" + (i + 1));
+                // errors.put("error", "Status không xác định");
+                // dataError.add(errors); // Đẩy lỗi vào list
+                // }
+
+                // // 5. Kiểm tra PIC
+                // int checkPic = userRepository
+                // .checkIssetByFullname(row.getCell(12).getStringCellValue());
+                // if (checkPic == 0) {
+                // errors.put("positon", "M" + (i + 1));
+                // errors.put("error", "PIC không tồn tại");
+                // dataError.add(errors); // Đẩy lỗi vào list
+                // }
+
+                // // 6. Kiểm tra phó ban
+                // int checkPhoBan = userRepository
+                // .checkIssetByFullname(row.getCell(13).getStringCellValue());
+                // if (checkPhoBan == 0) {
+                // errors.put("positon", "N" + (i + 1));
+                // errors.put("error", "Phó ban không tồn tại");
+                // dataError.add(errors); // Đẩy lỗi vào list
+                // }
+
+                // // dataError.add((i - 1), errors); // Đẩy lỗi vào list
+                // } else {
+                // System.out.println("Dòng " + i + " rỗng");
+                // break;
+                // }
+
+                // // if (row.getCell(j) != null) {
+                // // System.out.println("Lần === " + j);
+                // // switch (row.getCell(j).getCellType()) {
+                // // case STRING:
+                // // System.out.println("String: " + row.getCell(j).getStringCellValue());
+                // // break;
+                // // case NUMERIC:
+                // // System.out.println("Number: " + row.getCell(j).getNumericCellValue());
+                // // break;
+                // // case BOOLEAN:
+                // // System.out.println("Boolean: " + row.getCell(j).getBooleanCellValue());
+                // // break;
+                // // case BLANK:
+                // // System.out.println("Blank: " + row.getCell(j).getNumericCellValue());
+                // // break;
+                // // default:
+
+                // // }
+                // // } else {
+                // // System.out.println("Dòng " + (i + 1) + " rỗng");
+                // // break;
+                // // }
+                // }
+            }
+            workbook.close();
+            return dataError;
+        } catch (Exception e) {
+            System.out.println("----- Error ----- ProjectReportService.checkExcelData3(): " + e.getMessage());
+            e.printStackTrace();
+            return dataError;
+        }
+    }
+
+    @Override
+    public List<Map<String, String>> checkFileExcelImportReport(MultipartFile readExcelDataFile) {
+        List<Map<String, String>> dataError = new ArrayList<>();
+
+        try {
+            String fileName = readExcelDataFile.getOriginalFilename();
+
+            if (fileName != null) {
+                if (fileName.contains("Vien thong")) {
+                    dataError = checkExcelData3(readExcelDataFile);
+                    return dataError;
+                }
+                if (fileName.contains("Chuyen doi so")) {
+                    // Chưa làm
+                    dataError = checkExcelData3(readExcelDataFile);
+                    return dataError;
+                }
+                if (fileName.contains("Trien khai")) {
+                    // Chưa làm
+                    dataError = checkExcelData3(readExcelDataFile);
+                    return dataError;
+                }
+                Map<String, String> errors = new HashMap<String, String>();
+                errors.put("positon", "Tên file");
+                errors.put("error", "Tên file không đúng định dạng");
+                dataError.add(0, errors); // Đẩy lỗi vào list
+                return dataError;
+            } else {
+                Map<String, String> errors = new HashMap<String, String>();
+                errors.put("positon", "Tên file");
+                errors.put("error", "Tên file rỗng");
+                dataError.add(0, errors);
+                return dataError;
+            }
+        } catch (Exception e) {
+            System.out.println("----- Error ----- ProjectReportService.checkFileExcelImportReport(): " + e.getMessage());
+            e.printStackTrace();
+            Map<String, String> errors = new HashMap<String, String>();
+            errors.put("positon", "Hệ thống");
+            errors.put("error", "Lỗi hệ thống");
+            dataError.add(0, errors);
+            return dataError;
         }
     }
 }

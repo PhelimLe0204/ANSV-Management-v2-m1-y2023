@@ -1,6 +1,9 @@
 package vn.ansv.management.service.Interface;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
@@ -41,5 +44,7 @@ public interface IProjectReport {
     Integer deleteReportById(Long first_report_id);
 
     Integer addNewReport(AddNewReportDTO dataInsert);
+
+    List<Map<String, String>> checkFileExcelImportReport(MultipartFile excelDataFile);
 
 }
