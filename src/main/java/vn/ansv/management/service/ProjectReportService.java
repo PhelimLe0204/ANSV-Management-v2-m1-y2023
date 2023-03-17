@@ -354,7 +354,7 @@ public class ProjectReportService implements IProjectReport {
                 int checkDuAn = projectRepository
                         .checkIssetByProjectName(row.getCell(1).getStringCellValue());
                 if (checkDuAn > 0) {
-                    errors.put("positon", "B" + (i + 1));
+                    errors.put("position", "B" + (i + 1));
                     errors.put("error", "Dự án trùng lặp");
                     // errorPossition = "Dòng " + i + ": Dự án đã tồn tại";
                     // workbook.close();
@@ -365,21 +365,21 @@ public class ProjectReportService implements IProjectReport {
                 int checkKhachHang = customerRepository
                         .checkIssetByCustomerName(row.getCell(2).getStringCellValue());
                 if (checkKhachHang == 0) {
-                    errors.put("positon", "C" + (i + 1));
+                    errors.put("position", "C" + (i + 1));
                     errors.put("error", "Khách hàng không tồn tại");
                 }
 
                 // 3. Kiểm tra Priority
                 String excelPriority = row.getCell(10).getStringCellValue();
                 if (excelPriority != "First" && excelPriority != "Second" && excelPriority != "Third") {
-                    errors.put("positon", "K" + (i + 1));
+                    errors.put("position", "K" + (i + 1));
                     errors.put("error", "Priority không xác định");
                 }
 
                 // 4. Kiểm tra Status
                 String excelStatus = row.getCell(11).getStringCellValue();
                 if (excelStatus != "High" && excelStatus != "Medium" && excelStatus != "Low") {
-                    errors.put("positon", "L" + (i + 1));
+                    errors.put("position", "L" + (i + 1));
                     errors.put("error", "Status không xác định");
                 }
 
@@ -387,7 +387,7 @@ public class ProjectReportService implements IProjectReport {
                 int checkPic = userRepository
                         .checkIssetByFullname(row.getCell(12).getStringCellValue());
                 if (checkPic == 0) {
-                    errors.put("positon", "M" + (i + 1));
+                    errors.put("position", "M" + (i + 1));
                     errors.put("error", "PIC không tồn tại");
                 }
 
@@ -395,7 +395,7 @@ public class ProjectReportService implements IProjectReport {
                 int checkPhoBan = userRepository
                         .checkIssetByFullname(row.getCell(13).getStringCellValue());
                 if (checkPhoBan == 0) {
-                    errors.put("positon", "N" + (i + 1));
+                    errors.put("position", "N" + (i + 1));
                     errors.put("error", "Phó ban không tồn tại");
                 }
 
@@ -433,7 +433,7 @@ public class ProjectReportService implements IProjectReport {
                             .checkIssetByProjectName(row.getCell(1).getStringCellValue());
                     if (checkDuAn > 0) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("positon", "B" + (i + 1));
+                        errors.put("position", "B" + (i + 1));
                         errors.put("error", "Dự án trùng lặp");
                         dataError.add(errors);
                         // errorPossition = "Dòng " + i + ": Dự án đã tồn tại";
@@ -446,7 +446,7 @@ public class ProjectReportService implements IProjectReport {
                             .checkIssetByCustomerName(row.getCell(2).getStringCellValue());
                     if (checkKhachHang == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("positon", "C" + (i + 1));
+                        errors.put("position", "C" + (i + 1));
                         errors.put("error", "Khách hàng không tồn tại");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
@@ -455,7 +455,7 @@ public class ProjectReportService implements IProjectReport {
                     String excelPriority = row.getCell(10).getStringCellValue();
                     if (excelPriority != "First" && excelPriority != "Second" && excelPriority != "Third") {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("positon", "K" + (i + 1));
+                        errors.put("position", "K" + (i + 1));
                         errors.put("error", "Priority không xác định");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
@@ -464,7 +464,7 @@ public class ProjectReportService implements IProjectReport {
                     String excelStatus = row.getCell(11).getStringCellValue();
                     if (excelStatus != "High" && excelStatus != "Medium" && excelStatus != "Low") {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("positon", "L" + (i + 1));
+                        errors.put("position", "L" + (i + 1));
                         errors.put("error", "Status không xác định");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
@@ -474,7 +474,7 @@ public class ProjectReportService implements IProjectReport {
                             .checkIssetByFullname(row.getCell(12).getStringCellValue());
                     if (checkPic == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("positon", "M" + (i + 1));
+                        errors.put("position", "M" + (i + 1));
                         errors.put("error", "PIC không tồn tại");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
@@ -484,7 +484,7 @@ public class ProjectReportService implements IProjectReport {
                             .checkIssetByFullname(row.getCell(13).getStringCellValue());
                     if (checkPhoBan == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("positon", "N" + (i + 1));
+                        errors.put("position", "N" + (i + 1));
                         errors.put("error", "Phó ban không tồn tại");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
@@ -506,7 +506,7 @@ public class ProjectReportService implements IProjectReport {
                 // int checkDuAn = projectRepository
                 // .checkIssetByProjectName(row.getCell(1).getStringCellValue());
                 // if (checkDuAn > 0) {
-                // errors.put("positon", "B" + (i + 1));
+                // errors.put("position", "B" + (i + 1));
                 // errors.put("error", "Dự án trùng lặp");
                 // dataError.add(errors);
                 // // errorPossition = "Dòng " + i + ": Dự án đã tồn tại";
@@ -518,7 +518,7 @@ public class ProjectReportService implements IProjectReport {
                 // int checkKhachHang = customerRepository
                 // .checkIssetByCustomerName(row.getCell(2).getStringCellValue());
                 // if (checkKhachHang == 0) {
-                // errors.put("positon", "C" + (i + 1));
+                // errors.put("position", "C" + (i + 1));
                 // errors.put("error", "Khách hàng không tồn tại");
                 // dataError.add(errors); // Đẩy lỗi vào list
                 // }
@@ -527,7 +527,7 @@ public class ProjectReportService implements IProjectReport {
                 // String excelPriority = row.getCell(10).getStringCellValue();
                 // if (excelPriority != "First" && excelPriority != "Second" && excelPriority !=
                 // "Third") {
-                // errors.put("positon", "K" + (i + 1));
+                // errors.put("position", "K" + (i + 1));
                 // errors.put("error", "Priority không xác định");
                 // dataError.add(errors); // Đẩy lỗi vào list
                 // }
@@ -536,7 +536,7 @@ public class ProjectReportService implements IProjectReport {
                 // String excelStatus = row.getCell(11).getStringCellValue();
                 // if (excelStatus != "High" && excelStatus != "Medium" && excelStatus != "Low")
                 // {
-                // errors.put("positon", "L" + (i + 1));
+                // errors.put("position", "L" + (i + 1));
                 // errors.put("error", "Status không xác định");
                 // dataError.add(errors); // Đẩy lỗi vào list
                 // }
@@ -545,7 +545,7 @@ public class ProjectReportService implements IProjectReport {
                 // int checkPic = userRepository
                 // .checkIssetByFullname(row.getCell(12).getStringCellValue());
                 // if (checkPic == 0) {
-                // errors.put("positon", "M" + (i + 1));
+                // errors.put("position", "M" + (i + 1));
                 // errors.put("error", "PIC không tồn tại");
                 // dataError.add(errors); // Đẩy lỗi vào list
                 // }
@@ -554,7 +554,7 @@ public class ProjectReportService implements IProjectReport {
                 // int checkPhoBan = userRepository
                 // .checkIssetByFullname(row.getCell(13).getStringCellValue());
                 // if (checkPhoBan == 0) {
-                // errors.put("positon", "N" + (i + 1));
+                // errors.put("position", "N" + (i + 1));
                 // errors.put("error", "Phó ban không tồn tại");
                 // dataError.add(errors); // Đẩy lỗi vào list
                 // }
@@ -621,22 +621,23 @@ public class ProjectReportService implements IProjectReport {
                     return dataError;
                 }
                 Map<String, String> errors = new HashMap<String, String>();
-                errors.put("positon", "Tên file");
+                errors.put("position", "Tên file");
                 errors.put("error", "Tên file không đúng định dạng");
                 dataError.add(0, errors); // Đẩy lỗi vào list
                 return dataError;
             } else {
                 Map<String, String> errors = new HashMap<String, String>();
-                errors.put("positon", "Tên file");
+                errors.put("position", "Tên file");
                 errors.put("error", "Tên file rỗng");
                 dataError.add(0, errors);
                 return dataError;
             }
         } catch (Exception e) {
-            System.out.println("----- Error ----- ProjectReportService.checkFileExcelImportReport(): " + e.getMessage());
+            System.out
+                    .println("----- Error ----- ProjectReportService.checkFileExcelImportReport(): " + e.getMessage());
             e.printStackTrace();
             Map<String, String> errors = new HashMap<String, String>();
-            errors.put("positon", "Hệ thống");
+            errors.put("position", "Hệ thống");
             errors.put("error", "Lỗi hệ thống");
             dataError.add(0, errors);
             return dataError;

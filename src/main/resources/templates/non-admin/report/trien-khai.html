@@ -70,16 +70,23 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body pt-0">
+                    <div class="modal-body">
                         <form th:action="@{/import}" id="formImportReport" method="post" enctype="multipart/form-data">
-                            <input type="file" th:name="file" />
-                            <input th:type="submit" value="Import" />
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <input type="file" th:name="file" />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary pt-1 pb-1 float-right"
+                                        id="btn-submit-import-trien-khai">Import</button>
+                                    <!-- <input th:type="submit" value="Import" /> -->
+                                </div>
+                            </div>
                         </form>
+                        <div class="row" id="importError"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-import-trien-khai">
-                            Import</button>
                     </div>
                 </div>
             </div>

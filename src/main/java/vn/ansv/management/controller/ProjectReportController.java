@@ -144,40 +144,41 @@ public class ProjectReportController extends BaseController {
         }
     }
 
-    // public List<Map<String, String>> readExcelData3(MultipartFile readExcelDataFile) throws IOException {
-    //     List<Map<String, String>> dataError = new ArrayList<>();
+    // public List<Map<String, String>> readExcelData3(MultipartFile
+    // readExcelDataFile) throws IOException {
+    // List<Map<String, String>> dataError = new ArrayList<>();
 
-    //     XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
-    //     XSSFSheet worksheet = workbook.getSheetAt(0);
+    // XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
+    // XSSFSheet worksheet = workbook.getSheetAt(0);
 
-    //     for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
-    //         XSSFRow row = worksheet.getRow(i);
-    //         for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
-    //             if (row.getCell(j) != null) {
-    //                 System.out.println("Lần === " + j);
-    //                 switch (row.getCell(j).getCellType()) {
-    //                     case STRING:
-    //                         System.out.println("String: " + row.getCell(j).getStringCellValue());
-    //                         break;
-    //                     case NUMERIC:
-    //                         System.out.println("Number: " + row.getCell(j).getNumericCellValue());
-    //                         break;
-    //                     case BOOLEAN:
-    //                         System.out.println("Boolean: " + row.getCell(j).getBooleanCellValue());
-    //                         break;
-    //                     case BLANK:
-    //                         System.out.println("Blank: " + row.getCell(j).getNumericCellValue());
-    //                         break;
-    //                     default:
+    // for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+    // XSSFRow row = worksheet.getRow(i);
+    // for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+    // if (row.getCell(j) != null) {
+    // System.out.println("Lần === " + j);
+    // switch (row.getCell(j).getCellType()) {
+    // case STRING:
+    // System.out.println("String: " + row.getCell(j).getStringCellValue());
+    // break;
+    // case NUMERIC:
+    // System.out.println("Number: " + row.getCell(j).getNumericCellValue());
+    // break;
+    // case BOOLEAN:
+    // System.out.println("Boolean: " + row.getCell(j).getBooleanCellValue());
+    // break;
+    // case BLANK:
+    // System.out.println("Blank: " + row.getCell(j).getNumericCellValue());
+    // break;
+    // default:
 
-    //                 }
-    //             } else {
-    //                 System.out.println("Dòng " + (i + 1) + " rỗng");
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     workbook.close();
-    //     return dataError;
+    // }
+    // } else {
+    // System.out.println("Dòng " + (i + 1) + " rỗng");
+    // break;
+    // }
+    // }
+    // }
+    // workbook.close();
+    // return dataError;
     // }
 }
