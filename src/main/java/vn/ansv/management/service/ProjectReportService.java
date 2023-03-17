@@ -460,7 +460,8 @@ public class ProjectReportService implements IProjectReport {
 
                     // 3. Kiểm tra Priority
                     String excelPriority = row.getCell(10).getStringCellValue();
-                    if (excelPriority != "First" && excelPriority != "Second" && excelPriority != "Third") {
+                    if (!excelPriority.equals("First") && !excelPriority.equals("Second")
+                            && !excelPriority.equals("Third")) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "K" + (i + 1));
                         errors.put("error", "Priority không xác định");
@@ -469,7 +470,8 @@ public class ProjectReportService implements IProjectReport {
 
                     // 4. Kiểm tra Status
                     String excelStatus = row.getCell(11).getStringCellValue();
-                    if (excelStatus != "High" && excelStatus != "Medium" && excelStatus != "Low") {
+                    if (!excelStatus.equals("High") && !excelStatus.equals("Medium")
+                            && !excelStatus.equals("Low")) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "L" + (i + 1));
                         errors.put("error", "Status không xác định");
