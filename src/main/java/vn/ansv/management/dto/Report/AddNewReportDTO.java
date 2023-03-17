@@ -63,6 +63,9 @@ public class AddNewReportDTO {
     private String ketQuaTuanTruoc;
     private String ketQuaTuanNay;
 
+    public AddNewReportDTO() {
+    }
+
     public AddNewReportDTO(String uid, Long amId, Long pmId, Long amManagerId, Long pmManagerId, String createdBy,
             Date createdDate, Long projectId, Long projectTypeId, Long projectPriorityId, Long projectStatusId,
             int week, int year, String maHopDong, String maKeToan, Long currencyUnitId, String jobName, Long customerId,

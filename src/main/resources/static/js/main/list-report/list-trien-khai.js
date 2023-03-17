@@ -382,3 +382,51 @@ $("#btn-open-add-new-report-modal").click(function () {
         }
     });
 });
+
+$("#btn-open-import-trien-khai-modal").click(function () {
+    $("#formImportReport").submit(function (event) {
+        // console.log("ABC");
+        event.preventDefault();
+
+        var form = document.getElementById('formImportReport');
+        var data = new FormData(form);
+
+        $.ajax({
+            url: '/import',
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                if (result.status == "failed") {
+                    let dataError = '';
+                    for (let i = 0; i < result.data.length; i++) {
+                        dataError += '<tr>';
+                        dataError += '<td>' + (i + 1) + '</td>';
+                        dataError += '<td>' + result.data[i].position + '</td>';
+                        dataError += '<td>' + result.data[i].error + '</td>';
+                        dataError += '</tr>';
+                    }
+                    $("#importError").html(
+                        '<div class="col-md-12"><hr><h5 class="text-primary">Danh sách lỗi import:</h5>'
+                        + '</div>'
+                        + '<div class="col-md-12 text-center">'
+                        + '<div class="table-responsive">'
+                        + '<table class="table table-striped table-hover" id="table-trien-khai">'
+                        + '<thead><tr><th>STT</th><th>Đối tượng</th><th>Nguyên nhân</th></tr></thead>'
+                        + '<tbody>' + dataError + '</tbody>'
+                        + '</table>'
+                        + '</div>'
+                        + '</div>'
+                    );
+                    alertify.error("Thất bại! Vui lòng chỉnh sửa file và thử lại.").delay(2.5);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('ERRORS: ' + textStatus);
+            }
+        });
+    });
+});

@@ -259,5 +259,4 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     List<ShowDashboardDTO> modalShowDashboard(@Param("enabled") int enabled, @Param("week") int week,
             @Param("year") int year, @Param("project_status_id") Long project_status_id,
             @Param("project_type_id") Long project_type_id);
-
 }
