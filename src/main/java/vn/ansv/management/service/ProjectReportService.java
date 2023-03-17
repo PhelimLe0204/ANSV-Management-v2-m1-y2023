@@ -27,6 +27,7 @@ import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.repository.CustomerRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
@@ -284,6 +285,12 @@ public class ProjectReportService implements IProjectReport {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    // Show maodel dashboard
+    @Override
+    public List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type) {
+        return projectReportRepository.modalShowDashboard(enabled, week, year, status, type);
     }
 
     // public void readExcelData1(MultipartFile readExcelDataFile) throws

@@ -15,6 +15,7 @@ import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.ShowDashboardDTO;
 
 public interface IProjectReport {
     List<ProjectDashboardDTO> findAllDashboardProjectStep1(int enabled, Long type, int week, int year);
@@ -44,6 +45,8 @@ public interface IProjectReport {
     Integer deleteReportById(Long first_report_id);
 
     Integer addNewReport(AddNewReportDTO dataInsert);
+
+    List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type);
 
     List<Map<String, String>> checkFileExcelImportReport(MultipartFile excelDataFile);
 

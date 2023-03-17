@@ -16,6 +16,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
 
@@ -227,13 +228,16 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + ":soTienTamUng, :keHoachTamUng, :generalIssue, :solution, :keHoachTuanNay, "
             + ":keHoachTuanSau, :ketQuaTuanTruoc, :ketQuaTuanNay)", nativeQuery = true)
     void addNewReport(@Param("uid") String uid, @Param("amId") Long amId, @Param("amManagerId") Long amManagerId,
-            @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId, @Param("createdBy") String createdBy,
+            @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId,
+            @Param("createdBy") String createdBy,
             @Param("projectId") Long projectId, @Param("projectTypeId") Long projectTypeId,
-            @Param("projectPriorityId") Long projectPriorityId, @Param("projectStatusId") Long projectStatusId,
+            @Param("projectPriorityId") Long projectPriorityId,
+            @Param("projectStatusId") Long projectStatusId,
             @Param("week") int week, @Param("year") int year, @Param("maHopDong") String maHopDong,
             @Param("maKeToan") String maKeToan, @Param("currencyUnitId") Long currencyUnitId,
             @Param("jobName") String jobName, @Param("description") String description,
-            @Param("mucDoKhaThi") Integer mucDoKhaThi, @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
+            @Param("mucDoKhaThi") Integer mucDoKhaThi,
+            @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
             @Param("hinhThucDauTu") String hinhThucDauTu, @Param("phamViCungCap") String phamViCungCap,
             @Param("phanTichSwoot") String phanTichSwoot, @Param("soTienDac") String soTienDac,
             @Param("hopDongDac") String hopDongDac, @Param("mucTieuDac") String mucTieuDac,
@@ -246,4 +250,13 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("generalIssue") String generalIssue, @Param("solution") String solution,
             @Param("keHoachTuanNay") String keHoachTuanNay, @Param("keHoachTuanSau") String keHoachTuanSau,
             @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc, @Param("ketQuaTuanNay") String ketQuaTuanNay);
+
+    /*
+     * Hiển thị model show
+     * view: Dashboard
+     */
+    @Query(nativeQuery = true)
+    List<ShowDashboardDTO> modalShowDashboard(@Param("enabled") int enabled, @Param("week") int week,
+            @Param("year") int year, @Param("project_status_id") Long project_status_id,
+            @Param("project_type_id") Long project_type_id);
 }

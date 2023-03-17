@@ -25,6 +25,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.member.AddMemberDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
@@ -86,11 +87,13 @@ public class HomeController extends BaseController {
                 1, 2l, week, year);
         List<ProjectDashboardDTO> deploymentProject = projectReportService.findAllDashboardProjectStep2(
                 1, 3l, week, year);
+        List<ShowDashboardDTO> dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
 
         Init(); // Lấy dữ liệu cơ bản
         _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
         _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
         _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+        _mvShare.addObject("dataShows", dataShows);// Data show model
         _mvShare.setViewName("non-admin/dashboard");
         return _mvShare;
     }

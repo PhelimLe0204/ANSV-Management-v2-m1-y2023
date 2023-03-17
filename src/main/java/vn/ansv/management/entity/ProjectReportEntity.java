@@ -20,6 +20,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 
 /* ===== ProjectReportRepository.findAllDashboardProjectStep1() ===== */
@@ -117,6 +118,51 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "WHERE pr.project_type_id = :project_type_id "
         + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport3DTO")
+
+/* ===== ShowDashboardDTO.modalShowDashboard ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.modalShowDashboard", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS amName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS pmName, "
+        + "pr.general_issue AS generalIssue, pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau, pr.ke_hoach_tuan_nay AS ketQuaTuanNay, pr.solution, "
+        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, pr.thuc_te_dac AS thucTeDac, "
+        + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, pr.thuc_te_pac AS thucTePac, "
+        + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, pr.thuc_te_fac AS thucTeFac, "
+        + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "WHERE pr.enabled = :enabled AND pr.week = :week AND pr.year = :year "
+        + "AND pr.project_status_id = :project_status_id AND pr.project_type_id = :project_type_id", resultSetMapping = "Mapping.ShowDashboardDTO")
+
+/* ===== Set mapping: ShowDashboardDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ShowDashboardDTO", classes = @ConstructorResult(targetClass = ShowDashboardDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "amName", type = String.class),
+        @ColumnResult(name = "pmName", type = String.class),
+        @ColumnResult(name = "generalIssue", type = String.class),
+        @ColumnResult(name = "keHoachTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanSau", type = String.class),
+        @ColumnResult(name = "ketQuaTuanNay", type = String.class),
+        @ColumnResult(name = "solution", type = String.class),
+        @ColumnResult(name = "soTienDac", type = String.class),
+        @ColumnResult(name = "hopDongDac", type = String.class),
+        @ColumnResult(name = "mucTieuDac", type = String.class),
+        @ColumnResult(name = "thucTeDac", type = String.class),
+        @ColumnResult(name = "soTienPac", type = String.class),
+        @ColumnResult(name = "hopDongPac", type = String.class),
+        @ColumnResult(name = "mucTieuPac", type = String.class),
+        @ColumnResult(name = "thucTePac", type = String.class),
+        @ColumnResult(name = "soTienFac", type = String.class),
+        @ColumnResult(name = "hopDongFac", type = String.class),
+        @ColumnResult(name = "mucTieuFac", type = String.class),
+        @ColumnResult(name = "thucTeFac", type = String.class),
+        @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
+        @ColumnResult(name = "soTienTamUng", type = String.class),
+        @ColumnResult(name = "keHoachTamUng", type = String.class)
+}))
 
 /* ===== Set mapping: ListReport12DTO ===== */
 @SqlResultSetMapping(name = "Mapping.ListReport12DTO", classes = @ConstructorResult(targetClass = ListReport12DTO.class, columns = {

@@ -54,6 +54,9 @@
     <th:block th:if="${#httpServletRequest.requestURI == '/dashboard'}">
         <!-- Highcharts - CSS -->
         <link rel="stylesheet" th:href="@{/vendors/highcharts/css/main.css}" type="text/css" />
+        <link rel="stylesheet" th:href="@{/vendors/owl-carousel/assets/owl.theme.default.min.css}" type="text/css" />
+        <link rel="stylesheet" th:href="@{/vendors/owl-carousel/assets/owl.carousel.min.css}" type="text/css" />
+
     </th:block>
     <!-- Member - CSS -->
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/thanh-vien/')}">
@@ -109,6 +112,7 @@
         <script th:src="@{/vendors/highcharts/js/export-data.js}"></script>
         <script th:src="@{/vendors/highcharts/js/accessibility.js}"></script>
         <script th:src="@{/vendors/highcharts/js/main.js}"></script>
+        <script th:src="@{/vendors/owl-carousel/owl.carousel.min.js}"></script>
     </th:block>
 
     <!-- Member scripts  -->
