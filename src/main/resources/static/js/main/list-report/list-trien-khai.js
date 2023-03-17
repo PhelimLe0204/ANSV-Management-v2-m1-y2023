@@ -416,7 +416,7 @@ $("#btn-open-import-trien-khai-modal").click(function () {
                         + '<div class="table-responsive">'
                         + '<table class="table table-striped table-hover" id="table-trien-khai">'
                         + '<thead><tr><th>STT</th><th>Đối tượng</th><th>Nguyên nhân</th></tr></thead>'
-                        + '<tbody>' + dataError + '</tbody>'
+                        + '<tbody style="height: 380px;">' + dataError + '</tbody>'
                         + '</table>'
                         + '</div>'
                         + '</div>'
