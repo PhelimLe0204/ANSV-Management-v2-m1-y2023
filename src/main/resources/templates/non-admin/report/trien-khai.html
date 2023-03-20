@@ -71,15 +71,15 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/import/1}" id="formImportReport" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/import/1}" id="formImportReport" method="post"
+                            enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-md-10">
-                                    <input type="file" th:name="file" />
+                                <div class="col-md-9">
+                                    <input type="file" id="fileImport" th:name="file" />
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3" id="formImportSubmit">
                                     <button type="submit" class="btn btn-primary pt-1 pb-1 float-right"
-                                        id="btn-submit-import-trien-khai">Import</button>
-                                    <!-- <input th:type="submit" value="Import" /> -->
+                                        id="btn-submit-import-trien-khai" disabled>Import</button>
                                 </div>
                             </div>
                         </form>

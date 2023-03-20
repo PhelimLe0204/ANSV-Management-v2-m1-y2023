@@ -139,10 +139,10 @@ public class ProjectReportController extends BaseController {
             // Chưa làm (thực hiện import)
 
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("success", "Import file excel thành công", ""));
+                    new ResponseObject("success", "Import file excel thành công!", ""));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("failed", "File lỗi", dataError));
+                    new ResponseObject("failed", "Thất bại! Vui lòng chỉnh sửa file và thử lại.", dataError));
         }
     }
 
