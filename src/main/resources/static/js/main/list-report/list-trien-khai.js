@@ -392,7 +392,7 @@ $("#btn-open-import-trien-khai-modal").click(function () {
         var data = new FormData(form);
 
         $.ajax({
-            url: '/import',
+            url: '/import/1',
             type: 'POST',
             data: data,
             cache: false,

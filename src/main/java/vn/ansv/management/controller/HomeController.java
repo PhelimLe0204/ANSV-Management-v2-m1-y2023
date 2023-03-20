@@ -89,7 +89,7 @@ public class HomeController extends BaseController {
                 1, 3l, week, year);
         List<ShowDashboardDTO> dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
 
-        Init(); // Lấy dữ liệu cơ bản
+        Init(session); // Lấy dữ liệu cơ bản
         _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
         _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
         _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
@@ -99,7 +99,7 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "/chi-tiet", method = RequestMethod.GET)
-    public ModelAndView viewDetail(HttpServletRequest request) {
+    public ModelAndView viewDetail(HttpServletRequest request, HttpSession session) {
         if (request.getParameter("id") == null) {
             return new ModelAndView("redirect:/");
         }
@@ -120,7 +120,7 @@ public class HomeController extends BaseController {
         List<OptionProjectPriorityDTO> optionProjectPriorityDTO = projectPriorityService.findAllOption();
         List<OptionProjectStatusDTO> optionProjectStatusDTO = projectStatusService.findAllOption();
 
-        Init(); // Lấy dữ liệu cơ bản
+        Init(session); // Lấy dữ liệu cơ bản
 
         _mvShare.addObject("detailTabPhanLoai", projectDetailTabPhanLoai);
         _mvShare.addObject("detailTabDuThau", projectDetailTabDuThau);
@@ -183,8 +183,8 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "thanh-vien/bdc", method = RequestMethod.GET)
-    public ModelAndView membersBDC() {
-        Init(); // Lấy dữ liệu cơ bản
+    public ModelAndView membersBDC(HttpSession session) {
+        Init(session); // Lấy dữ liệu cơ bản
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(1L);
 
         _mvShare.addObject("listUserBDC", data);
@@ -193,9 +193,9 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "thanh-vien/do", method = RequestMethod.GET)
-    public ModelAndView membersDO() {
+    public ModelAndView membersDO(HttpSession session) {
 
-        Init(); // Lấy dữ liệu cơ bản
+        Init(session); // Lấy dữ liệu cơ bản
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(2L);
 
         _mvShare.addObject("listUserDO", data);

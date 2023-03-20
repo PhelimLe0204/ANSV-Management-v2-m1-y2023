@@ -33,8 +33,14 @@ public class BaseController {
 
     public ModelAndView _mvShare = new ModelAndView();
 
-    public ModelAndView Init() {
+    public ModelAndView Init(HttpSession session) {
         List<LayoutMenuCategoryDTO> menuCategoryLayout = menuCategoryService.findAllLayout();
+
+        Date trialTime = new Date();
+        session.setAttribute("currentWeek", getWeekOfYear(trialTime));
+        session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+        userSession(session);
+
         _mvShare.addObject("menuCategoryLayout", menuCategoryLayout);
         return _mvShare;
     }
@@ -43,11 +49,9 @@ public class BaseController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            System.out.println("---------- " + currentUserName);
             session.setAttribute("userId", userService.userDefine(currentUserName));
             session.setAttribute("username", currentUserName);
             // return currentUserName;
-            System.out.println("---------- " + currentUserName);
         }
     }
 

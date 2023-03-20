@@ -48,6 +48,7 @@ public interface IProjectReport {
 
     List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type);
 
-    List<Map<String, String>> checkFileExcelImportReport(MultipartFile excelDataFile);
+    List<Map<String, String>> checkFileExcelImportReport(
+            MultipartFile excelDataFile, String username, Long type, Integer week, Integer year);
 
 }

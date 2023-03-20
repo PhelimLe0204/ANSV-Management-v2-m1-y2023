@@ -62,4 +62,17 @@ public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
     // Check project's isset by project_name
     @Query(value = "SELECT COUNT(p.id) FROM project AS p WHERE p.project_name = :projectName", nativeQuery = true)
     Integer checkIssetByProjectName(@Param("projectName") String projectName);
+
+    // Find project's id by project_name
+    @Query(value = "SELECT p.id FROM project AS p WHERE p.project_name = :projectName", nativeQuery = true)
+    Long findIdByProjectName(@Param("projectName") String projectName);
+
+    // Thêm mới dự án
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO project (created_by, uid, description, enabled, project_name, customer_id) "
+            + "VALUES (:createdBy, :uid, :description, :enabled, :projectName, :customerId)", nativeQuery = true)
+    void addNewProject(@Param("createdBy") String createdBy, @Param("uid") String uid,
+            @Param("description") String description, @Param("enabled") Integer enabled,
+            @Param("projectName") String projectName, @Param("customerId") Long customerId);
 }

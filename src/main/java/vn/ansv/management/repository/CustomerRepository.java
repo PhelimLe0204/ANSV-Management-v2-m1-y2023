@@ -14,6 +14,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
     List<OptionCustomerDTO> findAllSelectOption();
 
     // Check customer's isset by customer_name
-    @Query(value = "SELECT COUNT(c.id) FROM customer AS c WHERE c.customer_name = :CustomerName", nativeQuery = true)
-    Integer checkIssetByCustomerName(@Param("CustomerName") String CustomerName);
+    @Query(value = "SELECT c.id FROM customer AS c WHERE c.customer_name = :CustomerName", nativeQuery = true)
+    Long findIdByCustomerName(@Param("CustomerName") String CustomerName);
 }

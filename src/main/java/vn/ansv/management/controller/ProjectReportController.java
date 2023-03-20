@@ -43,7 +43,7 @@ public class ProjectReportController extends BaseController {
         String lastPath = path[path.length - 1];
         _mvShare.addObject("url", lastPath);
 
-        Init(); // Lấy dữ liệu cơ bản
+        Init(session); // Lấy dữ liệu cơ bản
         List<ListReport12DTO> dataType1 = projectReportService.findAllReportType12(1L);
         _mvShare.addObject("listReportType1", dataType1);
         _mvShare.setViewName("non-admin/report/kd-vien-thong");
@@ -61,7 +61,7 @@ public class ProjectReportController extends BaseController {
         String[] path = test.split("/");
         String lastPath = path[path.length - 1];
         _mvShare.addObject("url", lastPath);
-        Init(); // Lấy dữ liệu cơ bản
+        Init(session); // Lấy dữ liệu cơ bản
         List<ListReport12DTO> dataType2 = projectReportService.findAllReportType12(2L);
         _mvShare.addObject("listReportType2", dataType2);
 
@@ -71,17 +71,13 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "/danh-sach/trien-khai", method = RequestMethod.GET)
     public ModelAndView viewReportType3(HttpSession session, HttpServletRequest request) {
-        Date trialTime = new Date();
-        session.setAttribute("currentWeek", getWeekOfYear(trialTime));
-        session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
-
         // Lấy last url
         String test = request.getRequestURI();
         String[] path = test.split("/");
         String lastPath = path[path.length - 1];
         _mvShare.addObject("url", lastPath);
 
-        Init(); // Lấy dữ liệu cơ bản
+        Init(session); // Lấy dữ liệu cơ bản
         List<ListReport3DTO> dataType3 = projectReportService.findAllReportType3(3L);
         _mvShare.addObject("listReportType3", dataType3);
         _mvShare.setViewName("non-admin/report/trien-khai");
@@ -130,14 +126,20 @@ public class ProjectReportController extends BaseController {
     // new ResponseObject("failed", "File lỗi", dataError));
     // }
     // }
-    @RequestMapping(value = "/import", method = RequestMethod.POST)
-    ResponseEntity<ResponseObject> mapReapExcelDatatoDB(@RequestParam("file") MultipartFile readExcelDataFile) {
-        List<Map<String, String>> dataError = projectReportService.checkFileExcelImportReport(readExcelDataFile);
+    @RequestMapping(value = "/import/{type}", method = RequestMethod.POST)
+    ResponseEntity<ResponseObject> mapReapExcelDatatoDB(@PathVariable Long type,
+            @RequestParam("file") MultipartFile readExcelDataFile, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        int week = (int) session.getAttribute("currentWeek");
+        int year = (int) session.getAttribute("currentYear");
+        List<Map<String, String>> dataError = projectReportService.checkFileExcelImportReport(
+                readExcelDataFile, username, type, week, year);
 
         if (dataError.isEmpty()) {
             // Chưa làm (thực hiện import)
+
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("success", "Cho phép import file", ""));
+                    new ResponseObject("success", "Import file excel thành công", ""));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "File lỗi", dataError));
