@@ -11,5 +11,5 @@ $(document).ready(function () {
         responsiveClass: true,
         autoplayHoverPause: true
     });
-    // $('#myModal').modal('show');
+    $('#myModal').modal('show');
 });
