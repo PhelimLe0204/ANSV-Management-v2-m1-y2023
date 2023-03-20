@@ -270,7 +270,7 @@ public class ProjectReportService implements IProjectReport {
                     dataInsert.getProjectId(), dataInsert.getProjectTypeId(), dataInsert.getProjectPriorityId(),
                     dataInsert.getProjectStatusId(), dataInsert.getWeek(), dataInsert.getYear(),
                     dataInsert.getMaHopDong(), dataInsert.getMaKeToan(), dataInsert.getCurrencyUnitId(),
-                    dataInsert.getJobName(), dataInsert.getDescription(), dataInsert.getMucDoKhaThi(),
+                    dataInsert.getJobName(), dataInsert.getDescription(), 1, dataInsert.getMucDoKhaThi(),
                     dataInsert.getTongMucDauTuDuKien(), dataInsert.getHinhThucDauTu(), dataInsert.getPhamViCungCap(),
                     dataInsert.getPhanTichSwoot(), dataInsert.getSoTienDac(), dataInsert.getHopDongDac(),
                     dataInsert.getMucTieuDac(), dataInsert.getThucTeDac(), dataInsert.getSoTienPac(),
@@ -506,8 +506,11 @@ public class ProjectReportService implements IProjectReport {
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 XSSFRow row = worksheet.getRow(i);
                 if (row.getCell(0) != null && row.getCell(1) != null) {
-                    String uid = RandomStringUtils.randomAlphanumeric(20);
+                    // Tìm kiếm báo cáo theo tên công việc, tuần, năm
+                    Long reportId = projectReportRepository.findIdByJobNameWeekYear(
+                            row.getCell(1).getStringCellValue(), week, year);
 
+                    String uid = RandomStringUtils.randomAlphanumeric(20);
                     // customer's id
                     Long customerId = customerRepository.findIdByCustomerName(row.getCell(2).getStringCellValue());
                     // Kiểm tra tên dự án đã tồn tại hay chưa, nếu đã tồn tại => Lấy Project's ID
@@ -529,7 +532,8 @@ public class ProjectReportService implements IProjectReport {
                     // String solution = row.getCell(9).getStringCellValue();
                     Long priorityId = projectPriorityRepository
                             .findIdByPriorityName(row.getCell(10).getStringCellValue());
-                    Long statusId = projectStatusRepository.findIdByStatusName(row.getCell(11).getStringCellValue());
+                    Long statusId = projectStatusRepository
+                            .findIdByStatusName(row.getCell(11).getStringCellValue());
                     Long amId = userRepository.findIdByFullnameWithRoleName(
                             row.getCell(12).getStringCellValue(), "AM");
                     Long amManagerId = userRepository.findIdByFullnameWithRoleName(
@@ -539,18 +543,35 @@ public class ProjectReportService implements IProjectReport {
                     // String keHoachTuanNay = row.getCell(16).getStringCellValue();
                     // String keHoachTuanSau = row.getCell(17).getStringCellValue();
 
-                    projectReportRepository.addNewReport(uid, amId, amManagerId, null, null,
-                            username, projectId, type, priorityId, statusId, week, year, null,
-                            null, 1L, row.getCell(1).getStringCellValue(),
-                            row.getCell(3).getStringCellValue(), (int) row.getCell(6).getNumericCellValue(),
-                            row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(),
-                            null, row.getCell(7).getStringCellValue(), null,
-                            null, null, null, null, null,
-                            null, null, null, null, null,
-                            null, null, null, null,
-                            row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
-                            row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
-                            row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
+                    if (reportId == null) {
+                        /* Chưa tồn tại báo cáo => Thêm mới */
+                        projectReportRepository.addNewReport(uid, amId, amManagerId, null, null,
+                                username, projectId, type, priorityId, statusId, week, year, null,
+                                null, 1L, row.getCell(1).getStringCellValue(),
+                                row.getCell(3).getStringCellValue(), 1, (int) row.getCell(6).getNumericCellValue(),
+                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(),
+                                null, row.getCell(7).getStringCellValue(), null,
+                                null, null, null, null, null,
+                                null, null, null, null, null,
+                                null, null, null, null,
+                                row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
+                                row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
+                                row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
+                    } else {
+                        /* Đã tồn tại báo cáo => Cập nhật */
+                        projectReportRepository.updateReport(reportId, uid, amId, amManagerId, null, null,
+                                username, projectId, type, priorityId, statusId, week, year, null,
+                                null, 1L, row.getCell(1).getStringCellValue(),
+                                row.getCell(3).getStringCellValue(), 1, (int) row.getCell(6).getNumericCellValue(),
+                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(),
+                                null, row.getCell(7).getStringCellValue(), null,
+                                null, null, null, null, null,
+                                null, null, null, null, null,
+                                null, null, null, null,
+                                row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
+                                row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
+                                row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
+                    }
                 } else {
                     System.out.println("Dòng " + i + " rỗng");
                     break;

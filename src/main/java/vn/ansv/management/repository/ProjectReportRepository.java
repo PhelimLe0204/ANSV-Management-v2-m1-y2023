@@ -221,23 +221,62 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "ket_qua_tuan_truoc, ket_qua_tuan_nay) "
             + "VALUES (:uid, :amId, :amManagerId, :pmId, :pmManagerId, :createdBy, "
             + ":projectId, :projectTypeId, :projectPriorityId, :projectStatusId, :week, :year, "
-            + ":maHopDong, :maKeToan, :currencyUnitId, :jobName, :description, 1, :mucDoKhaThi, "
+            + ":maHopDong, :maKeToan, :currencyUnitId, :jobName, :description, :enabled, :mucDoKhaThi, "
             + ":tongMucDauTuDuKien, :hinhThucDauTu, :phamViCungCap, :phanTichSwoot, :soTienDac, "
             + ":hopDongDac, :mucTieuDac, :thucTeDac, :soTienPac, :hopDongPac, :mucTieuPac, "
             + ":thucTePac, :soTienFac, :hopDongFac, :mucTieuFac, :thucTeFac, :tongGiaTriThucTe, "
             + ":soTienTamUng, :keHoachTamUng, :generalIssue, :solution, :keHoachTuanNay, "
             + ":keHoachTuanSau, :ketQuaTuanTruoc, :ketQuaTuanNay)", nativeQuery = true)
     void addNewReport(@Param("uid") String uid, @Param("amId") Long amId, @Param("amManagerId") Long amManagerId,
-            @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId,
-            @Param("createdBy") String createdBy,
+            @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId, @Param("createdBy") String createdBy,
             @Param("projectId") Long projectId, @Param("projectTypeId") Long projectTypeId,
-            @Param("projectPriorityId") Long projectPriorityId,
-            @Param("projectStatusId") Long projectStatusId,
+            @Param("projectPriorityId") Long projectPriorityId, @Param("projectStatusId") Long projectStatusId,
             @Param("week") int week, @Param("year") int year, @Param("maHopDong") String maHopDong,
             @Param("maKeToan") String maKeToan, @Param("currencyUnitId") Long currencyUnitId,
             @Param("jobName") String jobName, @Param("description") String description,
-            @Param("mucDoKhaThi") Integer mucDoKhaThi,
-            @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
+            @Param("enabled") Integer enabled, @Param("mucDoKhaThi") Integer mucDoKhaThi,
+            @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien, @Param("hinhThucDauTu") String hinhThucDauTu,
+            @Param("phamViCungCap") String phamViCungCap, @Param("phanTichSwoot") String phanTichSwoot,
+            @Param("soTienDac") String soTienDac, @Param("hopDongDac") String hopDongDac,
+            @Param("mucTieuDac") String mucTieuDac, @Param("thucTeDac") String thucTeDac,
+            @Param("soTienPac") String soTienPac, @Param("hopDongPac") String hopDongPac,
+            @Param("mucTieuPac") String mucTieuPac, @Param("thucTePac") String thucTePac,
+            @Param("soTienFac") String soTienFac, @Param("hopDongFac") String hopDongFac,
+            @Param("mucTieuFac") String mucTieuFac, @Param("thucTeFac") String thucTeFac,
+            @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("soTienTamUng") String soTienTamUng,
+            @Param("keHoachTamUng") String keHoachTamUng, @Param("generalIssue") String generalIssue,
+            @Param("solution") String solution, @Param("keHoachTuanNay") String keHoachTuanNay,
+            @Param("keHoachTuanSau") String keHoachTuanSau, @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc,
+            @Param("ketQuaTuanNay") String ketQuaTuanNay);
+
+    // Cập nhật báo cáo
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE project_report AS pr SET uid = :uid, am_id = :amId, am_manager_id = :amManagerId, "
+            + "pm_id = :pmId, pm_manager_id = :pmManagerId, created_by = :createdBy, project_id = :projectId, "
+            + "project_type_id = :projectTypeId, project_priority_id = :projectPriorityId, "
+            + "project_status_id = :projectStatusId, week = :week, year = :year, ma_hop_dong = :maHopDong, "
+            + "ma_ke_toan = :maKeToan, currency_unit_id = :currencyUnitId, job_name = :jobName, "
+            + "description = :description, enabled = :enabled, muc_do_kha_thi = :mucDoKhaThi, "
+            + "tong_muc_dau_tu_du_kien = :tongMucDauTuDuKien, hinh_thuc_dau_tu = :hinhThucDauTu, "
+            + "pham_vi_cung_cap = :phamViCungCap, phan_tich_swoot = :phanTichSwoot, so_tien_dac = :soTienDac, "
+            + "hop_dong_dac = :hopDongDac, muc_tieu_dac = :mucTieuDac, thuc_te_dac = :thucTeDac, "
+            + "so_tien_pac = :soTienPac, hop_dong_pac = :hopDongPac, muc_tieu_pac = :mucTieuPac, "
+            + "thuc_te_pac = :thucTePac, so_tien_fac = :soTienFac, hop_dong_fac = :hopDongFac, "
+            + "muc_tieu_fac = :mucTieuFac, thuc_te_fac = :thucTeFac, tong_gia_tri_thuc_te = :tongGiaTriThucTe, "
+            + "so_tien_tam_ung = :soTienTamUng, ke_hoach_tam_ung = :keHoachTamUng, general_issue = :generalIssue, "
+            + "solution = :solution, ke_hoach_tuan_nay = :keHoachTuanNay, ke_hoach_tuan_sau = :keHoachTuanSau, "
+            + "ket_qua_tuan_truoc = :ketQuaTuanTruoc, ket_qua_tuan_nay = :ketQuaTuanNay "
+            + "WHERE id = :id", nativeQuery = true)
+    void updateReport(@Param("id") Long id, @Param("uid") String uid, @Param("amId") Long amId,
+            @Param("amManagerId") Long amManagerId, @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId,
+            @Param("createdBy") String createdBy, @Param("projectId") Long projectId,
+            @Param("projectTypeId") Long projectTypeId, @Param("projectPriorityId") Long projectPriorityId,
+            @Param("projectStatusId") Long projectStatusId, @Param("week") int week, @Param("year") int year,
+            @Param("maHopDong") String maHopDong, @Param("maKeToan") String maKeToan,
+            @Param("currencyUnitId") Long currencyUnitId, @Param("jobName") String jobName,
+            @Param("description") String description, @Param("enabled") Integer enabled,
+            @Param("mucDoKhaThi") Integer mucDoKhaThi, @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
             @Param("hinhThucDauTu") String hinhThucDauTu, @Param("phamViCungCap") String phamViCungCap,
             @Param("phanTichSwoot") String phanTichSwoot, @Param("soTienDac") String soTienDac,
             @Param("hopDongDac") String hopDongDac, @Param("mucTieuDac") String mucTieuDac,
@@ -259,4 +298,14 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     List<ShowDashboardDTO> modalShowDashboard(@Param("enabled") int enabled, @Param("week") int week,
             @Param("year") int year, @Param("project_status_id") Long project_status_id,
             @Param("project_type_id") Long project_type_id);
+
+    // Find report's id by jobName
+    @Query(value = "SELECT pr.id FROM project_report AS pr WHERE pr.job_name = :jobName", nativeQuery = true)
+    Long findIdByJobName(@Param("jobName") String jobName);
+
+    // Tìm kiếm report's id theo jobName, week, year
+    @Query(value = "SELECT pr.id FROM project_report AS pr "
+            + "WHERE pr.job_name = :jobName AND pr.week = :week AND pr.year = :year", nativeQuery = true)
+    Long findIdByJobNameWeekYear(@Param("jobName") String jobName, @Param("week") Integer week,
+            @Param("year") Integer year);
 }
