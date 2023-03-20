@@ -384,9 +384,21 @@ $("#btn-open-add-new-report-modal").click(function () {
 });
 
 $("#btn-open-import-trien-khai-modal").click(function () {
+    $('#fileImport').change(function () {
+        $("#formImportSubmit").html(
+            '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
+            + 'id="btn-submit-import-trien-khai">Import</button>'
+        );
+    });
+
     $("#formImportReport").submit(function (event) {
-        // console.log("ABC");
         event.preventDefault();
+
+        $("#formImportSubmit").html(
+            '<button class="btn btn-primary pt-1 pb-1 float-right" type="button" disabled>'
+            + '<span class="spinner-border spinner-border-sm" role="status"></span>'
+            + '<span class="pl-1"> Đang xử lý...</span></button>'
+        );
 
         var form = document.getElementById('formImportReport');
         var data = new FormData(form);
@@ -421,7 +433,16 @@ $("#btn-open-import-trien-khai-modal").click(function () {
                         + '</div>'
                         + '</div>'
                     );
-                    alertify.error("Thất bại! Vui lòng chỉnh sửa file và thử lại.").delay(2.5);
+                    alertify.error(result.message).delay(2.5);
+                }
+
+                if (result.status == "success") {
+                    alertify.success(result.message).delay(2.5);
+                    $("#fileImport").val("");
+                    $("#formImportSubmit").html(
+                        '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
+                        + 'id="btn-submit-import-trien-khai" disabled>Import</button>'
+                    );
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
