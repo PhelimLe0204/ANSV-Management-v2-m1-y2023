@@ -132,12 +132,10 @@ public class ProjectReportController extends BaseController {
         String username = (String) session.getAttribute("username");
         int week = (int) session.getAttribute("currentWeek");
         int year = (int) session.getAttribute("currentYear");
-        List<Map<String, String>> dataError = projectReportService.checkFileExcelImportReport(
+        List<Map<String, String>> dataError = projectReportService.processingImportReport(
                 readExcelDataFile, username, type, week, year);
 
         if (dataError.isEmpty()) {
-            // Chưa làm (thực hiện import)
-
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", "Import file excel thành công!", ""));
         } else {

@@ -389,6 +389,7 @@ $("#btn-open-import-report-modal").click(function () {
             '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
             + 'id="btn-submit-import-report">Import</button>'
         );
+        $("#importError").html("");
     });
 
     $("#formImportReport").submit(function (event) {
@@ -399,10 +400,10 @@ $("#btn-open-import-report-modal").click(function () {
             + '<span class="spinner-border spinner-border-sm" role="status"></span>'
             + '<span class="pl-1"> Đang xử lý...</span></button>'
         );
+        // $('#fileImport').prop('disabled', true);
 
         var form = document.getElementById('formImportReport');
         var url = form.action;
-        console.log(url);
         var data = new FormData(form);
 
         $.ajax({
@@ -430,7 +431,7 @@ $("#btn-open-import-report-modal").click(function () {
                         + '<div class="table-responsive">'
                         + '<table class="table table-striped table-hover" id="table-trien-khai">'
                         + '<thead><tr><th>STT</th><th>Đối tượng</th><th>Nguyên nhân</th></tr></thead>'
-                        + '<tbody style="height: 380px;">' + dataError + '</tbody>'
+                        + '<tbody style="max-height: 380px;">' + dataError + '</tbody>'
                         + '</table>'
                         + '</div>'
                         + '</div>'
@@ -441,14 +442,16 @@ $("#btn-open-import-report-modal").click(function () {
                 if (result.status == "success") {
                     alertify.success(result.message).delay(2.5);
                     $("#fileImport").val("");
-                    $("#formImportSubmit").html(
-                        '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
-                        + 'id="btn-submit-import-report" disabled>Import</button>'
-                    );
                 }
+
+                $("#formImportSubmit").html(
+                    '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
+                    + 'id="btn-submit-import-report" disabled>Import</button>'
+                );
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('ERRORS: ' + textStatus);
+                alertify.error("File không xác định! Vui lòng thử lại.").delay(3);
+                // alert('ERRORS: ' + textStatus);
             }
         });
     });
