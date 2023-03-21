@@ -60,6 +60,38 @@
             </div>
         </div>
 
+        <div id="importModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 1400px !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="importModalLabel">Import báo cáo dự án Viễn thông</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/import/1}" id="formImportReport" method="post"
+                            enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <input type="file" id="fileImport" th:name="file" />
+                                </div>
+                                <div class="col-md-3" id="formImportSubmit">
+                                    <button type="submit" class="btn btn-primary pt-1 pb-1 float-right"
+                                        id="btn-submit-import-report" disabled>Import</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row" id="importError"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
             <div class="page-header">
@@ -70,6 +102,15 @@
                                 class="btn btn-warning pt-1 pb-1 rounded-pill font-weight-bold" data-toggle="modal"
                                 data-target="#addNewReportModal">
                                 <i class="feather mr-2 icon-plus"></i>Thêm mới
+                            </button>
+                            <button type="button" id="btn-open-import-report-modal"
+                                class="btn btn-warning pt-1 pb-1 ml-3 rounded-pill font-weight-bold" data-toggle="modal"
+                                data-target="#importModal">
+                                <i class="feather mr-2 icon-upload"></i>Import
+                            </button>
+                            <button type="button" id="btn-export-trien-khai"
+                                class="btn btn-warning pt-1 pb-1 ml-3 rounded-pill font-weight-bold">
+                                <i class="feather mr-2 icon-download"></i>Export
                             </button>
                         </div>
                         <div class="col-md-6">
@@ -151,23 +192,30 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="listReportType1Item : ${listReportType1}">
-                                                <td class="text-center" th:text="${listReportType1ItemStat.index + 1}"></td>
+                                                <td class="text-center" th:text="${listReportType1ItemStat.index + 1}">
+                                                </td>
                                                 <td>
                                                     <a th:href="@{/chi-tiet?id=} + ${listReportType1Item.getId()}"
                                                         th:text="${#strings.abbreviate(listReportType1Item.getJobName(),60)}"
-                                                            data-toggle="tooltip"
-                                                            th:title="${listReportType1Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType1Item.getWeek()} + ' năm ' + ${listReportType1Item.getYear()}"></p>
+                                                        data-toggle="tooltip"
+                                                        th:title="${listReportType1Item.getJobName()}"></a>
+                                                    <p class="text-muted m-b-0"
+                                                        th:text="'Tuần ' + ${listReportType1Item.getWeek()} + ' năm ' + ${listReportType1Item.getYear()}">
+                                                    </p>
                                                 </td>
-                                                <td class="text-center" th:text="${listReportType1Item.getMucDoKhaThi()}+ '%'"></td>
-                                                <td class="text-center" th:text="${listReportType1Item.getTongMucDauTuDuKien()}"></td>
-                                                <td class="text-center" th:text="${listReportType1Item.getCustomerName()}"></td>
-                                                <td class="text-center" th:text="${listReportType1Item.getPicName()}"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType1Item.getMucDoKhaThi()}+ '%'"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType1Item.getTongMucDauTuDuKien()}"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType1Item.getCustomerName()}"></td>
+                                                <td class="text-center" th:text="${listReportType1Item.getPicName()}">
+                                                </td>
                                                 <td class="text-center">
                                                     <button type="button"
                                                         th:class="'btn btn-' + ${listReportType1Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
-                                                        data-toggle="popover" data-html="true"
-                                                        data-placement="right" title=""
+                                                        data-toggle="popover" data-html="true" data-placement="right"
+                                                        title=""
                                                         th:attr="data-content=${listReportType1Item.getTinhTrangDuAn()}"
                                                         data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
                                                         th:text="${listReportType1Item.getStatusDisplay()}">
@@ -185,11 +233,11 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    
+
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <!-- [ Main Content ] end -->

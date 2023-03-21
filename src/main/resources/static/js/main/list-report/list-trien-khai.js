@@ -401,10 +401,12 @@ $("#btn-open-import-report-modal").click(function () {
         );
 
         var form = document.getElementById('formImportReport');
+        var url = form.action;
+        console.log(url);
         var data = new FormData(form);
 
         $.ajax({
-            url: '/import/1',
+            url: url,
             type: 'POST',
             data: data,
             cache: false,
