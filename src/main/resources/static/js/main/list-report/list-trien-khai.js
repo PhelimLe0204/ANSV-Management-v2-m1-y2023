@@ -383,11 +383,11 @@ $("#btn-open-add-new-report-modal").click(function () {
     });
 });
 
-$("#btn-open-import-trien-khai-modal").click(function () {
+$("#btn-open-import-report-modal").click(function () {
     $('#fileImport').change(function () {
         $("#formImportSubmit").html(
             '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
-            + 'id="btn-submit-import-trien-khai">Import</button>'
+            + 'id="btn-submit-import-report">Import</button>'
         );
     });
 
@@ -441,7 +441,7 @@ $("#btn-open-import-trien-khai-modal").click(function () {
                     $("#fileImport").val("");
                     $("#formImportSubmit").html(
                         '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
-                        + 'id="btn-submit-import-trien-khai" disabled>Import</button>'
+                        + 'id="btn-submit-import-report" disabled>Import</button>'
                     );
                 }
             },
