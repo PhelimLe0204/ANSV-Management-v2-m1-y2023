@@ -153,27 +153,215 @@
                     </div>
                     <!-- page statustic card end -->
                 </div>
+
                 <!-- Modal body -->
-                <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLiveLabel">Modal Title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="mb-0">Woohoo, you're reading this text in a modal!</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn  btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn  btn-primary">Save changes</button>
+                <th:block th:if="${!dataShows.empty}">
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <!-- <h5 class="modal-title" id="exampleModalLiveLabel">Modal Title</h5> -->
+                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button> -->
+                                </div>
+                                <div class="modal-body" style="font-size: 15px; color: black; margin-top: -3%;">
+                                    <div class="owl-carousel owl-theme" id="detail_slide">
+                                        <th:block th:each="data : ${dataShows}">
+                                            <div class="container item">
+                                                <div class="row d-flex">
+                                                    <h5 class="pb-2 pt-1 pl-3"
+                                                        style="width: 97%; background: red; border-radius: 16px; text-align: center;">
+                                                        <a href="javascript:void(0)"
+                                                            style="color: #fff; font-weight: bold;"
+                                                            th:text="${data.getJobName()}">jobName</a>
+                                                    </h5>
+                                                    <button type="button" class="close ml-3 pb-2"
+                                                        data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="row ml-2 pt-2 pb-1 pl-4 mb-4"
+                                                    style="width: 95.6%; padding-bottom: 0; background: lightgrey; border-radius: 0 0 16px 16px; margin-top: -1%;">
+                                                    <div class="col-6">
+                                                        <b>AM:</b><span class="pl-3"
+                                                            th:text="${data.getAmName()}">am</span>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <b>PM:</b><span class="pl-3"
+                                                            th:text="${data.getPmName()}">pm</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <div class="row" style="width: 99.9%;">
+                                                        <div class="col-6 overflow">
+                                                            <th:block th:if="${!data.getGeneralIssue().empty}">
+                                                                <p>
+                                                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                                                    <b>Tình trạng:</b><br />
+                                                                    <span class="d-flex">
+
+                                                                        <span
+                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getGeneralIssue()})]</span>
+                                                                    </span>
+                                                                </p>
+                                                                <hr>
+                                                            </th:block>
+                                                            <th:block th:if="${!data.getKeHoachTuanNay().empty}">
+                                                                <p>
+                                                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                                                    <b> Kế hoạch tuần này:</b><br />
+                                                                    <span class="d-flex ">
+                                                                        <!-- <i class="fas fa-hand-point-right"></i> -->
+                                                                        <span
+                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getKeHoachTuanNay()})]</span>
+                                                                    </span>
+                                                                </p>
+                                                                <hr>
+                                                            </th:block>
+                                                            <th:block th:if="${!data.getKeHoachTuanSau().empty}">
+                                                                <p>
+                                                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                                                    <b> Kế hoạch tuần sau:</b><br />
+                                                                    <span class="d-flex ">
+                                                                        <!-- <i class="far fa-hand-point-right"></i> -->
+                                                                        <span
+                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getKeHoachTuanSau()})]</span>
+                                                                    </span>
+                                                                </p>
+                                                                <hr>
+                                                            </th:block>
+                                                            <th:block th:if="${!data.getSolution().empty}">
+                                                                <p>
+                                                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                                                    <b> Giải pháp:</b><br />
+                                                                    <span class="d-flex ">
+                                                                        <!-- <i class="far fa-hand-point-right"></i> -->
+                                                                        <span
+                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getSolution()})]</span>
+                                                                    </span>
+                                                                </p>
+                                                            </th:block>
+                                                        </div>
+                                                        <div class="col-6 pl-4">
+                                                            <table class="table table-hover table-bordered mt-1">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width: 14%;" class="text-center">Kế hoạch</th>
+                                                                        <th class="text-center">Số tiền<br /></th>
+                                                                        <th class="text-center" style="width: 17%;">Hợp đồng<br/>(D / M / Y)</th>
+                                                                        <th class="text-center" style="width: 17%;">Mục tiêu<br/>(D / M / Y)</th>
+                                                                        <th class="text-center" style="width: 17%;">Thực tế<br/>(D / M / Y)</th>
+                                                                        <th class="text-center" style="width: 9%;">CL<br/>(Ngày)</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="text-center">
+                                                                        <td style="background-color: #ecf0f5;">
+                                                                            Tạm ứng
+                                                                        </td>
+                                                                        <td c th:text="${data.getSoTienTamUng()}">
+                                                                        </td>
+                                                                        <td class="table-td-data-none pt-1 pb-1">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </td>
+                                                                        <td th:text="${data.getKeHoachTamUng()}">
+                                                                        <td class="table-td-data-none pt-1 pb-1">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </td>
+                                                                        <td class="table-td-data-none pt-1 pb-1">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="text-center">
+                                                                        <td style="background-color: #ecf0f5;">
+                                                                            DAC
+                                                                        </td>
+                                                                        <td  th:text="${data.getSoTienDac()}">
+                                                                        </td>
+                                                                        <td  th:text="${data.getHopDongDac()}"></td>
+                                                                        <td  th:text="${data.getMucTieuDac()}"></td>
+                                                                        <td  th:text="${data.getThucTeDac()}">
+                                                                        </td>
+                                                                        <td  th:text="${data.getChenhLechDac()}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="text-center">
+                                                                        <td style="background-color: #ecf0f5;">
+                                                                            PAC
+                                                                        </td>
+                                                                        <td th:text="${data.getSoTienPac()}">
+                                                                        </td>
+                                                                        <td th:text="${data.getHopDongPac()}"></td>
+                                                                        <td th:text="${data.getMucTieuPac()}"></td>
+                                                                        <td th:text="${data.getThucTePac()}">
+                                                                        </td>
+                                                                        <td th:text="${data.getChenhLechPac()}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="text-center">
+                                                                        <td style="background-color: #ecf0f5;">
+                                                                            FAC
+                                                                        </td>
+                                                                        <td th:text="${data.getSoTienFac()}">
+                                                                        </td>
+                                                                        <td th:text="${data.getHopDongFac()}"></td>
+                                                                        <td th:text="${data.getMucTieuFac()}"></td>
+                                                                        <td th:text="${data.getThucTeFac()}">
+                                                                        </td>
+                                                                        <td th:text="${data.getChenhLechFac()}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="text-center">
+                                                                        <td style="background-color: #ecf0f5;">
+                                                                            Tổng giá trị thực tế
+                                                                        </td>
+                                                                        <td th:text="${data.getTongGiaTriThucTe()}">
+                                                                        </td>
+                                                                        <td class="table-td-data-none pt-1 pb-1">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </td>
+                                                                        <td class="table-td-data-none pt-1 pb-1">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </td>
+                                                                        <td class="table-td-data-none pt-1 pb-1">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </td>
+                                                                        <td class="table-td-data-none pt-1 pb-1">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-12 pt-3">
+                                                        <p class="text-justify">
+                                                        
+                                                            <b>Kết quả thuần này:</b><br/>
+                                                            [(${data.getKetQuaTuanNay()})]
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <figcaption class="text-center" th:text="${dataStat.index + 1} + ' / ' + ${dataShows.size}"></figcaption>
+                                                </div>
+
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn  btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </th:block>
                 <!-- End modal -->
+
                 <!-- Project start -->
                 <div class="col-xl-12 col-md-12">
                     <div class="card">

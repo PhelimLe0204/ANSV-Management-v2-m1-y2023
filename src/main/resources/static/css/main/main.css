@@ -52,3 +52,40 @@
     font-size: 30px !important;
     height: 59px !important;
 }
+
+/* Dashboard show */
+/* Màn hình desktop */
+@media screen and (min-width: 1024px){
+    body .modal-content {
+    width: 230%;
+    position: absolute;
+    left: -60%;
+    }
+    #thong-ke,#fullScreen{
+        display: block;	
+    }
+    .topnav #li_1 {
+      display: none;
+     
+    }
+    #detail_slide_1{
+        display: none;
+    }
+    #detail_slide{
+        display: block;
+    }
+  }
+  /* End màn hình desktop */
+
+  .overflow {
+    height: 383px;
+    overflow: auto;
+    border-bottom: 1px solid lightgray;
+}
+
+.table-td-data-none {
+    background-color: #BEBEBE !important;
+    font-weight: bold;
+    color: #FFF;
+    vertical-align: middle !important;
+}
