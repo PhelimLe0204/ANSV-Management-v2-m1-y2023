@@ -56,7 +56,7 @@
 /* Dashboard show */
 /* Màn hình desktop */
 @media screen and (min-width: 1024px){
-    body .modal-content {
+    body .modal-style {
     width: 230%;
     position: absolute;
     left: -60%;
