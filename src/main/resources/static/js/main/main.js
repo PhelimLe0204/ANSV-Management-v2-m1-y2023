@@ -7,9 +7,11 @@ $(document).ready(function () {
         nav: true,
         margin: 10,
         autoplay: true,
-        autoplayTimeout: 10000,
+        autoplayTimeout: 8500,
         responsiveClass: true,
         autoplayHoverPause: true
     });
+
+
     $('#myModal').modal('show');
 });

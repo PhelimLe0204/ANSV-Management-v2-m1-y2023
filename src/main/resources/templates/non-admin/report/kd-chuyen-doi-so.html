@@ -196,7 +196,7 @@
                                                 </td>
                                                 <td class="d-inline-block">
                                                     <a th:href="@{/chi-tiet?id=} + ${listReportType2Item.getId()}"
-                                                        th:text="${#strings.abbreviate(listReportType2Item.getJobName(),60)}"
+                                                        th:text="${#strings.abbreviate(listReportType2Item.getJobName(),30)}"
                                                             data-toggle="tooltip"
                                                             th:title="${listReportType2Item.getJobName()}"></a>
                                                     <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType2Item.getWeek()} + ' năm ' + ${listReportType2Item.getYear()}"></p>

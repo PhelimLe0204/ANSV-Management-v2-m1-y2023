@@ -191,9 +191,9 @@
 
                                                 </div>
                                                 <div class="table-responsive">
-                                                    <div class="row" style="width: 99.9%;">
+                                                    <div class="row" style="width: 70.9%;">
                                                         <div class="col-6 overflow">
-                                                            <th:block th:if="${!data.getGeneralIssue().empty}">
+                                                            <th:block th:if="${data.getGeneralIssue() != null}">
                                                                 <p>
                                                                     <i class="fa-solid fa-right-to-bracket"></i>
                                                                     <b>Tình trạng:</b><br />
@@ -205,7 +205,7 @@
                                                                 </p>
                                                                 <hr>
                                                             </th:block>
-                                                            <th:block th:if="${!data.getKeHoachTuanNay().empty}">
+                                                            <th:block th:if="${data.getKeHoachTuanNay() != null}">
                                                                 <p>
                                                                     <i class="fa-solid fa-right-to-bracket"></i>
                                                                     <b> Kế hoạch tuần này:</b><br />
@@ -217,7 +217,7 @@
                                                                 </p>
                                                                 <hr>
                                                             </th:block>
-                                                            <th:block th:if="${!data.getKeHoachTuanSau().empty}">
+                                                            <th:block th:if="${data.getKeHoachTuanSau() != null}">
                                                                 <p>
                                                                     <i class="fa-solid fa-right-to-bracket"></i>
                                                                     <b> Kế hoạch tuần sau:</b><br />
@@ -229,7 +229,7 @@
                                                                 </p>
                                                                 <hr>
                                                             </th:block>
-                                                            <th:block th:if="${!data.getSolution().empty}">
+                                                            <th:block th:if="${data.getSolution() != null}">
                                                                 <p>
                                                                     <i class="fa-solid fa-right-to-bracket"></i>
                                                                     <b> Giải pháp:</b><br />
@@ -243,93 +243,98 @@
                                                         </div>
                                                         <div class="col-6 pl-4">
                                                             <table class="table table-hover table-bordered mt-1">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="width: 14%;" class="text-center">Kế hoạch</th>
-                                                                        <th class="text-center">Số tiền<br /></th>
-                                                                        <th class="text-center" style="width: 17%;">Hợp đồng<br/>(D / M / Y)</th>
-                                                                        <th class="text-center" style="width: 17%;">Mục tiêu<br/>(D / M / Y)</th>
-                                                                        <th class="text-center" style="width: 17%;">Thực tế<br/>(D / M / Y)</th>
-                                                                        <th class="text-center" style="width: 9%;">CL<br/>(Ngày)</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr class="text-center">
-                                                                        <td style="background-color: #ecf0f5;">
-                                                                            Tạm ứng
-                                                                        </td>
-                                                                        <td c th:text="${data.getSoTienTamUng()}">
-                                                                        </td>
-                                                                        <td class="table-td-data-none pt-1 pb-1">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </td>
-                                                                        <td th:text="${data.getKeHoachTamUng()}">
-                                                                        <td class="table-td-data-none pt-1 pb-1">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </td>
-                                                                        <td class="table-td-data-none pt-1 pb-1">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="text-center">
-                                                                        <td style="background-color: #ecf0f5;">
-                                                                            DAC
-                                                                        </td>
-                                                                        <td  th:text="${data.getSoTienDac()}">
-                                                                        </td>
-                                                                        <td  th:text="${data.getHopDongDac()}"></td>
-                                                                        <td  th:text="${data.getMucTieuDac()}"></td>
-                                                                        <td  th:text="${data.getThucTeDac()}">
-                                                                        </td>
-                                                                        <td  th:text="${data.getChenhLechDac()}">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="text-center">
-                                                                        <td style="background-color: #ecf0f5;">
-                                                                            PAC
-                                                                        </td>
-                                                                        <td th:text="${data.getSoTienPac()}">
-                                                                        </td>
-                                                                        <td th:text="${data.getHopDongPac()}"></td>
-                                                                        <td th:text="${data.getMucTieuPac()}"></td>
-                                                                        <td th:text="${data.getThucTePac()}">
-                                                                        </td>
-                                                                        <td th:text="${data.getChenhLechPac()}">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="text-center">
-                                                                        <td style="background-color: #ecf0f5;">
-                                                                            FAC
-                                                                        </td>
-                                                                        <td th:text="${data.getSoTienFac()}">
-                                                                        </td>
-                                                                        <td th:text="${data.getHopDongFac()}"></td>
-                                                                        <td th:text="${data.getMucTieuFac()}"></td>
-                                                                        <td th:text="${data.getThucTeFac()}">
-                                                                        </td>
-                                                                        <td th:text="${data.getChenhLechFac()}">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="text-center">
-                                                                        <td style="background-color: #ecf0f5;">
-                                                                            Tổng giá trị thực tế
-                                                                        </td>
-                                                                        <td th:text="${data.getTongGiaTriThucTe()}">
-                                                                        </td>
-                                                                        <td class="table-td-data-none pt-1 pb-1">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </td>
-                                                                        <td class="table-td-data-none pt-1 pb-1">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </td>
-                                                                        <td class="table-td-data-none pt-1 pb-1">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </td>
-                                                                        <td class="table-td-data-none pt-1 pb-1">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
+
+                                                                <tr>
+                                                                    <th style="width: 14%;" class="text-center">Kế hoạch
+                                                                    </th>
+                                                                    <th class="text-center">Số tiền<br /></th>
+                                                                    <th class="text-center" style="width: 17%;">Hợp
+                                                                        đồng<br />(D / M / Y)</th>
+                                                                    <th class="text-center" style="width: 17%;">Mục
+                                                                        tiêu<br />(D / M / Y)</th>
+                                                                    <th class="text-center" style="width: 17%;">Thực
+                                                                        tế<br />(D / M / Y)</th>
+                                                                    <th class="text-center" style="width: 9%;">
+                                                                        CL<br />(Ngày)</th>
+                                                                </tr>
+
+
+                                                                <tr class="text-center">
+                                                                    <td style="background-color: #ecf0f5;">
+                                                                        Tạm ứng
+                                                                    </td>
+                                                                    <td c th:text="${data.getSoTienTamUng()}">
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td th:text="${data.getKeHoachTamUng()}">
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="text-center">
+                                                                    <td style="background-color: #ecf0f5;">
+                                                                        DAC
+                                                                    </td>
+                                                                    <td th:text="${data.getSoTienDac()}">
+                                                                    </td>
+                                                                    <td th:text="${data.getHopDongDac()}"></td>
+                                                                    <td th:text="${data.getMucTieuDac()}"></td>
+                                                                    <td th:text="${data.getThucTeDac()}">
+                                                                    </td>
+                                                                    <td th:text="${data.getChenhLechDac()}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="text-center">
+                                                                    <td style="background-color: #ecf0f5;">
+                                                                        PAC
+                                                                    </td>
+                                                                    <td th:text="${data.getSoTienPac()}">
+                                                                    </td>
+                                                                    <td th:text="${data.getHopDongPac()}"></td>
+                                                                    <td th:text="${data.getMucTieuPac()}"></td>
+                                                                    <td th:text="${data.getThucTePac()}">
+                                                                    </td>
+                                                                    <td th:text="${data.getChenhLechPac()}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="text-center">
+                                                                    <td style="background-color: #ecf0f5;">
+                                                                        FAC
+                                                                    </td>
+                                                                    <td th:text="${data.getSoTienFac()}">
+                                                                    </td>
+                                                                    <td th:text="${data.getHopDongFac()}"></td>
+                                                                    <td th:text="${data.getMucTieuFac()}"></td>
+                                                                    <td th:text="${data.getThucTeFac()}">
+                                                                    </td>
+                                                                    <td th:text="${data.getChenhLechFac()}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="text-center">
+                                                                    <td style="background-color: #ecf0f5;">
+                                                                        Tổng giá trị thực tế
+                                                                    </td>
+                                                                    <td th:text="${data.getTongGiaTriThucTe()}">
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                </tr>
+
                                                             </table>
                                                         </div>
                                                     </div>
@@ -338,15 +343,17 @@
                                                 <div class="row">
                                                     <div class="col-12 pt-3">
                                                         <p class="text-justify">
-                                                        
-                                                            <b>Kết quả thuần này:</b><br/>
+
+                                                            <b>Kết quả thuần này:</b><br />
                                                             [(${data.getKetQuaTuanNay()})]
                                                         </p>
                                                     </div>
                                                 </div>
 
                                                 <div>
-                                                    <figcaption class="text-center" th:text="${dataStat.index + 1} + ' / ' + ${dataShows.size}"></figcaption>
+                                                    <figcaption class="text-center"
+                                                        th:text="${dataStat.index + 1} + ' / ' + ${dataShows.size}">
+                                                    </figcaption>
                                                 </div>
 
                                             </div>
