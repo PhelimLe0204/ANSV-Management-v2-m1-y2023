@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -277,9 +279,9 @@ public class ProjectReportService implements IProjectReport {
                     dataInsert.getHopDongPac(), dataInsert.getMucTieuPac(), dataInsert.getThucTePac(),
                     dataInsert.getSoTienFac(), dataInsert.getHopDongFac(), dataInsert.getMucTieuFac(),
                     dataInsert.getThucTeFac(), dataInsert.getTongGiaTriThucTe(), dataInsert.getSoTienTamUng(),
-                    dataInsert.getKeHoachTamUng(), dataInsert.getGeneralIssue(), dataInsert.getSolution(),
-                    dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(), dataInsert.getKetQuaTuanTruoc(),
-                    dataInsert.getKetQuaTuanNay());
+                    dataInsert.getKeHoachTamUng(), dataInsert.getTienDoChung(), dataInsert.getGeneralIssue(),
+                    dataInsert.getSolution(), dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(),
+                    dataInsert.getKetQuaTuanTruoc(), dataInsert.getKetQuaTuanNay());
 
             // Cập nhật khách hàng
             if (dataInsert.getCustomerId() != projectRepository.findCustomerIdById(dataInsert.getProjectId())) {
@@ -445,9 +447,18 @@ public class ProjectReportService implements IProjectReport {
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 XSSFRow row = worksheet.getRow(i);
 
-                if (row.getCell(0) != null && row.getCell(1) != null) {
+                Cell cell = row.getCell(0);
+                if (cell != null && cell.getCellType() != CellType.BLANK) {
                     /* Check dữ liệu file */
-                    // 1. Kiểm tra khách hàng đã tồn tại hay chưa
+                    // 1. Dự án
+                    if (row.getCell(1).getRawValue() == null) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("position", "B" + (i + 1));
+                        errors.put("error", "Tên dự án trống");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 2. Khách hàng
                     Long checkKhachHang = customerRepository.findIdByCustomerName(row.getCell(2).getStringCellValue());
                     if (checkKhachHang == null) {
                         Map<String, String> errors = new HashMap<String, String>();
@@ -456,7 +467,7 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 2. Kiểm tra Priority
+                    // 3. Priority
                     String excelPriority = row.getCell(10).getStringCellValue();
                     if (!excelPriority.equals("First") && !excelPriority.equals("Second")
                             && !excelPriority.equals("Third")) {
@@ -466,7 +477,7 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 3. Kiểm tra Status
+                    // 4. Status
                     String excelStatus = row.getCell(11).getStringCellValue();
                     if (!excelStatus.equals("High") && !excelStatus.equals("Medium")
                             && !excelStatus.equals("Low")) {
@@ -476,9 +487,9 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 4. Kiểm tra PIC
+                    // 5. PIC
                     int checkPic = userRepository
-                            .checkIssetByFullname(row.getCell(12).getStringCellValue());
+                            .checkIssetByFullnameWithRoleName(row.getCell(12).getStringCellValue(), "AM");
                     if (checkPic == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "M" + (i + 1));
@@ -486,9 +497,9 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 5. Kiểm tra phó ban
+                    // 6. Phó ban
                     int checkPhoBan = userRepository
-                            .checkIssetByFullname(row.getCell(13).getStringCellValue());
+                            .checkIssetByFullnameWithRoleName(row.getCell(13).getStringCellValue(), "Manager_AM");
                     if (checkPhoBan == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "N" + (i + 1));
@@ -509,7 +520,9 @@ public class ProjectReportService implements IProjectReport {
 
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 XSSFRow row = worksheet.getRow(i);
-                if (row.getCell(0) != null && row.getCell(1) != null) {
+
+                Cell cell = row.getCell(0);
+                if (cell != null && cell.getCellType() != CellType.BLANK) {
                     // Tìm kiếm báo cáo theo tên công việc, tuần, năm
                     Long reportId = projectReportRepository.findIdByJobNameWeekYear(
                             row.getCell(1).getStringCellValue(), week, year);
@@ -519,7 +532,7 @@ public class ProjectReportService implements IProjectReport {
                     Long customerId = customerRepository.findIdByCustomerName(row.getCell(2).getStringCellValue());
                     // Kiểm tra tên dự án đã tồn tại hay chưa, nếu đã tồn tại => Lấy Project's ID
                     Long projectId = projectRepository.findIdByProjectName(row.getCell(1).getStringCellValue());
-                    if (projectId == null | projectId == 0) {
+                    if (projectId == null) {
                         // Thêm mới project
                         projectRepository.addNewProject(username, uid, row.getCell(3).getStringCellValue(), 1,
                                 row.getCell(1).getStringCellValue(), customerId);
@@ -553,14 +566,14 @@ public class ProjectReportService implements IProjectReport {
                                 username, projectId, type, priorityId, statusId, week, year, null,
                                 null, 1L, row.getCell(1).getStringCellValue(),
                                 row.getCell(3).getStringCellValue(), 1, (int) row.getCell(6).getNumericCellValue(),
-                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(),
-                                null, row.getCell(7).getStringCellValue(), null,
+                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(), null,
+                                row.getCell(7).getStringCellValue(), null, null, null,
                                 null, null, null, null, null,
                                 null, null, null, null, null,
-                                null, null, null, null,
-                                row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
-                                row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
-                                row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
+                                null, null, null, row.getCell(8).getStringCellValue(),
+                                row.getCell(9).getStringCellValue(), row.getCell(16).getStringCellValue(),
+                                row.getCell(17).getStringCellValue(), row.getCell(14).getStringCellValue(),
+                                row.getCell(15).getStringCellValue());
                     } else {
                         /* Đã tồn tại báo cáo => Cập nhật */
                         projectReportRepository.updateReport(reportId, uid, amId, amManagerId, null, null,
@@ -572,12 +585,12 @@ public class ProjectReportService implements IProjectReport {
                                 null, null, null, null, null,
                                 null, null, null, null, null,
                                 null, null, null, null,
-                                row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
+                                null, row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
                                 row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
                                 row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
                     }
                 } else {
-                    System.out.println("Dòng " + i + " rỗng");
+                    System.out.println("Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -608,60 +621,93 @@ public class ProjectReportService implements IProjectReport {
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 XSSFRow row = worksheet.getRow(i);
 
-                if (row.getCell(0) != null && row.getCell(1) != null) {
+                Cell cell = row.getCell(0);
+                if (cell != null && cell.getCellType() != CellType.BLANK) {
                     /* Check dữ liệu file */
-                    // 1. Kiểm tra khách hàng đã tồn tại hay chưa
-                    Long checkKhachHang = customerRepository.findIdByCustomerName(row.getCell(2).getStringCellValue());
-                    if (checkKhachHang == null) {
+                    // 1. Dự án
+                    if (row.getCell(1).getRawValue() == null) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("position", "B" + (i + 1));
+                        errors.put("error", "Tên dự án trống");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 2. Số hợp đồng
+                    if (row.getCell(2).getRawValue() == null) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "C" + (i + 1));
+                        errors.put("error", "Số hợp đồng trống");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 3. Khách hàng
+                    Long checkKhachHang = customerRepository.findIdByCustomerName(row.getCell(4).getStringCellValue());
+                    if (checkKhachHang == null) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("position", "E" + (i + 1));
                         errors.put("error", "Khách hàng không tồn tại");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 2. Kiểm tra Priority
-                    String excelPriority = row.getCell(10).getStringCellValue();
+                    // 4. Tổng giá trị thực tế
+                    if (row.getCell(5).getRawValue() == null) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("position", "F" + (i + 1));
+                        errors.put("error", "Giá trị trống");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 5. Priority
+                    String excelPriority = row.getCell(24).getStringCellValue();
                     if (!excelPriority.equals("First") && !excelPriority.equals("Second")
                             && !excelPriority.equals("Third")) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("position", "K" + (i + 1));
+                        errors.put("position", "Y" + (i + 1));
                         errors.put("error", "Priority không xác định");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 3. Kiểm tra Status
-                    String excelStatus = row.getCell(11).getStringCellValue();
+                    // 6. Status
+                    String excelStatus = row.getCell(25).getStringCellValue();
                     if (!excelStatus.equals("High") && !excelStatus.equals("Medium")
                             && !excelStatus.equals("Low")) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("position", "L" + (i + 1));
+                        errors.put("position", "Z" + (i + 1));
                         errors.put("error", "Status không xác định");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 4. Kiểm tra PIC
-                    int checkPic = userRepository
-                            .checkIssetByFullname(row.getCell(12).getStringCellValue());
-                    if (checkPic == 0) {
+                    // 7. AM
+                    int checkAm = userRepository
+                            .checkIssetByFullnameWithRoleName(row.getCell(26).getStringCellValue(), "AM");
+                    if (checkAm == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("position", "M" + (i + 1));
-                        errors.put("error", "PIC không tồn tại");
+                        errors.put("position", "AA" + (i + 1));
+                        errors.put("error", "AM không tồn tại");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 5. Kiểm tra phó ban
-                    int checkPhoBan = userRepository
-                            .checkIssetByFullname(row.getCell(13).getStringCellValue());
-                    if (checkPhoBan == 0) {
+                    // 8. PM
+                    int checkPm = userRepository
+                            .checkIssetByFullnameWithRoleName(row.getCell(27).getStringCellValue(), "PM");
+                    if (checkPm == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("position", "N" + (i + 1));
+                        errors.put("position", "AB" + (i + 1));
+                        errors.put("error", "PM không tồn tại");
+                        dataError.add(errors); // Đẩy lỗi vào list
+                    }
+
+                    // 8. PM's Manager
+                    int checkPmManager = userRepository
+                            .checkIssetByFullnameWithRoleName(row.getCell(28).getStringCellValue(), "Manager_PM");
+                    if (checkPmManager == 0) {
+                        Map<String, String> errors = new HashMap<String, String>();
+                        errors.put("position", "AC" + (i + 1));
                         errors.put("error", "Phó ban không tồn tại");
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
-
-                    // dataError.add((i - 1), errors); // Đẩy lỗi vào list
                 } else {
-                    System.out.println("Dòng " + i + " rỗng");
+                    System.out.println("Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -672,23 +718,23 @@ public class ProjectReportService implements IProjectReport {
 
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 XSSFRow row = worksheet.getRow(i);
-                if (row.getCell(0) != null && row.getCell(1) != null) {
+
+                Cell cell = row.getCell(0);
+                if (cell != null && cell.getCellType() != CellType.BLANK) {
                     // Tìm kiếm báo cáo theo tên công việc, tuần, năm
                     Long reportId = projectReportRepository.findIdByJobNameWeekYear(
                             row.getCell(1).getStringCellValue(), week, year);
-
                     String uid = RandomStringUtils.randomAlphanumeric(20);
                     // customer's id
-                    Long customerId = customerRepository.findIdByCustomerName(row.getCell(2).getStringCellValue());
+                    Long customerId = customerRepository.findIdByCustomerName(row.getCell(4).getStringCellValue());
                     // Kiểm tra tên dự án đã tồn tại hay chưa, nếu đã tồn tại => Lấy Project's ID
                     Long projectId = projectRepository.findIdByProjectName(row.getCell(1).getStringCellValue());
-                    if (projectId == null | projectId == 0) {
+                    if (projectId == null) {
                         // Thêm mới project
-                        projectRepository.addNewProject(username, uid, row.getCell(3).getStringCellValue(), 1,
+                        projectRepository.addNewProject(username, uid, null, 1,
                                 row.getCell(1).getStringCellValue(), customerId);
                         projectId = projectRepository.findIdByProjectName(row.getCell(1).getStringCellValue());
                     }
-
                     // String jobName = row.getCell(1).getStringCellValue();
                     // String description = row.getCell(3).getStringCellValue();
                     // String hinhThucDauTu = row.getCell(4).getStringCellValue();
@@ -698,13 +744,15 @@ public class ProjectReportService implements IProjectReport {
                     // String generalIssue = row.getCell(8).getStringCellValue();
                     // String solution = row.getCell(9).getStringCellValue();
                     Long priorityId = projectPriorityRepository
-                            .findIdByPriorityName(row.getCell(10).getStringCellValue());
+                            .findIdByPriorityName(row.getCell(24).getStringCellValue());
                     Long statusId = projectStatusRepository
-                            .findIdByStatusName(row.getCell(11).getStringCellValue());
+                            .findIdByStatusName(row.getCell(25).getStringCellValue());
                     Long amId = userRepository.findIdByFullnameWithRoleName(
-                            row.getCell(12).getStringCellValue(), "AM");
-                    Long amManagerId = userRepository.findIdByFullnameWithRoleName(
-                            row.getCell(13).getStringCellValue(), "Manager_AM");
+                            row.getCell(26).getStringCellValue(), "AM");
+                    Long pmId = userRepository.findIdByFullnameWithRoleName(
+                            row.getCell(27).getStringCellValue(), "PM");
+                    Long pmManagerId = userRepository.findIdByFullnameWithRoleName(
+                            row.getCell(28).getStringCellValue(), "Manager_PM");
                     // String ketQuaTuanTruoc = row.getCell(14).getStringCellValue();
                     // String ketQuaTuanNay = row.getCell(15).getStringCellValue();
                     // String keHoachTuanNay = row.getCell(16).getStringCellValue();
@@ -712,32 +760,40 @@ public class ProjectReportService implements IProjectReport {
 
                     if (reportId == null) {
                         /* Chưa tồn tại báo cáo => Thêm mới */
-                        projectReportRepository.addNewReport(uid, amId, amManagerId, null, null,
-                                username, projectId, type, priorityId, statusId, week, year, null,
-                                null, 1L, row.getCell(1).getStringCellValue(),
-                                row.getCell(3).getStringCellValue(), 1, (int) row.getCell(6).getNumericCellValue(),
-                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(),
-                                null, row.getCell(7).getStringCellValue(), null,
-                                null, null, null, null, null,
-                                null, null, null, null, null,
-                                null, null, null, null,
-                                row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
-                                row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
-                                row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
+                        projectReportRepository.addNewReport(uid, amId, null, pmId, pmManagerId,
+                                username, projectId, type, priorityId, statusId, week, year,
+                                row.getCell(2).getStringCellValue(), row.getCell(3).getStringCellValue(),
+                                1L, row.getCell(1).getStringCellValue(), null,
+                                1, null, null, null,
+                                null, null, row.getCell(6).getStringCellValue(),
+                                row.getCell(7).getStringCellValue(), row.getCell(8).getStringCellValue(),
+                                row.getCell(9).getStringCellValue(), row.getCell(11).getStringCellValue(),
+                                row.getCell(12).getStringCellValue(), row.getCell(13).getStringCellValue(),
+                                row.getCell(14).getStringCellValue(), row.getCell(16).getStringCellValue(),
+                                row.getCell(17).getStringCellValue(), row.getCell(18).getStringCellValue(),
+                                row.getCell(19).getStringCellValue(), row.getCell(5).getStringCellValue(),
+                                null, null, row.getCell(21).getStringCellValue(),
+                                row.getCell(22).getStringCellValue(), row.getCell(23).getStringCellValue(),
+                                row.getCell(31).getStringCellValue(), row.getCell(32).getStringCellValue(),
+                                row.getCell(29).getStringCellValue(), row.getCell(30).getStringCellValue());
                     } else {
                         /* Đã tồn tại báo cáo => Cập nhật */
-                        projectReportRepository.updateReport(reportId, uid, amId, amManagerId, null, null,
-                                username, projectId, type, priorityId, statusId, week, year, null,
-                                null, 1L, row.getCell(1).getStringCellValue(),
-                                row.getCell(3).getStringCellValue(), 1, (int) row.getCell(6).getNumericCellValue(),
-                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(),
-                                null, row.getCell(7).getStringCellValue(), null,
-                                null, null, null, null, null,
-                                null, null, null, null, null,
-                                null, null, null, null,
-                                row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
-                                row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
-                                row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
+                        projectReportRepository.updateReport(reportId, uid, amId, null, pmId,
+                                pmManagerId, username, projectId, type, priorityId, statusId, week, year,
+                                row.getCell(2).getStringCellValue(), row.getCell(3).getStringCellValue(),
+                                1L, row.getCell(1).getStringCellValue(), null,
+                                1, null, null, null,
+                                null, null, row.getCell(6).getStringCellValue(),
+                                row.getCell(7).getStringCellValue(), row.getCell(8).getStringCellValue(),
+                                row.getCell(9).getStringCellValue(), row.getCell(11).getStringCellValue(),
+                                row.getCell(12).getStringCellValue(), row.getCell(13).getStringCellValue(),
+                                row.getCell(14).getStringCellValue(), row.getCell(16).getStringCellValue(),
+                                row.getCell(17).getStringCellValue(), row.getCell(18).getStringCellValue(),
+                                row.getCell(19).getStringCellValue(), row.getCell(5).getStringCellValue(),
+                                null, null, row.getCell(21).getStringCellValue(),
+                                row.getCell(22).getStringCellValue(), row.getCell(23).getStringCellValue(),
+                                row.getCell(31).getStringCellValue(), row.getCell(32).getStringCellValue(),
+                                row.getCell(29).getStringCellValue(), row.getCell(30).getStringCellValue());
                     }
                 } else {
                     System.out.println("Dòng " + i + " rỗng");
@@ -777,13 +833,11 @@ public class ProjectReportService implements IProjectReport {
                     return dataError;
                 }
                 if (fileName.contains("Chuyen doi so")) {
-                    // Chưa làm
                     dataError = checkExcelDataType1AndType2(readExcelDataFile, username, type, week, year);
                     return dataError;
                 }
                 if (fileName.contains("Trien khai")) {
-                    // Chưa làm
-                    dataError = checkExcelDataType1AndType2(readExcelDataFile, username, type, week, year);
+                    dataError = checkExcelDataType3(readExcelDataFile, username, type, week, year);
                     return dataError;
                 }
                 Map<String, String> errors = new HashMap<String, String>();
