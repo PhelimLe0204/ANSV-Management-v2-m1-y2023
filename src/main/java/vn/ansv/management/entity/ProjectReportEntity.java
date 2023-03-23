@@ -383,8 +383,8 @@ public class ProjectReportEntity extends BaseEntity {
 
     @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(4)") // 44
     private int enabled;
-    @Column(name = "note", columnDefinition = "TEXT") // 45
-    private String note;
+    @Column(name = "tien_do_chung", columnDefinition = "TEXT") // 45
+    private String tienDoChung;
 
     // @Column(name = "created_by") // 46
     // private String created_by;
@@ -780,12 +780,12 @@ public class ProjectReportEntity extends BaseEntity {
         this.enabled = enabled;
     }
 
-    public String getNote() {
-        return this.note;
+    public String getTienDoChung() {
+        return this.tienDoChung;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setTienDoChung(String tienDoChung) {
+        this.tienDoChung = tienDoChung;
     }
 
     public CurrencyUnitEntity getCurrencyUnit() {

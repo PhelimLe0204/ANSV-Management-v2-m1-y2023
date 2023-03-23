@@ -55,7 +55,8 @@ public class AddNewReportDTO {
     private String soTienTamUng;
     private String keHoachTamUng;
 
-    // Tab 4 (6)
+    // Tab 4 (7)
+    private String tienDoChung;
     private String generalIssue;
     private String solution;
     private String keHoachTuanNay;
@@ -73,8 +74,8 @@ public class AddNewReportDTO {
             String phamViCungCap, String phanTichSwoot, String soTienDac, String hopDongDac, String mucTieuDac,
             String thucTeDac, String soTienPac, String hopDongPac, String mucTieuPac, String thucTePac,
             String soTienFac, String hopDongFac, String mucTieuFac, String thucTeFac, String tongGiaTriThucTe,
-            String soTienTamUng, String keHoachTamUng, String generalIssue, String solution, String keHoachTuanNay,
-            String keHoachTuanSau, String ketQuaTuanTruoc, String ketQuaTuanNay) {
+            String soTienTamUng, String keHoachTamUng, String tienDoChung, String generalIssue, String solution,
+            String keHoachTuanNay, String keHoachTuanSau, String ketQuaTuanTruoc, String ketQuaTuanNay) {
         this.uid = uid;
         this.amId = amId;
         this.pmId = pmId;
@@ -114,6 +115,7 @@ public class AddNewReportDTO {
         this.tongGiaTriThucTe = tongGiaTriThucTe;
         this.soTienTamUng = soTienTamUng;
         this.keHoachTamUng = keHoachTamUng;
+        this.tienDoChung = tienDoChung;
         this.generalIssue = generalIssue;
         this.solution = solution;
         this.keHoachTuanNay = keHoachTuanNay;

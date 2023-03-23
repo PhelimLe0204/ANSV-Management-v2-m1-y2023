@@ -217,7 +217,7 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "pham_vi_cung_cap, phan_tich_swoot, so_tien_dac, hop_dong_dac, muc_tieu_dac, "
             + "thuc_te_dac, so_tien_pac, hop_dong_pac, muc_tieu_pac, thuc_te_pac, so_tien_fac, "
             + "hop_dong_fac, muc_tieu_fac, thuc_te_fac, tong_gia_tri_thuc_te, so_tien_tam_ung, "
-            + "ke_hoach_tam_ung, general_issue, solution, ke_hoach_tuan_nay, ke_hoach_tuan_sau, "
+            + "ke_hoach_tam_ung, tien_do_chung, general_issue, solution, ke_hoach_tuan_nay, ke_hoach_tuan_sau, "
             + "ket_qua_tuan_truoc, ket_qua_tuan_nay) "
             + "VALUES (:uid, :amId, :amManagerId, :pmId, :pmManagerId, :createdBy, "
             + ":projectId, :projectTypeId, :projectPriorityId, :projectStatusId, :week, :year, "
@@ -225,7 +225,7 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + ":tongMucDauTuDuKien, :hinhThucDauTu, :phamViCungCap, :phanTichSwoot, :soTienDac, "
             + ":hopDongDac, :mucTieuDac, :thucTeDac, :soTienPac, :hopDongPac, :mucTieuPac, "
             + ":thucTePac, :soTienFac, :hopDongFac, :mucTieuFac, :thucTeFac, :tongGiaTriThucTe, "
-            + ":soTienTamUng, :keHoachTamUng, :generalIssue, :solution, :keHoachTuanNay, "
+            + ":soTienTamUng, :keHoachTamUng, :tienDoChung, :generalIssue, :solution, :keHoachTuanNay, "
             + ":keHoachTuanSau, :ketQuaTuanTruoc, :ketQuaTuanNay)", nativeQuery = true)
     void addNewReport(@Param("uid") String uid, @Param("amId") Long amId, @Param("amManagerId") Long amManagerId,
             @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId, @Param("createdBy") String createdBy,
@@ -244,10 +244,10 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("soTienFac") String soTienFac, @Param("hopDongFac") String hopDongFac,
             @Param("mucTieuFac") String mucTieuFac, @Param("thucTeFac") String thucTeFac,
             @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("soTienTamUng") String soTienTamUng,
-            @Param("keHoachTamUng") String keHoachTamUng, @Param("generalIssue") String generalIssue,
-            @Param("solution") String solution, @Param("keHoachTuanNay") String keHoachTuanNay,
-            @Param("keHoachTuanSau") String keHoachTuanSau, @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc,
-            @Param("ketQuaTuanNay") String ketQuaTuanNay);
+            @Param("keHoachTamUng") String keHoachTamUng, @Param("tienDoChung") String tienDoChung,
+            @Param("generalIssue") String generalIssue, @Param("solution") String solution,
+            @Param("keHoachTuanNay") String keHoachTuanNay, @Param("keHoachTuanSau") String keHoachTuanSau,
+            @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc, @Param("ketQuaTuanNay") String ketQuaTuanNay);
 
     // Cập nhật báo cáo
     @Transactional
@@ -264,9 +264,10 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "so_tien_pac = :soTienPac, hop_dong_pac = :hopDongPac, muc_tieu_pac = :mucTieuPac, "
             + "thuc_te_pac = :thucTePac, so_tien_fac = :soTienFac, hop_dong_fac = :hopDongFac, "
             + "muc_tieu_fac = :mucTieuFac, thuc_te_fac = :thucTeFac, tong_gia_tri_thuc_te = :tongGiaTriThucTe, "
-            + "so_tien_tam_ung = :soTienTamUng, ke_hoach_tam_ung = :keHoachTamUng, general_issue = :generalIssue, "
-            + "solution = :solution, ke_hoach_tuan_nay = :keHoachTuanNay, ke_hoach_tuan_sau = :keHoachTuanSau, "
-            + "ket_qua_tuan_truoc = :ketQuaTuanTruoc, ket_qua_tuan_nay = :ketQuaTuanNay "
+            + "so_tien_tam_ung = :soTienTamUng, ke_hoach_tam_ung = :keHoachTamUng, tien_do_chung = :tienDoChung, "
+            + "general_issue = :generalIssue, solution = :solution, ke_hoach_tuan_nay = :keHoachTuanNay, "
+            + "ke_hoach_tuan_sau = :keHoachTuanSau, ket_qua_tuan_truoc = :ketQuaTuanTruoc, "
+            + "ket_qua_tuan_nay = :ketQuaTuanNay "
             + "WHERE id = :id", nativeQuery = true)
     void updateReport(@Param("id") Long id, @Param("uid") String uid, @Param("amId") Long amId,
             @Param("amManagerId") Long amManagerId, @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId,
@@ -286,9 +287,10 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("hopDongFac") String hopDongFac, @Param("mucTieuFac") String mucTieuFac,
             @Param("thucTeFac") String thucTeFac, @Param("tongGiaTriThucTe") String tongGiaTriThucTe,
             @Param("soTienTamUng") String soTienTamUng, @Param("keHoachTamUng") String keHoachTamUng,
-            @Param("generalIssue") String generalIssue, @Param("solution") String solution,
-            @Param("keHoachTuanNay") String keHoachTuanNay, @Param("keHoachTuanSau") String keHoachTuanSau,
-            @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc, @Param("ketQuaTuanNay") String ketQuaTuanNay);
+            @Param("tienDoChung") String tienDoChung, @Param("generalIssue") String generalIssue,
+            @Param("solution") String solution, @Param("keHoachTuanNay") String keHoachTuanNay,
+            @Param("keHoachTuanSau") String keHoachTuanSau, @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc,
+            @Param("ketQuaTuanNay") String ketQuaTuanNay);
 
     /*
      * Hiển thị model show

@@ -416,6 +416,21 @@ $("#btn-open-import-report-modal").click(function () {
             contentType: false,
             success: function (result, textStatus, jqXHR) {
                 if (result.status == "failed") {
+                    $("#formImportSubmit").html(
+                        '<button type="button" class="btn btn-primary pt-1 pb-1 float-right" '
+                        + 'id="btn-reset-import-report">Thực hiện lại</button>'
+                    );
+
+                    $("#btn-reset-import-report").click(function () {
+                        console.log("ABC");
+                        $("#fileImport").val("");
+                        $("#formImportSubmit").html(
+                            '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
+                            + 'id="btn-submit-import-report" disabled>Import</button>'
+                        );
+                        $("#importError").html("");
+                    });
+
                     let dataError = '';
                     for (let i = 0; i < result.data.length; i++) {
                         dataError += '<tr>';
@@ -442,12 +457,12 @@ $("#btn-open-import-report-modal").click(function () {
                 if (result.status == "success") {
                     alertify.success(result.message).delay(2.5);
                     $("#fileImport").val("");
-                }
 
-                $("#formImportSubmit").html(
-                    '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
-                    + 'id="btn-submit-import-report" disabled>Import</button>'
-                );
+                    $("#formImportSubmit").html(
+                        '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
+                        + 'id="btn-submit-import-report" disabled>Import</button>'
+                    );
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("File không xác định! Vui lòng thử lại.").delay(3);
