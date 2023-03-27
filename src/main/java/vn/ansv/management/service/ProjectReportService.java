@@ -274,14 +274,22 @@ public class ProjectReportService implements IProjectReport {
                     dataInsert.getMaHopDong(), dataInsert.getMaKeToan(), dataInsert.getCurrencyUnitId(),
                     dataInsert.getJobName(), dataInsert.getDescription(), 1, dataInsert.getMucDoKhaThi(),
                     dataInsert.getTongMucDauTuDuKien(), dataInsert.getHinhThucDauTu(), dataInsert.getPhamViCungCap(),
-                    dataInsert.getPhanTichSwoot(), dataInsert.getSoTienDac(), dataInsert.getHopDongDac(),
-                    dataInsert.getMucTieuDac(), dataInsert.getThucTeDac(), dataInsert.getSoTienPac(),
-                    dataInsert.getHopDongPac(), dataInsert.getMucTieuPac(), dataInsert.getThucTePac(),
-                    dataInsert.getSoTienFac(), dataInsert.getHopDongFac(), dataInsert.getMucTieuFac(),
-                    dataInsert.getThucTeFac(), dataInsert.getTongGiaTriThucTe(), dataInsert.getSoTienTamUng(),
-                    dataInsert.getKeHoachTamUng(), dataInsert.getTienDoChung(), dataInsert.getGeneralIssue(),
-                    dataInsert.getSolution(), dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(),
-                    dataInsert.getKetQuaTuanTruoc(), dataInsert.getKetQuaTuanNay());
+                    dataInsert.getPhanTichSwoot(), dataInsert.getSoTienDac(),
+                    (dataInsert.getHopDongDac().length() != 0) ? dataInsert.getHopDongDac() : null,
+                    (dataInsert.getMucTieuDac().length() != 0) ? dataInsert.getMucTieuDac() : null,
+                    (dataInsert.getThucTeDac().length() != 0) ? dataInsert.getThucTeDac() : null,
+                    dataInsert.getSoTienPac(),
+                    (dataInsert.getHopDongPac().length() != 0) ? dataInsert.getHopDongPac() : null,
+                    (dataInsert.getMucTieuPac().length() != 0) ? dataInsert.getMucTieuPac() : null,
+                    (dataInsert.getThucTePac().length() != 0) ? dataInsert.getThucTePac() : null,
+                    dataInsert.getSoTienFac(),
+                    (dataInsert.getHopDongFac().length() != 0) ? dataInsert.getHopDongFac() : null,
+                    (dataInsert.getMucTieuFac().length() != 0) ? dataInsert.getMucTieuFac() : null,
+                    (dataInsert.getThucTeFac().length() != 0) ? dataInsert.getThucTeFac() : null,
+                    dataInsert.getTongGiaTriThucTe(), dataInsert.getSoTienTamUng(), dataInsert.getKeHoachTamUng(),
+                    dataInsert.getTienDoChung(), dataInsert.getGeneralIssue(), dataInsert.getSolution(),
+                    dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(), dataInsert.getKetQuaTuanTruoc(),
+                    dataInsert.getKetQuaTuanNay());
 
             // Cập nhật khách hàng
             if (dataInsert.getCustomerId() != projectRepository.findCustomerIdById(dataInsert.getProjectId())) {
