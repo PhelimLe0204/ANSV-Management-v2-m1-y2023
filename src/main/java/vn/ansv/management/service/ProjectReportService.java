@@ -565,29 +565,81 @@ public class ProjectReportService implements IProjectReport {
                         projectReportRepository.addNewReport(uid, amId, amManagerId, null, null,
                                 username, projectId, type, priorityId, statusId, week, year, null,
                                 null, 1L, row.getCell(1).getStringCellValue(),
-                                row.getCell(3).getStringCellValue(), 1, (int) row.getCell(6).getNumericCellValue(),
-                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(), null,
-                                row.getCell(7).getStringCellValue(), null, null, null,
-                                null, null, null, null, null,
-                                null, null, null, null, null,
-                                null, null, null, row.getCell(8).getStringCellValue(),
-                                row.getCell(9).getStringCellValue(), row.getCell(16).getStringCellValue(),
-                                row.getCell(17).getStringCellValue(), row.getCell(14).getStringCellValue(),
-                                row.getCell(15).getStringCellValue());
+                                (row.getCell(3).getStringCellValue().length() != 0)
+                                        ? row.getCell(3).getStringCellValue()
+                                        : null,
+                                1, (int) row.getCell(6).getNumericCellValue(),
+                                (row.getCell(5).getStringCellValue().length() != 0)
+                                        ? row.getCell(5).getStringCellValue()
+                                        : null,
+                                (row.getCell(4).getStringCellValue().length() != 0)
+                                        ? row.getCell(4).getStringCellValue()
+                                        : null,
+                                null, (row.getCell(7).getStringCellValue().length() != 0)
+                                        ? row.getCell(7).getStringCellValue()
+                                        : null,
+                                null, null, null, null,
+                                null, null, null, null,
+                                null, null, null, null,
+                                null, null, null, null,
+                                (row.getCell(8).getStringCellValue().length() != 0)
+                                        ? row.getCell(8).getStringCellValue()
+                                        : null,
+                                (row.getCell(9).getStringCellValue().length() != 0)
+                                        ? row.getCell(9).getStringCellValue()
+                                        : null,
+                                (row.getCell(16).getStringCellValue().length() != 0)
+                                        ? row.getCell(16).getStringCellValue()
+                                        : null,
+                                (row.getCell(17).getStringCellValue().length() != 0)
+                                        ? row.getCell(17).getStringCellValue()
+                                        : null,
+                                (row.getCell(14).getStringCellValue().length() != 0)
+                                        ? row.getCell(14).getStringCellValue()
+                                        : null,
+                                (row.getCell(15).getStringCellValue().length() != 0)
+                                        ? row.getCell(15).getStringCellValue()
+                                        : null);
                     } else {
                         /* Đã tồn tại báo cáo => Cập nhật */
                         projectReportRepository.updateReport(reportId, uid, amId, amManagerId, null, null,
                                 username, projectId, type, priorityId, statusId, week, year, null,
                                 null, 1L, row.getCell(1).getStringCellValue(),
-                                row.getCell(3).getStringCellValue(), 1, (int) row.getCell(6).getNumericCellValue(),
-                                row.getCell(5).getStringCellValue(), row.getCell(4).getStringCellValue(),
-                                null, row.getCell(7).getStringCellValue(), null,
-                                null, null, null, null, null,
-                                null, null, null, null, null,
+                                (row.getCell(3).getStringCellValue().length() != 0)
+                                        ? row.getCell(3).getStringCellValue()
+                                        : null,
+                                1, (int) row.getCell(6).getNumericCellValue(),
+                                (row.getCell(5).getStringCellValue().length() != 0)
+                                        ? row.getCell(5).getStringCellValue()
+                                        : null,
+                                (row.getCell(4).getStringCellValue().length() != 0)
+                                        ? row.getCell(4).getStringCellValue()
+                                        : null,
+                                null, (row.getCell(7).getStringCellValue().length() != 0)
+                                        ? row.getCell(7).getStringCellValue()
+                                        : null,
                                 null, null, null, null,
-                                null, row.getCell(8).getStringCellValue(), row.getCell(9).getStringCellValue(),
-                                row.getCell(16).getStringCellValue(), row.getCell(17).getStringCellValue(),
-                                row.getCell(14).getStringCellValue(), row.getCell(15).getStringCellValue());
+                                null, null, null, null,
+                                null, null, null, null,
+                                null, null, null, null,
+                                (row.getCell(8).getStringCellValue().length() != 0)
+                                        ? row.getCell(8).getStringCellValue()
+                                        : null,
+                                (row.getCell(9).getStringCellValue().length() != 0)
+                                        ? row.getCell(9).getStringCellValue()
+                                        : null,
+                                (row.getCell(16).getStringCellValue().length() != 0)
+                                        ? row.getCell(16).getStringCellValue()
+                                        : null,
+                                (row.getCell(17).getStringCellValue().length() != 0)
+                                        ? row.getCell(17).getStringCellValue()
+                                        : null,
+                                (row.getCell(14).getStringCellValue().length() != 0)
+                                        ? row.getCell(14).getStringCellValue()
+                                        : null,
+                                (row.getCell(15).getStringCellValue().length() != 0)
+                                        ? row.getCell(15).getStringCellValue()
+                                        : null);
                     }
                 } else {
                     System.out.println("Dòng " + (i + 1) + " rỗng");
@@ -762,38 +814,156 @@ public class ProjectReportService implements IProjectReport {
                         /* Chưa tồn tại báo cáo => Thêm mới */
                         projectReportRepository.addNewReport(uid, amId, null, pmId, pmManagerId,
                                 username, projectId, type, priorityId, statusId, week, year,
-                                row.getCell(2).getStringCellValue(), row.getCell(3).getStringCellValue(),
-                                1L, row.getCell(1).getStringCellValue(), null,
-                                1, null, null, null,
-                                null, null, row.getCell(6).getStringCellValue(),
-                                row.getCell(7).getStringCellValue(), row.getCell(8).getStringCellValue(),
-                                row.getCell(9).getStringCellValue(), row.getCell(11).getStringCellValue(),
-                                row.getCell(12).getStringCellValue(), row.getCell(13).getStringCellValue(),
-                                row.getCell(14).getStringCellValue(), row.getCell(16).getStringCellValue(),
-                                row.getCell(17).getStringCellValue(), row.getCell(18).getStringCellValue(),
-                                row.getCell(19).getStringCellValue(), row.getCell(5).getStringCellValue(),
-                                null, null, row.getCell(21).getStringCellValue(),
-                                row.getCell(22).getStringCellValue(), row.getCell(23).getStringCellValue(),
-                                row.getCell(31).getStringCellValue(), row.getCell(32).getStringCellValue(),
-                                row.getCell(29).getStringCellValue(), row.getCell(30).getStringCellValue());
+                                (row.getCell(2).getStringCellValue().length() != 0)
+                                        ? row.getCell(2).getStringCellValue()
+                                        : null,
+                                (row.getCell(3).getStringCellValue().length() != 0)
+                                        ? row.getCell(3).getStringCellValue()
+                                        : null,
+                                1L,
+                                (row.getCell(1).getStringCellValue().length() != 0)
+                                        ? row.getCell(1).getStringCellValue()
+                                        : null,
+                                null, 1, null, null,
+                                null, null, null,
+                                (row.getCell(6).getStringCellValue().length() != 0)
+                                        ? row.getCell(6).getStringCellValue()
+                                        : null,
+                                (row.getCell(7).getStringCellValue().length() != 0)
+                                        ? row.getCell(7).getStringCellValue()
+                                        : null,
+                                (row.getCell(8).getStringCellValue().length() != 0)
+                                        ? row.getCell(8).getStringCellValue()
+                                        : null,
+                                (row.getCell(9).getStringCellValue().length() != 0)
+                                        ? row.getCell(9).getStringCellValue()
+                                        : null,
+                                (row.getCell(11).getStringCellValue().length() != 0)
+                                        ? row.getCell(11).getStringCellValue()
+                                        : null,
+                                (row.getCell(12).getStringCellValue().length() != 0)
+                                        ? row.getCell(12).getStringCellValue()
+                                        : null,
+                                (row.getCell(13).getStringCellValue().length() != 0)
+                                        ? row.getCell(13).getStringCellValue()
+                                        : null,
+                                (row.getCell(14).getStringCellValue().length() != 0)
+                                        ? row.getCell(14).getStringCellValue()
+                                        : null,
+                                (row.getCell(16).getStringCellValue().length() != 0)
+                                        ? row.getCell(16).getStringCellValue()
+                                        : null,
+                                (row.getCell(17).getStringCellValue().length() != 0)
+                                        ? row.getCell(17).getStringCellValue()
+                                        : null,
+                                (row.getCell(18).getStringCellValue().length() != 0)
+                                        ? row.getCell(18).getStringCellValue()
+                                        : null,
+                                (row.getCell(19).getStringCellValue().length() != 0)
+                                        ? row.getCell(19).getStringCellValue()
+                                        : null,
+                                (row.getCell(5).getStringCellValue().length() != 0)
+                                        ? row.getCell(5).getStringCellValue()
+                                        : null,
+                                null, null,
+                                (row.getCell(21).getStringCellValue().length() != 0)
+                                        ? row.getCell(21).getStringCellValue()
+                                        : null,
+                                (row.getCell(22).getStringCellValue().length() != 0)
+                                        ? row.getCell(22).getStringCellValue()
+                                        : null,
+                                (row.getCell(23).getStringCellValue().length() != 0)
+                                        ? row.getCell(23).getStringCellValue()
+                                        : null,
+                                (row.getCell(31).getStringCellValue().length() != 0)
+                                        ? row.getCell(31).getStringCellValue()
+                                        : null,
+                                (row.getCell(32).getStringCellValue().length() != 0)
+                                        ? row.getCell(32).getStringCellValue()
+                                        : null,
+                                (row.getCell(29).getStringCellValue().length() != 0)
+                                        ? row.getCell(29).getStringCellValue()
+                                        : null,
+                                (row.getCell(30).getStringCellValue().length() != 0)
+                                        ? row.getCell(30).getStringCellValue()
+                                        : null);
                     } else {
                         /* Đã tồn tại báo cáo => Cập nhật */
                         projectReportRepository.updateReport(reportId, uid, amId, null, pmId,
                                 pmManagerId, username, projectId, type, priorityId, statusId, week, year,
-                                row.getCell(2).getStringCellValue(), row.getCell(3).getStringCellValue(),
-                                1L, row.getCell(1).getStringCellValue(), null,
-                                1, null, null, null,
-                                null, null, row.getCell(6).getStringCellValue(),
-                                row.getCell(7).getStringCellValue(), row.getCell(8).getStringCellValue(),
-                                row.getCell(9).getStringCellValue(), row.getCell(11).getStringCellValue(),
-                                row.getCell(12).getStringCellValue(), row.getCell(13).getStringCellValue(),
-                                row.getCell(14).getStringCellValue(), row.getCell(16).getStringCellValue(),
-                                row.getCell(17).getStringCellValue(), row.getCell(18).getStringCellValue(),
-                                row.getCell(19).getStringCellValue(), row.getCell(5).getStringCellValue(),
-                                null, null, row.getCell(21).getStringCellValue(),
-                                row.getCell(22).getStringCellValue(), row.getCell(23).getStringCellValue(),
-                                row.getCell(31).getStringCellValue(), row.getCell(32).getStringCellValue(),
-                                row.getCell(29).getStringCellValue(), row.getCell(30).getStringCellValue());
+                                (row.getCell(2).getStringCellValue().length() != 0)
+                                        ? row.getCell(2).getStringCellValue()
+                                        : null,
+                                (row.getCell(3).getStringCellValue().length() != 0)
+                                        ? row.getCell(3).getStringCellValue()
+                                        : null,
+                                1L,
+                                (row.getCell(1).getStringCellValue().length() != 0)
+                                        ? row.getCell(1).getStringCellValue()
+                                        : null,
+                                null, 1, null, null,
+                                null, null, null,
+                                (row.getCell(6).getStringCellValue().length() != 0)
+                                        ? row.getCell(6).getStringCellValue()
+                                        : null,
+                                (row.getCell(7).getStringCellValue().length() != 0)
+                                        ? row.getCell(7).getStringCellValue()
+                                        : null,
+                                (row.getCell(8).getStringCellValue().length() != 0)
+                                        ? row.getCell(8).getStringCellValue()
+                                        : null,
+                                (row.getCell(9).getStringCellValue().length() != 0)
+                                        ? row.getCell(9).getStringCellValue()
+                                        : null,
+                                (row.getCell(11).getStringCellValue().length() != 0)
+                                        ? row.getCell(11).getStringCellValue()
+                                        : null,
+                                (row.getCell(12).getStringCellValue().length() != 0)
+                                        ? row.getCell(12).getStringCellValue()
+                                        : null,
+                                (row.getCell(13).getStringCellValue().length() != 0)
+                                        ? row.getCell(13).getStringCellValue()
+                                        : null,
+                                (row.getCell(14).getStringCellValue().length() != 0)
+                                        ? row.getCell(14).getStringCellValue()
+                                        : null,
+                                (row.getCell(16).getStringCellValue().length() != 0)
+                                        ? row.getCell(16).getStringCellValue()
+                                        : null,
+                                (row.getCell(17).getStringCellValue().length() != 0)
+                                        ? row.getCell(17).getStringCellValue()
+                                        : null,
+                                (row.getCell(18).getStringCellValue().length() != 0)
+                                        ? row.getCell(18).getStringCellValue()
+                                        : null,
+                                (row.getCell(19).getStringCellValue().length() != 0)
+                                        ? row.getCell(19).getStringCellValue()
+                                        : null,
+                                (row.getCell(5).getStringCellValue().length() != 0)
+                                        ? row.getCell(5).getStringCellValue()
+                                        : null,
+                                null, null,
+                                (row.getCell(21).getStringCellValue().length() != 0)
+                                        ? row.getCell(21).getStringCellValue()
+                                        : null,
+                                (row.getCell(22).getStringCellValue().length() != 0)
+                                        ? row.getCell(22).getStringCellValue()
+                                        : null,
+                                (row.getCell(23).getStringCellValue().length() != 0)
+                                        ? row.getCell(23).getStringCellValue()
+                                        : null,
+                                (row.getCell(31).getStringCellValue().length() != 0)
+                                        ? row.getCell(31).getStringCellValue()
+                                        : null,
+                                (row.getCell(32).getStringCellValue().length() != 0)
+                                        ? row.getCell(32).getStringCellValue()
+                                        : null,
+                                (row.getCell(29).getStringCellValue().length() != 0)
+                                        ? row.getCell(29).getStringCellValue()
+                                        : null,
+                                (row.getCell(30).getStringCellValue().length() != 0)
+                                        ? row.getCell(30).getStringCellValue()
+                                        : null);
                     }
                 } else {
                     System.out.println("Dòng " + i + " rỗng");
