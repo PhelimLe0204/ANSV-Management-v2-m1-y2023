@@ -199,12 +199,6 @@
                                                             data-toggle="tooltip" style="color: black;"
                                                             th:title="${listReportType1Item.getJobName()}"></a>
                                                     <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType1Item.getWeek()} + ' năm ' + ${listReportType1Item.getYear()}"></p>
-                                                        th:text="${#strings.abbreviate(listReportType1Item.getJobName(),60)}"
-                                                        data-toggle="tooltip"
-                                                        th:title="${listReportType1Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0"
-                                                        th:text="'Tuần ' + ${listReportType1Item.getWeek()} + ' năm ' + ${listReportType1Item.getYear()}">
-                                                    </p>
                                                 </td>
                                                 <td class="text-center"
                                                     th:text="${listReportType1Item.getMucDoKhaThi()}+ '%'"></td>
