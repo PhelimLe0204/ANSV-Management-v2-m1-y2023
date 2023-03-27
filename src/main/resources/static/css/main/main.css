@@ -89,3 +89,21 @@
     color: #FFF;
     vertical-align: middle !important;
 }
+
+.tbody1 {
+    display: block;
+    /* height: 400px; */
+    overflow: auto;
+}
+
+.thead1,
+.tbody1 tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.thead1 {
+    /* scrollbar is average 1em/16px width, remove it from thead width */
+    width: calc(100% - 1em);
+}
