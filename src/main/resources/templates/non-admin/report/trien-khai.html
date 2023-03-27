@@ -60,13 +60,13 @@
             </div>
         </div>
 
-        <div id="importModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        <div id="importModal" class="modal fade animatebutton" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document" style="max-width: 1400px !important;">
+            <div class="modal-dialog" role="document" style="max-width:1400px !important;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="importModalLabel">Import báo cáo dự án Triển khai</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close btn-close-import-report" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -74,10 +74,10 @@
                         <form th:action="@{/import/3}" id="formImportReport" method="post"
                             enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-6">
                                     <input type="file" id="fileImport" th:name="file" />
                                 </div>
-                                <div class="col-md-3" id="formImportSubmit">
+                                <div class="col-md-6" id="formImportSubmit">
                                     <button type="submit" class="btn btn-primary pt-1 pb-1 float-right"
                                         id="btn-submit-import-report" disabled>Import</button>
                                 </div>
@@ -86,7 +86,7 @@
                         <div class="row" id="importError"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report"  data-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
