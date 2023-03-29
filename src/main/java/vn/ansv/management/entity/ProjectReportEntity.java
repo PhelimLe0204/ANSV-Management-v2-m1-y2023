@@ -79,9 +79,11 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "pr.ket_qua_tuan_truoc AS ketQuaTuanTruoc, pr.ket_qua_tuan_nay AS ketQuaTuanNay, "
         + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau "
         + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
-        + "INNER JOIN project_status AS pp ON pr.project_status_id = ps.id "
-        + "WHERE pr.week = :week AND pr.year = :year "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.project_type_id = :type AND pr.week = :week AND pr.year = :year "
         + "ORDER BY pr.id", resultSetMapping = "Mapping.ExportChuyenDoiSoDTO")
 
 /* ===== Set mapping: ExportChuyenDoiSoDTO ===== */

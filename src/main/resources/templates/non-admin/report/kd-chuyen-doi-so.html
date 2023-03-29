@@ -92,6 +92,53 @@
             </div>
         </div>
 
+        <div id="exportModal" class="modal fade animatebutton" tabindex="-1" role="dialog"
+            aria-labelledby="exportModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 400px !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exportModalLabel">Export báo cáo dự án Chuyển đổi số</h5>
+                        <button type="button" class="close btn-close-import-report" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form th:action="@{/export/2}" method="post" id="formExportReport"
+                                    class="was-validated">
+                                    <div class="form-group">
+                                        <select name="weekExport" id="weekExport" class="custom-select"
+                                            th:data-first="${session.currentWeek}" required>
+                                            <option value="">Chọn tuần báo cáo...</option>
+                                            <option value="1">Tuần 1</option>
+                                        </select>
+                                        <div class="invalid-feedback">Mời chọn tuần muốn trích xuất báo cáo</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="yearExport" id="yearExport" class="custom-select"
+                                            th:data-first="${session.currentYear}" required>
+                                            <option value="">Chọn năm báo cáo...</option>
+                                            <option value="2023">Năm 2023</option>
+                                        </select>
+                                        <div class="invalid-feedback">Mời chọn năm muốn trích xuất báo cáo</div>
+                                    </div>
+                                    <!-- <button type="submit" class="btn btn-primary pt-1 pb-1 float-right">Export</button> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="exportButtons">
+                        <button type="button" class="btn btn-primary pt-1 pb-1 float-right"
+                            id="btn-do-export-report">Export</button>
+                        <button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report"
+                            data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
             <div class="page-header">
@@ -108,8 +155,9 @@
                                 data-target="#importModal">
                                 <i class="feather mr-2 icon-upload"></i>Import
                             </button>
-                            <button type="button" id="btn-export-trien-khai"
-                                class="btn btn-warning pt-1 pb-1 ml-3 rounded-pill font-weight-bold">
+                            <button type="button" id="btn-open-modal-export-report"
+                                class="btn btn-warning pt-1 pb-1 ml-3 rounded-pill font-weight-bold" data-toggle="modal"
+                                data-target="#exportModal">
                                 <i class="feather mr-2 icon-download"></i>Export
                             </button>
                         </div>
@@ -120,7 +168,8 @@
                                     <a href="/dashboard"><i class="feather icon-home"></i></a>
                                 </li>
                                 <li class="breadcrumb-item text-white font-weight-bold">Danh sách</li>
-                                <li class="breadcrumb-item"><a href="/danh-sach/kd-chuyen-doi-so">Kinh doanh chuyển đổi số
+                                <li class="breadcrumb-item"><a href="/danh-sach/kd-chuyen-doi-so">Kinh doanh chuyển đổi
+                                        số
                             </ul>
                         </div>
                     </div>
@@ -197,19 +246,25 @@
                                                 <td class="d-inline-block">
                                                     <a th:href="@{/chi-tiet?id=} + ${listReportType2Item.getId()}"
                                                         th:text="${#strings.abbreviate(listReportType2Item.getJobName(),30)}"
-                                                            data-toggle="tooltip"
-                                                            th:title="${listReportType2Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0" th:text="'Tuần ' + ${listReportType2Item.getWeek()} + ' năm ' + ${listReportType2Item.getYear()}"></p>
+                                                        data-toggle="tooltip"
+                                                        th:title="${listReportType2Item.getJobName()}"></a>
+                                                    <p class="text-muted m-b-0"
+                                                        th:text="'Tuần ' + ${listReportType2Item.getWeek()} + ' năm ' + ${listReportType2Item.getYear()}">
+                                                    </p>
                                                 </td>
-                                                <td class="text-center" th:text="${listReportType2Item.getMucDoKhaThi()}+ '%'"></td>
-                                                <td class="text-center" th:text="${listReportType2Item.getTongMucDauTuDuKien()}"></td>
-                                                <td class="text-center" th:text="${listReportType2Item.getCustomerName()}"></td>
-                                                <td class="text-center" th:text="${listReportType2Item.getPicName()}"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType2Item.getMucDoKhaThi()}+ '%'"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType2Item.getTongMucDauTuDuKien()}"></td>
+                                                <td class="text-center"
+                                                    th:text="${listReportType2Item.getCustomerName()}"></td>
+                                                <td class="text-center" th:text="${listReportType2Item.getPicName()}">
+                                                </td>
                                                 <td class="text-center">
                                                     <button type="button"
                                                         th:class="'btn btn-' + ${listReportType2Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
-                                                        data-toggle="popover" data-html="true"
-                                                        data-placement="right" title=""
+                                                        data-toggle="popover" data-html="true" data-placement="right"
+                                                        title=""
                                                         th:attr="data-content=${listReportType2Item.getTinhTrangDuAn()}"
                                                         data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
                                                         th:text="${listReportType2Item.getStatusDisplay()}">
@@ -227,11 +282,11 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    
+
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <!-- [ Main Content ] end -->

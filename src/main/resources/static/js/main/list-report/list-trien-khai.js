@@ -472,7 +472,7 @@ $("#btn-open-import-report-modal").click(function () {
     });
 });
 
-$("#btn-export-trien-khai").click(function () {
+$("#btn-open-modal-export-report").click(function () {
     var currentYear = new Date().getFullYear();
     var theLastDayOfYear = new Date(currentYear, 11, 31);
     var year = new Date(theLastDayOfYear.getFullYear(), 0, 1);
