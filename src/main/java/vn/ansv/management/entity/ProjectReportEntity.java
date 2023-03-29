@@ -18,10 +18,150 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
+import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
+import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
+
+/* ===== ProjectReportRepository.findAllExportVienThong() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllExportVienThong", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, pr.description, "
+        + "pr.hinh_thuc_dau_tu AS hinhThucDauTu, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, "
+        + "pr.muc_do_kha_thi AS mucDoKhaThi, pr.phan_tich_swoot AS phanTichSwoot, "
+        + "pr.general_issue AS generalIssue, pr.solution, pp.priority_name AS priorityName, "
+        + "ps.status_name AS statusName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS amName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_manager_id) AS amManagerName, "
+        + "pr.ket_qua_tuan_truoc AS ketQuaTuanTruoc, pr.ket_qua_tuan_nay AS ketQuaTuanNay, "
+        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.project_type_id = :type AND pr.week = :week AND pr.year = :year "
+        + "ORDER BY pr.id", resultSetMapping = "Mapping.ExportVienThongDTO")
+
+/* ===== Set mapping: ExportVienThongDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ExportVienThongDTO", classes = @ConstructorResult(targetClass = ExportVienThongDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "description", type = String.class),
+        @ColumnResult(name = "hinhThucDauTu", type = String.class),
+        @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
+        @ColumnResult(name = "mucDoKhaThi", type = Integer.class),
+        @ColumnResult(name = "phanTichSwoot", type = String.class),
+        @ColumnResult(name = "generalIssue", type = String.class),
+        @ColumnResult(name = "solution", type = String.class),
+        @ColumnResult(name = "priorityName", type = String.class),
+        @ColumnResult(name = "statusName", type = String.class),
+        @ColumnResult(name = "amName", type = String.class),
+        @ColumnResult(name = "amManagerName", type = String.class),
+        @ColumnResult(name = "ketQuaTuanTruoc", type = String.class),
+        @ColumnResult(name = "ketQuaTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanSau", type = String.class)
+}))
+
+/* ===== ProjectReportRepository.findAllExportChuyenDoiSo() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllExportChuyenDoiSo", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, pr.description, "
+        + "pr.hinh_thuc_dau_tu AS hinhThucDauTu, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, "
+        + "pr.muc_do_kha_thi AS mucDoKhaThi, pr.phan_tich_swoot AS phanTichSwoot, "
+        + "pr.general_issue AS generalIssue, pr.solution, pp.priority_name AS priorityName, "
+        + "ps.status_name AS statusName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS amName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_manager_id) AS amManagerName, "
+        + "pr.ket_qua_tuan_truoc AS ketQuaTuanTruoc, pr.ket_qua_tuan_nay AS ketQuaTuanNay, "
+        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS pp ON pr.project_status_id = ps.id "
+        + "WHERE pr.week = :week AND pr.year = :year "
+        + "ORDER BY pr.id", resultSetMapping = "Mapping.ExportChuyenDoiSoDTO")
+
+/* ===== Set mapping: ExportChuyenDoiSoDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ExportChuyenDoiSoDTO", classes = @ConstructorResult(targetClass = ExportChuyenDoiSoDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "description", type = String.class),
+        @ColumnResult(name = "hinhThucDauTu", type = String.class),
+        @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
+        @ColumnResult(name = "mucDoKhaThi", type = Integer.class),
+        @ColumnResult(name = "phanTichSwoot", type = String.class),
+        @ColumnResult(name = "generalIssue", type = String.class),
+        @ColumnResult(name = "solution", type = String.class),
+        @ColumnResult(name = "priorityName", type = String.class),
+        @ColumnResult(name = "statusName", type = String.class),
+        @ColumnResult(name = "amName", type = String.class),
+        @ColumnResult(name = "amManagerName", type = String.class),
+        @ColumnResult(name = "ketQuaTuanTruoc", type = String.class),
+        @ColumnResult(name = "ketQuaTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanSau", type = String.class)
+}))
+
+/* ===== ProjectReportRepository.findAllExportTrienKhai() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllExportTrienKhai", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, pr.ma_hop_dong AS maHopDong, pr.ma_ke_toan AS maKeToan, "
+        + "c.customer_name AS customerName, pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
+        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, "
+        + "pr.thuc_te_dac AS thucTeDac, pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, "
+        + "pr.muc_tieu_pac AS mucTieuPac ,pr.thuc_te_pac AS thucTePac, pr.so_tien_fac AS soTienFac, "
+        + "pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, pr.thuc_te_fac AS thucTeFac, "
+        + "pr.tien_do_chung AS tienDoChung, pr.general_issue AS generalIssue, pr.solution, "
+        + "pp.priority_name AS priorityName, ps.status_name AS statusName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS amName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS pmName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_manager_id) AS pmManagerName, "
+        + "pr.ket_qua_tuan_truoc AS ketQuaTuanTruoc, pr.ket_qua_tuan_nay AS ketQuaTuanNay, "
+        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.project_type_id = :type AND pr.week = :week AND pr.year = :year "
+        + "ORDER BY pr.id", resultSetMapping = "Mapping.ExportTrienKhaiDTO")
+
+/* ===== Set mapping: ExportTrienKhaiDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ExportTrienKhaiDTO", classes = @ConstructorResult(targetClass = ExportTrienKhaiDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "jobName", type = String.class),
+        @ColumnResult(name = "maHopDong", type = String.class),
+        @ColumnResult(name = "maKeToan", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
+        @ColumnResult(name = "soTienDac", type = String.class),
+        @ColumnResult(name = "hopDongDac", type = String.class),
+        @ColumnResult(name = "mucTieuDac", type = String.class),
+        @ColumnResult(name = "thucTeDac", type = String.class),
+        @ColumnResult(name = "soTienPac", type = String.class),
+        @ColumnResult(name = "hopDongPac", type = String.class),
+        @ColumnResult(name = "mucTieuPac", type = String.class),
+        @ColumnResult(name = "thucTePac", type = String.class),
+        @ColumnResult(name = "soTienFac", type = String.class),
+        @ColumnResult(name = "hopDongFac", type = String.class),
+        @ColumnResult(name = "mucTieuFac", type = String.class),
+        @ColumnResult(name = "thucTeFac", type = String.class),
+        @ColumnResult(name = "tienDoChung", type = String.class),
+        @ColumnResult(name = "generalIssue", type = String.class),
+        @ColumnResult(name = "solution", type = String.class),
+        @ColumnResult(name = "priorityName", type = String.class),
+        @ColumnResult(name = "statusName", type = String.class),
+        @ColumnResult(name = "amName", type = String.class),
+        @ColumnResult(name = "pmName", type = String.class),
+        @ColumnResult(name = "pmManagerName", type = String.class),
+        @ColumnResult(name = "ketQuaTuanTruoc", type = String.class),
+        @ColumnResult(name = "ketQuaTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanNay", type = String.class),
+        @ColumnResult(name = "keHoachTuanSau", type = String.class)
+}))
 
 /* ===== ProjectReportRepository.findAllDashboardProjectStep1() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep1", query = "SELECT "

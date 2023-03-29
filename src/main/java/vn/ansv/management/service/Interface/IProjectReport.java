@@ -12,6 +12,9 @@ import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
+import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
+import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
@@ -50,5 +53,11 @@ public interface IProjectReport {
 
     List<Map<String, String>> processingImportReport(
             MultipartFile excelDataFile, String username, Long type, Integer week, Integer year);
+
+    List<ExportVienThongDTO> findAllExportVienThong(Integer type, Integer week, Integer year);
+
+    List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(Integer type, Integer week, Integer year);
+
+    List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year);
 
 }

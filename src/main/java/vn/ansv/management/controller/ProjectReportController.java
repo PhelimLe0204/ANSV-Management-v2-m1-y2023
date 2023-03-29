@@ -1,11 +1,15 @@
 package vn.ansv.management.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +27,15 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.entity.ResponseObject;
+import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
+import vn.ansv.management.dto.Export.ExportInputDTO;
+import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
+import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.service.ProjectReportService;
+import vn.ansv.management.util.ExcelGenerator1;
+import vn.ansv.management.util.ExcelGenerator2;
+import vn.ansv.management.util.ExcelGenerator3;
 
 @Controller
 @RequestMapping(path = "")
@@ -141,6 +152,48 @@ public class ProjectReportController extends BaseController {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Thất bại! Vui lòng chỉnh sửa file và thử lại.", dataError));
+        }
+    }
+
+    @RequestMapping(value = "/export/{type}", method = RequestMethod.POST)
+    public void exportIntoExcelFile(HttpServletResponse response, @ModelAttribute ExportInputDTO dataInput,
+            @PathVariable Integer type) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "";
+        Integer week = dataInput.getWeekExport();
+        Integer year = dataInput.getYearExport();
+        if (type == 1) {
+            headerValue = "attachment; filename=Vien thong tuan " + week + " nam " + year + " "
+                    + currentDateTime + ".xlsx";
+            response.setHeader(headerKey, headerValue);
+
+            List<ExportVienThongDTO> listOfReport = projectReportService.findAllExportVienThong(type, week, year);
+            ExcelGenerator1 generator = new ExcelGenerator1(listOfReport);
+            generator.generateExcelFile(response);
+        }
+
+        if (type == 2) {
+            headerValue = "attachment; filename=Chuyen doi so tuan " + week + " nam " + year + " "
+                    + currentDateTime + ".xlsx";
+            response.setHeader(headerKey, headerValue);
+
+            List<ExportChuyenDoiSoDTO> listOfReport = projectReportService.findAllExportChuyenDoiSo(type, week, year);
+            ExcelGenerator2 generator = new ExcelGenerator2(listOfReport);
+            generator.generateExcelFile(response);
+        }
+
+        if (type == 3) {
+            headerValue = "attachment; filename=Trien khai tuan " + week + " nam " + year + " "
+                    + currentDateTime + ".xlsx";
+            response.setHeader(headerKey, headerValue);
+
+            List<ExportTrienKhaiDTO> listOfReport = projectReportService.findAllExportTrienKhai(type, week, year);
+            ExcelGenerator3 generator = new ExcelGenerator3(listOfReport);
+            generator.generateExcelFile(response);
         }
     }
 
