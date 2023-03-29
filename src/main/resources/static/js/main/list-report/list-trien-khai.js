@@ -473,7 +473,6 @@ $("#btn-open-import-report-modal").click(function () {
 });
 
 $("#btn-export-trien-khai").click(function () {
-    console.log("ABC");
     var currentYear = new Date().getFullYear();
     var theLastDayOfYear = new Date(currentYear, 11, 31);
     var year = new Date(theLastDayOfYear.getFullYear(), 0, 1);
@@ -508,6 +507,22 @@ $("#btn-export-trien-khai").click(function () {
     $("#yearExport").html(htmlSelectYear);
 
     $("#btn-do-export-report").click(function () {
+        $("#exportButtons").html(
+            '<button class="btn btn-primary pt-1 pb-1 float-right" type="button" disabled>'
+            + '<span class="spinner-border spinner-border-sm" role="status"></span>'
+            + '<span class="pl-1"> Đang xử lý...</span></button>'
+            + '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>'
+        );
+
         $("#formExportReport").submit();
+
+        setTimeout(function () {
+            $("#exportButtons").html(
+                '<button type="button" class="btn btn-primary pt-1 pb-1 float-right" '
+                + 'id="btn-do-export-report">Export</button>'
+                + '<button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report" '
+                + 'data-dismiss="modal">Đóng</button>'
+            );
+        }, 2000);
     });
 });
