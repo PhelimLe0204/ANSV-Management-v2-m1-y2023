@@ -471,3 +471,43 @@ $("#btn-open-import-report-modal").click(function () {
         });
     });
 });
+
+$("#btn-export-trien-khai").click(function () {
+    console.log("ABC");
+    var currentYear = new Date().getFullYear();
+    var theLastDayOfYear = new Date(currentYear, 11, 31);
+    var year = new Date(theLastDayOfYear.getFullYear(), 0, 1);
+    var days = Math.floor((theLastDayOfYear - year) / (24 * 60 * 60 * 1000));
+    var week = Math.ceil((theLastDayOfYear.getDay() + 1 + days) / 7);
+    console.log("The current year (" + currentYear + ") has " + (week + 1) + " week.");
+    var $week = week + 1;
+    var $first_week = $("#weekExport").attr("data-first");
+    var $first_year = $("#yearExport").attr("data-first");
+
+    var htmlSelectWeek = '<option value="">Chọn tuần báo cáo...</option>';
+    for (let i = 1; i <= $week; i++) {
+        if (i == $first_week) {
+            htmlSelectWeek += '<option value="' + i
+                + '" class="text-white bg-secondary font-weight-bold" selected>Tuần ' + i + '</option>';
+        } else {
+            htmlSelectWeek += '<option value="' + i + '">Tuần ' + i + '</option>';
+        }
+    }
+    $("#weekExport").html(htmlSelectWeek);
+
+    var currentYear = new Date().getFullYear();
+    var htmlSelectYear = '<option value="">Chọn năm báo cáo...</option>';
+    for (let i = 2021; i <= currentYear; i++) {
+        if (i == $first_year) {
+            htmlSelectYear += '<option value="' + i
+                + '" class="text-white bg-secondary font-weight-bold" selected>Năm ' + i + '</option>';
+        } else {
+            htmlSelectYear += '<option value="' + i + '">Năm ' + i + '</option>';
+        }
+    }
+    $("#yearExport").html(htmlSelectYear);
+
+    $("#btn-do-export-report").click(function () {
+        $("#formExportReport").submit();
+    });
+});

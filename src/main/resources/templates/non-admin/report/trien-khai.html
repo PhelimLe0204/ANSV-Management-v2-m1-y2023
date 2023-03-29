@@ -96,7 +96,7 @@
 
         <div id="exportModal" class="modal fade animatebutton" tabindex="-1" role="dialog"
             aria-labelledby="exportModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document" style="max-width: 500px !important;">
+            <div class="modal-dialog" role="document" style="max-width: 400px !important;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exportModalLabel">Export báo cáo dự án Triển khai</h5>
@@ -108,23 +108,32 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="was-validated">
+                                <form th:action="@{/export/3}" method="post" id="formExportReport"
+                                    class="was-validated">
                                     <div class="form-group">
-                                        <select class="custom-select" required>
+                                        <select name="weekExport" id="weekExport" class="custom-select"
+                                            th:data-first="${session.currentWeek}" required>
                                             <option value="">Chọn tuần báo cáo...</option>
                                             <option value="1">Tuần 1</option>
-                                            <option value="2">Tuần 2</option>
-                                            <option value="3">Tuần 3</option>
                                         </select>
-                                        <div class="invalid-feedback">Chưa chọn tuần muốn trích xuất báo cáo!</div>
+                                        <div class="invalid-feedback">Mời chọn tuần muốn trích xuất báo cáo</div>
                                     </div>
+                                    <div class="form-group">
+                                        <select name="yearExport" id="yearExport" class="custom-select"
+                                            th:data-first="${session.currentYear}" required>
+                                            <option value="">Chọn năm báo cáo...</option>
+                                            <option value="2023">Năm 2023</option>
+                                        </select>
+                                        <div class="invalid-feedback">Mời chọn năm muốn trích xuất báo cáo</div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary pt-1 pb-1 float-right">Export</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary pt-1 pb-1 float-right"
-                            id="btn-submit-export-report" disabled>Export</button>
+                        <button type="button" class="btn btn-primary pt-1 pb-1 float-right"
+                            id="btn-do-export-report">Export</button>
                         <button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report"
                             data-dismiss="modal">Đóng</button>
                     </div>

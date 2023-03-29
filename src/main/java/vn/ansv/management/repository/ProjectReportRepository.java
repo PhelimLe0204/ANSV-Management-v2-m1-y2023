@@ -14,6 +14,9 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
+import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
+import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
@@ -310,4 +313,16 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "WHERE pr.job_name = :jobName AND pr.week = :week AND pr.year = :year", nativeQuery = true)
     Long findIdByJobNameWeekYear(@Param("jobName") String jobName, @Param("week") Integer week,
             @Param("year") Integer year);
+
+    @Query(nativeQuery = true)
+    List<ExportVienThongDTO> findAllExportVienThong(
+            @Param("type") int type, @Param("week") int week, @Param("year") int year);
+
+    @Query(nativeQuery = true)
+    List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(
+            @Param("type") int type, @Param("week") int week, @Param("year") int year);
+
+    @Query(nativeQuery = true)
+    List<ExportTrienKhaiDTO> findAllExportTrienKhai(
+            @Param("type") int type, @Param("week") int week, @Param("year") int year);
 }

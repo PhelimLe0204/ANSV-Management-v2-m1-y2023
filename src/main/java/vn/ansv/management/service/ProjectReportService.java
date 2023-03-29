@@ -26,6 +26,9 @@ import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
+import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
+import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
+import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
@@ -1045,5 +1048,20 @@ public class ProjectReportService implements IProjectReport {
     public String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
+    }
+
+    @Override
+    public List<ExportVienThongDTO> findAllExportVienThong(Integer type, Integer week, Integer year) {
+        return projectReportRepository.findAllExportVienThong(type, week, year);
+    }
+
+    @Override
+    public List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(Integer type, Integer week, Integer year) {
+        return projectReportRepository.findAllExportChuyenDoiSo(type, week, year);
+    }
+
+    @Override
+    public List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year) {
+        return projectReportRepository.findAllExportTrienKhai(type, week, year);
     }
 }
