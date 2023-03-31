@@ -149,13 +149,16 @@ public class ProjectReportService implements IProjectReport {
     public Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate) {
         try {
             projectReportRepository.updateDetailTabCptg(id,
+                    dataUpdate.getSoTienGiaoHang(), dataUpdate.getHopDongGiaoHang(), dataUpdate.getMucTieuGiaoHang(),
+                    dataUpdate.getThucTeGiaoHang(), dataUpdate.getNoteGiaoHang(),
                     dataUpdate.getSoTienDac(), dataUpdate.getHopDongDac(), dataUpdate.getMucTieuDac(),
-                    dataUpdate.getThucTeDac(),
+                    dataUpdate.getThucTeDac(), dataUpdate.getNoteDac(),
                     dataUpdate.getSoTienPac(), dataUpdate.getHopDongPac(), dataUpdate.getMucTieuPac(),
-                    dataUpdate.getThucTePac(),
+                    dataUpdate.getThucTePac(), dataUpdate.getNotePac(),
                     dataUpdate.getSoTienFac(), dataUpdate.getHopDongFac(), dataUpdate.getMucTieuFac(),
-                    dataUpdate.getThucTeFac(),
-                    dataUpdate.getTongGiaTriThucTe(), dataUpdate.getSoTienTamUng(), dataUpdate.getKeHoachTamUng());
+                    dataUpdate.getThucTeFac(), dataUpdate.getNoteFac(),
+                    dataUpdate.getTongGiaTriThucTe(), dataUpdate.getNoteTongGiaTri(), dataUpdate.getSoTienTamUng(),
+                    dataUpdate.getKeHoachTamUng(), dataUpdate.getNoteTamUng());
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportService.updateDetailTabCptg(): " + e.getMessage());
             e.printStackTrace();

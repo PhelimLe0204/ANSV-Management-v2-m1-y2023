@@ -159,7 +159,7 @@
 .table-td-data-none {
     background-color: #BEBEBE !important;
     font-weight: bold;
-    font-size: 31px;
+    font-size: 14px;
     color: #FFF;
     text-align: center !important;
 }
@@ -169,7 +169,7 @@
 }
 
 .table-td-date {
-    width: 180px !important;
+    width: 164px !important;
 }
 
 .table-td-note {
@@ -177,7 +177,8 @@
 }
 
 .input-datepicker {
-    width: 136px;
+    padding: 5px;
+    width: 120px;
 }
 
 .input-datepicker:focus {
@@ -349,4 +350,19 @@ a {
     max-height: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.table-detail thead tr td {
+    padding: 5px !important;
+    vertical-align: middle;
+}
+
+.table-detail tbody tr td {
+    padding: 10px !important;
+    vertical-align: middle;
+}
+
+.table-detail-update thead tr td {
+    padding: 5px !important;
+    vertical-align: middle;
 }

@@ -114,15 +114,12 @@
     width: calc(100% - 1em);
 }
 
-.select2-container {
-    width: 80px !important;
-    height: 30px;
+.table-slide-show tr th {
+    padding: 5px 5px 5px 5px !important;
+    vertical-align: middle;
 }
 
-.select2-container--default .select2-selection--single {
-    height: 30px !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    top: -45% !important;
+.table-slide-show tr td {
+    padding: 5px 5px 5px 5px !important;
+    vertical-align: middle;
 }

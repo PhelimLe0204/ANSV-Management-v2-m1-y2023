@@ -2,94 +2,88 @@
     th:fragment="body">
     <div class="row mb-4">
         <div class="col-md-12 table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover table-detail">
                 <thead>
                     <tr class="bg-primary text-white">
-                        <td class="font-weight-bold text-center">Kế hoạch</td>
-                        <td class="font-weight-bold text-center"
-                            th:text="'Số tiền (' + ${detailTabPhanLoai.getCurrencyUnitDisplay()} + ')'">
-                        </td>
-                        <td class="font-weight-bold text-center">Hợp đồng (D / M / Y)</td>
-                        <td class="font-weight-bold text-center">Mục tiêu (D / M / Y)</td>
-                        <td class="font-weight-bold text-center">Thực tế (D / M / Y)</td>
+                        <td class="font-weight-bold text-center" style="width: 16%;">Kế hoạch</td>
+                        <td class="font-weight-bold text-center">
+                            Số tiền<br>([[${detailTabPhanLoai.getCurrencyUnitDisplay()}]])</td>
+                        <td class="font-weight-bold text-center" style="width: 13%;">Hợp đồng<br>(D / M / Y)</td>
+                        <td class="font-weight-bold text-center" style="width: 13%;">Mục tiêu<br>(D / M / Y)</td>
+                        <td class="font-weight-bold text-center" style="width: 13%;">Thực tế<br>(D / M / Y)</td>
+                        <td class="font-weight-bold text-center" style="width: 15%;">Báo hạn</td>
                         <td class="font-weight-bold text-center">Ghi chú</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="bg-primary text-white font-weight-bold text-center">
-                            DAC
+                        <td class="bg-primary text-white font-weight-bold text-center">Giao hàng</td>
+                        <td class="text-center" th:text="${detailTabCptg.getSoTienGiaoHang()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getHopDongGiaoHang()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getMucTieuGiaoHang()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getThucTeGiaoHang()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getChenhLechGiaoHang()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getNoteGiaoHang()}"></td>
+                    </tr>
+                    <tr>
+                        <td class="bg-primary text-white font-weight-bold text-center">Tạm ứng</td>
+                        <td class="text-center" th:text="${detailTabCptg.getSoTienTamUng()}"></td>
+                        <td class="table-td-data-none">
+                            <i class="fas fa-ban"></i>
                         </td>
-                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac()}">
+                        <td class="text-center" th:text="${detailTabCptg.getKeHoachTamUng()}"></td>
+                        <td class="table-td-data-none">
+                            <i class="fas fa-ban"></i>
                         </td>
+                        <td class="table-td-data-none">
+                            <i class="fas fa-ban"></i>
+                        </td>
+                        <td class="text-center" th:text="${detailTabCptg.getNoteTamUng()}"></td>
+                    </tr>
+                    <tr>
+                        <td class="bg-primary text-white font-weight-bold text-center">DAC</td>
+                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getHopDongDac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getMucTieuDac()}"></td>
-                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac()}">
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac()}">
-                        </td>
+                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getNoteDac()}"></td>
                     </tr>
                     <tr>
-                        <td class="bg-primary text-white font-weight-bold text-center">
-                            PAC
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getSoTienPac()}">
-                        </td>
+                        <td class="bg-primary text-white font-weight-bold text-center">PAC</td>
+                        <td class="text-center" th:text="${detailTabCptg.getSoTienPac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getHopDongPac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getMucTieuPac()}"></td>
-                        <td class="text-center" th:text="${detailTabCptg.getThucTePac()}">
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getChenhLechPac()}">
-                        </td>
+                        <td class="text-center" th:text="${detailTabCptg.getThucTePac()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getChenhLechPac()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getNotePac()}"></td>
                     </tr>
                     <tr>
-                        <td class="bg-primary text-white font-weight-bold text-center">
-                            FAC
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getSoTienFac()}">
-                        </td>
+                        <td class="bg-primary text-white font-weight-bold text-center">FAC</td>
+                        <td class="text-center" th:text="${detailTabCptg.getSoTienFac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getHopDongFac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getMucTieuFac()}"></td>
-                        <td class="text-center" th:text="${detailTabCptg.getThucTeFac()}">
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getChenhLechFac()}">
-                        </td>
+                        <td class="text-center" th:text="${detailTabCptg.getThucTeFac()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getChenhLechFac()}"></td>
+                        <td class="text-center" th:text="${detailTabCptg.getNoteFac()}"></td>
                     </tr>
                     <tr>
                         <td class="bg-primary text-white font-weight-bold text-center">
-                            Tổng giá trị thực tế
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getTongGiaTriThucTe()}">
-                        </td>
-                        <td class="table-td-data-none pt-1 pb-1">
+                            Tổng giá trị thực tế</td>
+                        <td class="text-center" th:text="${detailTabCptg.getTongGiaTriThucTe()}"></td>
+                        <td class="table-td-data-none">
                             <i class="fas fa-ban"></i>
                         </td>
-                        <td class="table-td-data-none pt-1 pb-1">
+                        <td class="table-td-data-none">
                             <i class="fas fa-ban"></i>
                         </td>
-                        <td class="table-td-data-none pt-1 pb-1">
+                        <td class="table-td-data-none">
                             <i class="fas fa-ban"></i>
                         </td>
-                        <td class="table-td-data-none pt-1 pb-1">
+                        <td class="table-td-data-none">
                             <i class="fas fa-ban"></i>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="bg-primary text-white font-weight-bold text-center">
-                            Tạm ứng
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getSoTienTamUng()}">
-                        </td>
-                        <td class="table-td-data-none pt-1 pb-1">
-                            <i class="fas fa-ban"></i>
-                        </td>
-                        <td class="text-center" th:text="${detailTabCptg.getKeHoachTamUng()}">
-                        <td class="table-td-data-none pt-1 pb-1">
-                            <i class="fas fa-ban"></i>
-                        </td>
-                        <td class="table-td-data-none pt-1 pb-1">
-                            <i class="fas fa-ban"></i>
-                        </td>
+                        <td class="text-center" th:text="${detailTabCptg.getNoteTongGiaTri()}"></td>
                     </tr>
                 </tbody>
             </table>
@@ -114,30 +108,144 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12 table-responsive">
-                                        <table class="table table-striped table-hover table-borderless">
+                                        <table
+                                            class="table table-striped table-hover table-borderless table-detail-update">
                                             <thead>
                                                 <tr class="bg-primary text-white">
                                                     <td class="align-middle font-weight-bold text-center"
-                                                        style="width: 153px;">Kế hoạch</td>
-                                                    <td class="align-middle font-weight-bold text-center"
-                                                        th:text="'Số tiền (' + ${detailTabPhanLoai.getCurrencyUnitDisplay()} + ')'">
+                                                        style="width: 12%;">Kế hoạch</td>
+                                                    <td class="align-middle font-weight-bold text-center">
+                                                        Số tiền<br>([[${detailTabPhanLoai.getCurrencyUnitDisplay()}]])
                                                     </td>
                                                     <td class="table-td-date align-middle font-weight-bold text-center">
-                                                        Hợp đồng (D / M / Y)</td>
+                                                        Hợp đồng<br>(D / M / Y)</td>
                                                     <td class="table-td-date align-middle font-weight-bold text-center">
-                                                        Mục tiêu (D / M / Y)</td>
+                                                        Mục tiêu<br>(D / M / Y)</td>
                                                     <td class="table-td-date align-middle font-weight-bold text-center">
-                                                        Thực tế (D / M / Y)</td>
+                                                        Thực tế<br>(D / M / Y)</td>
                                                     <td class="align-middle font-weight-bold text-center"
-                                                        style="width: 160px;">Ghi chú</td>
+                                                        style="width: 160px;">Báo hạn</td>
+                                                    <td class="align-middle font-weight-bold text-center">Ghi chú</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr class="border-top border-white">
                                                     <td
                                                         class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        DAC
+                                                        Giao hàng</td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="soTienGiaoHang" id="so_tien_giao_hang"
+                                                            class="form-control text-center table-bg-form-input"
+                                                            th:data-first="${detailTabCptg.getSoTienGiaoHang()}"
+                                                            th:value="${detailTabCptg.getSoTienGiaoHang()}">
                                                     </td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="hopDongGiaoHang"
+                                                            id="hop_dong_giao_hang"
+                                                            class="form-control text-center input-datepicker float-left"
+                                                            placeholder="dd / mm / yyyy" data-allow-change-status="0"
+                                                            th:data-first="${detailTabCptg.getHopDongGiaoHang()}"
+                                                            th:value="${detailTabCptg.getHopDongGiaoHang()}"
+                                                            readonly="">
+                                                        <button type="button"
+                                                            class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                                            style="width: 27px; height: 43px; padding-top: 2px;"
+                                                            data-target="hop_dong_giao_hang">
+                                                            <i class="feather icon-x"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="mucTieuGiaoHang"
+                                                            id="muc_tieu_giao_hang"
+                                                            class="form-control text-center input-datepicker float-left"
+                                                            placeholder="dd / mm / yyyy"
+                                                            data-related-id="thuc_te_giao_hang"
+                                                            data-calculate-result="chenh_lech_giao_hang"
+                                                            data-allow-change-status="0"
+                                                            th:data-first="${detailTabCptg.getMucTieuGiaoHang()}"
+                                                            th:value="${detailTabCptg.getMucTieuGiaoHang()}"
+                                                            readonly="">
+                                                        <button type="button"
+                                                            class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                                            style="width: 27px; height: 43px; padding-top: 2px;"
+                                                            data-target="muc_tieu_giao_hang">
+                                                            <i class="feather icon-x"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="thucTeGiaoHang" id="thuc_te_giao_hang"
+                                                            class="form-control text-center input-datepicker float-left"
+                                                            placeholder="dd / mm / yyyy"
+                                                            data-related-id="muc_tieu_giao_hang"
+                                                            data-calculate-result="chenh_lech_giao_hang"
+                                                            data-allow-change-status="1"
+                                                            th:data-first="${detailTabCptg.getThucTeGiaoHang()}"
+                                                            th:value="${detailTabCptg.getThucTeGiaoHang()}" readonly="">
+                                                        <button type="button"
+                                                            class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                                            style="width: 27px; height: 43px; padding-top: 2px;"
+                                                            data-target="thuc_te_giao_hang">
+                                                            <i class="feather icon-x"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <th:block th:if="${detailTabCptg.getThucTeGiaoHang() == ''}">
+                                                            <i class="fa-sharp fa-solid fa-square-check text-primary"
+                                                                data-status-for="thuc_te_giao_hang"
+                                                                style="font-size: 20px;"></i>
+                                                        </th:block>
+                                                        <th:block th:if="${detailTabCptg.getThucTeGiaoHang() != ''}">
+                                                            <i class="fa-solid fa-square"
+                                                                data-status-for="thuc_te_giao_hang"
+                                                                style="font-size: 20px;"></i>
+                                                        </th:block>
+                                                        <span id="chenh_lech_giao_hang"
+                                                            th:text="${detailTabCptg.getChenhLechGiaoHang()}"></span>
+                                                    </td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="noteGiaoHang" id="note_giao_hang"
+                                                            class="form-control text-center table-bg-form-input"
+                                                            th:data-first="${detailTabCptg.getNoteGiaoHang()}"
+                                                            th:value="${detailTabCptg.getNoteGiaoHang()}">
+                                                    </td>
+                                                </tr>
+                                                <tr class="border-top border-white">
+                                                    <td
+                                                        class="bg-primary align-middle text-center text-white font-weight-bold">
+                                                        Tạm ứng</td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="soTienTamUng" id="so_tien_tam_ung"
+                                                            class="form-control text-center table-bg-form-input"
+                                                            th:data-first="${detailTabCptg.getSoTienTamUng()}"
+                                                            th:value="${detailTabCptg.getSoTienTamUng()}">
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="keHoachTamUng" id="ke_hoach_tam_ung"
+                                                            class="form-control text-center input-datepicker float-left"
+                                                            placeholder="dd / mm / yyyy" data-allow-change-status="0"
+                                                            th:data-first="${detailTabCptg.getKeHoachTamUng()}"
+                                                            th:value="${detailTabCptg.getKeHoachTamUng()}" readonly="">
+                                                        <button type="button"
+                                                            class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                                            style="width: 27px; height: 43px; padding-top: 2px;"
+                                                            data-target="ke_hoach_tam_ung">
+                                                            <i class="feather icon-x"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="noteTamUng" id="note_tam_ung"
+                                                            class="form-control text-center table-bg-form-input"
+                                                            th:data-first="${detailTabCptg.getNoteTamUng()}"
+                                                            th:value="${detailTabCptg.getNoteTamUng()}">
+                                                    </td>
+                                                </tr>
+                                                <tr class="border-top border-white">
+                                                    <td
+                                                        class="bg-primary align-middle text-center text-white font-weight-bold">
+                                                        DAC</td>
                                                     <td class="p-2">
                                                         <input type="text" name="soTienDac" id="so_tien_dac"
                                                             class="form-control text-center table-bg-form-input"
@@ -188,24 +296,29 @@
                                                         </button>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <th:block th:if="${detailTabCptg.getThucTeDac() != ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeDac() == ''}">
                                                             <i class="fa-sharp fa-solid fa-square-check text-primary"
                                                                 data-status-for="thuc_te_dac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
-                                                        <th:block th:if="${detailTabCptg.getThucTeDac() == ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeDac() != ''}">
                                                             <i class="fa-solid fa-square" data-status-for="thuc_te_dac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
                                                         <span id="chenh_lech_dac"
                                                             th:text="${detailTabCptg.getChenhLechDac()}"></span>
                                                     </td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="noteDac" id="note_dac"
+                                                            class="form-control text-center table-bg-form-input"
+                                                            th:data-first="${detailTabCptg.getNoteDac()}"
+                                                            th:value="${detailTabCptg.getNoteDac()}">
+                                                    </td>
                                                 </tr>
                                                 <tr class="border-top border-white">
                                                     <td
                                                         class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        PAC
-                                                    </td>
+                                                        PAC</td>
                                                     <td class="p-2">
                                                         <input type="text" name="soTienPac" id="so_tien_pac"
                                                             class="form-control text-center table-bg-form-input"
@@ -256,24 +369,29 @@
                                                         </button>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <th:block th:if="${detailTabCptg.getThucTePac() != ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTePac() == ''}">
                                                             <i class="fa-sharp fa-solid fa-square-check text-primary"
                                                                 data-status-for="thuc_te_pac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
-                                                        <th:block th:if="${detailTabCptg.getThucTePac() == ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTePac() != ''}">
                                                             <i class="fa-solid fa-square" data-status-for="thuc_te_pac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
                                                         <span id="chenh_lech_pac"
                                                             th:text="${detailTabCptg.getChenhLechPac()}"></span>
                                                     </td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="notePac" id="note_pac"
+                                                            class="form-control text-center table-bg-form-input"
+                                                            th:data-first="${detailTabCptg.getNotePac()}"
+                                                            th:value="${detailTabCptg.getNotePac()}">
+                                                    </td>
                                                 </tr>
                                                 <tr class="border-top border-white">
                                                     <td
                                                         class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        FAC
-                                                    </td>
+                                                        FAC</td>
                                                     <td class="p-2">
                                                         <input type="text" name="soTienFac" id="so_tien_fac"
                                                             class="form-control text-center table-bg-form-input"
@@ -324,24 +442,29 @@
                                                         </button>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <th:block th:if="${detailTabCptg.getThucTeFac() != ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeFac() == ''}">
                                                             <i class="fa-sharp fa-solid fa-square-check text-primary"
                                                                 data-status-for="thuc_te_fac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
-                                                        <th:block th:if="${detailTabCptg.getThucTeFac() == ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeFac() != ''}">
                                                             <i class="fa-solid fa-square" data-status-for="thuc_te_fac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
                                                         <span id="chenh_lech_fac"
                                                             th:text="${detailTabCptg.getChenhLechFac()}"></span>
                                                     </td>
+                                                    <td class="p-2">
+                                                        <input type="text" name="noteFac" id="note_fac"
+                                                            class="form-control text-center table-bg-form-input"
+                                                            th:data-first="${detailTabCptg.getNoteFac()}"
+                                                            th:value="${detailTabCptg.getNoteFac()}">
+                                                    </td>
                                                 </tr>
                                                 <tr class="border-top border-white">
                                                     <td
                                                         class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        Tổng giá trị thực tế
-                                                    </td>
+                                                        Tổng giá trị<br>thực tế</td>
                                                     <td class="p-2">
                                                         <input type="text" name="tongGiaTriThucTe"
                                                             id="tong_gia_tri_thuc_te"
@@ -353,27 +476,12 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                </tr>
-                                                <tr class="border-top border-white">
-                                                    <td
-                                                        class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        Tạm ứng
-                                                    </td>
                                                     <td class="p-2">
-                                                        <input type="text" name="soTienTamUng" id="so_tien_tam_ung"
+                                                        <input type="text" name="noteTongGiaTri" id="note_tong_gia_tri"
                                                             class="form-control text-center table-bg-form-input"
-                                                            th:data-first="${detailTabCptg.getSoTienTamUng()}"
-                                                            th:value="${detailTabCptg.getSoTienTamUng()}">
+                                                            th:data-first="${detailTabCptg.getNoteTongGiaTri()}"
+                                                            th:value="${detailTabCptg.getNoteTongGiaTri()}">
                                                     </td>
-                                                    <td></td>
-                                                    <td class="p-2">
-                                                        <input type="text" name="keHoachTamUng" id="ke_hoach_tam_ung"
-                                                            class="form-control text-center input-datepicker"
-                                                            th:data-first="${detailTabCptg.getKeHoachTamUng()}"
-                                                            th:value="${detailTabCptg.getKeHoachTamUng()}" readonly="">
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
                                                 </tr>
                                             </tbody>
                                         </table>
