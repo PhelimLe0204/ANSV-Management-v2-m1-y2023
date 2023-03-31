@@ -266,14 +266,25 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS amName, "
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS pmName, "
-        + "pr.general_issue AS generalIssue, pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau, pr.ke_hoach_tuan_nay AS ketQuaTuanNay, pr.solution, "
-        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, pr.thuc_te_dac AS thucTeDac, "
-        + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, pr.thuc_te_pac AS thucTePac, "
-        + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, pr.thuc_te_fac AS thucTeFac, "
-        + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng "
+        + "cu.currency_unit AS currencyUnit, pr.general_issue AS generalIssue, "
+        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau, " 
+        + "pr.ke_hoach_tuan_nay AS ketQuaTuanNay, pr.solution, "
+        + "pr.so_tien_giao_hang AS soTienGiaoHang, pr.hop_dong_giao_hang AS hopDongGiaoHang, "
+        + "pr.muc_tieu_giao_hang AS mucTieuGiaoHang, pr.thuc_te_giao_hang AS thucTeGiaoHang, "
+        + "pr.note_giao_hang AS noteGiaoHang, "
+        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, "
+        + "pr.thuc_te_dac AS thucTeDac, pr.note_dac AS noteDac, "
+        + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, "
+        + "pr.thuc_te_pac AS thucTePac, pr.note_pac AS notePac, "
+        + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, "
+        + "pr.thuc_te_fac AS thucTeFac, pr.note_fac AS noteFac, "
+        + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, pr.note_tong_gia_tri AS noteTongGiaTri, "
+        + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng, "
+        + "pr.note_tam_ung AS noteTamUng "
         + "FROM project_report AS pr "
         + "INNER JOIN project AS p ON pr.project_id = p.id "
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN currency_unit AS cu ON pr.currency_unit_id = cu.id "
         + "WHERE pr.enabled = :enabled AND pr.week = :week AND pr.year = :year "
         + "AND pr.project_status_id = :project_status_id AND pr.project_type_id = :project_type_id", resultSetMapping = "Mapping.ShowDashboardDTO")
 
@@ -284,26 +295,42 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         @ColumnResult(name = "customerName", type = String.class),
         @ColumnResult(name = "amName", type = String.class),
         @ColumnResult(name = "pmName", type = String.class),
+        @ColumnResult(name = "currencyUnit", type = String.class),
         @ColumnResult(name = "generalIssue", type = String.class),
         @ColumnResult(name = "keHoachTuanNay", type = String.class),
         @ColumnResult(name = "keHoachTuanSau", type = String.class),
         @ColumnResult(name = "ketQuaTuanNay", type = String.class),
         @ColumnResult(name = "solution", type = String.class),
+
+        @ColumnResult(name = "soTienGiaoHang", type = String.class),
+        @ColumnResult(name = "hopDongGiaoHang", type = String.class),
+        @ColumnResult(name = "mucTieuGiaoHang", type = String.class),
+        @ColumnResult(name = "thucTeGiaoHang", type = String.class),
+        @ColumnResult(name = "noteGiaoHang", type = String.class),
+
         @ColumnResult(name = "soTienDac", type = String.class),
         @ColumnResult(name = "hopDongDac", type = String.class),
         @ColumnResult(name = "mucTieuDac", type = String.class),
         @ColumnResult(name = "thucTeDac", type = String.class),
+        @ColumnResult(name = "noteDac", type = String.class),
+
         @ColumnResult(name = "soTienPac", type = String.class),
         @ColumnResult(name = "hopDongPac", type = String.class),
         @ColumnResult(name = "mucTieuPac", type = String.class),
         @ColumnResult(name = "thucTePac", type = String.class),
+        @ColumnResult(name = "notePac", type = String.class),
+
         @ColumnResult(name = "soTienFac", type = String.class),
         @ColumnResult(name = "hopDongFac", type = String.class),
         @ColumnResult(name = "mucTieuFac", type = String.class),
         @ColumnResult(name = "thucTeFac", type = String.class),
+        @ColumnResult(name = "noteFac", type = String.class),
+
         @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
+        @ColumnResult(name = "noteTongGiaTri", type = String.class),
         @ColumnResult(name = "soTienTamUng", type = String.class),
-        @ColumnResult(name = "keHoachTamUng", type = String.class)
+        @ColumnResult(name = "keHoachTamUng", type = String.class),
+        @ColumnResult(name = "noteTamUng", type = String.class)
 }))
 
 /* ===== Set mapping: ListReport12DTO ===== */
@@ -476,61 +503,82 @@ public class ProjectReportEntity extends BaseEntity {
 
     @Column(name = "tong_gia_tri_thuc_te") // 23
     private String tongGiaTriThucTe;
+    @Column(name = "note_tong_gia_tri") // 24
+    private String noteTongGiaTri;
 
-    @Column(name = "so_tien_tam_ung") // 24
+    @Column(name = "so_tien_tam_ung") // 25
     private String soTienTamUng;
-    @Column(name = "ke_hoach_tam_ung") // 25
+    @Column(name = "ke_hoach_tam_ung") // 26
     private String keHoachTamUng;
+    @Column(name = "note_tam_ung") // 27
+    private String noteTamUng;
 
-    @Column(name = "so_tien_DAC") // 26
+    @Column(name = "so_tien_giao_hang") // 28
+    private String soTienGiaoHang;
+    @Column(name = "hop_dong_giao_hang") // 29
+    private String hopDongGiaoHang;
+    @Column(name = "muc_tieu_giao_hang") // 30
+    private String mucTieuGiaoHang;
+    @Column(name = "thuc_te_giao_hang") // 31
+    private String thucTeGiaoHang;
+    @Column(name = "note_giao_hang") // 32
+    private String noteGiaoHang;
+
+    @Column(name = "so_tien_DAC") // 33
     private String soTienDac;
-    @Column(name = "hop_dong_DAC") // 27
+    @Column(name = "hop_dong_DAC") // 34
     private String hopDongDac;
-    @Column(name = "muc_tieu_DAC") // 28
+    @Column(name = "muc_tieu_DAC") // 35
     private String mucTieuDac;
-    @Column(name = "thuc_te_DAC") // 29
+    @Column(name = "thuc_te_DAC") // 36
     private String thucTeDac;
+    @Column(name = "note_DAC") // 37
+    private String noteDac;
 
-    @Column(name = "so_tien_PAC") // 30
+    @Column(name = "so_tien_PAC") // 38
     private String soTienPac;
-    @Column(name = "hop_dong_PAC") // 31
+    @Column(name = "hop_dong_PAC") // 39
     private String hopDongPac;
-    @Column(name = "muc_tieu_PAC") // 32
+    @Column(name = "muc_tieu_PAC") // 40
     private String mucTieuPac;
-    @Column(name = "thuc_te_PAC") // 33
+    @Column(name = "thuc_te_PAC") // 41
     private String thucTePac;
+    @Column(name = "note_PAC") // 42
+    private String notePac;
 
-    @Column(name = "so_tien_FAC") // 34
+    @Column(name = "so_tien_FAC") // 43
     private String soTienFac;
-    @Column(name = "hop_dong_FAC") // 35
+    @Column(name = "hop_dong_FAC") // 44
     private String hopDongFac;
-    @Column(name = "muc_tieu_FAC") // 36
+    @Column(name = "muc_tieu_FAC") // 45
     private String mucTieuFac;
-    @Column(name = "thuc_te_FAC") // 37
+    @Column(name = "thuc_te_FAC") // 46
     private String thucTeFac;
+    @Column(name = "note_FAC") // 47
+    private String noteFac;
 
-    @Column(name = "general_issue", columnDefinition = "TEXT") // 38
+    @Column(name = "general_issue", columnDefinition = "TEXT") // 48
     private String generalIssue;
-    @Column(name = "solution", columnDefinition = "TEXT") // 39
+    @Column(name = "solution", columnDefinition = "TEXT") // 49
     private String solution;
 
-    @Column(name = "ke_hoach_tuan_nay", columnDefinition = "TEXT") // 40
+    @Column(name = "ke_hoach_tuan_nay", columnDefinition = "TEXT") // 50
     private String keHoachTuanNay;
-    @Column(name = "ke_hoach_tuan_sau", columnDefinition = "TEXT") // 41
+    @Column(name = "ke_hoach_tuan_sau", columnDefinition = "TEXT") // 51
     private String keHoachTuanSau;
-    @Column(name = "ket_qua_tuan_truoc", columnDefinition = "TEXT") // 42
+    @Column(name = "ket_qua_tuan_truoc", columnDefinition = "TEXT") // 52
     private String ketQuaTuanTruoc;
-    @Column(name = "ket_qua_tuan_nay", columnDefinition = "TEXT") // 43
+    @Column(name = "ket_qua_tuan_nay", columnDefinition = "TEXT") // 53
     private String ketQuaTuanNay;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(4)") // 44
+    @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(4)") // 54
     private int enabled;
-    @Column(name = "tien_do_chung", columnDefinition = "TEXT") // 45
+    @Column(name = "tien_do_chung", columnDefinition = "TEXT") // 55
     private String tienDoChung;
 
-    // @Column(name = "created_by") // 46
+    // @Column(name = "created_by") // 56
     // private String created_by;
-    // @Column(name = "created_at") // 47
+    // @Column(name = "created_at") // 57
     // private Date created_at;
 
     @ManyToOne
@@ -589,42 +637,6 @@ public class ProjectReportEntity extends BaseEntity {
      */
     @JoinColumn(name = "project_status_id")
     private ProjectStatusEntity projectStatus; // 1 'project_report' sử dụng 1 'project_status' => hứng 1 bản ghi
-
-    // public Long getProjectId() {
-    // return this.projectId;
-    // }
-    // public void setProjectId(Long projectId) {
-    // this.projectId = projectId;
-    // }
-
-    // public Long getProjectTypeId() {
-    // return this.projectTypeId;
-    // }
-    // public void setProjectTypeId(Long projectTypeId) {
-    // this.projectTypeId = projectTypeId;
-    // }
-
-    // public Long getProjectPriorityId() {
-    // return this.projectPriorityId;
-    // }
-    // public void setProjectPriorityId(Long projectPriorityId) {
-    // this.projectPriorityId = projectPriorityId;
-    // }
-
-    // public Long getProjectStatusId() {
-    // return this.projectStatusId;
-    // }
-
-    // public void setProjectStatusId(Long projectStatusId) {
-    // this.projectStatusId = projectStatusId;
-    // }
-
-    // public Long getCurrencyUnitId() {
-    // return this.currencyUnitId;
-    // }
-    // public void setCurrencyUnitId(Long currencyUnitId) {
-    // this.currencyUnitId = currencyUnitId;
-    // }
 
     public Integer getAmManagerId() {
         return this.amManagerId;
@@ -754,6 +766,14 @@ public class ProjectReportEntity extends BaseEntity {
         this.tongGiaTriThucTe = tongGiaTriThucTe;
     }
 
+    public String getNoteTongGiaTri() {
+        return this.noteTongGiaTri;
+    }
+
+    public void setNoteTongGiaTri(String noteTongGiaTri) {
+        this.noteTongGiaTri = noteTongGiaTri;
+    }
+
     public String getSoTienTamUng() {
         return this.soTienTamUng;
     }
@@ -768,6 +788,54 @@ public class ProjectReportEntity extends BaseEntity {
 
     public void setKeHoachTamUng(String keHoachTamUng) {
         this.keHoachTamUng = keHoachTamUng;
+    }
+
+    public String getNoteTamUng() {
+        return this.noteTamUng;
+    }
+
+    public void setNoteTamUng(String noteTamUng) {
+        this.noteTamUng = noteTamUng;
+    }
+
+    public String getSoTienGiaoHang() {
+        return this.soTienGiaoHang;
+    }
+
+    public void setSoTienGiaoHang(String soTienGiaoHang) {
+        this.soTienGiaoHang = soTienGiaoHang;
+    }
+
+    public String getHopDongGiaoHang() {
+        return this.hopDongGiaoHang;
+    }
+
+    public void setHopDongGiaoHang(String hopDongGiaoHang) {
+        this.hopDongGiaoHang = hopDongGiaoHang;
+    }
+
+    public String getMucTieuGiaoHang() {
+        return this.mucTieuGiaoHang;
+    }
+
+    public void setMucTieuGiaoHang(String mucTieuGiaoHang) {
+        this.mucTieuGiaoHang = mucTieuGiaoHang;
+    }
+
+    public String getThucTeGiaoHang() {
+        return this.thucTeGiaoHang;
+    }
+
+    public void setThucTeGiaoHang(String thucTeGiaoHang) {
+        this.thucTeGiaoHang = thucTeGiaoHang;
+    }
+
+    public String getNoteGiaoHang() {
+        return this.noteGiaoHang;
+    }
+
+    public void setNoteGiaoHang(String noteGiaoHang) {
+        this.noteGiaoHang = noteGiaoHang;
     }
 
     public String getSoTienDac() {
@@ -802,6 +870,14 @@ public class ProjectReportEntity extends BaseEntity {
         this.thucTeDac = thucTeDac;
     }
 
+    public String getNoteDac() {
+        return this.noteDac;
+    }
+
+    public void setNoteDac(String noteDac) {
+        this.noteDac = noteDac;
+    }
+
     public String getSoTienPac() {
         return this.soTienPac;
     }
@@ -834,6 +910,14 @@ public class ProjectReportEntity extends BaseEntity {
         this.thucTePac = thucTePac;
     }
 
+    public String getNotePac() {
+        return this.notePac;
+    }
+
+    public void setNotePac(String notePac) {
+        this.notePac = notePac;
+    }
+
     public String getSoTienFac() {
         return this.soTienFac;
     }
@@ -864,6 +948,14 @@ public class ProjectReportEntity extends BaseEntity {
 
     public void setThucTeFac(String thucTeFac) {
         this.thucTeFac = thucTeFac;
+    }
+
+    public String getNoteFac() {
+        return this.noteFac;
+    }
+
+    public void setNoteFac(String noteFac) {
+        this.noteFac = noteFac;
     }
 
     public String getGeneralIssue() {

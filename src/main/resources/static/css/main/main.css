@@ -55,29 +55,35 @@
 
 /* Dashboard show */
 /* Màn hình desktop */
-@media screen and (min-width: 1024px){
+@media screen and (min-width: 1024px) {
     body .modal-style {
-    width: 230%;
-    position: absolute;
-    left: -60%;
+        width: 230%;
+        position: absolute;
+        left: -60%;
     }
-    #thong-ke,#fullScreen{
-        display: block;	
-    }
-    .topnav #li_1 {
-      display: none;
-     
-    }
-    #detail_slide_1{
-        display: none;
-    }
-    #detail_slide{
+
+    #thong-ke,
+    #fullScreen {
         display: block;
     }
-  }
-  /* End màn hình desktop */
 
-  .overflow {
+    .topnav #li_1 {
+        display: none;
+
+    }
+
+    #detail_slide_1 {
+        display: none;
+    }
+
+    #detail_slide {
+        display: block;
+    }
+}
+
+/* End màn hình desktop */
+
+.overflow {
     height: 383px;
     overflow: auto;
     border-bottom: 1px solid lightgray;
@@ -106,4 +112,14 @@
 .thead1 {
     /* scrollbar is average 1em/16px width, remove it from thead width */
     width: calc(100% - 1em);
+}
+
+.table-slide-show tr th {
+    padding: 5px 5px 5px 5px !important;
+    vertical-align: middle;
+}
+
+.table-slide-show tr td {
+    padding: 5px 5px 5px 5px !important;
+    vertical-align: middle;
 }

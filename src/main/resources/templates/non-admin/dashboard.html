@@ -167,10 +167,10 @@
                                 <div class="modal-body" style="font-size: 15px; color: black; margin-top: -3%;">
                                     <div class="owl-carousel owl-theme" id="detail_slide">
                                         <th:block th:each="data : ${dataShows}">
-                                            <div class="container item">
+                                            <div class="container item ml-2 mr-2" style="max-width: 1080px !important;">
                                                 <div class="row d-flex">
                                                     <h5 class="pb-2 pt-1 pl-3"
-                                                        style="width: 97%; background: red; border-radius: 16px; text-align: center;">
+                                                        style="width: 96%; background: red; border-radius: 16px; text-align: center;">
                                                         <a href="javascript:void(0)"
                                                             style="color: #fff; font-weight: bold;"
                                                             th:text="${data.getJobName()}">jobName</a>
@@ -188,139 +188,96 @@
                                                         <b>PM:</b><span class="pl-3"
                                                             th:text="${data.getPmName()}">pm</span>
                                                     </div>
-
                                                 </div>
-                                                <div class="table-responsive">
-                                                    <div class="row" style="width: 70.9%;">
-                                                        <div class="col-6 overflow">
-                                                            <th:block th:if="${data.getGeneralIssue() != null}">
-                                                                <p>
-                                                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                                                    <b>Tình trạng:</b><br />
-                                                                    <span class="d-flex">
-
-                                                                        <span
-                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getGeneralIssue()})]</span>
-                                                                    </span>
-                                                                </p>
-                                                                <hr>
-                                                            </th:block>
-                                                            <th:block th:if="${data.getKeHoachTuanNay() != null}">
-                                                                <p>
-                                                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                                                    <b> Kế hoạch tuần này:</b><br />
-                                                                    <span class="d-flex ">
-                                                                        <!-- <i class="fas fa-hand-point-right"></i> -->
-                                                                        <span
-                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getKeHoachTuanNay()})]</span>
-                                                                    </span>
-                                                                </p>
-                                                                <hr>
-                                                            </th:block>
-                                                            <th:block th:if="${data.getKeHoachTuanSau() != null}">
-                                                                <p>
-                                                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                                                    <b> Kế hoạch tuần sau:</b><br />
-                                                                    <span class="d-flex ">
-                                                                        <!-- <i class="far fa-hand-point-right"></i> -->
-                                                                        <span
-                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getKeHoachTuanSau()})]</span>
-                                                                    </span>
-                                                                </p>
-                                                                <hr>
-                                                            </th:block>
-                                                            <th:block th:if="${data.getSolution() != null}">
-                                                                <p>
-                                                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                                                    <b> Giải pháp:</b><br />
-                                                                    <span class="d-flex ">
-                                                                        <!-- <i class="far fa-hand-point-right"></i> -->
-                                                                        <span
-                                                                            class="ml-2 pl-2 border-left border-primary">[(${data.getSolution()})]</span>
-                                                                    </span>
-                                                                </p>
-                                                            </th:block>
-                                                        </div>
-                                                        <div class="col-6 pl-4">
-                                                            <table class="table table-hover table-bordered mt-1">
-
+                                                <div class="row">
+                                                    <div class="col-md-12 pl-4">
+                                                        <div class="table-responsive"
+                                                            style="width: 100%; overflow: auto;">
+                                                            <table
+                                                                class="table table-hover table-bordered table-slide-show mt-1 w-100">
                                                                 <tr>
-                                                                    <th style="width: 14%;" class="text-center">Kế hoạch
-                                                                    </th>
-                                                                    <th class="text-center">Số tiền<br /></th>
-                                                                    <th class="text-center" style="width: 17%;">Hợp
-                                                                        đồng<br />(D / M / Y)</th>
-                                                                    <th class="text-center" style="width: 17%;">Mục
-                                                                        tiêu<br />(D / M / Y)</th>
-                                                                    <th class="text-center" style="width: 17%;">Thực
-                                                                        tế<br />(D / M / Y)</th>
-                                                                    <th class="text-center" style="width: 9%;">
-                                                                        Note</th>
-                                                                </tr>
-
-
-                                                                <tr class="text-center">
-                                                                    <td style="background-color: #ecf0f5;">
-                                                                        Tạm ứng
-                                                                    </td>
-                                                                    <td c th:text="${data.getSoTienTamUng()}">
-                                                                    </td>
-                                                                    <td class="table-td-data-none pt-1 pb-1">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </td>
-                                                                    <td th:text="${data.getKeHoachTamUng()}">
-                                                                    <td class="table-td-data-none pt-1 pb-1">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </td>
-                                                                    <td class="table-td-data-none pt-1 pb-1">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </td>
+                                                                    <th class="text-center table-td-data-none"
+                                                                        style="width: 12%;">Kế hoạch</th>
+                                                                    <th class="text-center table-td-data-none"
+                                                                        style="width: 19%;">
+                                                                        Số tiền<br>([[${data.getCurrencyUnit()}]])</th>
+                                                                    <th class="text-center table-td-data-none"
+                                                                        style="width: 12%;">
+                                                                        Hợp đồng<br />(D / M / Y)</th>
+                                                                    <th class="text-center table-td-data-none"
+                                                                        style="width: 12%;">
+                                                                        Mục tiêu<br />(D / M / Y)</th>
+                                                                    <th class="text-center table-td-data-none"
+                                                                        style="width: 12%;">
+                                                                        Thực tế<br />(D / M / Y)</th>
+                                                                    <th class="text-center table-td-data-none"
+                                                                        style="width: 16%;">Báo hạn</th>
+                                                                    <th class="text-center table-td-data-none">
+                                                                        Ghi chú</th>
                                                                 </tr>
                                                                 <tr class="text-center">
-                                                                    <td style="background-color: #ecf0f5;">
+                                                                    <td class="table-td-data-none">
+                                                                        Giao hàng</td>
+                                                                    <td th:text="${data.getSoTienGiaoHang()}"></td>
+                                                                    <td th:text="${data.getHopDongGiaoHang()}"></td>
+                                                                    <td th:text="${data.getMucTieuGiaoHang()}"></td>
+                                                                    <td th:text="${data.getThucTeGiaoHang()}"></td>
+                                                                    <td th:text="${data.getChenhLechGiaoHang()}"></td>
+                                                                    <td th:text="${data.getNoteGiaoHang()}"></td>
+                                                                </tr>
+                                                                <tr class="text-center">
+                                                                    <td class="table-td-data-none">
+                                                                        Tạm ứng</td>
+                                                                    <td th:text="${data.getSoTienTamUng()}">
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td th:text="${data.getKeHoachTamUng()}"></td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td class="table-td-data-none pt-1 pb-1">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </td>
+                                                                    <td th:text="${data.getNoteTamUng()}"></td>
+                                                                </tr>
+                                                                <tr class="text-center">
+                                                                    <td class="table-td-data-none">
                                                                         DAC
                                                                     </td>
                                                                     <td th:text="${data.getSoTienDac()}">
                                                                     </td>
                                                                     <td th:text="${data.getHopDongDac()}"></td>
                                                                     <td th:text="${data.getMucTieuDac()}"></td>
-                                                                    <td th:text="${data.getThucTeDac()}">
-                                                                    </td>
-                                                                    <td th:text="${data.getChenhLechDac()}">
-                                                                    </td>
+                                                                    <td th:text="${data.getThucTeDac()}"></td>
+                                                                    <td th:text="${data.getChenhLechDac()}"></td>
+                                                                    <td th:text="${data.getNoteDac()}"></td>
                                                                 </tr>
                                                                 <tr class="text-center">
-                                                                    <td style="background-color: #ecf0f5;">
-                                                                        PAC
-                                                                    </td>
-                                                                    <td th:text="${data.getSoTienPac()}">
-                                                                    </td>
+                                                                    <td class="table-td-data-none">
+                                                                        PAC</td>
+                                                                    <td th:text="${data.getSoTienPac()}"></td>
                                                                     <td th:text="${data.getHopDongPac()}"></td>
                                                                     <td th:text="${data.getMucTieuPac()}"></td>
-                                                                    <td th:text="${data.getThucTePac()}">
-                                                                    </td>
-                                                                    <td th:text="${data.getChenhLechPac()}">
-                                                                    </td>
+                                                                    <td th:text="${data.getThucTePac()}"></td>
+                                                                    <td th:text="${data.getChenhLechPac()}"></td>
+                                                                    <td th:text="${data.getNotePac()}"></td>
                                                                 </tr>
                                                                 <tr class="text-center">
-                                                                    <td style="background-color: #ecf0f5;">
-                                                                        FAC
-                                                                    </td>
-                                                                    <td th:text="${data.getSoTienFac()}">
-                                                                    </td>
+                                                                    <td class="table-td-data-none">
+                                                                        FAC</td>
+                                                                    <td th:text="${data.getSoTienFac()}"></td>
                                                                     <td th:text="${data.getHopDongFac()}"></td>
                                                                     <td th:text="${data.getMucTieuFac()}"></td>
-                                                                    <td th:text="${data.getThucTeFac()}">
-                                                                    </td>
-                                                                    <td th:text="${data.getChenhLechFac()}">
-                                                                    </td>
+                                                                    <td th:text="${data.getThucTeFac()}"></td>
+                                                                    <td th:text="${data.getChenhLechFac()}"></td>
+                                                                    <td th:text="${data.getNoteFac()}"></td>
                                                                 </tr>
                                                                 <tr class="text-center">
-                                                                    <td style="background-color: #ecf0f5;">
-                                                                        Tổng giá trị thực tế
-                                                                    </td>
-                                                                    <td th:text="${data.getTongGiaTriThucTe()}">
-                                                                    </td>
+                                                                    <td class="table-td-data-none">
+                                                                        Tổng giá trị<br />thực tế</td>
+                                                                    <td th:text="${data.getTongGiaTriThucTe()}"></td>
                                                                     <td class="table-td-data-none pt-1 pb-1">
                                                                         <i class="fas fa-ban"></i>
                                                                     </td>
@@ -333,36 +290,93 @@
                                                                     <td class="table-td-data-none pt-1 pb-1">
                                                                         <i class="fas fa-ban"></i>
                                                                     </td>
+                                                                    <td th:text="${data.getNoteTongGiaTri()}"></td>
                                                                 </tr>
-
                                                             </table>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-12 pt-3">
-                                                        <p class="text-justify">
-
-                                                            <b>Kết quả thuần này:</b><br />
-                                                            [(${data.getKetQuaTuanNay()})]
-                                                        </p>
+                                                    <div class="col-md-6">
+                                                        <th:block th:if="${data.getGeneralIssue() != null}">
+                                                            <p>
+                                                                <i class="fa-solid fa-right-to-bracket"></i>
+                                                                <span class="pl-2"><b>Tình trạng:</b></span><br />
+                                                                <span class="d-flex">
+                                                                    <span class="ml-2 pl-2 border-left border-primary">
+                                                                        [(${data.getGeneralIssue()})]</span>
+                                                                </span>
+                                                            </p>
+                                                            <hr>
+                                                        </th:block>
+                                                        <th:block th:if="${data.getKeHoachTuanNay() != null}">
+                                                            <p>
+                                                                <i class="fa-solid fa-right-to-bracket"></i>
+                                                                <span class="pl-2">
+                                                                    <b>Kế hoạch tuần này:</b>
+                                                                </span><br />
+                                                                <span class="d-flex">
+                                                                    <!-- <i class="fas fa-hand-point-right"></i> -->
+                                                                    <span
+                                                                        class="ml-2 pl-2 border-left border-primary">[(${data.getKeHoachTuanNay()})]</span>
+                                                                </span>
+                                                            </p>
+                                                            <hr>
+                                                        </th:block>
+                                                        <th:block th:if="${data.getKeHoachTuanSau() != null}">
+                                                            <p>
+                                                                <i class="fa-solid fa-right-to-bracket"></i>
+                                                                <span class="pl-2">
+                                                                    <b>Kế hoạch tuần sau:</b>
+                                                                </span><br />
+                                                                <span class="d-flex">
+                                                                    <!-- <i class="far fa-hand-point-right"></i> -->
+                                                                    <span class="ml-2 pl-2 border-left border-primary">
+                                                                        [(${data.getKeHoachTuanSau()})]</span>
+                                                                </span>
+                                                            </p>
+                                                            <hr>
+                                                        </th:block>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <th:block th:if="${data.getSolution() != null}">
+                                                            <p>
+                                                                <i class="fa-solid fa-right-to-bracket"></i>
+                                                                <span class="pl-2">
+                                                                    <b>Giải pháp:</b>
+                                                                </span><br />
+                                                                <span class="d-flex">
+                                                                    <span class="ml-2 pl-2 border-left border-primary">
+                                                                        [(${data.getSolution()})]</span>
+                                                                </span>
+                                                            </p>
+                                                            <hr>
+                                                        </th:block>
+                                                        <th:block th:if="${data.getKetQuaTuanNay() != null}">
+                                                            <p>
+                                                                <i class="fa-solid fa-right-to-bracket"></i>
+                                                                <span class="pl-2">
+                                                                    <b>Kết quả thuần này:</b>
+                                                                </span><br />
+                                                                <span class="d-flex">
+                                                                    <span class="ml-2 pl-2 border-left border-primary">
+                                                                        [(${data.getKetQuaTuanNay()})]</span>
+                                                                </span>
+                                                            </p>
+                                                            <hr>
+                                                        </th:block>
                                                     </div>
                                                 </div>
-
                                                 <div>
                                                     <figcaption class="text-center"
                                                         th:text="${dataStat.index + 1} + ' / ' + ${dataShows.size}">
                                                     </figcaption>
                                                 </div>
-
                                             </div>
                                         </th:block>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
+                                <!-- <div class="modal-footer">
                                     <button type="button" class="btn  btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -457,16 +471,16 @@
                                                 <tr>
                                                     <th class="text-left" style="width: 7%;">STT</th>
                                                     <th class="text-left">Tên dự án</th>
-                                                    <th >Khách hàng</th>
-                                                    <th >Người thực hiện (PM)</th>
+                                                    <th>Khách hàng</th>
+                                                    <th>Người thực hiện (PM)</th>
                                                     <th class="text-center" style="width: 15%;">Trạng thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody1" style="height: 400px;">
                                                 <th:block th:each="deploymentItem : ${deploymentProject}">
                                                     <tr>
-                                                        <td class="text-left"
-                                                            th:text="${deploymentItemStat.index + 1}" style="width:7%"></td>
+                                                        <td class="text-left" th:text="${deploymentItemStat.index + 1}"
+                                                            style="width:7%"></td>
                                                         <td class="text-left">
                                                             <a th:href="@{/chi-tiet?id=} + ${deploymentItem.getId()}"
                                                                 th:text="${#strings.abbreviate(deploymentItem.getJobName(),40)}"
@@ -499,16 +513,17 @@
                                                 <tr>
                                                     <th class="text-left" style="width: 7%;">STT</th>
                                                     <th class="text-left">Tên dự án</th>
-                                                    <th >Khách hàng</th>
-                                                    <th >Người thực hiện (AM)</th>
+                                                    <th>Khách hàng</th>
+                                                    <th>Người thực hiện (AM)</th>
                                                     <th class="text-center" style="width: 15%;">Trạng thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody1" style="height: 400px;">
                                                 <th:block th:each="telecomItem : ${telecomProject}">
                                                     <tr>
-                                                        <td class="text-left" th:text="${telecomItemStat.index + 1}" style="width:7%">
-                                                        </td >
+                                                        <td class="text-left" th:text="${telecomItemStat.index + 1}"
+                                                            style="width:7%">
+                                                        </td>
                                                         <td class="text-left">
                                                             <a th:href="@{/chi-tiet?id=} + ${telecomItem.getId()}"
                                                                 th:text="${#strings.abbreviate(telecomItem.getJobName(),40)}"
@@ -541,16 +556,16 @@
                                                 <tr>
                                                     <th class="text-left" style="width: 7%;">STT</th>
                                                     <th class="text-left">Tên dự án</th>
-                                                    <th >Khách hàng</th>
-                                                    <th >Người thực hiện (AM)</th>
+                                                    <th>Khách hàng</th>
+                                                    <th>Người thực hiện (AM)</th>
                                                     <th class="text-center" style="width: 15%;">Trạng thái</th>
                                                 </tr>
-                                            </thead >
+                                            </thead>
                                             <tbody class="tbody1" style="height: 400px;">
                                                 <th:block th:each="digitalTransferItem : ${digitalTransferProject}">
                                                     <tr>
                                                         <td class="text-left" style="width: 7%;"
-                                                            th:text="${digitalTransferItemStat.index + 1}" >
+                                                            th:text="${digitalTransferItemStat.index + 1}">
                                                         </td>
                                                         <td class="text-left">
                                                             <a th:href="@{/chi-tiet?id=} + ${digitalTransferItem.getId()}"
