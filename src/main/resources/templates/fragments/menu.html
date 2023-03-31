@@ -10,10 +10,14 @@
 
                 <div class="">
                     <div class="main-menu-header">
-                        <img class="img-radius" th:src="@{/images/user/avatar-8.png}" alt="User-Profile-Image">
+                        <img th:src="${avatar} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${avatar}}"
+                        alt="user image" class="img-radius wid-40 align-top m-r-15">
                         <div class="user-details">
                             <div id="more-details">
-                                Lê Văn Thành <i class="fa fa-caret-down"></i>
+                                <!-- <th:block th:text = "${userName}"></th:block>  -->
+                                <th:block th:text = "${userRole}"></th:block> 
+                                <i class="fa fa-caret-down"></i>
+                            
                             </div>
                         </div>
                     </div>

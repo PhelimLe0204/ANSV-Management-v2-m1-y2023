@@ -8,10 +8,12 @@ import lombok.Setter;
 public class UserDefineDTO {
     private Long id;
     private String userRole;
+    private String avatar;
 
-    public UserDefineDTO(Long id, String userRole) {
+    public UserDefineDTO(Long id, String userRole, String avatar) {
         this.id = id;
         this.userRole = userRole;
+        this.avatar = avatar;
     }
 
 }
