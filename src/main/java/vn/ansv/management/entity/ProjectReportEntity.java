@@ -220,11 +220,18 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 /* ===== ProjectReportRepository.findDetailTabChiPhiThoiGian() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findDetailTabChiPhiThoiGian", query = "SELECT "
         + "pr.id, "
-        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, pr.thuc_te_dac AS thucTeDac, "
-        + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, pr.thuc_te_pac AS thucTePac, "
-        + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, pr.thuc_te_fac AS thucTeFac, "
-        + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
-        + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng "
+        + "pr.so_tien_giao_hang AS soTienGiaoHang, pr.hop_dong_giao_hang AS hopDongGiaoHang, "
+        + "pr.muc_tieu_giao_hang AS mucTieuGiaoHang, pr.thuc_te_giao_hang AS thucTeGiaoHang, "
+        + "pr.note_giao_hang AS noteGiaoHang, "
+        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, "
+        + "pr.thuc_te_dac AS thucTeDac, pr.note_dac AS noteDac, "
+        + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, "
+        + "pr.thuc_te_pac AS thucTePac, pr.note_pac AS notePac, "
+        + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, "
+        + "pr.thuc_te_fac AS thucTeFac, pr.note_fac AS noteFac, "
+        + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, pr.note_tong_gia_tri AS noteTongGiaTri, "
+        + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng, "
+        + "pr.note_tam_ung AS noteTamUng "
         + "FROM project_report AS pr "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabCptgDTO")
 
@@ -267,7 +274,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS amName, "
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS pmName, "
         + "cu.currency_unit AS currencyUnit, pr.general_issue AS generalIssue, "
-        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau, " 
+        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau, "
         + "pr.ke_hoach_tuan_nay AS ketQuaTuanNay, pr.solution, "
         + "pr.so_tien_giao_hang AS soTienGiaoHang, pr.hop_dong_giao_hang AS hopDongGiaoHang, "
         + "pr.muc_tieu_giao_hang AS mucTieuGiaoHang, pr.thuc_te_giao_hang AS thucTeGiaoHang, "
@@ -412,21 +419,31 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 /* ===== Set mapping: ReportDetailTabCptgDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ReportDetailTabCptgDTO", classes = @ConstructorResult(targetClass = ReportDetailTabCptgDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "soTienGiaoHang", type = String.class),
+        @ColumnResult(name = "hopDongGiaoHang", type = String.class),
+        @ColumnResult(name = "mucTieuGiaoHang", type = String.class),
+        @ColumnResult(name = "thucTeGiaoHang", type = String.class),
+        @ColumnResult(name = "noteGiaoHang", type = String.class),
         @ColumnResult(name = "soTienDac", type = String.class),
         @ColumnResult(name = "hopDongDac", type = String.class),
         @ColumnResult(name = "mucTieuDac", type = String.class),
         @ColumnResult(name = "thucTeDac", type = String.class),
+        @ColumnResult(name = "noteDac", type = String.class),
         @ColumnResult(name = "soTienPac", type = String.class),
         @ColumnResult(name = "hopDongPac", type = String.class),
         @ColumnResult(name = "mucTieuPac", type = String.class),
         @ColumnResult(name = "thucTePac", type = String.class),
+        @ColumnResult(name = "notePac", type = String.class),
         @ColumnResult(name = "soTienFac", type = String.class),
         @ColumnResult(name = "hopDongFac", type = String.class),
         @ColumnResult(name = "mucTieuFac", type = String.class),
         @ColumnResult(name = "thucTeFac", type = String.class),
+        @ColumnResult(name = "noteFac", type = String.class),
         @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
+        @ColumnResult(name = "noteTongGiaTri", type = String.class),
         @ColumnResult(name = "soTienTamUng", type = String.class),
-        @ColumnResult(name = "keHoachTamUng", type = String.class) }))
+        @ColumnResult(name = "keHoachTamUng", type = String.class),
+        @ColumnResult(name = "noteTamUng", type = String.class), }))
 
 /* ===== Set mapping: ReportDetailTabQuaTrinhDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ReportDetailTabQuaTrinhDTO", classes = @ConstructorResult(targetClass = ReportDetailTabQuaTrinhDTO.class, columns = {
