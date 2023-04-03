@@ -66,7 +66,7 @@ public class ReportDetailTabCptgDTO {
         LocalDate muc_tieu = null;
         LocalDate thuc_te = null;
 
-        if (dateMucTieu == null || dateMucTieu.isEmpty() || dateMucTieu.trim().isEmpty()) {
+        if (dateMucTieu != null && !dateMucTieu.isEmpty() && !dateMucTieu.trim().isEmpty()) {
             muc_tieu = LocalDate.parse(dateMucTieu, dateFormatter);
 
             if (dateThucTe == null || dateThucTe.isEmpty() || dateThucTe.trim().isEmpty()) {
