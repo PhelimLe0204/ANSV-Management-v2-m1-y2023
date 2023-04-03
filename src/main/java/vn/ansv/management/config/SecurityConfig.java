@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author pavan.solapure
@@ -39,8 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordParameter("password")
 				.defaultSuccessUrl("/dashboard") // Login success -> Return dashboard page
 				.and().logout()
-				.logoutUrl("/appLogout")
-				.logoutSuccessUrl("/login") // Logout success -> Return login page
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login")
+				.invalidateHttpSession(true) // set invalidation state when logout
+				.deleteCookies("JSESSIONID")
 				.and().exceptionHandling()
 				.accessDeniedPage("/accessDenied");
 	}
