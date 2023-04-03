@@ -21,7 +21,7 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
 
 /* ===== UserRepository.defineByUsername() ===== */
 @NamedNativeQuery(name = "UserEntity.defineByUsername", query = "SELECT "
-        + "u.id, r.role_name AS userRole FROM user AS u "
+        + "u.id, r.role_name AS userRole, u.avatar FROM user AS u "
         + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
         + "INNER JOIN role AS r ON ur.role_id = r.id "
         + "WHERE u.username = :username", resultSetMapping = "Mapping.UserDefineDTO")
@@ -29,7 +29,8 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
 /* ===== Set mapping: UserDefineDTO ===== */
 @SqlResultSetMapping(name = "Mapping.UserDefineDTO", classes = @ConstructorResult(targetClass = UserDefineDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
-        @ColumnResult(name = "userRole", type = String.class) }))
+        @ColumnResult(name = "userRole", type = String.class),
+        @ColumnResult(name = "avatar", type = String.class) }))
 
 /* ===== UserRepository.findAllUserOption() ===== */
 @NamedNativeQuery(name = "UserEntity.findAllUserOption", query = "SELECT "

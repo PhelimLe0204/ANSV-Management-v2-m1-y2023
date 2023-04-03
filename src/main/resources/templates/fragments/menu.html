@@ -10,10 +10,12 @@
 
                 <div class="">
                     <div class="main-menu-header">
-                        <img class="img-radius" th:src="@{/images/user/avatar-8.png}" alt="User-Profile-Image">
+                        <img th:src="${avatar} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${avatar}}"
+                            alt="user image" class="img-radius align-top m-r-15" style="width: 46px !important;">
                         <div class="user-details">
                             <div id="more-details">
-                                Lê Văn Thành <i class="fa fa-caret-down"></i>
+                                <th:block th:text="${userName}"></th:block>
+                                <i class="fa fa-caret-down"></i>
                             </div>
                         </div>
                     </div>
@@ -63,12 +65,36 @@
 
                                 <th:block th:if="${menu_level_1.getInclude() == 1}">
                                     <ul class="pcoded-submenu">
-                                        <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
-                                            <li>
-                                                <a th:href="'/' + ${menu_level_2.getLink()}"
-                                                    th:text="${menu_level_2.getMenuName()}"></a>
-                                            </li>
+                                        <!-- Điều kiện PM -->
+                                        <th:block th:if="${userRole} == 'Manager_PM'">
+                                            <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()} "
+                                                th:if="${menu_level_2.getMenuName()} != 'KD Viễn thông' and ${menu_level_2.getMenuName()} != 'KD Chuyển đổi số'">
+                                                <li>
+                                                    <a th:href="'/' + ${menu_level_2.getLink()}"
+                                                        th:text="${menu_level_2.getMenuName()}"></a>
+                                                </li>
+                                            </th:block>
                                         </th:block>
+
+                                        <!-- Điều kiện AM -->
+                                        <th:block th:if="${userRole} == 'Manager_AM'">
+                                            <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()} " th:if="${menu_level_2.getMenuName()} != 'Triển khai'">
+                                                <li>
+                                                    <a th:href="'/' + ${menu_level_2.getLink()}"
+                                                        th:text="${menu_level_2.getMenuName()}"></a>
+                                                </li>
+                                            </th:block>
+                                        </th:block>
+
+                                        <th:block th:if="${userRole} != 'Manager_PM' and ${userRole} != 'Manager_AM'">
+                                            <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
+                                                <li>
+                                                    <a th:href="'/' + ${menu_level_2.getLink()}"
+                                                        th:text="${menu_level_2.getMenuName()}"></a>
+                                                </li>
+                                            </th:block>
+                                        </th:block>
+
                                     </ul>
                                 </th:block>
                             </li>

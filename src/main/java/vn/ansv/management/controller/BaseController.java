@@ -40,7 +40,9 @@ public class BaseController {
         session.setAttribute("currentWeek", getWeekOfYear(trialTime));
         session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
         userSession(session);
-
+        _mvShare.addObject("userName", session.getAttribute("username"));
+        _mvShare.addObject("userRole", session.getAttribute("userRole"));
+        _mvShare.addObject("avatar", session.getAttribute("avatar"));
         _mvShare.addObject("menuCategoryLayout", menuCategoryLayout);
         return _mvShare;
     }
@@ -49,7 +51,10 @@ public class BaseController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            session.setAttribute("userId", userService.userDefine(currentUserName));
+            session.setAttribute("userId", userService.userDefine(currentUserName).getId());
+            session.setAttribute("userRole", userService.userDefine(currentUserName).getUserRole());
+            session.setAttribute("avatar", userService.userDefine(currentUserName).getAvatar());
+
             session.setAttribute("username", currentUserName);
             // return currentUserName;
         }
