@@ -4,7 +4,7 @@
             <table class="table table-striped table-hover table-borderless">
                 <thead>
                     <tr class="bg-primary text-white">
-                        <td class="align-middle font-weight-bold text-center" style="width: 153px;">Kế hoạch</td>
+                        <td class="align-middle font-weight-bold text-center" style="width: 12%;">Kế hoạch</td>
                         <td class="align-middle font-weight-bold text-center">Số tiền (VNĐ)</td>
                         <td class="table-td-date align-middle font-weight-bold text-center">
                             Hợp đồng (D / M / Y)</td>
@@ -12,165 +12,65 @@
                             Mục tiêu (D / M / Y)</td>
                         <td class="table-td-date align-middle font-weight-bold text-center">
                             Thực tế (D / M / Y)</td>
-                        <td class="align-middle font-weight-bold text-center" style="width: 160px;">Ghi chú</td>
+                        <td class="align-middle font-weight-bold text-center" style="width: 160px;">Báo hạn</td>
+                        <td class="align-middle font-weight-bold text-center">Ghi chú</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="border-top border-white">
                         <td class="bg-primary align-middle text-center text-white font-weight-bold">
-                            DAC
-                        </td>
+                            Giao hàng</td>
                         <td class="p-2">
-                            <input type="text" name="soTienDac" id="so_tien_dac"
-                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền DAC...">
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="hopDongDac" id="hop_dong_dac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="hop_dong_dac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="mucTieuDac" id="muc_tieu_dac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-related-id="thuc_te_dac"
-                                data-calculate-result="chenh_lech_dac" data-allow-change-status="0" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="muc_tieu_dac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="thucTeDac" id="thuc_te_dac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-related-id="muc_tieu_dac"
-                                data-calculate-result="chenh_lech_dac" data-allow-change-status="1" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="thuc_te_dac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="align-middle text-center">
-                            <i class="fa-solid fa-square" data-status-for="thuc_te_dac" style="font-size: 20px;"></i>
-                            <span id="chenh_lech_dac"></span>
-                        </td>
-                    </tr>
-                    <tr class="border-top border-white">
-                        <td class="bg-primary align-middle text-center text-white font-weight-bold">
-                            PAC
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="soTienPac" id="so_tien_pac"
-                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền PAC...">
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="hopDongPac" id="hop_dong_pac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="hop_dong_pac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="mucTieuPac" id="muc_tieu_pac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-related-id="thuc_te_pac"
-                                data-calculate-result="chenh_lech_pac" data-allow-change-status="0" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="muc_tieu_pac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="thucTePac" id="thuc_te_pac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-related-id="muc_tieu_pac"
-                                data-calculate-result="chenh_lech_pac" data-allow-change-status="1" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="thuc_te_pac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="align-middle text-center">
-                            <!-- <i id="pac_status" class="fa-sharp fa-solid fa-square-check text-primary"
-                                data-status-for="thuc_te_pac" style="font-size: 20px;"></i> -->
-                            <i class="fa-solid fa-square" data-status-for="thuc_te_pac" style="font-size: 20px;"></i>
-                            <span id="chenh_lech_pac"></span>
-                        </td>
-                    </tr>
-                    <tr class="border-top border-white">
-                        <td class="bg-primary align-middle text-center text-white font-weight-bold">
-                            FAC
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="soTienFac" id="so_tien_fac"
-                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền FAC...">
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="hopDongFac" id="hop_dong_fac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="hop_dong_fac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="mucTieuFac" id="muc_tieu_fac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-related-id="thuc_te_fac"
-                                data-calculate-result="chenh_lech_fac" data-allow-change-status="0" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="muc_tieu_fac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="thucTeFac" id="thuc_te_fac"
-                                class="form-control text-center input-datepicker float-left"
-                                placeholder="dd / mm / yyyy" data-related-id="muc_tieu_fac"
-                                data-calculate-result="chenh_lech_fac" data-allow-change-status="1" readonly="">
-                            <button type="button"
-                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="thuc_te_fac">
-                                <i class="feather icon-x"></i>
-                            </button>
-                        </td>
-                        <td class="align-middle text-center">
-                            <i class="fa-solid fa-square" data-status-for="thuc_te_fac" style="font-size: 20px;"></i>
-                            <span id="chenh_lech_fac"></span>
-                        </td>
-                    </tr>
-                    <tr class="border-top border-white">
-                        <td class="bg-primary align-middle text-center text-white font-weight-bold">
-                            Tổng giá trị thực tế
-                        </td>
-                        <td class="p-2">
-                            <input type="text" name="tongGiaTriThucTe" id="tong_gia_tri_thuc_te"
+                            <input type="text" name="soTienGiaoHang" id="so_tien_giao_hang"
                                 class="form-control text-center table-bg-form-input"
-                                placeholder="Nhập tổng giá trị thực tế...">
+                                placeholder="Nhập số tiền giao hàng...">
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="p-2">
+                            <input type="text" name="hopDongGiaoHang" id="hop_dong_giao_hang"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="hop_dong_giao_hang">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="mucTieuGiaoHang" id="muc_tieu_giao_hang"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="thuc_te_giao_hang"
+                                data-calculate-result="chenh_lech_giao_hang" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="muc_tieu_giao_hang">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="thucTeGiaoHang" id="thuc_te_giao_hang"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="muc_tieu_giao_hang"
+                                data-calculate-result="chenh_lech_giao_hang" data-allow-change-status="1" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="thuc_te_giao_hang">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="align-middle text-center">
+                            <i class="fa-solid fa-square" data-status-for="thuc_te_giao_hang"
+                                style="font-size: 20px;"></i>
+                            <span id="chenh_lech_giao_hang"></span>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="noteGiaoHang" id="note_giao_hang"
+                                class="form-control text-center table-bg-form-input"
+                                placeholder="Nhập ghi chú giao hàng...">
+                        </td>
                     </tr>
                     <tr class="border-top border-white">
                         <td class="bg-primary align-middle text-center text-white font-weight-bold">
-                            Tạm ứng
-                        </td>
+                            Tạm ứng</td>
                         <td class="p-2">
                             <input type="text" name="soTienTamUng" id="so_tien_tam_ung"
                                 class="form-control text-center table-bg-form-input"
@@ -183,12 +83,181 @@
                                 placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
                             <button type="button"
                                 class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                style="width: 27px; height: 43px; padding-top: 2px;" data-target="ke_hoach_tam_ung">
+                                data-target="ke_hoach_tam_ung">
                                 <i class="feather icon-x"></i>
                             </button>
                         </td>
                         <td></td>
                         <td></td>
+                        <td class="p-2">
+                            <input type="text" name="noteTamUng" id="note_tam_ung"
+                                class="form-control text-center table-bg-form-input"
+                                placeholder="Nhập ghi chú tạm ứng...">
+                        </td>
+                    </tr>
+                    <tr class="border-top border-white">
+                        <td class="bg-primary align-middle text-center text-white font-weight-bold">
+                            DAC</td>
+                        <td class="p-2">
+                            <input type="text" name="soTienDac" id="so_tien_dac"
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền DAC...">
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="hopDongDac" id="hop_dong_dac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="hop_dong_dac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="mucTieuDac" id="muc_tieu_dac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="thuc_te_dac"
+                                data-calculate-result="chenh_lech_dac" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="muc_tieu_dac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="thucTeDac" id="thuc_te_dac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="muc_tieu_dac"
+                                data-calculate-result="chenh_lech_dac" data-allow-change-status="1" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="thuc_te_dac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="align-middle text-center">
+                            <i class="fa-solid fa-square" data-status-for="thuc_te_dac" style="font-size: 20px;"></i>
+                            <span id="chenh_lech_dac"></span>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="noteDac" id="note_dac"
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú DAC...">
+                        </td>
+                    </tr>
+                    <tr class="border-top border-white">
+                        <td class="bg-primary align-middle text-center text-white font-weight-bold">
+                            PAC</td>
+                        <td class="p-2">
+                            <input type="text" name="soTienPac" id="so_tien_pac"
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền PAC...">
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="hopDongPac" id="hop_dong_pac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="hop_dong_pac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="mucTieuPac" id="muc_tieu_pac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="thuc_te_pac"
+                                data-calculate-result="chenh_lech_pac" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="muc_tieu_pac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="thucTePac" id="thuc_te_pac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="muc_tieu_pac"
+                                data-calculate-result="chenh_lech_pac" data-allow-change-status="1" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="thuc_te_pac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="align-middle text-center">
+                            <!-- <i id="pac_status" class="fa-sharp fa-solid fa-square-check text-primary"
+                                data-status-for="thuc_te_pac" style="font-size: 20px;"></i> -->
+                            <i class="fa-solid fa-square" data-status-for="thuc_te_pac" style="font-size: 20px;"></i>
+                            <span id="chenh_lech_pac"></span>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="notePac" id="note_pac"
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú PAC...">
+                        </td>
+                    </tr>
+                    <tr class="border-top border-white">
+                        <td class="bg-primary align-middle text-center text-white font-weight-bold">
+                            FAC</td>
+                        <td class="p-2">
+                            <input type="text" name="soTienFac" id="so_tien_fac"
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền FAC...">
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="hopDongFac" id="hop_dong_fac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="hop_dong_fac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="mucTieuFac" id="muc_tieu_fac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="thuc_te_fac"
+                                data-calculate-result="chenh_lech_fac" data-allow-change-status="0" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="muc_tieu_fac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="thucTeFac" id="thuc_te_fac"
+                                class="form-control text-center input-datepicker float-left"
+                                placeholder="dd / mm / yyyy" data-related-id="muc_tieu_fac"
+                                data-calculate-result="chenh_lech_fac" data-allow-change-status="1" readonly="">
+                            <button type="button"
+                                class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
+                                data-target="thuc_te_fac">
+                                <i class="feather icon-x"></i>
+                            </button>
+                        </td>
+                        <td class="align-middle text-center">
+                            <i class="fa-solid fa-square" data-status-for="thuc_te_fac" style="font-size: 20px;"></i>
+                            <span id="chenh_lech_fac"></span>
+                        </td>
+                        <td class="p-2">
+                            <input type="text" name="noteFac" id="note_fac"
+                                class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú FAC...">
+                        </td>
+                    </tr>
+                    <tr class="border-top border-white">
+                        <td class="bg-primary align-middle text-center text-white font-weight-bold pt-0 pb-0">
+                            Tổng giá trị<br>thực tế</td>
+                        <td class="p-2">
+                            <input type="text" name="tongGiaTriThucTe" id="tong_gia_tri_thuc_te"
+                                class="form-control text-center table-bg-form-input"
+                                placeholder="Nhập tổng giá trị thực tế...">
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="p-2">
+                            <input type="text" name="noteTongGiaTri" id="note_tong_gia_tri"
+                                class="form-control text-center table-bg-form-input"
+                                placeholder="Nhập ghi chú tổng giá trị...">
+                        </td>
                     </tr>
                 </tbody>
             </table>

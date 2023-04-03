@@ -4,27 +4,32 @@
 }
 
 .input-datepicker {
-    width: 89%;
+    width: 88%;
+    /* width: 120px; */
 }
 
 .input-datepicker:focus {
     background-color: #FFF;
 }
 
-tbody {
+.btn-delete-input {
+    width: 12%;
+    height: 43px;
+}
+
+.table-list-report tbody {
     display: block;
-    /* height: 400px; */
     overflow: auto;
 }
 
-thead,
-tbody tr {
+.table-list-report thead,
+.table-list-report tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
 }
 
-thead {
+.table-list-report thead {
     /* scrollbar is average 1em/16px width, remove it from thead width */
     width: calc(100% - 1em);
 }

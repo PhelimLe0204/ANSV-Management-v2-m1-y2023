@@ -227,21 +227,25 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     @Modifying
     @Query(value = "INSERT INTO project_report (uid, am_id, am_manager_id, pm_id, pm_manager_id, "
             + "created_by, project_id, project_type_id, project_priority_id, project_status_id, "
-            + "week, year, ma_hop_dong, ma_ke_toan, currency_unit_id, job_name, description, "
-            + "enabled, muc_do_kha_thi, tong_muc_dau_tu_du_kien, hinh_thuc_dau_tu, "
-            + "pham_vi_cung_cap, phan_tich_swoot, so_tien_dac, hop_dong_dac, muc_tieu_dac, "
-            + "thuc_te_dac, so_tien_pac, hop_dong_pac, muc_tieu_pac, thuc_te_pac, so_tien_fac, "
-            + "hop_dong_fac, muc_tieu_fac, thuc_te_fac, tong_gia_tri_thuc_te, so_tien_tam_ung, "
-            + "ke_hoach_tam_ung, tien_do_chung, general_issue, solution, ke_hoach_tuan_nay, ke_hoach_tuan_sau, "
-            + "ket_qua_tuan_truoc, ket_qua_tuan_nay) "
-            + "VALUES (:uid, :amId, :amManagerId, :pmId, :pmManagerId, :createdBy, "
-            + ":projectId, :projectTypeId, :projectPriorityId, :projectStatusId, :week, :year, "
-            + ":maHopDong, :maKeToan, :currencyUnitId, :jobName, :description, :enabled, :mucDoKhaThi, "
-            + ":tongMucDauTuDuKien, :hinhThucDauTu, :phamViCungCap, :phanTichSwoot, :soTienDac, "
-            + ":hopDongDac, :mucTieuDac, :thucTeDac, :soTienPac, :hopDongPac, :mucTieuPac, "
-            + ":thucTePac, :soTienFac, :hopDongFac, :mucTieuFac, :thucTeFac, :tongGiaTriThucTe, "
-            + ":soTienTamUng, :keHoachTamUng, :tienDoChung, :generalIssue, :solution, :keHoachTuanNay, "
-            + ":keHoachTuanSau, :ketQuaTuanTruoc, :ketQuaTuanNay)", nativeQuery = true)
+            + "week, year, ma_hop_dong, ma_ke_toan, currency_unit_id, job_name, description, enabled, "
+            + "muc_do_kha_thi, tong_muc_dau_tu_du_kien, hinh_thuc_dau_tu, pham_vi_cung_cap, "
+            + "phan_tich_swoot, so_tien_giao_hang, hop_dong_giao_hang, muc_tieu_giao_hang, "
+            + "thuc_te_giao_hang, note_giao_hang, so_tien_dac, hop_dong_dac, muc_tieu_dac, "
+            + "thuc_te_dac, note_dac, so_tien_pac, hop_dong_pac, muc_tieu_pac, thuc_te_pac, note_pac, "
+            + "so_tien_fac, hop_dong_fac, muc_tieu_fac, thuc_te_fac, note_fac, tong_gia_tri_thuc_te, "
+            + "note_tong_gia_tri, so_tien_tam_ung, ke_hoach_tam_ung, note_tam_ung, tien_do_chung, "
+            + "general_issue, solution, ke_hoach_tuan_nay, ke_hoach_tuan_sau, ket_qua_tuan_truoc, "
+            + "ket_qua_tuan_nay) "
+            + "VALUES (:uid, :amId, :amManagerId, :pmId, :pmManagerId, :createdBy, :projectId, "
+            + ":projectTypeId, :projectPriorityId, :projectStatusId, :week, :year, :maHopDong, "
+            + ":maKeToan, :currencyUnitId, :jobName, :description, :enabled, :mucDoKhaThi, "
+            + ":tongMucDauTuDuKien, :hinhThucDauTu, :phamViCungCap, :phanTichSwoot, :soTienGiaoHang, "
+            + ":hopDongGiaoHang, :mucTieuGiaoHang, :thucTeGiaoHang, :noteGiaoHang, :soTienDac, "
+            + ":hopDongDac, :mucTieuDac, :thucTeDac, :noteDac, :soTienPac, :hopDongPac, :mucTieuPac, "
+            + ":thucTePac, :notePac, :soTienFac, :hopDongFac, :mucTieuFac, :thucTeFac, :noteFac, "
+            + ":tongGiaTriThucTe, :noteTongGiaTri, :soTienTamUng, :keHoachTamUng, :noteTamUng, "
+            + ":tienDoChung, :generalIssue, :solution, :keHoachTuanNay, :keHoachTuanSau, "
+            + ":ketQuaTuanTruoc, :ketQuaTuanNay)", nativeQuery = true)
     void addNewReport(@Param("uid") String uid, @Param("amId") Long amId, @Param("amManagerId") Long amManagerId,
             @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId, @Param("createdBy") String createdBy,
             @Param("projectId") Long projectId, @Param("projectTypeId") Long projectTypeId,
@@ -252,14 +256,21 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("enabled") Integer enabled, @Param("mucDoKhaThi") Integer mucDoKhaThi,
             @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien, @Param("hinhThucDauTu") String hinhThucDauTu,
             @Param("phamViCungCap") String phamViCungCap, @Param("phanTichSwoot") String phanTichSwoot,
+            @Param("soTienGiaoHang") String soTienGiaoHang, @Param("hopDongGiaoHang") String hopDongGiaoHang,
+            @Param("mucTieuGiaoHang") String mucTieuGiaoHang, @Param("thucTeGiaoHang") String thucTeGiaoHang,
+            @Param("noteGiaoHang") String noteGiaoHang,
             @Param("soTienDac") String soTienDac, @Param("hopDongDac") String hopDongDac,
             @Param("mucTieuDac") String mucTieuDac, @Param("thucTeDac") String thucTeDac,
+            @Param("noteDac") String noteDac,
             @Param("soTienPac") String soTienPac, @Param("hopDongPac") String hopDongPac,
             @Param("mucTieuPac") String mucTieuPac, @Param("thucTePac") String thucTePac,
+            @Param("notePac") String notePac,
             @Param("soTienFac") String soTienFac, @Param("hopDongFac") String hopDongFac,
             @Param("mucTieuFac") String mucTieuFac, @Param("thucTeFac") String thucTeFac,
-            @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("soTienTamUng") String soTienTamUng,
-            @Param("keHoachTamUng") String keHoachTamUng, @Param("tienDoChung") String tienDoChung,
+            @Param("noteFac") String noteFac,
+            @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("noteTongGiaTri") String noteTongGiaTri,
+            @Param("soTienTamUng") String soTienTamUng, @Param("keHoachTamUng") String keHoachTamUng,
+            @Param("noteTamUng") String noteTamUng, @Param("tienDoChung") String tienDoChung,
             @Param("generalIssue") String generalIssue, @Param("solution") String solution,
             @Param("keHoachTuanNay") String keHoachTuanNay, @Param("keHoachTuanSau") String keHoachTuanSau,
             @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc, @Param("ketQuaTuanNay") String ketQuaTuanNay);

@@ -136,6 +136,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="soTienGiaoHang" id="so_tien_giao_hang"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập số tiền giao hàng..."
                                                             th:data-first="${detailTabCptg.getSoTienGiaoHang()}"
                                                             th:value="${detailTabCptg.getSoTienGiaoHang()}">
                                                     </td>
@@ -149,7 +150,6 @@
                                                             readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="hop_dong_giao_hang">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -167,7 +167,6 @@
                                                             readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="muc_tieu_giao_hang">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -183,18 +182,17 @@
                                                             th:value="${detailTabCptg.getThucTeGiaoHang()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="thuc_te_giao_hang">
                                                             <i class="feather icon-x"></i>
                                                         </button>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <th:block th:if="${detailTabCptg.getThucTeGiaoHang() == ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeGiaoHang() != null}">
                                                             <i class="fa-sharp fa-solid fa-square-check text-primary"
                                                                 data-status-for="thuc_te_giao_hang"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
-                                                        <th:block th:if="${detailTabCptg.getThucTeGiaoHang() != ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeGiaoHang() == null}">
                                                             <i class="fa-solid fa-square"
                                                                 data-status-for="thuc_te_giao_hang"
                                                                 style="font-size: 20px;"></i>
@@ -205,6 +203,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="noteGiaoHang" id="note_giao_hang"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập ghi chú giao hàng..."
                                                             th:data-first="${detailTabCptg.getNoteGiaoHang()}"
                                                             th:value="${detailTabCptg.getNoteGiaoHang()}">
                                                     </td>
@@ -216,6 +215,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="soTienTamUng" id="so_tien_tam_ung"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập số tiền tạm ứng..."
                                                             th:data-first="${detailTabCptg.getSoTienTamUng()}"
                                                             th:value="${detailTabCptg.getSoTienTamUng()}">
                                                     </td>
@@ -228,7 +228,6 @@
                                                             th:value="${detailTabCptg.getKeHoachTamUng()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="ke_hoach_tam_ung">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -238,6 +237,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="noteTamUng" id="note_tam_ung"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập ghi chú tạm ứng..."
                                                             th:data-first="${detailTabCptg.getNoteTamUng()}"
                                                             th:value="${detailTabCptg.getNoteTamUng()}">
                                                     </td>
@@ -249,6 +249,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="soTienDac" id="so_tien_dac"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập số tiền DAC..."
                                                             th:data-first="${detailTabCptg.getSoTienDac()}"
                                                             th:value="${detailTabCptg.getSoTienDac()}">
                                                     </td>
@@ -260,7 +261,6 @@
                                                             th:value="${detailTabCptg.getHopDongDac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="hop_dong_dac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -275,7 +275,6 @@
                                                             th:value="${detailTabCptg.getMucTieuDac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="muc_tieu_dac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -290,18 +289,17 @@
                                                             th:value="${detailTabCptg.getThucTeDac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="thuc_te_dac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <th:block th:if="${detailTabCptg.getThucTeDac() == ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeDac() != null}">
                                                             <i class="fa-sharp fa-solid fa-square-check text-primary"
                                                                 data-status-for="thuc_te_dac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
-                                                        <th:block th:if="${detailTabCptg.getThucTeDac() != ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeDac() == null}">
                                                             <i class="fa-solid fa-square" data-status-for="thuc_te_dac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
@@ -311,6 +309,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="noteDac" id="note_dac"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập ghi chú DAC..."
                                                             th:data-first="${detailTabCptg.getNoteDac()}"
                                                             th:value="${detailTabCptg.getNoteDac()}">
                                                     </td>
@@ -322,6 +321,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="soTienPac" id="so_tien_pac"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập số tiền PAC..."
                                                             th:data-first="${detailTabCptg.getSoTienPac()}"
                                                             th:value="${detailTabCptg.getSoTienPac()}">
                                                     </td>
@@ -333,7 +333,6 @@
                                                             th:value="${detailTabCptg.getHopDongPac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="hop_dong_pac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -348,7 +347,6 @@
                                                             th:value="${detailTabCptg.getMucTieuPac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="muc_tieu_pac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -363,7 +361,6 @@
                                                             th:value="${detailTabCptg.getThucTePac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="thuc_te_pac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -384,6 +381,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="notePac" id="note_pac"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập ghi chú PAC..."
                                                             th:data-first="${detailTabCptg.getNotePac()}"
                                                             th:value="${detailTabCptg.getNotePac()}">
                                                     </td>
@@ -395,6 +393,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="soTienFac" id="so_tien_fac"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập số tiền FAC..."
                                                             th:data-first="${detailTabCptg.getSoTienFac()}"
                                                             th:value="${detailTabCptg.getSoTienFac()}">
                                                     </td>
@@ -406,7 +405,6 @@
                                                             th:value="${detailTabCptg.getHopDongFac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="hop_dong_fac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -421,7 +419,6 @@
                                                             th:value="${detailTabCptg.getMucTieuFac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="muc_tieu_fac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -436,7 +433,6 @@
                                                             th:value="${detailTabCptg.getThucTeFac()}" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            style="width: 27px; height: 43px; padding-top: 2px;"
                                                             data-target="thuc_te_fac">
                                                             <i class="feather icon-x"></i>
                                                         </button>
@@ -457,18 +453,20 @@
                                                     <td class="p-2">
                                                         <input type="text" name="noteFac" id="note_fac"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập ghi chú FAC..."
                                                             th:data-first="${detailTabCptg.getNoteFac()}"
                                                             th:value="${detailTabCptg.getNoteFac()}">
                                                     </td>
                                                 </tr>
                                                 <tr class="border-top border-white">
                                                     <td
-                                                        class="bg-primary align-middle text-center text-white font-weight-bold">
+                                                        class="bg-primary align-middle text-center text-white font-weight-bold pt-0 pb-0">
                                                         Tổng giá trị<br>thực tế</td>
                                                     <td class="p-2">
                                                         <input type="text" name="tongGiaTriThucTe"
                                                             id="tong_gia_tri_thuc_te"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập tổng giá trị thực tế..."
                                                             th:data-first="${detailTabCptg.getTongGiaTriThucTe()}"
                                                             th:value="${detailTabCptg.getTongGiaTriThucTe()}">
                                                     </td>
@@ -479,6 +477,7 @@
                                                     <td class="p-2">
                                                         <input type="text" name="noteTongGiaTri" id="note_tong_gia_tri"
                                                             class="form-control text-center table-bg-form-input"
+                                                            placeholder="Nhập ghi chú tổng giá trị thực tế..."
                                                             th:data-first="${detailTabCptg.getNoteTongGiaTri()}"
                                                             th:value="${detailTabCptg.getNoteTongGiaTri()}">
                                                     </td>
