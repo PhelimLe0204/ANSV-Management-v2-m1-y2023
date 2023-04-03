@@ -38,22 +38,32 @@ public class AddNewReportDTO {
     private String phamViCungCap;
     private String phanTichSwoot;
 
-    // Tab 3 (15)
+    // Tab 3 (25)
+    private String soTienGiaoHang;
+    private String hopDongGiaoHang;
+    private String mucTieuGiaoHang;
+    private String thucTeGiaoHang;
+    private String noteGiaoHang;
     private String soTienDac;
     private String hopDongDac;
     private String mucTieuDac;
     private String thucTeDac;
+    private String noteDac;
     private String soTienPac;
     private String hopDongPac;
     private String mucTieuPac;
     private String thucTePac;
+    private String notePac;
     private String soTienFac;
     private String hopDongFac;
     private String mucTieuFac;
     private String thucTeFac;
+    private String noteFac;
     private String tongGiaTriThucTe;
+    private String noteTongGiaTri;
     private String soTienTamUng;
     private String keHoachTamUng;
+    private String noteTamUng;
 
     // Tab 4 (7)
     private String tienDoChung;
@@ -71,11 +81,13 @@ public class AddNewReportDTO {
             Date createdDate, Long projectId, Long projectTypeId, Long projectPriorityId, Long projectStatusId,
             int week, int year, String maHopDong, String maKeToan, Long currencyUnitId, String jobName, Long customerId,
             String description, Integer mucDoKhaThi, String tongMucDauTuDuKien, String hinhThucDauTu,
-            String phamViCungCap, String phanTichSwoot, String soTienDac, String hopDongDac, String mucTieuDac,
-            String thucTeDac, String soTienPac, String hopDongPac, String mucTieuPac, String thucTePac,
-            String soTienFac, String hopDongFac, String mucTieuFac, String thucTeFac, String tongGiaTriThucTe,
-            String soTienTamUng, String keHoachTamUng, String tienDoChung, String generalIssue, String solution,
-            String keHoachTuanNay, String keHoachTuanSau, String ketQuaTuanTruoc, String ketQuaTuanNay) {
+            String phamViCungCap, String phanTichSwoot, String soTienGiaoHang, String hopDongGiaoHang,
+            String mucTieuGiaoHang, String thucTeGiaoHang, String noteGiaoHang, String soTienDac, String hopDongDac,
+            String mucTieuDac, String thucTeDac, String noteDac, String soTienPac, String hopDongPac, String mucTieuPac,
+            String thucTePac, String notePac, String soTienFac, String hopDongFac, String mucTieuFac, String thucTeFac,
+            String noteFac, String tongGiaTriThucTe, String noteTongGiaTri, String soTienTamUng, String keHoachTamUng,
+            String noteTamUng, String tienDoChung, String generalIssue, String solution, String keHoachTuanNay,
+            String keHoachTuanSau, String ketQuaTuanTruoc, String ketQuaTuanNay) {
         this.uid = uid;
         this.amId = amId;
         this.pmId = pmId;
@@ -100,21 +112,31 @@ public class AddNewReportDTO {
         this.hinhThucDauTu = hinhThucDauTu;
         this.phamViCungCap = phamViCungCap;
         this.phanTichSwoot = phanTichSwoot;
+        this.soTienGiaoHang = soTienGiaoHang;
+        this.hopDongGiaoHang = hopDongGiaoHang;
+        this.mucTieuGiaoHang = mucTieuGiaoHang;
+        this.thucTeGiaoHang = thucTeGiaoHang;
+        this.noteGiaoHang = noteGiaoHang;
         this.soTienDac = soTienDac;
         this.hopDongDac = hopDongDac;
         this.mucTieuDac = mucTieuDac;
         this.thucTeDac = thucTeDac;
+        this.noteDac = noteDac;
         this.soTienPac = soTienPac;
         this.hopDongPac = hopDongPac;
         this.mucTieuPac = mucTieuPac;
         this.thucTePac = thucTePac;
+        this.notePac = notePac;
         this.soTienFac = soTienFac;
         this.hopDongFac = hopDongFac;
         this.mucTieuFac = mucTieuFac;
         this.thucTeFac = thucTeFac;
+        this.noteFac = noteFac;
         this.tongGiaTriThucTe = tongGiaTriThucTe;
+        this.noteTongGiaTri = noteTongGiaTri;
         this.soTienTamUng = soTienTamUng;
         this.keHoachTamUng = keHoachTamUng;
+        this.noteTamUng = noteTamUng;
         this.tienDoChung = tienDoChung;
         this.generalIssue = generalIssue;
         this.solution = solution;

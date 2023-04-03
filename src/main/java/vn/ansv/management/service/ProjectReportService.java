@@ -280,19 +280,24 @@ public class ProjectReportService implements IProjectReport {
                     dataInsert.getMaHopDong(), dataInsert.getMaKeToan(), dataInsert.getCurrencyUnitId(),
                     dataInsert.getJobName(), dataInsert.getDescription(), 1, dataInsert.getMucDoKhaThi(),
                     dataInsert.getTongMucDauTuDuKien(), dataInsert.getHinhThucDauTu(), dataInsert.getPhamViCungCap(),
-                    dataInsert.getPhanTichSwoot(), dataInsert.getSoTienDac(),
+                    dataInsert.getPhanTichSwoot(), dataInsert.getSoTienGiaoHang(),
+                    (dataInsert.getHopDongGiaoHang().length() != 0) ? dataInsert.getHopDongGiaoHang() : null,
+                    (dataInsert.getMucTieuGiaoHang().length() != 0) ? dataInsert.getMucTieuGiaoHang() : null,
+                    (dataInsert.getThucTeGiaoHang().length() != 0) ? dataInsert.getThucTeGiaoHang() : null,
+                    dataInsert.getNoteGiaoHang(), dataInsert.getSoTienDac(),
                     (dataInsert.getHopDongDac().length() != 0) ? dataInsert.getHopDongDac() : null,
                     (dataInsert.getMucTieuDac().length() != 0) ? dataInsert.getMucTieuDac() : null,
                     (dataInsert.getThucTeDac().length() != 0) ? dataInsert.getThucTeDac() : null,
-                    dataInsert.getSoTienPac(),
+                    dataInsert.getNoteDac(), dataInsert.getSoTienPac(),
                     (dataInsert.getHopDongPac().length() != 0) ? dataInsert.getHopDongPac() : null,
                     (dataInsert.getMucTieuPac().length() != 0) ? dataInsert.getMucTieuPac() : null,
                     (dataInsert.getThucTePac().length() != 0) ? dataInsert.getThucTePac() : null,
-                    dataInsert.getSoTienFac(),
+                    dataInsert.getNotePac(), dataInsert.getSoTienFac(),
                     (dataInsert.getHopDongFac().length() != 0) ? dataInsert.getHopDongFac() : null,
                     (dataInsert.getMucTieuFac().length() != 0) ? dataInsert.getMucTieuFac() : null,
                     (dataInsert.getThucTeFac().length() != 0) ? dataInsert.getThucTeFac() : null,
-                    dataInsert.getTongGiaTriThucTe(), dataInsert.getSoTienTamUng(), dataInsert.getKeHoachTamUng(),
+                    dataInsert.getNoteFac(), dataInsert.getTongGiaTriThucTe(), dataInsert.getNoteTongGiaTri(),
+                    dataInsert.getSoTienTamUng(), dataInsert.getKeHoachTamUng(), dataInsert.getNoteTamUng(),
                     dataInsert.getTienDoChung(), dataInsert.getGeneralIssue(), dataInsert.getSolution(),
                     dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(), dataInsert.getKetQuaTuanTruoc(),
                     dataInsert.getKetQuaTuanNay());
@@ -592,10 +597,11 @@ public class ProjectReportService implements IProjectReport {
                                 null, (row.getCell(7).getStringCellValue().length() != 0)
                                         ? row.getCell(7).getStringCellValue()
                                         : null,
-                                null, null, null, null,
-                                null, null, null, null,
-                                null, null, null, null,
-                                null, null, null, null,
+                                null, null, null, null, null,
+                                null, null, null, null, null,
+                                null, null, null, null, null,
+                                null, null, null, null, null,
+                                null, null, null, null, null, null,
                                 (row.getCell(8).getStringCellValue().length() != 0)
                                         ? row.getCell(8).getStringCellValue()
                                         : null,
@@ -840,6 +846,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null,
                                 null, 1, null, null,
                                 null, null, null,
+                                null, null, null, null, null,
                                 (row.getCell(6).getStringCellValue().length() != 0)
                                         ? row.getCell(6).getStringCellValue()
                                         : null,
@@ -852,6 +859,7 @@ public class ProjectReportService implements IProjectReport {
                                 (row.getCell(9).getStringCellValue().length() != 0)
                                         ? row.getCell(9).getStringCellValue()
                                         : null,
+                                null,
                                 (row.getCell(11).getStringCellValue().length() != 0)
                                         ? row.getCell(11).getStringCellValue()
                                         : null,
@@ -864,6 +872,7 @@ public class ProjectReportService implements IProjectReport {
                                 (row.getCell(14).getStringCellValue().length() != 0)
                                         ? row.getCell(14).getStringCellValue()
                                         : null,
+                                null,
                                 (row.getCell(16).getStringCellValue().length() != 0)
                                         ? row.getCell(16).getStringCellValue()
                                         : null,
@@ -876,10 +885,12 @@ public class ProjectReportService implements IProjectReport {
                                 (row.getCell(19).getStringCellValue().length() != 0)
                                         ? row.getCell(19).getStringCellValue()
                                         : null,
+                                null,
                                 (row.getCell(5).getStringCellValue().length() != 0)
                                         ? row.getCell(5).getStringCellValue()
                                         : null,
-                                null, null,
+                                null,
+                                null, null, null,
                                 (row.getCell(21).getStringCellValue().length() != 0)
                                         ? row.getCell(21).getStringCellValue()
                                         : null,

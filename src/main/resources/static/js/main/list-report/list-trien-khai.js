@@ -262,11 +262,11 @@ $("#btn-open-add-new-report-modal").click(function () {
         max: 100
     });
 
-    $("#hop_dong_dac, #hop_dong_pac, #hop_dong_fac, #ke_hoach_tam_ung").datepicker({
+    $("#hop_dong_giao_hang, #hop_dong_dac, #hop_dong_pac, #hop_dong_fac, #ke_hoach_tam_ung").datepicker({
         dateFormat: 'dd / mm / yy'
     });
 
-    $("#muc_tieu_dac, #muc_tieu_pac, #muc_tieu_fac").datepicker({
+    $("#muc_tieu_giao_hang, #muc_tieu_dac, #muc_tieu_pac, #muc_tieu_fac").datepicker({
         dateFormat: 'dd / mm / yy',
         onSelect: function (dateMucTieu) {
             // var related_id = $(this).attr("data-related-id"); // ID ngày thực tế tương ứng
@@ -302,7 +302,7 @@ $("#btn-open-add-new-report-modal").click(function () {
         }
     });
 
-    $("#thuc_te_dac, #thuc_te_pac, #thuc_te_fac").datepicker({
+    $("#thuc_te_giao_hang, #thuc_te_dac, #thuc_te_pac, #thuc_te_fac").datepicker({
         dateFormat: 'dd / mm / yy',
         onSelect: function (dateThucTe) {
             var this_id = $(this).attr("id");

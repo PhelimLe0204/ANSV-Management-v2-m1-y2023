@@ -178,11 +178,17 @@
 
 .input-datepicker {
     padding: 5px;
-    width: 120px;
+    /* width: 120px; */
+    width: 88%;
 }
 
 .input-datepicker:focus {
     background-color: #FFF;
+}
+
+.btn-delete-input {
+    width: 12%;
+    height: 43px;
 }
 
 
