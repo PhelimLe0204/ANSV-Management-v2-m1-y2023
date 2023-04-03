@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
@@ -31,6 +32,7 @@ import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectPriorityDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectStatusDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectTypeDTO;
+import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.ProjectPriorityService;
 import vn.ansv.management.service.ProjectReportMemberService;
 import vn.ansv.management.service.ProjectReportService;
@@ -60,6 +62,9 @@ public class HomeController extends BaseController {
 
     @Autowired // Inject "UserService" - Dependency Injection
     private UserService userService;
+
+    @Autowired // Inject "CustomerService" - Dependency Injection
+    private CustomerService customerService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String firstPage() {
@@ -222,5 +227,14 @@ public class HomeController extends BaseController {
             return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&status=2&tab=" + 5;
         }
         return "redirect:/chi-tiet?id=" + id;
+    }
+
+    @RequestMapping(value = "/danh-sach/khach-hang", method = RequestMethod.GET)
+    public ModelAndView viewCustomerList(HttpSession session, HttpServletRequest request) {
+        Init(session); // Lấy dữ liệu cơ bản
+        List<ListCustomerDTO> customerList = customerService.findAllList();
+        _mvShare.addObject("customerList", customerList);
+        _mvShare.setViewName("non-admin/customer/list-customer");
+        return _mvShare;
     }
 }

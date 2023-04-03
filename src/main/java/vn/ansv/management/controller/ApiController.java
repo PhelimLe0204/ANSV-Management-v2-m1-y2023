@@ -149,14 +149,25 @@ public class ApiController {
                 new ResponseObject("success", message, data));
     }
 
-    @GetMapping("/updateEnabled/{id}/{enabled}")
-    public ResponseEntity<ResponseObject> updateEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
+    @GetMapping("/member/updateEnabled/{id}/{enabled}")
+    public ResponseEntity<ResponseObject> updateMemberEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
         if (userService.updateUserEnabled(id, enabled)) {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("success", "Cập nhật trạng thái thành công", ""));
+                    new ResponseObject("success", "Cập nhật trạng thái thành viên thành công", ""));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("failed", "Cập nhật trạng thái thất bại", ""));
+                    new ResponseObject("failed", "Cập nhật trạng thái thành viên thất bại", ""));
+        }
+    }
+
+    @GetMapping("/customer/updateEnabled/{id}/{enabled}")
+    public ResponseEntity<ResponseObject> updateCustomerEnabled(@PathVariable Long id, @PathVariable Integer enabled) {
+        if (customerService.updateCustomerEnabled(id, enabled)) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cập nhật trạng thái khách hàng thành công", ""));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("failed", "Cập nhật trạng thái khách hàng thất bại", ""));
         }
     }
 

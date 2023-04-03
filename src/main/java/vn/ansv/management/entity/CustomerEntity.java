@@ -1,6 +1,7 @@
 package vn.ansv.management.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
+import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 
 /* ===== CustomerRepository.findAllSelectOption() ===== */
@@ -24,6 +26,23 @@ import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
         @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "avatar", type = String.class),
         @ColumnResult(name = "customerName", type = String.class) }))
+
+/* ===== CustomerRepository.findAllList() ===== */
+@NamedNativeQuery(name = "CustomerEntity.findAllList", query = "SELECT "
+        + "c.id, c.avatar, c.customer_name AS customerName, c.enabled, c.created_by AS createdBy, "
+        + "c.created_date AS createdDate, c.moddified_by AS moddifiedBy, c.moddified_date AS moddifiedDate "
+        + "FROM customer AS c", resultSetMapping = "Mapping.ListCustomerDTO")
+
+/* ===== Set mapping: ListCustomerDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ListCustomerDTO", classes = @ConstructorResult(targetClass = ListCustomerDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "avatar", type = String.class),
+        @ColumnResult(name = "customerName", type = String.class),
+        @ColumnResult(name = "enabled", type = Integer.class),
+        @ColumnResult(name = "createdBy", type = String.class),
+        @ColumnResult(name = "createdDate", type = Date.class),
+        @ColumnResult(name = "moddifiedBy", type = String.class),
+        @ColumnResult(name = "moddifiedDate", type = Date.class) }))
 
 @Entity
 @Table(name = "customer")
