@@ -15,7 +15,7 @@ public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
      * ---------------------------------------------------------
      */
     @Query(nativeQuery = true)
-    List<LayoutMenuDTO> findAllLayoutLevel1(Long menu_category_id, int level);
+    List<LayoutMenuDTO> findAllLayoutLevel1ByRole(Long menu_category_id, int level, String roleName);
 
     /*
      * -------------------------------------------------------
@@ -23,5 +23,5 @@ public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
      * -------------------------------------------------------
      */
     @Query(nativeQuery = true)
-    List<LayoutMenuDTO> findAllLayoutLevel2(Long previous, int level);
+    List<LayoutMenuDTO> findAllLayoutLevel2ByRole(Long previous, int level, String roleName);
 }

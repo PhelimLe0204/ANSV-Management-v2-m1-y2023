@@ -34,8 +34,6 @@ public class BaseController {
     public ModelAndView _mvShare = new ModelAndView();
 
     public ModelAndView Init(HttpSession session) {
-        List<LayoutMenuCategoryDTO> menuCategoryLayout = menuCategoryService.findAllLayout();
-
         Date trialTime = new Date();
         session.setAttribute("currentWeek", getWeekOfYear(trialTime));
         session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
@@ -43,6 +41,9 @@ public class BaseController {
         _mvShare.addObject("userName", session.getAttribute("username"));
         _mvShare.addObject("userRole", session.getAttribute("userRole"));
         _mvShare.addObject("avatar", session.getAttribute("avatar"));
+        System.out.println("------------------------ ABC5");
+        List<LayoutMenuCategoryDTO> menuCategoryLayout = menuCategoryService
+                .findAllLayout(session.getAttribute("userRole") + "");
         _mvShare.addObject("menuCategoryLayout", menuCategoryLayout);
         return _mvShare;
     }
@@ -51,10 +52,13 @@ public class BaseController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
+            System.out.println("------------------------ ABC1");
             session.setAttribute("userId", userService.userDefine(currentUserName).getId());
+            System.out.println("------------------------ ABC2");
             session.setAttribute("userRole", userService.userDefine(currentUserName).getUserRole());
+            System.out.println("------------------------ ABC3");
             session.setAttribute("avatar", userService.userDefine(currentUserName).getAvatar());
-
+            System.out.println("------------------------ ABC4");
             session.setAttribute("username", currentUserName);
             // return currentUserName;
         }
