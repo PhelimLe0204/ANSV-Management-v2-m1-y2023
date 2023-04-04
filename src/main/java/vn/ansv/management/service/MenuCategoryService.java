@@ -20,20 +20,20 @@ public class MenuCategoryService implements IMenuCategory {
     private MenuRepository menuRepository;
 
     @Override
-    public List<LayoutMenuCategoryDTO> findAllLayout() {
+    public List<LayoutMenuCategoryDTO> findAllLayout(String roleName) {
         List<LayoutMenuCategoryDTO> category = menuCategoryRepository.findAllLayout();
 
         category.forEach((categoryItem) -> {
             try {
                 // Menu cấp 1
-                List<LayoutMenuDTO> menuLayoutByCategory1 = menuRepository.findAllLayoutLevel1(
-                        categoryItem.getId(), 1);
+                List<LayoutMenuDTO> menuLayoutByCategory1 = menuRepository.findAllLayoutLevel1ByRole(
+                        categoryItem.getId(), 1, roleName);
                 menuLayoutByCategory1.forEach((menuItem1) -> {
                     if (menuItem1.getLevel() == 1) {
                         try {
                             // Menu cấp 2 với menu cấp 1 tương ứng
-                            List<LayoutMenuDTO> menuLayoutByCategory2 = menuRepository.findAllLayoutLevel2(
-                                    menuItem1.getId(), 2);
+                            List<LayoutMenuDTO> menuLayoutByCategory2 = menuRepository.findAllLayoutLevel2ByRole(
+                                    menuItem1.getId(), 2, roleName);
                             menuItem1.setMenuChild(menuLayoutByCategory2);
                         } catch (NullPointerException e) {
                             System.out.println("");

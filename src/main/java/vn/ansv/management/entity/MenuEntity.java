@@ -1,10 +1,14 @@
 package vn.ansv.management.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.SqlResultSetMapping;
@@ -12,15 +16,21 @@ import javax.persistence.Table;
 
 import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 
-@NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel1", query = "SELECT "
+@NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel1ByRole", query = "SELECT "
         + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link "
         + "FROM menu AS m "
-        + "WHERE m.menu_category_id = :menu_category_id AND m.level = :level AND m.enabled = 1", resultSetMapping = "Mapping.LayoutMenuDTO")
+        + "INNER JOIN role_menu AS rm on m.id = rm.menu_id "
+        + "INNER JOIN role AS r on rm.role_id = r.id "
+        + "WHERE m.menu_category_id = :menu_category_id AND m.level = :level "
+        + "AND m.enabled = 1 AND r.role_name = :roleName", resultSetMapping = "Mapping.LayoutMenuDTO")
 
-@NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel2", query = "SELECT "
+@NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel2ByRole", query = "SELECT "
         + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link "
         + "FROM menu AS m "
-        + "WHERE m.previous = :previous AND m.level = :level AND m.enabled = 1", resultSetMapping = "Mapping.LayoutMenuDTO")
+        + "INNER JOIN role_menu AS rm on m.id = rm.menu_id "
+        + "INNER JOIN role AS r on rm.role_id = r.id "
+        + "WHERE m.previous = :previous AND m.level = :level AND m.enabled = 1 "
+        + "AND r.role_name = :roleName", resultSetMapping = "Mapping.LayoutMenuDTO")
 
 @SqlResultSetMapping(name = "Mapping.LayoutMenuDTO", classes = @ConstructorResult(targetClass = LayoutMenuDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
@@ -65,6 +75,13 @@ public class MenuEntity extends BaseEntity {
      */
     @JoinColumn(name = "menu_category_id")
     private MenuCategoryEntity menuCategory; // 1 'menu' sử dụng 1 'menu_category_id' => hứng 1 bản ghi
+
+    /*
+     * @ManyToMany(mappedBy =
+     * "tên biến hứng dữ liệu từ MenuEntity trong RoleEntity (menus)")
+     */
+    @ManyToMany(mappedBy = "menus")
+    private List<RoleEntity> roles = new ArrayList<>(); // 1 'menu' thuộc nhiều 'role' => dùng List để hứng mảng dữ liệu
 
     // public Long getMenuCategoryId() {
     // return this.menuCategoryId;

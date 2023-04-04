@@ -15,7 +15,9 @@ import org.hibernate.annotations.NamedNativeQuery;
 
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 
-@NamedNativeQuery(name = "MenuCategoryEntity.findAllLayout", query = "SELECT mc.id, mc.menu_category_name AS menuCategoryName FROM menu_category AS mc", resultSetMapping = "Mapping.LayoutMenuCategoryDTO")
+@NamedNativeQuery(name = "MenuCategoryEntity.findAllLayout", query = "SELECT "
+        + "mc.id, mc.menu_category_name AS menuCategoryName "
+        + "FROM menu_category AS mc", resultSetMapping = "Mapping.LayoutMenuCategoryDTO")
 @SqlResultSetMapping(name = "Mapping.LayoutMenuCategoryDTO", classes = @ConstructorResult(targetClass = LayoutMenuCategoryDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "menuCategoryName", type = String.class) }))

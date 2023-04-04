@@ -65,36 +65,12 @@
 
                                 <th:block th:if="${menu_level_1.getInclude() == 1}">
                                     <ul class="pcoded-submenu">
-                                        <!-- Điều kiện PM -->
-                                        <th:block th:if="${userRole} == 'Manager_PM'">
-                                            <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()} "
-                                                th:if="${menu_level_2.getMenuName()} != 'KD Viễn thông' and ${menu_level_2.getMenuName()} != 'KD Chuyển đổi số'">
-                                                <li>
-                                                    <a th:href="'/' + ${menu_level_2.getLink()}"
-                                                        th:text="${menu_level_2.getMenuName()}"></a>
-                                                </li>
-                                            </th:block>
+                                        <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
+                                            <li>
+                                                <a th:href="'/' + ${menu_level_2.getLink()}"
+                                                    th:text="${menu_level_2.getMenuName()}"></a>
+                                            </li>
                                         </th:block>
-
-                                        <!-- Điều kiện AM -->
-                                        <th:block th:if="${userRole} == 'Manager_AM'">
-                                            <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()} " th:if="${menu_level_2.getMenuName()} != 'Triển khai'">
-                                                <li>
-                                                    <a th:href="'/' + ${menu_level_2.getLink()}"
-                                                        th:text="${menu_level_2.getMenuName()}"></a>
-                                                </li>
-                                            </th:block>
-                                        </th:block>
-
-                                        <th:block th:if="${userRole} != 'Manager_PM' and ${userRole} != 'Manager_AM'">
-                                            <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
-                                                <li>
-                                                    <a th:href="'/' + ${menu_level_2.getLink()}"
-                                                        th:text="${menu_level_2.getMenuName()}"></a>
-                                                </li>
-                                            </th:block>
-                                        </th:block>
-
                                     </ul>
                                 </th:block>
                             </li>
