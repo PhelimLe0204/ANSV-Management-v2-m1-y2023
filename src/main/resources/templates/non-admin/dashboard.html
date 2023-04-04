@@ -433,7 +433,8 @@
                         <div class="card-body">
                             <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active text-uppercase" id="trien-khai-tab" data-toggle="tab"
+                                    <a class="nav-link active text-uppercase " id="trien-khai-tab" data-toggle="tab"
+                                    th:classappend="${userRole == 'Manager_AM' ? 'd-none' : ''}"
                                         href="#trien-khai" role="tab" aria-controls="trien-khai" aria-selected="true">
                                         Triển khai
 
@@ -441,18 +442,20 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-uppercase" id="vien-thong-tab" data-toggle="tab"
+                                        th:classappend="${userRole == 'Manager_PM' ? 'd-none' : ''}"
                                         href="#vien-thong" role="tab" aria-controls="vien-thong" aria-selected="false">
                                         KD Viễn thông
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-uppercase" id="chuyen-doi-so-tab" data-toggle="tab"
+                                        th:classappend="${userRole == 'Manager_PM' ? 'd-none' : ''}"
                                         href="#chuyen-doi-so" role="tab" aria-controls="chuyen-doi-so"
                                         aria-selected="false">
                                         KD Chuyển đổi số
                                     </a>
                                 </li>
-                                <th:block th:if="${!dataShows.empty}">
+                                <th:block th:if="${!dataShows.empty} and ${userRole != 'Manager_AM'}" >
                                     <li style="right: 0px; position: absolute;">
                                         <button type="button" style="height: 100%" class="btn btn-danger btn-sm"
                                             data-toggle="modal" data-target="#myModal">
