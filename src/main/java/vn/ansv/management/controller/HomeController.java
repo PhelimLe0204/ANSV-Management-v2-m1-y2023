@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.ansv.management.dto.Customer.AddNewCustomerDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
@@ -318,5 +319,11 @@ public class HomeController extends BaseController {
         _mvShare.addObject("customerList", customerList);
         _mvShare.setViewName("non-admin/customer/list-customer");
         return _mvShare;
+    }
+
+    @RequestMapping(value = "/customer/addNew", method = RequestMethod.POST)
+    public String addNewCustomer(@ModelAttribute AddNewCustomerDTO addNewCustomerDTO) {
+        System.out.println("----------------------------------- Da vao link!");
+        return "redirect:/danh-sach/khach-hang";
     }
 }
