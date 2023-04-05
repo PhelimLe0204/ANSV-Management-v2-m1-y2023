@@ -51,6 +51,10 @@ public class ProjectReportController extends BaseController {
 
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
+        if (userRole.equals("DOC_DO") || userRole.equals("Manager_PM")
+                || userRole.equals("PM") || userRole.equals("Member_PM")) {
+            return new ModelAndView("redirect:/");
+        }
         String username = (String) session.getAttribute("username");
         List<ListReport12DTO> dataType1 = null;
         if (userRole.equals("Admin") || userRole.equals("CEO")
@@ -76,6 +80,10 @@ public class ProjectReportController extends BaseController {
         _mvShare.addObject("url", lastPath);
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
+        if (userRole.equals("DOC_DO") || userRole.equals("Manager_PM")
+                || userRole.equals("PM") || userRole.equals("Member_PM")) {
+            return new ModelAndView("redirect:/");
+        }
         String username = (String) session.getAttribute("username");
         List<ListReport12DTO> dataType2 = null;
         if (userRole.equals("Admin") || userRole.equals("CEO")
@@ -102,6 +110,10 @@ public class ProjectReportController extends BaseController {
 
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
+        if (userRole.equals("DOC_BDC") || userRole.equals("Manager_AM")
+                || userRole.equals("AM") || userRole.equals("Member_AM")) {
+            return new ModelAndView("redirect:/");
+        }
         String username = (String) session.getAttribute("username");
         List<ListReport3DTO> dataType3 = null;
         if (userRole.equals("Admin") || userRole.equals("CEO")
