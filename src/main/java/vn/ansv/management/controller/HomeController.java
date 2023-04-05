@@ -81,20 +81,91 @@ public class HomeController extends BaseController {
         if (request.getParameter("week") == null || request.getParameter("year") == null) {
             return new ModelAndView("redirect:/");
         }
+        Init(session); // Lấy dữ liệu cơ bản
         int week = Integer.parseInt(request.getParameter("week"));
         int year = Integer.parseInt(request.getParameter("year"));
         session.setAttribute("thisWeek", week);
         session.setAttribute("thisYear", year);
 
-        List<ProjectDashboardDTO> telecomProject = projectReportService.findAllDashboardProjectStep1(
-                1, 1l, week, year);
-        List<ProjectDashboardDTO> digitalTransferProject = projectReportService.findAllDashboardProjectStep1(
-                1, 2l, week, year);
-        List<ProjectDashboardDTO> deploymentProject = projectReportService.findAllDashboardProjectStep2(
-                1, 3l, week, year);
-        List<ShowDashboardDTO> dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
+        String userRole = (String) session.getAttribute("userRole");
 
-        Init(session); // Lấy dữ liệu cơ bản
+        List<ProjectDashboardDTO> telecomProject = null;
+        List<ProjectDashboardDTO> digitalTransferProject = null;
+        List<ProjectDashboardDTO> deploymentProject = null;
+        List<ShowDashboardDTO> dataShows = null;
+
+        if (userRole.equals("Admin") || userRole.equals("CEO") || userRole.equals("DGD")) {
+            telecomProject = projectReportService.findAllDashboardProjectStep1(
+                    null, 1, 1l, week, year);
+            digitalTransferProject = projectReportService.findAllDashboardProjectStep1(
+                    null, 1, 2l, week, year);
+            deploymentProject = projectReportService.findAllDashboardProjectStep2(
+                    null, 1, 3l, week, year);
+            dataShows = projectReportService.modalShowDashboard(1,
+                    week, year, 3l, 3l);
+
+            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+            _mvShare.addObject("dataShows", dataShows);// Data show model
+            _mvShare.setViewName("non-admin/dashboard");
+            return _mvShare;
+        }
+
+        if (userRole.equals("Manager_AM")) {
+            // Hiển thị toàn bộ báo cáo dự án Viễn thông + Chuyển đổi số
+            telecomProject = projectReportService.findAllDashboardProjectStep1(null, 1, 1l, week, year);
+            digitalTransferProject = projectReportService.findAllDashboardProjectStep1(null, 1, 2l, week, year);
+
+            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+            _mvShare.addObject("dataShows", dataShows);// Data show model
+            _mvShare.setViewName("non-admin/dashboard");
+            return _mvShare;
+        }
+
+        if (userRole.equals("Manager_PM")) {
+            // Hiển thị toàn bộ báo cáo dự án Triển khai + Slideshow
+            deploymentProject = projectReportService.findAllDashboardProjectStep2(null, 1, 3l, week, year);
+            dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
+
+            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+            _mvShare.addObject("dataShows", dataShows);// Data show model
+            _mvShare.setViewName("non-admin/dashboard");
+            return _mvShare;
+        }
+
+        if (userRole.equals("AM")) {
+            // Hiển thị báo cáo dự án Viễn thông + Chuyển đổi số (của người dùng)
+            String username = (String) session.getAttribute("username");
+            telecomProject = projectReportService.findAllDashboardProjectStep1(username, 1, 1l, week, year);
+            digitalTransferProject = projectReportService.findAllDashboardProjectStep1(username, 1, 2l, week, year);
+
+            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+            _mvShare.addObject("dataShows", dataShows);// Data show model
+            _mvShare.setViewName("non-admin/dashboard");
+            return _mvShare;
+        }
+
+        if (userRole.equals("PM")) {
+            // Hiển thị báo cáo dự án Triển khai + Slideshow (của người dùng)
+            String username = (String) session.getAttribute("username");
+            deploymentProject = projectReportService.findAllDashboardProjectStep2(username, 1, 3l, week, year);
+            dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
+
+            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+            _mvShare.addObject("dataShows", dataShows);// Data show model
+            _mvShare.setViewName("non-admin/dashboard");
+            return _mvShare;
+        }
+
         _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
         _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
         _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai

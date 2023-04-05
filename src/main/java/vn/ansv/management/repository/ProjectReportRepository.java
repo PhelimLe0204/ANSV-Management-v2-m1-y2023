@@ -52,6 +52,18 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("year") int year);
 
     /*
+     * -----------------------------------------------------------------------------
+     * Danh sách báo cáo dự án (giai đoạn 1: Viễn thông / Chuyển đổi số) theo người
+     * dùng
+     * View: Dashboard
+     * -----------------------------------------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    List<ProjectDashboardDTO> findAllDashboardProjectStep1Limit(@Param("username") String username,
+            @Param("enabled") int enabled, @Param("project_type_id") Long project_type_id,
+            @Param("week") int week, @Param("year") int year);
+
+    /*
      * ---------------------------------------------------
      * Danh sách báo cáo dự án (giai đoạn 2: Triển khai)
      * View: Dashboard
@@ -61,6 +73,17 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(@Param("enabled") int enabled,
             @Param("project_type_id") Long project_type_id, @Param("week") int week,
             @Param("year") int year);
+
+    /*
+     * -------------------------------------------------------------------
+     * Danh sách báo cáo dự án (giai đoạn 2: Triển khai) theo người dùng
+     * View: Dashboard
+     * -------------------------------------------------------------------
+     */
+    @Query(nativeQuery = true)
+    List<ProjectDashboardDTO> findAllDashboardProjectStep2Limit(@Param("username") String username,
+            @Param("enabled") int enabled, @Param("project_type_id") Long project_type_id,
+            @Param("week") int week, @Param("year") int year);
 
     /*
      * -------------------------------------------
@@ -151,8 +174,10 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "WHERE pr.id = :id", nativeQuery = true)
     void updateDetailTabCptg(
             @Param("id") Long id,
-            @Param("soTienGiaoHang") String soTienGiaoHang, @Param("hopDongGiaoHang") String hopDongGiaoHang,
-            @Param("mucTieuGiaoHang") String mucTieuGiaoHang, @Param("thucTeGiaoHang") String thucTeGiaoHang,
+            @Param("soTienGiaoHang") String soTienGiaoHang,
+            @Param("hopDongGiaoHang") String hopDongGiaoHang,
+            @Param("mucTieuGiaoHang") String mucTieuGiaoHang,
+            @Param("thucTeGiaoHang") String thucTeGiaoHang,
             @Param("noteGiaoHang") String noteGiaoHang, @Param("soTienDac") String soTienDac,
             @Param("hopDongDac") String hopDongDac, @Param("mucTieuDac") String mucTieuDac,
             @Param("thucTeDac") String thucTeDac, @Param("noteDac") String noteDac,
@@ -161,7 +186,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("notePac") String notePac, @Param("soTienFac") String soTienFac,
             @Param("hopDongFac") String hopDongFac, @Param("mucTieuFac") String mucTieuFac,
             @Param("thucTeFac") String thucTeFac, @Param("noteFac") String noteFac,
-            @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("noteTongGiaTri") String noteTongGiaTri,
+            @Param("tongGiaTriThucTe") String tongGiaTriThucTe,
+            @Param("noteTongGiaTri") String noteTongGiaTri,
             @Param("soTienTamUng") String soTienTamUng, @Param("keHoachTamUng") String keHoachTamUng,
             @Param("noteTamUng") String noteTamUng);
 
@@ -247,17 +273,22 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + ":tienDoChung, :generalIssue, :solution, :keHoachTuanNay, :keHoachTuanSau, "
             + ":ketQuaTuanTruoc, :ketQuaTuanNay)", nativeQuery = true)
     void addNewReport(@Param("uid") String uid, @Param("amId") Long amId, @Param("amManagerId") Long amManagerId,
-            @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId, @Param("createdBy") String createdBy,
+            @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId,
+            @Param("createdBy") String createdBy,
             @Param("projectId") Long projectId, @Param("projectTypeId") Long projectTypeId,
-            @Param("projectPriorityId") Long projectPriorityId, @Param("projectStatusId") Long projectStatusId,
+            @Param("projectPriorityId") Long projectPriorityId,
+            @Param("projectStatusId") Long projectStatusId,
             @Param("week") int week, @Param("year") int year, @Param("maHopDong") String maHopDong,
             @Param("maKeToan") String maKeToan, @Param("currencyUnitId") Long currencyUnitId,
             @Param("jobName") String jobName, @Param("description") String description,
             @Param("enabled") Integer enabled, @Param("mucDoKhaThi") Integer mucDoKhaThi,
-            @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien, @Param("hinhThucDauTu") String hinhThucDauTu,
+            @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
+            @Param("hinhThucDauTu") String hinhThucDauTu,
             @Param("phamViCungCap") String phamViCungCap, @Param("phanTichSwoot") String phanTichSwoot,
-            @Param("soTienGiaoHang") String soTienGiaoHang, @Param("hopDongGiaoHang") String hopDongGiaoHang,
-            @Param("mucTieuGiaoHang") String mucTieuGiaoHang, @Param("thucTeGiaoHang") String thucTeGiaoHang,
+            @Param("soTienGiaoHang") String soTienGiaoHang,
+            @Param("hopDongGiaoHang") String hopDongGiaoHang,
+            @Param("mucTieuGiaoHang") String mucTieuGiaoHang,
+            @Param("thucTeGiaoHang") String thucTeGiaoHang,
             @Param("noteGiaoHang") String noteGiaoHang,
             @Param("soTienDac") String soTienDac, @Param("hopDongDac") String hopDongDac,
             @Param("mucTieuDac") String mucTieuDac, @Param("thucTeDac") String thucTeDac,
@@ -268,7 +299,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("soTienFac") String soTienFac, @Param("hopDongFac") String hopDongFac,
             @Param("mucTieuFac") String mucTieuFac, @Param("thucTeFac") String thucTeFac,
             @Param("noteFac") String noteFac,
-            @Param("tongGiaTriThucTe") String tongGiaTriThucTe, @Param("noteTongGiaTri") String noteTongGiaTri,
+            @Param("tongGiaTriThucTe") String tongGiaTriThucTe,
+            @Param("noteTongGiaTri") String noteTongGiaTri,
             @Param("soTienTamUng") String soTienTamUng, @Param("keHoachTamUng") String keHoachTamUng,
             @Param("noteTamUng") String noteTamUng, @Param("tienDoChung") String tienDoChung,
             @Param("generalIssue") String generalIssue, @Param("solution") String solution,
@@ -296,14 +328,17 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "ket_qua_tuan_nay = :ketQuaTuanNay "
             + "WHERE id = :id", nativeQuery = true)
     void updateReport(@Param("id") Long id, @Param("uid") String uid, @Param("amId") Long amId,
-            @Param("amManagerId") Long amManagerId, @Param("pmId") Long pmId, @Param("pmManagerId") Long pmManagerId,
+            @Param("amManagerId") Long amManagerId, @Param("pmId") Long pmId,
+            @Param("pmManagerId") Long pmManagerId,
             @Param("createdBy") String createdBy, @Param("projectId") Long projectId,
             @Param("projectTypeId") Long projectTypeId, @Param("projectPriorityId") Long projectPriorityId,
-            @Param("projectStatusId") Long projectStatusId, @Param("week") int week, @Param("year") int year,
+            @Param("projectStatusId") Long projectStatusId, @Param("week") int week,
+            @Param("year") int year,
             @Param("maHopDong") String maHopDong, @Param("maKeToan") String maKeToan,
             @Param("currencyUnitId") Long currencyUnitId, @Param("jobName") String jobName,
             @Param("description") String description, @Param("enabled") Integer enabled,
-            @Param("mucDoKhaThi") Integer mucDoKhaThi, @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
+            @Param("mucDoKhaThi") Integer mucDoKhaThi,
+            @Param("tongMucDauTuDuKien") String tongMucDauTuDuKien,
             @Param("hinhThucDauTu") String hinhThucDauTu, @Param("phamViCungCap") String phamViCungCap,
             @Param("phanTichSwoot") String phanTichSwoot, @Param("soTienDac") String soTienDac,
             @Param("hopDongDac") String hopDongDac, @Param("mucTieuDac") String mucTieuDac,
@@ -315,7 +350,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             @Param("soTienTamUng") String soTienTamUng, @Param("keHoachTamUng") String keHoachTamUng,
             @Param("tienDoChung") String tienDoChung, @Param("generalIssue") String generalIssue,
             @Param("solution") String solution, @Param("keHoachTuanNay") String keHoachTuanNay,
-            @Param("keHoachTuanSau") String keHoachTuanSau, @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc,
+            @Param("keHoachTuanSau") String keHoachTuanSau,
+            @Param("ketQuaTuanTruoc") String ketQuaTuanTruoc,
             @Param("ketQuaTuanNay") String ketQuaTuanNay);
 
     /*

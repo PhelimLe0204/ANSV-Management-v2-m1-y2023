@@ -66,13 +66,27 @@ public class ProjectReportService implements IProjectReport {
     private CustomerRepository customerRepository;
 
     @Override
-    public List<ProjectDashboardDTO> findAllDashboardProjectStep1(int enabled, Long type, int week, int year) {
-        return projectReportRepository.findAllDashboardProjectStep1(enabled, type, week, year);
+    public List<ProjectDashboardDTO> findAllDashboardProjectStep1(
+            String username, int enabled, Long type, int week, int year) {
+        if (username != null) {
+            // Truy vấn theo người dùng
+            return projectReportRepository.findAllDashboardProjectStep1Limit(username, enabled, type, week, year);
+        } else {
+            // Truy vấn toàn bộ
+            return projectReportRepository.findAllDashboardProjectStep1(enabled, type, week, year);
+        }
     }
 
     @Override
-    public List<ProjectDashboardDTO> findAllDashboardProjectStep2(int enabled, Long type, int week, int year) {
-        return projectReportRepository.findAllDashboardProjectStep2(enabled, type, week, year);
+    public List<ProjectDashboardDTO> findAllDashboardProjectStep2(
+            String username, int enabled, Long type, int week, int year) {
+        if (username != null) {
+            // Truy vấn theo người dùng
+            return projectReportRepository.findAllDashboardProjectStep2Limit(username, enabled, type, week, year);
+        } else {
+            // Truy vấn toàn bộ
+            return projectReportRepository.findAllDashboardProjectStep2(enabled, type, week, year);
+        }
     }
 
     /*

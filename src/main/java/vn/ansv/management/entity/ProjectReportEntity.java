@@ -177,6 +177,20 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id AND pr.week = :week AND pr.year = :year "
         + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
 
+/* ===== ProjectReportRepository.findAllDashboardProjectStep1Limit() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep1Limit", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.am_id = u.id "
+        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id " 
+        + "AND pr.week = :week AND pr.year = :year AND u.username = :username "
+        + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
+
 /* ===== ProjectReportRepository.findAllDashboardProjectStep2() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep2", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
@@ -187,6 +201,20 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id AND pr.week = :week AND pr.year = :year "
+        + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
+
+/* ===== ProjectReportRepository.findAllDashboardProjectStep2Limit() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllDashboardProjectStep2Limit", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.pm_id = u.id "
+        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id " 
+        + "AND pr.week = :week AND pr.year = :year AND u.username = :username "
         + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
 
 /* ===== ProjectReportRepository.findDetailTabPhanLoai() ===== */

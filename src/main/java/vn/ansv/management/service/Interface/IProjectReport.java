@@ -21,9 +21,9 @@ import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 
 public interface IProjectReport {
-    List<ProjectDashboardDTO> findAllDashboardProjectStep1(int enabled, Long type, int week, int year);
+    List<ProjectDashboardDTO> findAllDashboardProjectStep1(String userName, int enabled, Long type, int week, int year);
 
-    List<ProjectDashboardDTO> findAllDashboardProjectStep2(int enabled, Long type, int week, int year);
+    List<ProjectDashboardDTO> findAllDashboardProjectStep2(String userName, int enabled, Long type, int week, int year);
 
     List<ListReport12DTO> findAllReportType12(Long type);
 
