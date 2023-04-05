@@ -187,7 +187,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "INNER JOIN user AS u ON pr.am_id = u.id "
-        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id " 
+        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id "
         + "AND pr.week = :week AND pr.year = :year AND u.username = :username "
         + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
 
@@ -213,7 +213,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "INNER JOIN user AS u ON pr.pm_id = u.id "
-        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id " 
+        + "WHERE pr.enabled = :enabled AND pr.project_type_id = :project_type_id "
         + "AND pr.week = :week AND pr.year = :year AND u.username = :username "
         + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ProjectDashboardDTO")
 
@@ -284,6 +284,20 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "WHERE pr.project_type_id = :project_type_id "
         + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport12DTO")
 
+/* ===== ProjectReportRepository.findAllReportType12Limit ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllReportType12Limit", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn, "
+        + "pr.muc_do_kha_thi AS mucDoKhaThi, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, pr.week, pr.year "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.am_id = u.id "
+        + "WHERE pr.project_type_id = :project_type_id AND u.username = :username "
+        + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport12DTO")
+
 /* ===== ProjectReportRepository.findAllReportType3 ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllReportType3", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
@@ -294,6 +308,19 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "WHERE pr.project_type_id = :project_type_id "
+        + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport3DTO")
+
+/* ===== ProjectReportRepository.findAllReportType3Limit ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllReportType3Limit", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS picName, pr.week, pr.year, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.pm_id = u.id "
+        + "WHERE pr.project_type_id = :project_type_id AND u.username = :username "
         + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport3DTO")
 
 /* ===== ShowDashboardDTO.modalShowDashboard ===== */

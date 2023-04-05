@@ -3,7 +3,6 @@ package vn.ansv.management.controller;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,39 +44,52 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "/danh-sach/kd-vien-thong", method = RequestMethod.GET)
     public ModelAndView viewReportType1(HttpSession session, HttpServletRequest request) {
-        Date trialTime = new Date();
-        session.setAttribute("currentWeek", getWeekOfYear(trialTime));
-        session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
-
         String test = request.getRequestURI();
         String[] path = test.split("/");
         String lastPath = path[path.length - 1];
         _mvShare.addObject("url", lastPath);
 
         Init(session); // Lấy dữ liệu cơ bản
-        List<ListReport12DTO> dataType1 = projectReportService.findAllReportType12(1L);
-        _mvShare.addObject("listReportType1", dataType1);
-        _mvShare.setViewName("non-admin/report/kd-vien-thong");
-        return _mvShare;
+        String userRole = (String) session.getAttribute("userRole");
+        String username = (String) session.getAttribute("username");
+        List<ListReport12DTO> dataType1 = null;
+        if (userRole.equals("Admin") || userRole.equals("CEO")
+                || userRole.equals("DGD") || userRole.equals("Manager_AM")) {
+            dataType1 = projectReportService.findAllReportType12(null, 1L);
+            _mvShare.addObject("listReportType1", dataType1);
+            _mvShare.setViewName("non-admin/report/kd-vien-thong");
+            return _mvShare;
+        } else {
+            dataType1 = projectReportService.findAllReportType12(username, 1L);
+            _mvShare.addObject("listReportType1", dataType1);
+            _mvShare.setViewName("non-admin/report/kd-vien-thong");
+            return _mvShare;
+        }
     }
 
     @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method = RequestMethod.GET)
     public ModelAndView viewReportType2(HttpSession session, HttpServletRequest request) {
-        Date trialTime = new Date();
-        session.setAttribute("currentWeek", getWeekOfYear(trialTime));
-        session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
-
         // Lấy url
         String test = request.getRequestURI();
         String[] path = test.split("/");
         String lastPath = path[path.length - 1];
         _mvShare.addObject("url", lastPath);
         Init(session); // Lấy dữ liệu cơ bản
-        List<ListReport12DTO> dataType2 = projectReportService.findAllReportType12(2L);
-        _mvShare.addObject("listReportType2", dataType2);
-
-        _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
-        return _mvShare;
+        String userRole = (String) session.getAttribute("userRole");
+        String username = (String) session.getAttribute("username");
+        List<ListReport12DTO> dataType2 = null;
+        if (userRole.equals("Admin") || userRole.equals("CEO")
+                || userRole.equals("DGD") || userRole.equals("Manager_AM")) {
+            dataType2 = projectReportService.findAllReportType12(null, 2L);
+            _mvShare.addObject("listReportType2", dataType2);
+            _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
+            return _mvShare;
+        } else {
+            dataType2 = projectReportService.findAllReportType12(username, 2L);
+            _mvShare.addObject("listReportType2", dataType2);
+            _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
+            return _mvShare;
+        }
     }
 
     @RequestMapping(value = "/danh-sach/trien-khai", method = RequestMethod.GET)
@@ -89,10 +101,21 @@ public class ProjectReportController extends BaseController {
         _mvShare.addObject("url", lastPath);
 
         Init(session); // Lấy dữ liệu cơ bản
-        List<ListReport3DTO> dataType3 = projectReportService.findAllReportType3(3L);
-        _mvShare.addObject("listReportType3", dataType3);
-        _mvShare.setViewName("non-admin/report/trien-khai");
-        return _mvShare;
+        String userRole = (String) session.getAttribute("userRole");
+        String username = (String) session.getAttribute("username");
+        List<ListReport3DTO> dataType3 = null;
+        if (userRole.equals("Admin") || userRole.equals("CEO")
+                || userRole.equals("DGD") || userRole.equals("Manager_PM")) {
+            dataType3 = projectReportService.findAllReportType3(null, 3L);
+            _mvShare.addObject("listReportType3", dataType3);
+            _mvShare.setViewName("non-admin/report/trien-khai");
+            return _mvShare;
+        } else {
+            dataType3 = projectReportService.findAllReportType3(username, 3L);
+            _mvShare.addObject("listReportType3", dataType3);
+            _mvShare.setViewName("non-admin/report/trien-khai");
+            return _mvShare;
+        }
     }
 
     @RequestMapping(value = "report/addNew/{type}", method = RequestMethod.POST)

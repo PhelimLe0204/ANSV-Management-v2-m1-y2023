@@ -208,10 +208,15 @@ public class ProjectReportService implements IProjectReport {
     /* ========== End: Detail tab quá trình ========== */
 
     @Override
-    public List<ListReport12DTO> findAllReportType12(Long type) {
+    public List<ListReport12DTO> findAllReportType12(String username, Long type) {
         try {
-            List<ListReport12DTO> result = projectReportRepository.findAllReportType12(type);
-            return result;
+            if (username == null) {
+                List<ListReport12DTO> result = projectReportRepository.findAllReportType12(type);
+                return result;
+            } else {
+                List<ListReport12DTO> result = projectReportRepository.findAllReportType12Limit(username, type);
+                return result;
+            }
         } catch (Exception e) {
             System.out.println("--- e ---" + e);
         }
@@ -220,10 +225,15 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public List<ListReport3DTO> findAllReportType3(Long type) {
+    public List<ListReport3DTO> findAllReportType3(String username, Long type) {
         try {
-            List<ListReport3DTO> result = projectReportRepository.findAllReportType3(type);
-            return result;
+            if (username == null) {
+                List<ListReport3DTO> result = projectReportRepository.findAllReportType3(type);
+                return result;
+            } else {
+                List<ListReport3DTO> result = projectReportRepository.findAllReportType3Limit(username, type);
+                return result;
+            }
         } catch (Exception e) {
             System.out.println("--- e ---" + e);
         }

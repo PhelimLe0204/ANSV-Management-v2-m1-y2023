@@ -200,21 +200,23 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     @Query(nativeQuery = true)
     ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(@Param("id") Long id, @Param("enabled") int enabled);
 
-    /*
-     * Danh sách các báo cáo dựa án Kinh doanh viễn thông và chuyển đổi số
-     * View: Thống kê
-     */
-
+    // Danh sách KD viễn thông và KD chuyển đổi số (ALL)
     @Query(nativeQuery = true)
     List<ListReport12DTO> findAllReportType12(@Param("project_type_id") Long project_type_id);
 
-    /*
-     * Danh sách các báo cáo dựa án triển khai
-     * View: Thống kê
-     */
+    // Danh sách KD viễn thông và KD chuyển đổi số (by username)
+    @Query(nativeQuery = true)
+    List<ListReport12DTO> findAllReportType12Limit(@Param("username") String username,
+            @Param("project_type_id") Long project_type_id);
 
+    // Danh sách Triển khai (ALL)
     @Query(nativeQuery = true)
     List<ListReport3DTO> findAllReportType3(@Param("project_type_id") Long project_type_id);
+
+    // Danh sách Triển khai (by username)
+    @Query(nativeQuery = true)
+    List<ListReport3DTO> findAllReportType3Limit(@Param("username") String username,
+            @Param("project_type_id") Long project_type_id);
 
     /*
      * ----------------------------------------

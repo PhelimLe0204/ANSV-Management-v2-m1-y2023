@@ -25,9 +25,9 @@ public interface IProjectReport {
 
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(String userName, int enabled, Long type, int week, int year);
 
-    List<ListReport12DTO> findAllReportType12(Long type);
+    List<ListReport12DTO> findAllReportType12(String username, Long type);
 
-    List<ListReport3DTO> findAllReportType3(Long type);
+    List<ListReport3DTO> findAllReportType3(String username, Long type);
 
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 
