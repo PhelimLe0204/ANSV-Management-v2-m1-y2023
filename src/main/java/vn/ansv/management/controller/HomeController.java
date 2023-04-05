@@ -261,6 +261,12 @@ public class HomeController extends BaseController {
     @RequestMapping(value = "thanh-vien/bdc", method = RequestMethod.GET)
     public ModelAndView membersBDC(HttpSession session) {
         Init(session); // Lấy dữ liệu cơ bản
+        String userRole = (String) session.getAttribute("userRole");
+        if (userRole.equals("AM") || userRole.equals("Member_AM")
+                || userRole.equals("DOC_DO") || userRole.equals("Manager_PM")
+                || userRole.equals("PM") || userRole.equals("Member_PM")) {
+            return new ModelAndView("redirect:/");
+        }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(1L);
 
         _mvShare.addObject("listUserBDC", data);
@@ -270,8 +276,13 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = "thanh-vien/do", method = RequestMethod.GET)
     public ModelAndView membersDO(HttpSession session) {
-
         Init(session); // Lấy dữ liệu cơ bản
+        String userRole = (String) session.getAttribute("userRole");
+        if (userRole.equals("PM") || userRole.equals("Member_PM")
+                || userRole.equals("DOC_BDC") || userRole.equals("Manager_AM")
+                || userRole.equals("AM") || userRole.equals("Member_AM")) {
+            return new ModelAndView("redirect:/");
+        }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(2L);
 
         _mvShare.addObject("listUserDO", data);
