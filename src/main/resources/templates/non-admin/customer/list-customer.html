@@ -37,6 +37,7 @@
                                                 Ảnh đại diện</span>
                                         </div>
                                         <div class="custom-file">
+                                            <input type="hidden" name="avatarName" id="avatarName">
                                             <input type="file" name="avatarFile" class="custom-file-input"
                                                 id="customerAvatar" onchange="preview()">
                                             <label class="custom-file-label" for="customerAvatar">
@@ -62,7 +63,7 @@
                             </div><!-- row -->
                         </form>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" id="modal-add-new-customer-footer">
                         <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
                         <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-customer">
                             Thêm mới</button>

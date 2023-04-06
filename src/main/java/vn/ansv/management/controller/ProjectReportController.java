@@ -32,6 +32,7 @@ import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.service.ProjectReportService;
+import vn.ansv.management.service.Interface.IStorageService;
 import vn.ansv.management.util.ExcelGenerator1;
 import vn.ansv.management.util.ExcelGenerator2;
 import vn.ansv.management.util.ExcelGenerator3;
@@ -41,6 +42,9 @@ import vn.ansv.management.util.ExcelGenerator3;
 public class ProjectReportController extends BaseController {
     @Autowired // Inject "ProjectReportService" - Dependency Injection
     private ProjectReportService projectReportService;
+
+    @Autowired // Inject "IStorageService" - Dependency Injection
+    private IStorageService storageService;
 
     @RequestMapping(value = "/danh-sach/kd-vien-thong", method = RequestMethod.GET)
     public ModelAndView viewReportType1(HttpSession session, HttpServletRequest request) {
@@ -269,4 +273,17 @@ public class ProjectReportController extends BaseController {
     // workbook.close();
     // return dataError;
     // }
+
+    @RequestMapping(value = "/customer/uploadAvatar", method = RequestMethod.POST)
+    ResponseEntity<ResponseObject> uploadAvatar(@RequestParam("avatarFile") MultipartFile avatarFile) {
+        String filename = storageService.storeFile(avatarFile);
+
+        if (filename != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "File ảnh lưu thành công!", filename));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("failed", "File ảnh lưu thất bại!", ""));
+        }
+    }
 }

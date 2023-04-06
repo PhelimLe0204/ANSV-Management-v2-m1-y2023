@@ -8,6 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AddNewCustomerDTO {
+    private String uid;
+    private Integer enabled;
     private String customerName;
     private String avatarName;
     private MultipartFile avatarFile;

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,6 @@ import vn.ansv.management.service.ProjectReportService;
 import vn.ansv.management.service.ProjectStatusService;
 import vn.ansv.management.service.ProjectTypeService;
 import vn.ansv.management.service.UserService;
-import vn.ansv.management.service.Interface.IStorageService;
 
 @Controller
 @RequestMapping(path = "")
@@ -67,9 +67,6 @@ public class HomeController extends BaseController {
 
     @Autowired // Inject "CustomerService" - Dependency Injection
     private CustomerService customerService;
-
-    @Autowired // Inject "IStorageService" - Dependency Injection
-    private IStorageService storageService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String firstPage() {
@@ -329,12 +326,16 @@ public class HomeController extends BaseController {
     public String addNewCustomer(@ModelAttribute AddNewCustomerDTO addNewCustomerDTO) {
         try {
             // save files to a folder => use a service
-            String filename = storageService.storeFile(addNewCustomerDTO.getAvatarFile());
-            addNewCustomerDTO.setAvatarName(filename);
-            return "redirect:/danh-sach/khach-hang?uploadStatus=success";
+            // String filename =
+            // storageService.storeFile(addNewCustomerDTO.getAvatarFile());
+            addNewCustomerDTO.setUid(RandomStringUtils.randomAlphanumeric(20));
+            addNewCustomerDTO.setEnabled(0);
+            // addNewCustomerDTO.setAvatarName(filename);
+            Integer result = customerService.addCustomer(addNewCustomerDTO);
+            return "redirect:/danh-sach/khach-hang?uploadStatus=" + result;
         } catch (Exception exception) {
             System.out.println("--------------------------------- " + exception);
-            return "redirect:/danh-sach/khach-hang?uploadStatus=failed";
+            return "redirect:/danh-sach/khach-hang?uploadStatus=0";
         }
     }
 }

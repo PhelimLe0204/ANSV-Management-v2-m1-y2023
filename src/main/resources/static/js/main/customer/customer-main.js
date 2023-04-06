@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    let params = new URLSearchParams(location.search);
+    uploadStatus = params.get('uploadStatus');
+    if (uploadStatus == 1) {
+        // location.reload();
+        // window.location.href = '/danh-sach/khach-hang';
+    }
     $('.checkEnabled').change(function () {
         var thisId = $(this).attr("id");
         let enabled = 0;
@@ -20,7 +26,48 @@ $(document).ready(function () {
     });
 
     $("#btn-submit-add-new-customer").click(function () {
-        $("#form-add-new-customer").submit();
+        // Call API upload file
+        var form = document.getElementById('form-add-new-customer');
+        // var url = form.action;
+        var data = new FormData(form);
+
+        $("#modal-add-new-customer-footer").html(
+            '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>'
+            + '<button type="button" class="btn btn-primary pt-1 pb-1" disabled>'
+            + '<span class="spinner-border spinner-border-sm" role="status"></span>'
+            + '<span class="pl-1"> Đang xử lý...</span></button>'
+        );
+
+        $.ajax({
+            url: "/customer/uploadAvatar",
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                if (result.status == "success") {
+                    $("#avatarName").val(result.data);
+                    console.log($("#avatarName").val());
+                    setTimeout(function () {
+                        $("#form-add-new-customer").submit();
+                    }, 1000);
+                }
+
+                if (result.status == "failed") {
+                    alertify.warning(result.message).delay(2.5);
+                    $("#modal-add-new-customer-footer").html(
+                        '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>' +
+                        '<button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-customer">Thêm mới</button>'
+                    );
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+                // alert('ERRORS: ' + textStatus);
+            }
+        });
     });
 });
 

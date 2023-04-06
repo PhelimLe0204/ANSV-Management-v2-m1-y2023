@@ -21,7 +21,8 @@ import java.util.stream.Stream;
 
 @Service
 public class ImageStorageService implements IStorageService {
-    private final Path storageFolder = Paths.get("uploads");
+    // private final Path storageFolder = Paths.get("uploads");
+    private final Path storageFolder = Paths.get("src/main/resources/static/images/logo");
 
     // constructor
     public ImageStorageService() {
