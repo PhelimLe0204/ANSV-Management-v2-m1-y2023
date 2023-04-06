@@ -9,12 +9,14 @@ import lombok.Setter;
 @Setter
 public class AddNewCustomerDTO {
     private String customerName;
-    private MultipartFile file;
+    private String avatarName;
+    private MultipartFile avatarFile;
     private String createdBy;
 
-    public AddNewCustomerDTO(String customerName, MultipartFile file, String createdBy) {
+    public AddNewCustomerDTO(String customerName, String avatarName, MultipartFile avatarFile, String createdBy) {
         this.customerName = customerName;
-        this.file = file;
+        this.avatarName = avatarName;
+        this.avatarFile = avatarFile;
         this.createdBy = createdBy;
     }
 

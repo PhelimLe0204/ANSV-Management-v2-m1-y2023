@@ -40,6 +40,7 @@ import vn.ansv.management.service.ProjectReportService;
 import vn.ansv.management.service.ProjectStatusService;
 import vn.ansv.management.service.ProjectTypeService;
 import vn.ansv.management.service.UserService;
+import vn.ansv.management.service.Interface.IStorageService;
 
 @Controller
 @RequestMapping(path = "")
@@ -66,6 +67,9 @@ public class HomeController extends BaseController {
 
     @Autowired // Inject "CustomerService" - Dependency Injection
     private CustomerService customerService;
+
+    @Autowired // Inject "IStorageService" - Dependency Injection
+    private IStorageService storageService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String firstPage() {
@@ -323,7 +327,14 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = "/customer/addNew", method = RequestMethod.POST)
     public String addNewCustomer(@ModelAttribute AddNewCustomerDTO addNewCustomerDTO) {
-        System.out.println("----------------------------------- Da vao link!");
-        return "redirect:/danh-sach/khach-hang";
+        try {
+            // save files to a folder => use a service
+            String filename = storageService.storeFile(addNewCustomerDTO.getAvatarFile());
+            addNewCustomerDTO.setAvatarName(filename);
+            return "redirect:/danh-sach/khach-hang?uploadStatus=success";
+        } catch (Exception exception) {
+            System.out.println("--------------------------------- " + exception);
+            return "redirect:/danh-sach/khach-hang?uploadStatus=failed";
+        }
     }
 }
