@@ -54,4 +54,15 @@ public class CustomerService implements ICustomer {
         }
     }
 
+    @Override
+    public ListCustomerDTO findDetailById(Long id) {
+        try {
+            ListCustomerDTO data = customerRepository.findDetailById(id);
+            return data;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+            return null;
+        }
+    }
+
 }

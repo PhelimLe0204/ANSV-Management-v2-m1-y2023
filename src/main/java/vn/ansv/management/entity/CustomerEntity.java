@@ -33,6 +33,12 @@ import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
         + "c.created_date AS createdDate, c.moddified_by AS moddifiedBy, c.moddified_date AS moddifiedDate "
         + "FROM customer AS c ORDER BY c.customer_name", resultSetMapping = "Mapping.ListCustomerDTO")
 
+/* ===== CustomerRepository.findDetailById() ===== */
+@NamedNativeQuery(name = "CustomerEntity.findDetailById", query = "SELECT "
+        + "c.id, c.avatar, c.customer_name AS customerName, c.enabled, c.created_by AS createdBy, "
+        + "c.created_date AS createdDate, c.moddified_by AS moddifiedBy, c.moddified_date AS moddifiedDate "
+        + "FROM customer AS c WHERE c.id = :id", resultSetMapping = "Mapping.ListCustomerDTO")
+
 /* ===== Set mapping: ListCustomerDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ListCustomerDTO", classes = @ConstructorResult(targetClass = ListCustomerDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),

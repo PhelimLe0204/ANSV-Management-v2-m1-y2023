@@ -20,6 +20,9 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
     @Query(nativeQuery = true)
     List<ListCustomerDTO> findAllList();
 
+    @Query(nativeQuery = true)
+    ListCustomerDTO findDetailById(@Param("id") Long id);
+
     // Count customer by customer_name
     @Query(value = "SELECT COUNT(c.id) FROM customer AS c WHERE c.customer_name = :CustomerName", nativeQuery = true)
     Integer countByCustomerName(@Param("CustomerName") String CustomerName);

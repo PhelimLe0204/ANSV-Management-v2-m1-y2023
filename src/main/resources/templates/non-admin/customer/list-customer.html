@@ -10,7 +10,7 @@
     <div class="pcoded-main-container" layout:fragment="content">
         <div id="addNewCustomerModal" class="modal fade" tabindex="-1" role="dialog"
             aria-labelledby="addNewCustomerModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document" style="max-width: 1400px !important;">
+            <div class="modal-dialog" role="document" style="max-width: 800px !important;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addNewCustomerModalLabel">Thêm mới khách hàng</h5>
@@ -24,41 +24,109 @@
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="input-group mb-3">
-                                        <div class="input-group-prepend" style="width: 20%;">
+                                        <div class="input-group-prepend w-25">
                                             <span class="input-group-text bg-primary text-white w-100"
-                                                id="basic-addon3">Tên khách hàng</span>
+                                                id="addNewCustomerNameSpan">Tên khách hàng</span>
                                         </div>
-                                        <input type="text" name="customerName" class="form-control" id="basic-url"
-                                            aria-describedby="basic-addon3">
+                                        <input type="text" name="customerName" class="form-control"
+                                            id="addNewCustomerName" aria-describedby="addNewCustomerNameSpan">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <div class="input-group-prepend" style="width: 20%;">
+                                        <div class="input-group-prepend w-25">
                                             <span class="input-group-text bg-primary text-white w-100">
                                                 Ảnh đại diện</span>
                                         </div>
                                         <div class="custom-file">
                                             <input type="hidden" name="avatarName" id="avatarName">
-                                            <input type="file" name="avatarFile" class="custom-file-input"
-                                                id="customerAvatar" onchange="preview()">
-                                            <label class="custom-file-label" for="customerAvatar">
+                                            <input type="file" name="avatarFile"
+                                                class="custom-file-input customerAvatar" data-target="frameAddNew"
+                                                data-delete="btnDeleteImgAddNew" id="customerAvatarAddNew">
+                                            <label class="custom-file-label" for="customerAvatarAddNew">
                                                 Chọn file ảnh ( jpg | jpeg | png )...</label>
                                         </div>
                                     </div>
                                     <div class="input-group mb-3">
-                                        <div class="input-group-prepend" style="width: 20%;">
+                                        <div class="input-group-prepend w-25">
                                             <span class="input-group-text bg-primary text-white w-100"
-                                                id="basic-addon3">Người thực hiện</span>
+                                                id="addNewCreatedBySpan">Người thực hiện</span>
                                         </div>
-                                        <input type="text" name="createdBy" class="form-control" id="basic-url"
-                                            th:value="${session.username}" aria-describedby="basic-addon3" readonly>
+                                        <input type="text" name="createdBy" class="form-control" id="addNewCreatedBy"
+                                            th:value="${session.username}" aria-describedby="addNewCreatedBySpan"
+                                            readonly>
                                     </div>
                                     <!-- <input class="form-control" type="file" id="customerAvatar" onchange="preview()"> -->
                                 </div>
                                 <div class="col-md-3" id="avatarDisplay">
-                                    <img id="frame" src=""
+                                    <img id="frameAddNew" src=""
                                         class="img-fluid border border-primary rounded-top w-100" /><br>
-                                    <button id="btn-delete-img" type="button" onclick="clearImage()"
-                                        class="btn btn-primary w-100" disabled>Bỏ trống</button>
+                                    <button type="button" id="btnDeleteImgAddNew" data-target="frameAddNew"
+                                        data-input="customerAvatarAddNew" class="btn btn-primary w-100 btnDeleteImg"
+                                        disabled>Bỏ trống</button>
+                                </div>
+                            </div><!-- row -->
+                        </form>
+                    </div>
+                    <div class="modal-footer" id="modal-add-new-customer-footer">
+                        <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-customer">
+                            Thêm mới</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="updateCustomerModal" class="modal fade" tabindex="-1" role="dialog"
+            aria-labelledby="updateCustomerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 800px !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateCustomerModalLabel">Cập nhật khách hàng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body pt-0">
+                        <form th:action="@{/customer/update}" id="form-add-new-customer" method="post"
+                            enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend w-25">
+                                            <span class="input-group-text bg-primary text-white w-100"
+                                                id="customerNameUpdateSpan">Tên khách hàng</span>
+                                        </div>
+                                        <input type="text" name="customerName" class="form-control"
+                                            id="customerNameUpdate" aria-describedby="customerNameUpdateSpan">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend w-25">
+                                            <span class="input-group-text bg-primary text-white w-100">
+                                                Ảnh đại diện</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="hidden" name="avatarName" id="avatarNameUpdate">
+                                            <input type="file" name="avatarFile"
+                                                class="custom-file-input customerAvatar" data-target="frameUpdate"
+                                                data-delete="btnDeleteImgUpdate" id="customerAvatarUpdate">
+                                            <label class="custom-file-label" for="customerAvatarUpdate">
+                                                Chọn file ảnh ( jpg | jpeg | png )...</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend w-25">
+                                            <span class="input-group-text bg-primary text-white w-100"
+                                                id="createdByUpdateSpan">Người thực hiện</span>
+                                        </div>
+                                        <input type="text" name="createdBy" class="form-control" id="createdByUpdate"
+                                            aria-describedby="createdByUpdateSpan" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" id="avatarDisplay">
+                                    <img id="frameUpdate" src=""
+                                        class="img-fluid border border-primary rounded-top w-100" /><br>
+                                    <button type="button" id="btnDeleteImgUpdate" data-target="frameUpdate"
+                                        data-input="customerAvatarUpdate" class="btn btn-primary w-100 btnDeleteImg"
+                                        disabled>Bỏ trống</button>
                                 </div>
                             </div><!-- row -->
                         </form>
@@ -154,8 +222,15 @@
                                                         alt="customer image" class="img-radius"
                                                         style="width: 60px; height: 60px;">
                                                 </td>
-                                                <td class="align-middle text-center"
-                                                    th:text="${customerListItem.getCustomerName()}"></td>
+                                                <td class="align-middle text-center">
+                                                    <a href="javascript:void(0)" class="customerNameList"
+                                                        th:data-id="${customerListItem.getId()}" data-toggle="modal"
+                                                        data-target="#updateCustomerModal">
+                                                        <span data-toggle="tooltip" data-placement="top"
+                                                            title="Cập nhật">
+                                                            [[${customerListItem.getCustomerName()}]]</span>
+                                                    </a>
+                                                </td>
                                                 <td class="align-middle">
                                                     [[${customerListItem.getCreatedBy()}]]<br>[[${customerListItem.getCreatedDate()}]]
                                                 </td>

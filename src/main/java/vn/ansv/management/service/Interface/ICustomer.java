@@ -11,5 +11,7 @@ public interface ICustomer {
 
     List<ListCustomerDTO> findAllList();
 
+    ListCustomerDTO findDetailById(Long id);
+
     Integer addCustomer(AddNewCustomerDTO addNewCustomerDTO);
 }

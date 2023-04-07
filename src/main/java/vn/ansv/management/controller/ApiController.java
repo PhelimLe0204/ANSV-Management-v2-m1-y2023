@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.ansv.management.dto.ProjectDTO;
+import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 import vn.ansv.management.dto.member.DetailMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
@@ -257,5 +258,18 @@ public class ApiController {
 
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("success", message, customerId));
+    }
+
+    @GetMapping("/getCustomerDetail/{id}")
+    public ResponseEntity<ResponseObject> getCustomerDetail(@PathVariable Long id) {
+        ListCustomerDTO data = customerService.findDetailById(id);
+
+        if (data.getId() == null) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("Failed", "Đối tượng không xác định.", null));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("success", "Chi tiết khách hàng", data));
     }
 }
