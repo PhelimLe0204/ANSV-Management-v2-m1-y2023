@@ -38,6 +38,11 @@ $(document).ready(function () {
             + '<span class="pl-1"> Đang xử lý...</span></button>'
         );
 
+        var fileData = document.getElementById("customerAvatarAddNew").files[0];
+        if (fileData == undefined || fileData.length == 0) {
+            return $("#form-add-new-customer").submit();
+        }
+
         $.ajax({
             url: "/customer/uploadAvatar",
             type: 'POST',
@@ -49,10 +54,11 @@ $(document).ready(function () {
             success: function (result, textStatus, jqXHR) {
                 if (result.status == "success") {
                     $("#avatarName").val(result.data);
-                    console.log($("#avatarName").val());
+                    // console.log("avatarName: " + $("#avatarName").val());
                     setTimeout(function () {
                         $("#form-add-new-customer").submit();
                     }, 1000);
+                    return;
                 }
 
                 if (result.status == "failed") {
@@ -61,6 +67,7 @@ $(document).ready(function () {
                         '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>' +
                         '<button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-customer">Thêm mới</button>'
                     );
+                    return;
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -73,6 +80,9 @@ $(document).ready(function () {
 
 $('.customerAvatar').change(function (event) {
     if (event.target.files[0] == undefined) {
+        var frame = document.getElementById(this.dataset.target);
+        this.value = null;
+        frame.src = "/images/logo/image_undefined_2.jpg";
         return;
     }
     if (event.target.files[0].length != 0) {

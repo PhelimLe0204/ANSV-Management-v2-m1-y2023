@@ -276,8 +276,12 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "/customer/uploadAvatar", method = RequestMethod.POST)
     ResponseEntity<ResponseObject> uploadAvatar(@RequestParam("avatarFile") MultipartFile avatarFile) {
-        String filename = storageService.storeFile(avatarFile);
+        if (avatarFile.getOriginalFilename() == "image_undefined_2.jpg") {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("donothing", "File ảnh mặc định hoặc rỗng!", null));
+        }
 
+        String filename = storageService.storeFile(avatarFile);
         if (filename != null) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", "File ảnh lưu thành công!", filename));

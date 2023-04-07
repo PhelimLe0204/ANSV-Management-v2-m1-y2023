@@ -330,6 +330,9 @@ public class HomeController extends BaseController {
             // storageService.storeFile(addNewCustomerDTO.getAvatarFile());
             addNewCustomerDTO.setUid(RandomStringUtils.randomAlphanumeric(20));
             addNewCustomerDTO.setEnabled(0);
+            if (addNewCustomerDTO.getAvatarName().isEmpty()) {
+                addNewCustomerDTO.setAvatarName(null);
+            }
             // addNewCustomerDTO.setAvatarName(filename);
             Integer result = customerService.addCustomer(addNewCustomerDTO);
             return "redirect:/danh-sach/khach-hang?uploadStatus=" + result;
