@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vn.ansv.management.dto.Customer.AddNewCustomerDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
+import vn.ansv.management.dto.Customer.UpdateCustomerDTO;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
@@ -339,6 +340,20 @@ public class HomeController extends BaseController {
         } catch (Exception exception) {
             System.out.println("--------------------------------- " + exception);
             return "redirect:/danh-sach/khach-hang?uploadStatus=0";
+        }
+    }
+
+    @RequestMapping(value = "/customer/update", method = RequestMethod.POST)
+    public String updateCustomer(@ModelAttribute UpdateCustomerDTO updateCustomerDTO) {
+        try {
+            if (updateCustomerDTO.getAvatarName().isEmpty()) {
+                updateCustomerDTO.setAvatarName(null);
+            }
+            Boolean result = customerService.updateCustomer(updateCustomerDTO);
+            return "redirect:/danh-sach/khach-hang?updateStatus=" + result;
+        } catch (Exception exception) {
+            System.out.println("--------------------------------- " + exception);
+            return "redirect:/danh-sach/khach-hang?updateStatus=false";
         }
     }
 }

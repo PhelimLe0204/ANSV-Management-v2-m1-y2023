@@ -44,4 +44,13 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
             + "VALUES (:createdBy, :uid, :avatar, :customerName, :enabled)", nativeQuery = true)
     void addCustomer(@Param("createdBy") String createdBy, @Param("uid") String uid, @Param("avatar") String avatar,
             @Param("customerName") String customerName, @Param("enabled") Integer enabled);
+
+    // Cập nhật khách hàng
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE customer AS c SET c.customer_name = :customerName, "
+            + "c.avatar = :avatarName, c.moddified_by = :modifiedBy "
+            + "WHERE c.id = :id", nativeQuery = true)
+    void updateCustomer(@Param("id") Long id, @Param("customerName") String customerName,
+            @Param("avatarName") String avatarName, @Param("modifiedBy") String modifiedBy);
 }

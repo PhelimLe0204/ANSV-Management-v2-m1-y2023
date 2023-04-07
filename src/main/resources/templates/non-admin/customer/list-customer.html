@@ -37,7 +37,7 @@
                                                 Ảnh đại diện</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="hidden" name="avatarName" id="avatarName">
+                                            <input type="hidden" name="avatarName" id="avatarNameAddNew">
                                             <input type="file" name="avatarFile"
                                                 class="custom-file-input customerAvatar" data-target="frameAddNew"
                                                 data-delete="btnDeleteImgAddNew" id="customerAvatarAddNew">
@@ -86,11 +86,12 @@
                         </button>
                     </div>
                     <div class="modal-body pt-0">
-                        <form th:action="@{/customer/update}" id="form-add-new-customer" method="post"
+                        <form th:action="@{/customer/update}" id="form-update-customer" method="post"
                             enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="input-group mb-3">
+                                        <input type="hidden" name="id" id="customerIdUpdate">
                                         <div class="input-group-prepend w-25">
                                             <span class="input-group-text bg-primary text-white w-100"
                                                 id="customerNameUpdateSpan">Tên khách hàng</span>
@@ -115,10 +116,10 @@
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend w-25">
                                             <span class="input-group-text bg-primary text-white w-100"
-                                                id="createdByUpdateSpan">Người thực hiện</span>
+                                                id="modifiedByUpdateSpan">Người thực hiện</span>
                                         </div>
-                                        <input type="text" name="createdBy" class="form-control" id="createdByUpdate"
-                                            aria-describedby="createdByUpdateSpan" readonly>
+                                        <input type="text" name="modifiedBy" class="form-control" id="modifiedByUpdate"
+                                            aria-describedby="modifiedByUpdateSpan" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3" id="avatarDisplay">
@@ -131,10 +132,10 @@
                             </div><!-- row -->
                         </form>
                     </div>
-                    <div class="modal-footer" id="modal-add-new-customer-footer">
+                    <div class="modal-footer" id="modal-update-customer-footer">
                         <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-customer">
-                            Thêm mới</button>
+                        <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-update-customer">
+                            Cập nhật</button>
                     </div>
                 </div>
             </div>

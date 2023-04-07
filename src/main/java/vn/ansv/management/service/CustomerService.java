@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.Customer.AddNewCustomerDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
+import vn.ansv.management.dto.Customer.UpdateCustomerDTO;
 import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 import vn.ansv.management.repository.CustomerRepository;
 import vn.ansv.management.service.Interface.ICustomer;
@@ -62,6 +63,18 @@ public class CustomerService implements ICustomer {
         } catch (Exception e) {
             System.out.println("--- e ---" + e);
             return null;
+        }
+    }
+
+    @Override
+    public Boolean updateCustomer(UpdateCustomerDTO updateCustomerDTO) {
+        try {
+            customerRepository.updateCustomer(updateCustomerDTO.getId(), updateCustomerDTO.getCustomerName(),
+                    updateCustomerDTO.getAvatarName(), updateCustomerDTO.getModifiedBy());
+            return true;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+            return false;
         }
     }
 

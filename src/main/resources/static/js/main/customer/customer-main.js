@@ -53,8 +53,8 @@ $(document).ready(function () {
             contentType: false,
             success: function (result, textStatus, jqXHR) {
                 if (result.status == "success") {
-                    $("#avatarName").val(result.data);
-                    // console.log("avatarName: " + $("#avatarName").val());
+                    $("#avatarNameAddNew").val(result.data);
+                    // console.log("avatarNameAddNew: " + $("#avatarNameAddNew").val());
                     setTimeout(function () {
                         $("#form-add-new-customer").submit();
                     }, 1000);
@@ -66,6 +66,58 @@ $(document).ready(function () {
                     $("#modal-add-new-customer-footer").html(
                         '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>' +
                         '<button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-add-new-customer">Thêm mới</button>'
+                    );
+                    return;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+                // alert('ERRORS: ' + textStatus);
+            }
+        });
+    });
+
+    $("#btn-submit-update-customer").click(function () {
+        // Call API upload file
+        var form = document.getElementById('form-update-customer');
+        // var url = form.action;
+        var data = new FormData(form);
+
+        $("#modal-update-customer-footer").html(
+            '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>'
+            + '<button type="button" class="btn btn-primary pt-1 pb-1" disabled>'
+            + '<span class="spinner-border spinner-border-sm" role="status"></span>'
+            + '<span class="pl-1"> Đang xử lý...</span></button>'
+        );
+
+        var fileData = document.getElementById("customerAvatarUpdate").files[0];
+        if (fileData == undefined || fileData.length == 0) {
+            return $("#form-update-customer").submit();
+        }
+
+        $.ajax({
+            url: "/customer/uploadAvatar",
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                if (result.status == "success") {
+                    $("#avatarNameUpdate").val(result.data);
+                    // console.log("avatarNameUpdate: " + $("#avatarNameUpdate").val());
+                    setTimeout(function () {
+                        $("#form-update-customer").submit();
+                    }, 1000);
+                    return;
+                }
+
+                if (result.status == "failed") {
+                    alertify.warning(result.message).delay(2.5);
+                    $("#modal-update-customer-footer").html(
+                        '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>' +
+                        '<button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-update-customer">Cập nhật</button>'
                     );
                     return;
                 }
@@ -125,10 +177,12 @@ $(".customerNameList").click(function () {
             if (result.status == "success") {
                 dataCustomerDetail = result.data;
                 console.log(dataCustomerDetail);
+                document.getElementById("customerIdUpdate").value = dataCustomerDetail.id;
                 document.getElementById("customerNameUpdate").value = dataCustomerDetail.customerName;
                 document.getElementById("frameUpdate").src = "/images/logo/" + (dataCustomerDetail.avatar != null ? dataCustomerDetail.avatar : "image_undefined_2.jpg");
-                document.getElementById("createdByUpdate").value = dataCustomerDetail.createdBy;
+                document.getElementById("modifiedByUpdate").value = dataCustomerDetail.createdBy;
                 if (dataCustomerDetail.avatar != null) {
+                    document.getElementById("avatarNameUpdate").value = dataCustomerDetail.avatar;
                     document.getElementById("btnDeleteImgUpdate").disabled = false;
                 } else {
                     document.getElementById("btnDeleteImgUpdate").disabled = true;
