@@ -681,7 +681,7 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
 
 
 /* ===== Start: Tab quá trình ===== */
-$(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
+// $(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 $(".btn-change-data-view").click(function () {
     // var data_showing = $(this).attr("data-showing");
     // var data_hiding = $(this).attr("data-hiding");
