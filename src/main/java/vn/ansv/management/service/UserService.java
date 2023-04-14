@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
+import vn.ansv.management.dto.member.TotalReportByUserDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.repository.RoleRepository;
 import vn.ansv.management.repository.UserRepository;
@@ -64,6 +65,58 @@ public class UserService implements IUser {
             return userRepository.defineByUsername(username);
         }
         return user_define;
+    }
+
+    @Override
+    public List<TotalReportByUserDTO> reportTotalManagerAm(Integer week, Integer year, String roleName) {
+        try {
+            List<TotalReportByUserDTO> data = userRepository.reportTotalManagerAm(week, year, roleName);
+            data.forEach(item -> item.setListReport(
+                    userRepository.reportLessByManagerAM(week, year, item.getId())));
+            return data;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<TotalReportByUserDTO> reportTotalManagerPm(Integer week, Integer year, String roleName) {
+        try {
+            List<TotalReportByUserDTO> data = userRepository.reportTotalManagerPm(week, year, roleName);
+            data.forEach(item -> item.setListReport(
+                    userRepository.reportLessByManagerPM(week, year, item.getId())));
+            return data;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<TotalReportByUserDTO> reportTotalAM(Integer week, Integer year, String roleName) {
+        try {
+            List<TotalReportByUserDTO> data = userRepository.reportTotalAM(week, year, roleName);
+            data.forEach(item -> item.setListReport(
+                    userRepository.reportLessByAM(week, year, item.getId())));
+            return data;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<TotalReportByUserDTO> reportTotalPM(Integer week, Integer year, String roleName) {
+        try {
+            List<TotalReportByUserDTO> data = userRepository.reportTotalPM(week, year, roleName);
+            data.forEach(item -> item.setListReport(
+                    userRepository.reportLessByPM(week, year, item.getId())));
+            return data;
+        } catch (Exception e) {
+            System.out.println("--- e ---" + e);
+            return null;
+        }
     }
 
 }

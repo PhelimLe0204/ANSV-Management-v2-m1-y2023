@@ -1,6 +1,6 @@
 <div class="tab-pane fade" id="qua-trinh" role="tabpanel" aria-labelledby="qua-trinh-tab" th:fragment="body">
     <div class="row pt-3">
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-2 col-sm-12 pr-0">
             <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <li>
                     <a class="nav-link text-left active" id="v-pills-results-tab" data-toggle="pill"
@@ -18,7 +18,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-9 col-sm-12">
+        <div class="col-md-10 col-sm-12">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-results" role="tabpanel"
                     aria-labelledby="v-pills-results-tab">
@@ -28,7 +28,6 @@
                                 <div class="col-md-6 col-sm-6 pr-4">
                                     <div class="pricingTable">
                                         <div class="pricingTable-header">
-                                            <!-- <i class="fa fa-adjust"></i> -->
                                             <i class="fa-solid fa-list-check"></i>
                                             <div class="price-value">
                                                 Kết quả<span class="month">Tuần trước</span>
@@ -37,7 +36,7 @@
                                         <h5 class="heading">
                                             Tuần trước: [[${detailTabPhanLoai.getWeek() - 1}]]
                                         </h5>
-                                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                                        <div class="pricing-content text-left pr-3 pl-3">
                                             <span class="text-dark">
                                                 [(${detailTabQuaTrinh.getKetQuaTuanTruoc()})]
                                             </span>
@@ -53,7 +52,6 @@
                                 <div class="col-md-6 col-sm-6 pl-4">
                                     <div class="pricingTable green">
                                         <div class="pricingTable-header">
-                                            <!-- <i class="fa fa-briefcase"></i> -->
                                             <i class="fa-solid fa-list-check"></i>
                                             <div class="price-value">
                                                 Kết quả<span class="month">Tuần này</span>
@@ -62,7 +60,7 @@
                                         <h5 class="heading">
                                             Tuần này: [[${detailTabPhanLoai.getWeek()}]]
                                         </h5>
-                                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                                        <div class="pricing-content text-left pr-3 pl-3">
                                             <span class="text-dark">
                                                 [(${detailTabQuaTrinh.getKetQuaTuanNay()})]
                                             </span>
@@ -86,8 +84,7 @@
                                 <div class="col-md-6 col-sm-6 pr-4">
                                     <div class="pricingTable">
                                         <div class="pricingTable-header">
-                                            <!-- <i class="fa fa-adjust"></i> -->
-                                            <i class="fa-solid fa-list-check"></i>
+                                            <i class="fa-solid fa-paper-plane"></i>
                                             <div class="price-value">
                                                 Kế hoạch<span class="month">Tuần này</span>
                                             </div>
@@ -95,7 +92,7 @@
                                         <h5 class="heading">
                                             Tuần này: [[${detailTabPhanLoai.getWeek()}]]
                                         </h5>
-                                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                                        <div class="pricing-content text-left pr-3 pl-3">
                                             <span class="text-dark">
                                                 [(${detailTabQuaTrinh.getKeHoachTuanNay()})]
                                             </span>
@@ -111,8 +108,7 @@
                                 <div class="col-md-6 col-sm-6 pl-4">
                                     <div class="pricingTable green">
                                         <div class="pricingTable-header">
-                                            <!-- <i class="fa fa-briefcase"></i> -->
-                                            <i class="fa-solid fa-list-check"></i>
+                                            <i class="fa-solid fa-paper-plane"></i>
                                             <div class="price-value">
                                                 Kế hoạch<span class="month">Tuần sau</span>
                                             </div>
@@ -120,7 +116,7 @@
                                         <h5 class="heading">
                                             Tuần sau: [[${detailTabPhanLoai.getWeek() + 1}]]
                                         </h5>
-                                        <div class="pricing-content text-left pt-0 pr-3 pb-3 pl-3">
+                                        <div class="pricing-content text-left pr-3 pl-3">
                                             <span class="text-dark">
                                                 [(${detailTabQuaTrinh.getKeHoachTuanSau()})]
                                             </span>
@@ -139,19 +135,18 @@
                 </div>
                 <div class="tab-pane fade" id="v-pills-issues-and-solution" role="tabpanel"
                     aria-labelledby="v-pills-issues-and-solution-tab">
-                    <div class="demo pt-4 pb-4">
+                    <div class="col-md-12 demo pb-4">
                         <div class="container" style="max-width: 100%;">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 pr-4">
                                     <div class="pricingTable red">
                                         <div class="pricingTable-header">
-                                            <!-- <i class="fa fa-diamond"></i> -->
                                             <i class="fa-solid fa-triangle-exclamation"></i>
                                             <div class="price-value">Khó khăn<span class="month">General Issue</span>
                                             </div>
                                         </div>
                                         <h3 class="heading">Nội dung</h3>
-                                        <div class="pricing-content text-left p-3">
+                                        <div class="pricing-content text-left pr-3 pl-3">
                                             <div class="text-dark">
                                                 [(${detailTabQuaTrinh.getGeneralIssue()})]
                                             </div>
@@ -172,7 +167,7 @@
                                             <div class="price-value">Giải pháp<span class="month">Solution</span></div>
                                         </div>
                                         <h3 class="heading">Nội dung</h3>
-                                        <div class="pricing-content text-left p-3">
+                                        <div class="pricing-content text-left pr-3 pl-3">
                                             <div class="text-dark overflow-auto">
                                                 [(${detailTabQuaTrinh.getSolution()})]
                                             </div>

@@ -17,7 +17,131 @@ import javax.persistence.Table;
 
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
+import vn.ansv.management.dto.member.ListReportLessByUserDTO;
+import vn.ansv.management.dto.member.TotalReportByUserDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
+
+/* ===== UserRepository.reportLessByManagerAM() ===== */
+@NamedNativeQuery(name = "UserEntity.reportLessByManagerAM", query = "SELECT "
+        + "pr.id, c.avatar AS customerAvatar, pr.job_name AS reportName, pt.type_name AS typeName, "
+        + "pp.priority_name AS priorityName, ps.status_name AS statusName "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_type AS pt ON pr.project_type_id = pt.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.am_manager_id = u.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND u.id = :userId "
+        + "ORDER BY pr.job_name", resultSetMapping = "Mapping.ListReportLessByUserDTO")
+
+/* ===== UserRepository.reportLessByManagerPM() ===== */
+@NamedNativeQuery(name = "UserEntity.reportLessByManagerPM", query = "SELECT "
+        + "pr.id, c.avatar AS customerAvatar, pr.job_name AS reportName, pt.type_name AS typeName, "
+        + "pp.priority_name AS priorityName, ps.status_name AS statusName "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_type AS pt ON pr.project_type_id = pt.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.pm_manager_id = u.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND u.id = :userId "
+        + "ORDER BY u.fullname", resultSetMapping = "Mapping.ListReportLessByUserDTO")
+
+/* ===== UserRepository.reportLessByAM() ===== */
+@NamedNativeQuery(name = "UserEntity.reportLessByAM", query = "SELECT "
+        + "pr.id, c.avatar AS customerAvatar, pr.job_name AS reportName, pt.type_name AS typeName, "
+        + "pp.priority_name AS priorityName, ps.status_name AS statusName "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_type AS pt ON pr.project_type_id = pt.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.am_id = u.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND u.id = :userId "
+        + "ORDER BY u.fullname", resultSetMapping = "Mapping.ListReportLessByUserDTO")
+
+/* ===== UserRepository.reportLessByPM() ===== */
+@NamedNativeQuery(name = "UserEntity.reportLessByPM", query = "SELECT "
+        + "pr.id, c.avatar AS customerAvatar, pr.job_name AS reportName, pt.type_name AS typeName, "
+        + "pp.priority_name AS priorityName, ps.status_name AS statusName "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_type AS pt ON pr.project_type_id = pt.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "INNER JOIN user AS u ON pr.pm_id = u.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND u.id = :userId "
+        + "ORDER BY u.fullname", resultSetMapping = "Mapping.ListReportLessByUserDTO")
+
+/* ===== Set mapping: ListReportLessByUserDTO ===== */
+@SqlResultSetMapping(name = "Mapping.ListReportLessByUserDTO", classes = @ConstructorResult(targetClass = ListReportLessByUserDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "customerAvatar", type = String.class),
+        @ColumnResult(name = "reportName", type = String.class),
+        @ColumnResult(name = "typeName", type = String.class),
+        @ColumnResult(name = "priorityName", type = String.class),
+        @ColumnResult(name = "statusName", type = String.class) }))
+
+/* ===== UserRepository.reportTotalManagerAm() ===== */
+@NamedNativeQuery(name = "UserEntity.reportTotalManagerAm", query = "SELECT "
+        + "u.id, pr.week, pr.year, u.username, u.fullname, "
+        + "(SELECT COUNT(pr.id) FROM project_report AS pr WHERE pr.am_manager_id = u.id "
+        + "AND pr.week = :week AND pr.year = :year) AS reportTotal "
+        + "FROM user AS u "
+        + "INNER JOIN project_report AS pr ON u.id = pr.am_manager_id "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND r.role_name = :roleName "
+        + "GROUP BY u.id ORDER BY u.fullname", resultSetMapping = "Mapping.TotalReportByUserDTO")
+
+/* ===== UserRepository.reportTotalManagerPm() ===== */
+@NamedNativeQuery(name = "UserEntity.reportTotalManagerPm", query = "SELECT "
+        + "u.id, pr.week, pr.year, u.username, u.fullname, "
+        + "(SELECT COUNT(pr.id) FROM project_report AS pr WHERE pr.pm_manager_id = u.id "
+        + "AND pr.week = :week AND pr.year = :year) AS reportTotal "
+        + "FROM user AS u "
+        + "INNER JOIN project_report AS pr ON u.id = pr.pm_manager_id "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND r.role_name = :roleName "
+        + "GROUP BY u.id ORDER BY u.fullname", resultSetMapping = "Mapping.TotalReportByUserDTO")
+
+/* ===== UserRepository.reportTotalAM() ===== */
+@NamedNativeQuery(name = "UserEntity.reportTotalAM", query = "SELECT "
+        + "u.id, pr.week, pr.year, u.username, u.fullname, "
+        + "(SELECT COUNT(pr.id) FROM project_report AS pr WHERE pr.am_id = u.id "
+        + "AND pr.week = :week AND pr.year = :year) AS reportTotal "
+        + "FROM user AS u "
+        + "INNER JOIN project_report AS pr ON u.id = pr.am_id "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND r.role_name = :roleName "
+        + "GROUP BY u.id ORDER BY u.fullname", resultSetMapping = "Mapping.TotalReportByUserDTO")
+
+/* ===== UserRepository.reportTotalPM() ===== */
+@NamedNativeQuery(name = "UserEntity.reportTotalPM", query = "SELECT "
+        + "u.id, pr.week, pr.year, u.username, u.fullname, "
+        + "(SELECT COUNT(pr.id) FROM project_report AS pr WHERE pr.pm_id = u.id "
+        + "AND pr.week = :week AND pr.year = :year) AS reportTotal "
+        + "FROM user AS u "
+        + "INNER JOIN project_report AS pr ON u.id = pr.pm_id "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND r.role_name = :roleName "
+        + "GROUP BY u.id ORDER BY u.fullname", resultSetMapping = "Mapping.TotalReportByUserDTO")
+
+/* ===== Set mapping: TotalReportByUserDTO ===== */
+@SqlResultSetMapping(name = "Mapping.TotalReportByUserDTO", classes = @ConstructorResult(targetClass = TotalReportByUserDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "week", type = Integer.class),
+        @ColumnResult(name = "year", type = Integer.class),
+        @ColumnResult(name = "username", type = String.class),
+        @ColumnResult(name = "fullname", type = String.class),
+        @ColumnResult(name = "reportTotal", type = Integer.class) }))
 
 /* ===== UserRepository.defineByUsername() ===== */
 @NamedNativeQuery(name = "UserEntity.defineByUsername", query = "SELECT "

@@ -261,6 +261,56 @@ public class HomeController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "thanh-vien/report", method = RequestMethod.GET)
+    public ModelAndView totalReportByUser(HttpSession session) {
+        _mvShare.setViewName("non-admin/members/totalReport");
+
+        Init(session); // Lấy dữ liệu cơ bản
+
+        Date trialTime = new Date();
+        String userRole = (String) session.getAttribute("userRole");
+
+        int thisWeek = session.getAttribute("thisWeek") != null ? (int) session.getAttribute("thisWeek")
+                : getWeekOfYear(trialTime);
+        int thisYear = session.getAttribute("thisYear") != null ? (int) session.getAttribute("thisYear")
+                : Calendar.getInstance().get(Calendar.YEAR);
+
+        if (userRole.equals("DOC_BDC") || userRole.equals("DGD")
+                || userRole.equals("CEO") || userRole.equals("Admin")) {
+            _mvShare.addObject(
+                    "listTotalReportAm", userService.reportTotalAM(thisWeek, thisYear, "AM"));
+            _mvShare.addObject(
+                    "listTotalReportPm", userService.reportTotalPM(thisWeek, thisYear, "PM"));
+            _mvShare.addObject(
+                    "listTotalReportManagerAm", userService.reportTotalManagerAm(thisWeek, thisYear, "Manager_AM"));
+            _mvShare.addObject(
+                    "listTotalReportManagerPm", userService.reportTotalManagerPm(thisWeek, thisYear, "Manager_PM"));
+            return _mvShare;
+        }
+
+        if (userRole.equals("Manager_AM")) {
+            _mvShare.addObject(
+                    "listTotalReportAm", userService.reportTotalAM(thisWeek, thisYear, "AM"));
+            _mvShare.addObject(
+                    "listTotalReportManagerAm", userService.reportTotalManagerAm(thisWeek, thisYear, "Manager_AM"));
+            return _mvShare;
+        }
+
+        if (userRole.equals("Manager_PM")) {
+            _mvShare.addObject(
+                    "listTotalReportPm", userService.reportTotalPM(thisWeek, thisYear, "PM"));
+            _mvShare.addObject(
+                    "listTotalReportManagerPm", userService.reportTotalManagerPm(thisWeek, thisYear, "Manager_PM"));
+            return _mvShare;
+        }
+        return _mvShare;
+    }
+
+    public ModelAndView menuAm(HttpSession session) {
+
+        return _mvShare;
+    }
+
     @RequestMapping(value = "thanh-vien/bdc", method = RequestMethod.GET)
     public ModelAndView membersBDC(HttpSession session) {
         Init(session); // Lấy dữ liệu cơ bản

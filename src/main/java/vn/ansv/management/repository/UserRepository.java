@@ -11,6 +11,8 @@ import org.springframework.data.repository.query.Param;
 
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
+import vn.ansv.management.dto.member.ListReportLessByUserDTO;
+import vn.ansv.management.dto.member.TotalReportByUserDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.entity.UserEntity;
 
@@ -18,6 +20,38 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(nativeQuery = true)
     List<OptionUserDTO> findAllUserOption();
+
+    @Query(nativeQuery = true)
+    List<TotalReportByUserDTO> reportTotalManagerAm(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("roleName") String roleName);
+
+    @Query(nativeQuery = true)
+    List<TotalReportByUserDTO> reportTotalManagerPm(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("roleName") String roleName);
+
+    @Query(nativeQuery = true)
+    List<TotalReportByUserDTO> reportTotalAM(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("roleName") String roleName);
+
+    @Query(nativeQuery = true)
+    List<TotalReportByUserDTO> reportTotalPM(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("roleName") String roleName);
+
+    @Query(nativeQuery = true)
+    List<ListReportLessByUserDTO> reportLessByManagerAM(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("userId") Long userId);
+
+    @Query(nativeQuery = true)
+    List<ListReportLessByUserDTO> reportLessByManagerPM(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("userId") Long userId);
+
+    @Query(nativeQuery = true)
+    List<ListReportLessByUserDTO> reportLessByAM(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("userId") Long userId);
+
+    @Query(nativeQuery = true)
+    List<ListReportLessByUserDTO> reportLessByPM(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("userId") Long userId);
 
     @Query(nativeQuery = true)
     UserDefineDTO defineByUsername(String username);
