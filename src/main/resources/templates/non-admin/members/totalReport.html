@@ -94,249 +94,273 @@
                                 <div class="tab-pane fade show active" id="manager-am" role="tabpanel"
                                     aria-labelledby="manager-am-tab">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-12">
-                                            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-                                                aria-orientation="vertical">
-                                                <th:block
-                                                    th:each="listTotalReportManagerAmItem : ${listTotalReportManagerAm}">
-                                                    <li>
-                                                        <a class="nav-link text-left"
-                                                            th:classappend="${listTotalReportManagerAmItemStat.index == 0 ? 'active' : ''}"
-                                                            th:id="${'v-pills-' + listTotalReportManagerAmItem.getId() + '-tab'}"
-                                                            data-toggle="pill"
-                                                            th:href="${'#v-pills-' + listTotalReportManagerAmItem.getId()}"
-                                                            role="tab"
-                                                            th:aria-controls="${'#v-pills-' + listTotalReportManagerAmItem.getId()}"
-                                                            aria-selected="true">
-                                                            <div style="min-height: 21px;">
-                                                                <span class="float-left">
-                                                                    [[${listTotalReportManagerAmItem.getFullname()}]]</span>
-                                                                <span class="float-right">
-                                                                    ([[${listTotalReportManagerAmItem.getReportTotal()}]])</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-9 col-sm-12">
-                                            <div class="tab-content" id="v-pills-tabContent">
-                                                <th:block
-                                                    th:each="listTotalReportManagerAmItem : ${listTotalReportManagerAm}">
-                                                    <div class="tab-pane fade"
-                                                        th:classappend="${listTotalReportManagerAmItemStat.index == 0 ? 'show active' : ''}"
-                                                        th:id="${'v-pills-' + listTotalReportManagerAmItem.getId()}"
-                                                        role="tabpanel"
-                                                        th:aria-labelledby="${'#v-pills-' + listTotalReportManagerAmItem.getId() + '-tab'}">
-                                                        <div class="list-group">
-                                                            <th:block
-                                                                th:each="listReportManagerAmItem : ${listTotalReportManagerAmItem.getListReport()}">
-                                                                <a th:href="${'/chi-tiet?id=' + listReportManagerAmItem.getId()}"
-                                                                    class="list-group-item list-group-item-action">
-                                                                    [[${listReportManagerAmItem.getReportName()}]]
-                                                                </a>
-                                                            </th:block>
-                                                        </div>
-                                                    </div>
-                                                </th:block>
-                                                <!-- <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                                                    aria-labelledby="v-pills-home-tab">
-
-                                                </div>
-                                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                                                    aria-labelledby="v-pills-profile-tab">
-                                                    <p class="mb-0">Culpa dolor voluptate do laboris laboris irure
-                                                        reprehenderit id incididunt duis pariatur mollit aute magna
-                                                        pariatur consectetur. Eu veniam duis non ut dolor deserunt
-                                                        commodo et
-                                                        minim in quis
-                                                        laboris ipsum velit id veniam. Quis ut consectetur adipisicing
-                                                        officia excepteur non sit. Ut et elit aliquip labore Lorem enim
-                                                        eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui
-                                                        esse anim eiusmod do sint minim consectetur qui.</p>
-                                                </div>
-                                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-                                                    aria-labelledby="v-pills-messages-tab">
-                                                    <p class="mb-0">Fugiat id quis dolor culpa eiusmod anim velit
-                                                        excepteur proident dolor aute qui magna. Ad proident laboris
-                                                        ullamco esse anim Lorem Lorem veniam quis Lorem irure occaecat
-                                                        velit
-                                                        nostrud magna
-                                                        nulla. Velit et et proident Lorem do ea tempor officia dolor.
-                                                        Reprehenderit Lorem aliquip labore est magna commodo est ea
-                                                        veniam consectetur.</p>
-                                                </div>
-                                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
-                                                    aria-labelledby="v-pills-settings-tab">
-                                                    <p class="mb-0">Eu dolore ea ullamco dolore Lorem id cupidatat
-                                                        excepteur reprehenderit consectetur elit id dolor proident in
-                                                        cupidatat officia. Voluptate excepteur commodo labore nisi
-                                                        cillum
-                                                        duis
-                                                        aliqua do.
-                                                        Aliqua amet qui mollit consectetur nulla mollit velit aliqua
-                                                        veniam nisi id do Lorem deserunt amet. Culpa ullamco sit
-                                                        adipisicing labore officia magna elit nisi in aute tempor
-                                                        commodo
-                                                        eiusmod.
-                                                    </p>
-                                                </div> -->
+                                        <th:block th:if="${#lists.isEmpty(listTotalReportManagerAm)}">
+                                            <div class="col-md-12 col-sm-12 text-center">
+                                                <h4 class="text-secondary">Dữ liệu trống!</h4>
                                             </div>
-                                        </div>
+                                        </th:block>
+                                        <th:block th:unless="${#lists.isEmpty(listTotalReportManagerAm)}">
+                                            <div class="col-md-3 col-sm-12">
+                                                <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                                    aria-orientation="vertical">
+                                                    <th:block
+                                                        th:each="listTotalReportManagerAmItem : ${listTotalReportManagerAm}">
+                                                        <li>
+                                                            <a class="nav-link text-left"
+                                                                th:classappend="${listTotalReportManagerAmItemStat.index == 0 ? 'active' : ''}"
+                                                                th:id="${'v-pills-' + listTotalReportManagerAmItem.getId() + '-tab'}"
+                                                                data-toggle="pill"
+                                                                th:href="${'#v-pills-' + listTotalReportManagerAmItem.getId()}"
+                                                                role="tab"
+                                                                th:aria-controls="${'#v-pills-' + listTotalReportManagerAmItem.getId()}"
+                                                                aria-selected="true">
+                                                                <div style="min-height: 21px;">
+                                                                    <span class="float-left">
+                                                                        [[${listTotalReportManagerAmItem.getFullname()}]]</span>
+                                                                    <span class="float-right">
+                                                                        ([[${listTotalReportManagerAmItem.getReportTotal()}]])</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-9 col-sm-12">
+                                                <div class="tab-content" id="v-pills-tabContent">
+                                                    <th:block
+                                                        th:each="listTotalReportManagerAmItem : ${listTotalReportManagerAm}">
+                                                        <div class="tab-pane fade"
+                                                            th:classappend="${listTotalReportManagerAmItemStat.index == 0 ? 'show active' : ''}"
+                                                            th:id="${'v-pills-' + listTotalReportManagerAmItem.getId()}"
+                                                            role="tabpanel"
+                                                            th:aria-labelledby="${'#v-pills-' + listTotalReportManagerAmItem.getId() + '-tab'}">
+                                                            <div class="list-group">
+                                                                <th:block
+                                                                    th:each="listReportManagerAmItem : ${listTotalReportManagerAmItem.getListReport()}">
+                                                                    <a th:href="${'/chi-tiet?id=' + listReportManagerAmItem.getId()}"
+                                                                        class="list-group-item list-group-item-action">
+                                                                        [[${listReportManagerAmItem.getReportName()}]]
+                                                                    </a>
+                                                                </th:block>
+                                                            </div>
+                                                        </div>
+                                                    </th:block>
+                                                    <!-- <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                                                        aria-labelledby="v-pills-home-tab">
+    
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                                                        aria-labelledby="v-pills-profile-tab">
+                                                        <p class="mb-0">Culpa dolor voluptate do laboris laboris irure
+                                                            reprehenderit id incididunt duis pariatur mollit aute magna
+                                                            pariatur consectetur. Eu veniam duis non ut dolor deserunt
+                                                            commodo et
+                                                            minim in quis
+                                                            laboris ipsum velit id veniam. Quis ut consectetur adipisicing
+                                                            officia excepteur non sit. Ut et elit aliquip labore Lorem enim
+                                                            eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui
+                                                            esse anim eiusmod do sint minim consectetur qui.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                                                        aria-labelledby="v-pills-messages-tab">
+                                                        <p class="mb-0">Fugiat id quis dolor culpa eiusmod anim velit
+                                                            excepteur proident dolor aute qui magna. Ad proident laboris
+                                                            ullamco esse anim Lorem Lorem veniam quis Lorem irure occaecat
+                                                            velit
+                                                            nostrud magna
+                                                            nulla. Velit et et proident Lorem do ea tempor officia dolor.
+                                                            Reprehenderit Lorem aliquip labore est magna commodo est ea
+                                                            veniam consectetur.</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                                                        aria-labelledby="v-pills-settings-tab">
+                                                        <p class="mb-0">Eu dolore ea ullamco dolore Lorem id cupidatat
+                                                            excepteur reprehenderit consectetur elit id dolor proident in
+                                                            cupidatat officia. Voluptate excepteur commodo labore nisi
+                                                            cillum
+                                                            duis
+                                                            aliqua do.
+                                                            Aliqua amet qui mollit consectetur nulla mollit velit aliqua
+                                                            veniam nisi id do Lorem deserunt amet. Culpa ullamco sit
+                                                            adipisicing labore officia magna elit nisi in aute tempor
+                                                            commodo
+                                                            eiusmod.
+                                                        </p>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </th:block>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="manager-pm" role="tabpanel"
                                     aria-labelledby="manager-pm-tab">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-12">
-                                            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-                                                aria-orientation="vertical">
-                                                <th:block
-                                                    th:each="listTotalReportManagerPmItem : ${listTotalReportManagerPm}">
-                                                    <li>
-                                                        <a class="nav-link text-left"
-                                                            th:classappend="${listTotalReportManagerPmItemStat.index == 0 ? 'active' : ''}"
-                                                            th:id="${'v-pills-' + listTotalReportManagerPmItem.getId() + '-tab'}"
-                                                            data-toggle="pill"
-                                                            th:href="${'#v-pills-' + listTotalReportManagerPmItem.getId()}"
-                                                            role="tab"
-                                                            th:aria-controls="${'#v-pills-' + listTotalReportManagerPmItem.getId()}"
-                                                            aria-selected="true">
-                                                            <div style="min-height: 21px;">
-                                                                <span class="float-left">
-                                                                    [[${listTotalReportManagerPmItem.getFullname()}]]</span>
-                                                                <span class="float-right">
-                                                                    ([[${listTotalReportManagerPmItem.getReportTotal()}]])</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-9 col-sm-12">
-                                            <div class="tab-content" id="v-pills-tabContent">
-                                                <th:block
-                                                    th:each="listTotalReportManagerPmItem : ${listTotalReportManagerPm}">
-                                                    <div class="tab-pane fade"
-                                                        th:classappend="${listTotalReportManagerPmItemStat.index == 0 ? 'show active' : ''}"
-                                                        th:id="${'v-pills-' + listTotalReportManagerPmItem.getId()}"
-                                                        role="tabpanel"
-                                                        th:aria-labelledby="${'#v-pills-' + listTotalReportManagerPmItem.getId() + '-tab'}">
-                                                        <div class="list-group">
-                                                            <th:block
-                                                                th:each="listReportManagerPmItem : ${listTotalReportManagerPmItem.getListReport()}">
-                                                                <a th:href="${'/chi-tiet?id=' + listReportManagerPmItem.getId()}"
-                                                                    class="list-group-item list-group-item-action">
-                                                                    [[${listReportManagerPmItem.getReportName()}]]
-                                                                </a>
-                                                            </th:block>
-                                                        </div>
-                                                    </div>
-                                                </th:block>
+                                        <th:block th:if="${#lists.isEmpty(listTotalReportManagerPm)}">
+                                            <div class="col-md-12 col-sm-12 text-center">
+                                                <h4 class="text-secondary">Dữ liệu trống!</h4>
                                             </div>
-                                        </div>
+                                        </th:block>
+                                        <th:block th:unless="${#lists.isEmpty(listTotalReportManagerPm)}">
+                                            <div class="col-md-3 col-sm-12">
+                                                <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                                    aria-orientation="vertical">
+                                                    <th:block
+                                                        th:each="listTotalReportManagerPmItem : ${listTotalReportManagerPm}">
+                                                        <li>
+                                                            <a class="nav-link text-left"
+                                                                th:classappend="${listTotalReportManagerPmItemStat.index == 0 ? 'active' : ''}"
+                                                                th:id="${'v-pills-' + listTotalReportManagerPmItem.getId() + '-tab'}"
+                                                                data-toggle="pill"
+                                                                th:href="${'#v-pills-' + listTotalReportManagerPmItem.getId()}"
+                                                                role="tab"
+                                                                th:aria-controls="${'#v-pills-' + listTotalReportManagerPmItem.getId()}"
+                                                                aria-selected="true">
+                                                                <div style="min-height: 21px;">
+                                                                    <span class="float-left">
+                                                                        [[${listTotalReportManagerPmItem.getFullname()}]]</span>
+                                                                    <span class="float-right">
+                                                                        ([[${listTotalReportManagerPmItem.getReportTotal()}]])</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-9 col-sm-12">
+                                                <div class="tab-content" id="v-pills-tabContent">
+                                                    <th:block
+                                                        th:each="listTotalReportManagerPmItem : ${listTotalReportManagerPm}">
+                                                        <div class="tab-pane fade"
+                                                            th:classappend="${listTotalReportManagerPmItemStat.index == 0 ? 'show active' : ''}"
+                                                            th:id="${'v-pills-' + listTotalReportManagerPmItem.getId()}"
+                                                            role="tabpanel"
+                                                            th:aria-labelledby="${'#v-pills-' + listTotalReportManagerPmItem.getId() + '-tab'}">
+                                                            <div class="list-group">
+                                                                <th:block
+                                                                    th:each="listReportManagerPmItem : ${listTotalReportManagerPmItem.getListReport()}">
+                                                                    <a th:href="${'/chi-tiet?id=' + listReportManagerPmItem.getId()}"
+                                                                        class="list-group-item list-group-item-action">
+                                                                        [[${listReportManagerPmItem.getReportName()}]]
+                                                                    </a>
+                                                                </th:block>
+                                                            </div>
+                                                        </div>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+                                        </th:block>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="am" role="tabpanel" aria-labelledby="am-tab">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-12">
-                                            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-                                                aria-orientation="vertical">
-                                                <th:block
-                                                    th:each="listTotalReportAmItem : ${listTotalReportAm}">
-                                                    <li>
-                                                        <a class="nav-link text-left"
-                                                            th:classappend="${listTotalReportAmItemStat.index == 0 ? 'active' : ''}"
-                                                            th:id="${'v-pills-' + listTotalReportAmItem.getId() + '-tab'}"
-                                                            data-toggle="pill"
-                                                            th:href="${'#v-pills-' + listTotalReportAmItem.getId()}"
-                                                            role="tab"
-                                                            th:aria-controls="${'#v-pills-' + listTotalReportAmItem.getId()}"
-                                                            aria-selected="true">
-                                                            <div style="min-height: 21px;">
-                                                                <span class="float-left">
-                                                                    [[${listTotalReportAmItem.getFullname()}]]</span>
-                                                                <span class="float-right">
-                                                                    ([[${listTotalReportAmItem.getReportTotal()}]])</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-9 col-sm-12">
-                                            <div class="tab-content" id="v-pills-tabContent">
-                                                <th:block
-                                                    th:each="listTotalReportAmItem : ${listTotalReportAm}">
-                                                    <div class="tab-pane fade"
-                                                        th:classappend="${listTotalReportAmItemStat.index == 0 ? 'show active' : ''}"
-                                                        th:id="${'v-pills-' + listTotalReportAmItem.getId()}"
-                                                        role="tabpanel"
-                                                        th:aria-labelledby="${'#v-pills-' + listTotalReportAmItem.getId() + '-tab'}">
-                                                        <div class="list-group">
-                                                            <th:block
-                                                                th:each="listReportAmItem : ${listTotalReportAmItem.getListReport()}">
-                                                                <a th:href="${'/chi-tiet?id=' + listReportAmItem.getId()}"
-                                                                    class="list-group-item list-group-item-action">
-                                                                    [[${listReportAmItem.getReportName()}]]
-                                                                </a>
-                                                            </th:block>
-                                                        </div>
-                                                    </div>
-                                                </th:block>
+                                        <th:block th:if="${#lists.isEmpty(listTotalReportManagerPm)}">
+                                            <div class="col-md-12 col-sm-12 text-center">
+                                                <h4 class="text-secondary">Dữ liệu trống!</h4>
                                             </div>
-                                        </div>
+                                        </th:block>
+                                        <th:block th:unless="${#lists.isEmpty(listTotalReportManagerPm)}">
+                                            <div class="col-md-3 col-sm-12">
+                                                <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                                    aria-orientation="vertical">
+                                                    <th:block th:each="listTotalReportAmItem : ${listTotalReportAm}">
+                                                        <li>
+                                                            <a class="nav-link text-left"
+                                                                th:classappend="${listTotalReportAmItemStat.index == 0 ? 'active' : ''}"
+                                                                th:id="${'v-pills-' + listTotalReportAmItem.getId() + '-tab'}"
+                                                                data-toggle="pill"
+                                                                th:href="${'#v-pills-' + listTotalReportAmItem.getId()}"
+                                                                role="tab"
+                                                                th:aria-controls="${'#v-pills-' + listTotalReportAmItem.getId()}"
+                                                                aria-selected="true">
+                                                                <div style="min-height: 21px;">
+                                                                    <span class="float-left">
+                                                                        [[${listTotalReportAmItem.getFullname()}]]</span>
+                                                                    <span class="float-right">
+                                                                        ([[${listTotalReportAmItem.getReportTotal()}]])</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-9 col-sm-12">
+                                                <div class="tab-content" id="v-pills-tabContent">
+                                                    <th:block th:each="listTotalReportAmItem : ${listTotalReportAm}">
+                                                        <div class="tab-pane fade"
+                                                            th:classappend="${listTotalReportAmItemStat.index == 0 ? 'show active' : ''}"
+                                                            th:id="${'v-pills-' + listTotalReportAmItem.getId()}"
+                                                            role="tabpanel"
+                                                            th:aria-labelledby="${'#v-pills-' + listTotalReportAmItem.getId() + '-tab'}">
+                                                            <div class="list-group">
+                                                                <th:block
+                                                                    th:each="listReportAmItem : ${listTotalReportAmItem.getListReport()}">
+                                                                    <a th:href="${'/chi-tiet?id=' + listReportAmItem.getId()}"
+                                                                        class="list-group-item list-group-item-action">
+                                                                        [[${listReportAmItem.getReportName()}]]
+                                                                    </a>
+                                                                </th:block>
+                                                            </div>
+                                                        </div>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+                                        </th:block>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="pm" role="tabpanel" aria-labelledby="pm-tab">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-12">
-                                            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-                                                aria-orientation="vertical">
-                                                <th:block
-                                                    th:each="listTotalReportPmItem : ${listTotalReportPm}">
-                                                    <li>
-                                                        <a class="nav-link text-left"
-                                                            th:classappend="${listTotalReportPmItemStat.index == 0 ? 'active' : ''}"
-                                                            th:id="${'v-pills-' + listTotalReportPmItem.getId() + '-tab'}"
-                                                            data-toggle="pill"
-                                                            th:href="${'#v-pills-' + listTotalReportPmItem.getId()}"
-                                                            role="tab"
-                                                            th:aria-controls="${'#v-pills-' + listTotalReportPmItem.getId()}"
-                                                            aria-selected="true">
-                                                            <div style="min-height: 21px;">
-                                                                <span class="float-left">
-                                                                    [[${listTotalReportPmItem.getFullname()}]]</span>
-                                                                <span class="float-right">
-                                                                    ([[${listTotalReportPmItem.getReportTotal()}]])</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-9 col-sm-12">
-                                            <div class="tab-content" id="v-pills-tabContent">
-                                                <th:block
-                                                    th:each="listTotalReportPmItem : ${listTotalReportPm}">
-                                                    <div class="tab-pane fade"
-                                                        th:classappend="${listTotalReportPmItemStat.index == 0 ? 'show active' : ''}"
-                                                        th:id="${'v-pills-' + listTotalReportPmItem.getId()}"
-                                                        role="tabpanel"
-                                                        th:aria-labelledby="${'#v-pills-' + listTotalReportPmItem.getId() + '-tab'}">
-                                                        <div class="list-group">
-                                                            <th:block
-                                                                th:each="listReportPmItem : ${listTotalReportPmItem.getListReport()}">
-                                                                <a th:href="${'/chi-tiet?id=' + listReportPmItem.getId()}"
-                                                                    class="list-group-item list-group-item-action">
-                                                                    [[${listReportPmItem.getReportName()}]]
-                                                                </a>
-                                                            </th:block>
-                                                        </div>
-                                                    </div>
-                                                </th:block>
+                                        <th:block th:if="${#lists.isEmpty(listTotalReportManagerPm)}">
+                                            <div class="col-md-12 col-sm-12 text-center">
+                                                <h4 class="text-secondary">Dữ liệu trống!</h4>
                                             </div>
-                                        </div>
+                                        </th:block>
+                                        <th:block th:unless="${#lists.isEmpty(listTotalReportManagerPm)}">
+                                            <div class="col-md-3 col-sm-12">
+                                                <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                                    aria-orientation="vertical">
+                                                    <th:block th:each="listTotalReportPmItem : ${listTotalReportPm}">
+                                                        <li>
+                                                            <a class="nav-link text-left"
+                                                                th:classappend="${listTotalReportPmItemStat.index == 0 ? 'active' : ''}"
+                                                                th:id="${'v-pills-' + listTotalReportPmItem.getId() + '-tab'}"
+                                                                data-toggle="pill"
+                                                                th:href="${'#v-pills-' + listTotalReportPmItem.getId()}"
+                                                                role="tab"
+                                                                th:aria-controls="${'#v-pills-' + listTotalReportPmItem.getId()}"
+                                                                aria-selected="true">
+                                                                <div style="min-height: 21px;">
+                                                                    <span class="float-left">
+                                                                        [[${listTotalReportPmItem.getFullname()}]]</span>
+                                                                    <span class="float-right">
+                                                                        ([[${listTotalReportPmItem.getReportTotal()}]])</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-9 col-sm-12">
+                                                <div class="tab-content" id="v-pills-tabContent">
+                                                    <th:block th:each="listTotalReportPmItem : ${listTotalReportPm}">
+                                                        <div class="tab-pane fade"
+                                                            th:classappend="${listTotalReportPmItemStat.index == 0 ? 'show active' : ''}"
+                                                            th:id="${'v-pills-' + listTotalReportPmItem.getId()}"
+                                                            role="tabpanel"
+                                                            th:aria-labelledby="${'#v-pills-' + listTotalReportPmItem.getId() + '-tab'}">
+                                                            <div class="list-group">
+                                                                <th:block
+                                                                    th:each="listReportPmItem : ${listTotalReportPmItem.getListReport()}">
+                                                                    <a th:href="${'/chi-tiet?id=' + listReportPmItem.getId()}"
+                                                                        class="list-group-item list-group-item-action">
+                                                                        [[${listReportPmItem.getReportName()}]]
+                                                                    </a>
+                                                                </th:block>
+                                                            </div>
+                                                        </div>
+                                                    </th:block>
+                                                </div>
+                                            </div>
+                                        </th:block>
                                     </div>
                                 </div>
                             </div>

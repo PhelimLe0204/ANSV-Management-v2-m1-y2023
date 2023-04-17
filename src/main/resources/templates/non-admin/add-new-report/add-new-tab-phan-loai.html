@@ -14,26 +14,35 @@
                 </div>
                 <div class="col-md-2 font-weight-bold">Giai đoạn</div>
                 <div class="col-md-10 step-class">
-                    <div th:class="${url} == kd-vien-thong ? 'project-step btn btn-option pt-1 has-ripple btn-primary' : 'project-step btn btn-option pt-1 disabled btn-outline-secondary'"
-                        id="project-type-1" data-input="1"
-                        th:data-status="${url} == kd-vien-thong ? active : notActive">
-                        KD Viễn thông</div>
-                    <div th:class="${url} == kd-chuyen-doi-so ? 'project-step btn btn-option pt-1 has-ripple btn-primary' : 'project-step btn btn-option pt-1 disabled btn-outline-secondary'"
-                        id="project-type-2" data-input="2"
-                        th:data-status="${url} == kd-chuyen-doi-so ? active : notActive">
-                        KD Chuyển đổi số</div>
-                    <div th:class="${url} == trien-khai ? 'project-step btn btn-option pt-1 has-ripple btn-primary' : 'project-step btn btn-option pt-1 disabled btn-outline-secondary'"
-                        id="project-type-3" data-input="3" th:data-status="${url} == trien-khai ? active : notActive">
-                        Triển khai</div>
+                    <div th:if="${#httpServletRequest.requestURI == '/danh-sach/kd-vien-thong'}"
+                        class="project-step btn btn-option pt-1 has-ripple btn-primary" id="project-type-1"
+                        data-input="1" data-status="active">KD Viễn thông</div>
+                    <div th:unless="${#httpServletRequest.requestURI == '/danh-sach/kd-vien-thong'}"
+                        class="project-step btn btn-option pt-1 disabled btn-outline-secondary" id="project-type-1"
+                        data-input="1" data-status="notActive">KD Viễn thông</div>
+
+                    <div th:if="${#httpServletRequest.requestURI == '/danh-sach/kd-chuyen-doi-so'}"
+                        class="project-step btn btn-option pt-1 has-ripple btn-primary" id="project-type-2"
+                        data-input="2" data-status="active">KD Chuyển đổi số</div>
+                    <div th:unless="${#httpServletRequest.requestURI == '/danh-sach/kd-chuyen-doi-so'}"
+                        class="project-step btn btn-option pt-1 disabled btn-outline-secondary" id="project-type-2"
+                        data-input="2" data-status="notActive">KD Chuyển đổi số</div>
+
+                    <div th:if="${#httpServletRequest.requestURI == '/danh-sach/trien-khai'}"
+                        class="project-step btn btn-option pt-1 has-ripple btn-primary" id="project-type-3"
+                        data-input="3" data-status="active">Triển khai</div>
+                    <div th:unless="${#httpServletRequest.requestURI == '/danh-sach/trien-khai'}"
+                        class="project-step btn btn-option pt-1 disabled btn-outline-secondary" id="project-type-3"
+                        data-input="3" data-status="notActive">Triển khai</div>
+
                     <!-- Form input: projectTypeId -->
-                    <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/trien-khai')}">
-                        <input type="text" class="d-none" id="project_type_id" name="projectTypeId" value="3">
-                    </th:block>
-                    <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/kd-chuyen-doi-so')}">
-                        <input type="text" class="d-none" id="project_type_id" name="projectTypeId" value="2">
-                    </th:block>
-                    <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/kd-vien-thong')}">
-                        <input type="text" class="d-none" id="project_type_id" name="projectTypeId" value="1">
+                    <th:block th:switch="${#httpServletRequest.requestURI}">
+                        <input th:case="'/danh-sach/kd-vien-thong'" type="text" class="d-none" id="project_type_id"
+                            name="projectTypeId" value="1">
+                        <input th:case="'/danh-sach/kd-chuyen-doi-so'" type="text" class="d-none" id="project_type_id"
+                            name="projectTypeId" value="2">
+                        <input th:case="'/danh-sach/trien-khai'" type="text" class="d-none" id="project_type_id"
+                            name="projectTypeId" value="3">
                     </th:block>
                 </div>
                 <div class="col-md-12">
@@ -42,14 +51,11 @@
                 <div class="col-md-2 font-weight-bold">Mức độ ưu tiên</div>
                 <div class="col-md-10 priority-class">
                     <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
-                        id="project-priority-1" data-input="1" data-status="notActive">
-                        High</div>
+                        id="project-priority-1" data-input="1" data-status="notActive">High (First)</div>
                     <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
-                        id="project-priority-2" data-input="2" data-status="notActive">
-                        Medium</div>
+                        id="project-priority-2" data-input="2" data-status="notActive">Medium (Second)</div>
                     <div class="project-priority btn disabled btn-outline-secondary btn-option pt-1"
-                        id="project-priority-3" data-input="3" data-status="notActive">
-                        Low</div>
+                        id="project-priority-3" data-input="3" data-status="notActive">Low (Third)</div>
                     <!-- Form input: projectPriorityId -->
                     <input type="text" class="d-none" id="project_priority_id" name="projectPriorityId">
                 </div>
@@ -59,14 +65,11 @@
                 <div class="col-md-2 font-weight-bold">Trạng thái</div>
                 <div class="col-md-10 status-class">
                     <div class="project-status btn pt-1 disabled btn-option btn-outline-success" id="project-status-1"
-                        data-input="1" data-status="notActive" data-color="success">
-                        Ongoing</div>
+                        data-input="1" data-status="notActive" data-color="success">Ongoing (Low)</div>
                     <div class="project-status btn pt-1 disabled btn-option btn-outline-warning" id="project-status-2"
-                        data-input="2" data-status="notActive" data-color="warning">
-                        Warning</div>
+                        data-input="2" data-status="notActive" data-color="warning">Warning (Medium)</div>
                     <div class="project-status btn pt-1 disabled btn-option btn-outline-danger" id="project-status-3"
-                        data-input="3" data-status="notActive" data-color="danger">
-                        Danger</div>
+                        data-input="3" data-status="notActive" data-color="danger">Danger (High)</div>
                     <!-- Form input: projectStatusId -->
                     <input type="text" class="d-none" id="project_status_id" name="projectStatusId">
                 </div>

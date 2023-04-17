@@ -32,7 +32,7 @@ public class CustomerService implements ICustomer {
             customerRepository.updateEnabled(id, enabled);
             return true;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- CustomerService.updateCustomerEnabled() ----- " + e);
             return false;
         }
     }
@@ -50,7 +50,7 @@ public class CustomerService implements ICustomer {
                     addNewCustomerDTO.getEnabled());
             return 1; // Success
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- CustomerService.addCustomer() ----- " + e);
             return 0; // Failed
         }
     }
@@ -61,7 +61,7 @@ public class CustomerService implements ICustomer {
             ListCustomerDTO data = customerRepository.findDetailById(id);
             return data;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- CustomerService.findDetailById() ----- " + e);
             return null;
         }
     }
@@ -73,7 +73,7 @@ public class CustomerService implements ICustomer {
                     updateCustomerDTO.getAvatarName(), updateCustomerDTO.getModifiedBy());
             return true;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- CustomerService.updateCustomer() ----- " + e);
             return false;
         }
     }

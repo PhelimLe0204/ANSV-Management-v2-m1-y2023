@@ -34,6 +34,7 @@ public class BaseController {
     public ModelAndView _mvShare = new ModelAndView();
 
     public ModelAndView Init(HttpSession session) {
+        _mvShare.clear();
         Date trialTime = new Date();
         session.setAttribute("currentWeek", getWeekOfYear(trialTime));
         session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
@@ -41,8 +42,11 @@ public class BaseController {
         _mvShare.addObject("userName", session.getAttribute("username"));
         _mvShare.addObject("userRole", session.getAttribute("userRole"));
         _mvShare.addObject("avatar", session.getAttribute("avatar"));
+        String userRole = (String) session.getAttribute("userRole");
+        // System.out.println("-------------------------------------------------
+        // userRole: " + userRole);
         List<LayoutMenuCategoryDTO> menuCategoryLayout = menuCategoryService
-                .findAllLayout(session.getAttribute("userRole") + "");
+                .findAllLayout(userRole.substring(0, userRole.indexOf("___")));
         _mvShare.addObject("menuCategoryLayout", menuCategoryLayout);
         return _mvShare;
     }

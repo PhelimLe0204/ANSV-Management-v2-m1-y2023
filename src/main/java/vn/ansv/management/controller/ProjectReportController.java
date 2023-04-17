@@ -55,14 +55,15 @@ public class ProjectReportController extends BaseController {
 
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
-        if (userRole.equals("DOC_DO") || userRole.equals("Manager_PM")
-                || userRole.equals("PM") || userRole.equals("Member_PM")) {
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
+                || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
         List<ListReport12DTO> dataType1 = null;
-        if (userRole.equals("Admin") || userRole.equals("CEO")
-                || userRole.equals("DGD") || userRole.equals("Manager_AM")) {
+        if (userRole.contains("Admin") || userRole.contains("CEO")
+                || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
             dataType1 = projectReportService.findAllReportType12(null, 1L);
             _mvShare.addObject("listReportType1", dataType1);
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
@@ -84,14 +85,15 @@ public class ProjectReportController extends BaseController {
         _mvShare.addObject("url", lastPath);
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
-        if (userRole.equals("DOC_DO") || userRole.equals("Manager_PM")
-                || userRole.equals("PM") || userRole.equals("Member_PM")) {
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
+                || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
         List<ListReport12DTO> dataType2 = null;
-        if (userRole.equals("Admin") || userRole.equals("CEO")
-                || userRole.equals("DGD") || userRole.equals("Manager_AM")) {
+        if (userRole.contains("Admin") || userRole.contains("CEO")
+                || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
             dataType2 = projectReportService.findAllReportType12(null, 2L);
             _mvShare.addObject("listReportType2", dataType2);
             _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
@@ -114,14 +116,15 @@ public class ProjectReportController extends BaseController {
 
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
-        if (userRole.equals("DOC_BDC") || userRole.equals("Manager_AM")
-                || userRole.equals("AM") || userRole.equals("Member_AM")) {
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("DOC_BDC") || userRole.contains("Manager_AM")
+                || userRole.contains("Main_AM") || userRole.contains("Member_AM")) {
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
         List<ListReport3DTO> dataType3 = null;
-        if (userRole.equals("Admin") || userRole.equals("CEO")
-                || userRole.equals("DGD") || userRole.equals("Manager_PM")) {
+        if (userRole.contains("Admin") || userRole.contains("CEO")
+                || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
             dataType3 = projectReportService.findAllReportType3(null, 3L);
             _mvShare.addObject("listReportType3", dataType3);
             _mvShare.setViewName("non-admin/report/trien-khai");

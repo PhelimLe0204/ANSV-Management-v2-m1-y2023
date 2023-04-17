@@ -18,9 +18,9 @@ public interface IUser {
 
     List<TotalReportByUserDTO> reportTotalManagerPm(Integer week, Integer year, String roleName);
 
-    // List<TotalReportByUserDTO> reportTotalManagerAmOne(Integer week, Integer year, String roleName);
+    TotalReportByUserDTO reportTotalManagerAmOne(Integer week, Integer year, Long userId);
 
-    // List<TotalReportByUserDTO> reportTotalManagerPmOne(Integer week, Integer year, String roleName);
+    TotalReportByUserDTO reportTotalManagerPmOne(Integer week, Integer year, Long userId);
 
     List<TotalReportByUserDTO> reportTotalAM(Integer week, Integer year, String roleName);
 

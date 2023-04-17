@@ -110,6 +110,30 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
         + "WHERE pr.week = :week AND pr.year = :year AND r.role_name = :roleName "
         + "GROUP BY u.id ORDER BY u.fullname", resultSetMapping = "Mapping.TotalReportByUserDTO")
 
+/* ===== UserRepository.reportTotalManagerAmOne() ===== */
+@NamedNativeQuery(name = "UserEntity.reportTotalManagerAmOne", query = "SELECT "
+        + "u.id, pr.week, pr.year, u.username, u.fullname, "
+        + "(SELECT COUNT(pr.id) FROM project_report AS pr WHERE pr.am_manager_id = u.id "
+        + "AND pr.week = :week AND pr.year = :year) AS reportTotal "
+        + "FROM user AS u "
+        + "INNER JOIN project_report AS pr ON u.id = pr.am_manager_id "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND pr.am_manager_id = :userId "
+        + "GROUP BY u.id ORDER BY u.fullname", resultSetMapping = "Mapping.TotalReportByUserDTO")
+
+/* ===== UserRepository.reportTotalManagerPmOne() ===== */
+@NamedNativeQuery(name = "UserEntity.reportTotalManagerPmOne", query = "SELECT "
+        + "u.id, pr.week, pr.year, u.username, u.fullname, "
+        + "(SELECT COUNT(pr.id) FROM project_report AS pr WHERE pr.pm_manager_id = u.id "
+        + "AND pr.week = :week AND pr.year = :year) AS reportTotal "
+        + "FROM user AS u "
+        + "INNER JOIN project_report AS pr ON u.id = pr.pm_manager_id "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "WHERE pr.week = :week AND pr.year = :year AND pr.pm_manager_id = :userId "
+        + "GROUP BY u.id ORDER BY u.fullname", resultSetMapping = "Mapping.TotalReportByUserDTO")
+
 /* ===== UserRepository.reportTotalAM() ===== */
 @NamedNativeQuery(name = "UserEntity.reportTotalAM", query = "SELECT "
         + "u.id, pr.week, pr.year, u.username, u.fullname, "
@@ -148,7 +172,7 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
         + "u.id, r.role_name AS userRole, u.avatar FROM user AS u "
         + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
         + "INNER JOIN role AS r ON ur.role_id = r.id "
-        + "WHERE u.username = :username", resultSetMapping = "Mapping.UserDefineDTO")
+        + "WHERE u.username = :username ORDER BY r.level", resultSetMapping = "Mapping.UserDefineDTO")
 
 /* ===== Set mapping: UserDefineDTO ===== */
 @SqlResultSetMapping(name = "Mapping.UserDefineDTO", classes = @ConstructorResult(targetClass = UserDefineDTO.class, columns = {

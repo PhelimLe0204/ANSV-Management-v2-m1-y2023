@@ -91,13 +91,14 @@ public class HomeController extends BaseController {
         session.setAttribute("thisYear", year);
 
         String userRole = (String) session.getAttribute("userRole");
+        userRole = userRole.substring(0, userRole.indexOf("___"));
 
         List<ProjectDashboardDTO> telecomProject = null;
         List<ProjectDashboardDTO> digitalTransferProject = null;
         List<ProjectDashboardDTO> deploymentProject = null;
         List<ShowDashboardDTO> dataShows = null;
 
-        if (userRole.equals("Admin") || userRole.equals("CEO") || userRole.equals("DGD")) {
+        if (userRole.contains("Admin") || userRole.contains("CEO") || userRole.contains("DGD")) {
             telecomProject = projectReportService.findAllDashboardProjectStep1(
                     null, 1, 1l, week, year);
             digitalTransferProject = projectReportService.findAllDashboardProjectStep1(
@@ -115,7 +116,7 @@ public class HomeController extends BaseController {
             return _mvShare;
         }
 
-        if (userRole.equals("Manager_AM")) {
+        if (userRole.contains("Manager_AM")) {
             // Hiển thị toàn bộ báo cáo dự án Viễn thông + Chuyển đổi số
             telecomProject = projectReportService.findAllDashboardProjectStep1(null, 1, 1l, week, year);
             digitalTransferProject = projectReportService.findAllDashboardProjectStep1(null, 1, 2l, week, year);
@@ -128,7 +129,7 @@ public class HomeController extends BaseController {
             return _mvShare;
         }
 
-        if (userRole.equals("Manager_PM")) {
+        if (userRole.contains("Manager_PM")) {
             // Hiển thị toàn bộ báo cáo dự án Triển khai + Slideshow
             deploymentProject = projectReportService.findAllDashboardProjectStep2(null, 1, 3l, week, year);
             dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
@@ -141,7 +142,7 @@ public class HomeController extends BaseController {
             return _mvShare;
         }
 
-        if (userRole.equals("AM")) {
+        if (userRole.contains("Main_AM")) {
             // Hiển thị báo cáo dự án Viễn thông + Chuyển đổi số (của người dùng)
             String username = (String) session.getAttribute("username");
             telecomProject = projectReportService.findAllDashboardProjectStep1(username, 1, 1l, week, year);
@@ -155,7 +156,7 @@ public class HomeController extends BaseController {
             return _mvShare;
         }
 
-        if (userRole.equals("PM")) {
+        if (userRole.contains("Main_PM")) {
             // Hiển thị báo cáo dự án Triển khai + Slideshow (của người dùng)
             String username = (String) session.getAttribute("username");
             deploymentProject = projectReportService.findAllDashboardProjectStep2(username, 1, 3l, week, year);
@@ -263,20 +264,21 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = "thanh-vien/report", method = RequestMethod.GET)
     public ModelAndView totalReportByUser(HttpSession session) {
-        _mvShare.setViewName("non-admin/members/totalReport");
-
         Init(session); // Lấy dữ liệu cơ bản
+        _mvShare.setViewName("non-admin/members/totalReport");
 
         Date trialTime = new Date();
         String userRole = (String) session.getAttribute("userRole");
+        System.out.println("-------------- " + userRole);
+        userRole = userRole.substring(0, userRole.indexOf("___"));
 
         int thisWeek = session.getAttribute("thisWeek") != null ? (int) session.getAttribute("thisWeek")
                 : getWeekOfYear(trialTime);
         int thisYear = session.getAttribute("thisYear") != null ? (int) session.getAttribute("thisYear")
                 : Calendar.getInstance().get(Calendar.YEAR);
 
-        if (userRole.equals("DOC_BDC") || userRole.equals("DGD")
-                || userRole.equals("CEO") || userRole.equals("Admin")) {
+        if (userRole.contains("DOC_BDC") || userRole.contains("DGD")
+                || userRole.contains("CEO") || userRole.contains("Admin")) {
             _mvShare.addObject(
                     "listTotalReportAm", userService.reportTotalAM(thisWeek, thisYear, "AM"));
             _mvShare.addObject(
@@ -288,26 +290,23 @@ public class HomeController extends BaseController {
             return _mvShare;
         }
 
-        if (userRole.equals("Manager_AM")) {
+        if (userRole.contains("Manager_AM")) {
+            Long userId = (Long) session.getAttribute("userId");
             _mvShare.addObject(
-                    "listTotalReportAm", userService.reportTotalAM(thisWeek, thisYear, "AM"));
+                    "listTotalReportAm", userService.reportTotalManagerAmOne(thisWeek, thisYear, userId));
             _mvShare.addObject(
                     "listTotalReportManagerAm", userService.reportTotalManagerAm(thisWeek, thisYear, "Manager_AM"));
             return _mvShare;
         }
 
-        if (userRole.equals("Manager_PM")) {
+        if (userRole.contains("Manager_PM")) {
+            Long userId = (Long) session.getAttribute("userId");
             _mvShare.addObject(
-                    "listTotalReportPm", userService.reportTotalPM(thisWeek, thisYear, "PM"));
+                    "listTotalReportPm", userService.reportTotalManagerPmOne(thisWeek, thisYear, userId));
             _mvShare.addObject(
                     "listTotalReportManagerPm", userService.reportTotalManagerPm(thisWeek, thisYear, "Manager_PM"));
             return _mvShare;
         }
-        return _mvShare;
-    }
-
-    public ModelAndView menuAm(HttpSession session) {
-
         return _mvShare;
     }
 
@@ -315,9 +314,10 @@ public class HomeController extends BaseController {
     public ModelAndView membersBDC(HttpSession session) {
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
-        if (userRole.equals("AM") || userRole.equals("Member_AM")
-                || userRole.equals("DOC_DO") || userRole.equals("Manager_PM")
-                || userRole.equals("PM") || userRole.equals("Member_PM")) {
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("Main_AM") || userRole.contains("Member_AM")
+                || userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
+                || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
             return new ModelAndView("redirect:/");
         }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(1L);
@@ -331,9 +331,10 @@ public class HomeController extends BaseController {
     public ModelAndView membersDO(HttpSession session) {
         Init(session); // Lấy dữ liệu cơ bản
         String userRole = (String) session.getAttribute("userRole");
-        if (userRole.equals("PM") || userRole.equals("Member_PM")
-                || userRole.equals("DOC_BDC") || userRole.equals("Manager_AM")
-                || userRole.equals("AM") || userRole.equals("Member_AM")) {
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("Main_PM") || userRole.contains("Member_PM")
+                || userRole.contains("DOC_BDC") || userRole.contains("Manager_AM")
+                || userRole.contains("Main_AM") || userRole.contains("Member_AM")) {
             return new ModelAndView("redirect:/");
         }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(2L);

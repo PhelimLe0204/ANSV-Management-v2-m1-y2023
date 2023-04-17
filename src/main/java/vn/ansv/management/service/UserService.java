@@ -29,7 +29,7 @@ public class UserService implements IUser {
             List<ListAllMemberDTO> result = userRepository.findAllByWorkCenter(centerId);
             return result;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- UserService.findAllByWorkCenter() ----- " + e);
         }
         return null;
     }
@@ -39,7 +39,7 @@ public class UserService implements IUser {
             userRepository.updateUserEnabled(id, enabled);
             return true;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- UserService.updateUserEnabled() ----- " + e);
             return false;
         }
     }
@@ -51,8 +51,8 @@ public class UserService implements IUser {
 
     @Override
     public UserDefineDTO userDefine(String username) {
-        UserDefineDTO user_define = userRepository.defineByUsername(username);
-        if (user_define == null) {
+        List<UserDefineDTO> user_define = userRepository.defineByUsername(username);
+        if (user_define.isEmpty()) {
             String uid = RandomStringUtils.randomAlphanumeric(20);
             String fullname = username.replace("@ansv.vn", "");
             String password = "$2a$12$4CoPXoaizSDsFSDaIreSSu3MlqvY0QE8SyXrq7QUR7cRhYQEv9826";
@@ -61,10 +61,35 @@ public class UserService implements IUser {
                     1, fullname, password, username, 3L);
             // Add role for new user
             roleRepository.addUserRole(userRepository.findIdByUsername(username), 12L);
-
-            return userRepository.defineByUsername(username);
+            user_define = userRepository.defineByUsername(username);
         }
-        return user_define;
+
+        UserDefineDTO new_data = new UserDefineDTO();
+        String userRole = new String();
+        for (int i = 0; i < user_define.size(); i++) {
+            userRole += user_define.get(i).getUserRole() + "___";
+        }
+        new_data.setId(user_define.get(0).getId());
+        new_data.setAvatar(user_define.get(0).getAvatar());
+        new_data.setUserRole(userRole);
+
+        return new_data;
+
+        // UserDefineDTO user_define = userRepository.defineByUsername(username);
+        // if (user_define == null) {
+        // String uid = RandomStringUtils.randomAlphanumeric(20);
+        // String fullname = username.replace("@ansv.vn", "");
+        // String password =
+        // "$2a$12$4CoPXoaizSDsFSDaIreSSu3MlqvY0QE8SyXrq7QUR7cRhYQEv9826";
+        // // Add new user
+        // userRepository.addUser("System", uid, "image_undefined.jpg", null,
+        // 1, fullname, password, username, 3L);
+        // // Add role for new user
+        // roleRepository.addUserRole(userRepository.findIdByUsername(username), 12L);
+
+        // return userRepository.defineByUsername(username);
+        // }
+        // return user_define;
     }
 
     @Override
@@ -75,7 +100,7 @@ public class UserService implements IUser {
                     userRepository.reportLessByManagerAM(week, year, item.getId())));
             return data;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- UserService.reportTotalManagerAm() ----- " + e);
             return null;
         }
     }
@@ -88,7 +113,31 @@ public class UserService implements IUser {
                     userRepository.reportLessByManagerPM(week, year, item.getId())));
             return data;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- UserService.reportTotalManagerPm() ----- " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public TotalReportByUserDTO reportTotalManagerAmOne(Integer week, Integer year, Long userId) {
+        try {
+            TotalReportByUserDTO data = userRepository.reportTotalManagerAmOne(week, year, userId);
+            data.setListReport(userRepository.reportLessByManagerAM(week, year, data.getId()));
+            return data;
+        } catch (Exception e) {
+            System.out.println("----- UserService.reportTotalManagerAmOne() ----- " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public TotalReportByUserDTO reportTotalManagerPmOne(Integer week, Integer year, Long userId) {
+        try {
+            TotalReportByUserDTO data = userRepository.reportTotalManagerPmOne(week, year, userId);
+            data.setListReport(userRepository.reportLessByManagerPM(week, year, data.getId()));
+            return data;
+        } catch (Exception e) {
+            System.out.println("----- UserService.reportTotalManagerPmOne() ----- " + e);
             return null;
         }
     }
@@ -101,7 +150,7 @@ public class UserService implements IUser {
                     userRepository.reportLessByAM(week, year, item.getId())));
             return data;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- UserService.reportTotalAM() ----- " + e);
             return null;
         }
     }
@@ -114,7 +163,7 @@ public class UserService implements IUser {
                     userRepository.reportLessByPM(week, year, item.getId())));
             return data;
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- UserService.reportTotalPM() ----- " + e);
             return null;
         }
     }

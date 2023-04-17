@@ -214,11 +214,12 @@ public class ProjectReportService implements IProjectReport {
                 List<ListReport12DTO> result = projectReportRepository.findAllReportType12(type);
                 return result;
             } else {
+                System.out.println(username + " - " + type);
                 List<ListReport12DTO> result = projectReportRepository.findAllReportType12Limit(username, type);
                 return result;
             }
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- ProjectReportService.findAllReportType12().e ----- " + e);
         }
         return null;
 
@@ -235,7 +236,7 @@ public class ProjectReportService implements IProjectReport {
                 return result;
             }
         } catch (Exception e) {
-            System.out.println("--- e ---" + e);
+            System.out.println("----- ProjectReportService.findAllReportType3().e ----- " + e);
         }
         return null;
     }
@@ -253,7 +254,7 @@ public class ProjectReportService implements IProjectReport {
             projectReportRepository.deleteReportById(first_report_id);
             return 1;
         } catch (Exception e) {
-            System.out.println("----- Error ----- " + e.getMessage());
+            System.out.println("----- ProjectReportService.deleteReportById().e ----- " + e.getMessage());
             e.printStackTrace();
             return 0;
         }
@@ -274,20 +275,17 @@ public class ProjectReportService implements IProjectReport {
                 UserDefineDTO user_define = userService.userDefine(currentUserName);
                 Long user_id = user_define.getId();
                 String user_role = user_define.getUserRole();
-                switch (user_role) {
-                    case "AM":
-                        dataInsert.setAmId(user_id); // Set AM
-                        break;
-                    case "PM":
-                        dataInsert.setPmId(user_id); // Set PM
-                        break;
-                    case "Manager_AM":
-                        dataInsert.setAmManagerId(user_id); // Set AM's manager
-                        break;
-                    case "Manager_PM":
-                        dataInsert.setPmManagerId(user_id); // Set PM's manager
-                        break;
+                System.out.println("--------------------------- user_role: " + user_role);
+                if (user_role.contains("Manager_AM")) {
+                    dataInsert.setAmManagerId(user_id); // Set AM's manager
+                } else if (user_role.contains("Manager_PM")) {
+                    dataInsert.setPmManagerId(user_id); // Set PM's manager
+                } else if (user_role.contains("Main_AM")) {
+                    dataInsert.setAmId(user_id); // Set AM
+                } else if (user_role.contains("Main_PM")) {
+                    dataInsert.setPmId(user_id); // Set PM
                 }
+
                 dataInsert.setCreatedBy(currentUserName + " - " + user_id); // Set createdBy
                 // return currentUserName;
             }

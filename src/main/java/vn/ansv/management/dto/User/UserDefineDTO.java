@@ -10,6 +10,9 @@ public class UserDefineDTO {
     private String userRole;
     private String avatar;
 
+    public UserDefineDTO() {
+    }
+
     public UserDefineDTO(Long id, String userRole, String avatar) {
         this.id = id;
         this.userRole = userRole;

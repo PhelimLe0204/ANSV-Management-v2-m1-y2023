@@ -30,6 +30,14 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             @Param("roleName") String roleName);
 
     @Query(nativeQuery = true)
+    TotalReportByUserDTO reportTotalManagerAmOne(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("userId") Long userId);
+
+    @Query(nativeQuery = true)
+    TotalReportByUserDTO reportTotalManagerPmOne(@Param("week") Integer week, @Param("year") Integer year,
+            @Param("userId") Long userId);
+
+    @Query(nativeQuery = true)
     List<TotalReportByUserDTO> reportTotalAM(@Param("week") Integer week, @Param("year") Integer year,
             @Param("roleName") String roleName);
 
@@ -54,7 +62,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             @Param("userId") Long userId);
 
     @Query(nativeQuery = true)
-    UserDefineDTO defineByUsername(String username);
+    List<UserDefineDTO> defineByUsername(String username);
 
     @Query(nativeQuery = true)
     List<ListAllMemberDTO> findAllByWorkCenter(Long centerId);
