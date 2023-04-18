@@ -90,6 +90,11 @@ public class HomeController extends BaseController {
         session.setAttribute("thisWeek", week);
         session.setAttribute("thisYear", year);
 
+        if (session.getAttribute("authorizationError") != null) {
+            _mvShare.addObject("authorizationError", session.getAttribute("authorizationError"));
+            session.removeAttribute("authorizationError");
+        }
+
         String userRole = (String) session.getAttribute("userRole");
         userRole = userRole.substring(0, userRole.indexOf("___"));
 
@@ -269,7 +274,7 @@ public class HomeController extends BaseController {
 
         Date trialTime = new Date();
         String userRole = (String) session.getAttribute("userRole");
-        System.out.println("-------------- " + userRole);
+        // System.out.println("-------------- " + userRole);
         userRole = userRole.substring(0, userRole.indexOf("___"));
 
         int thisWeek = session.getAttribute("thisWeek") != null ? (int) session.getAttribute("thisWeek")

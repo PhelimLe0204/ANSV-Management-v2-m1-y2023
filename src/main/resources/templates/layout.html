@@ -158,7 +158,7 @@
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI == '/dashboard'}">
-        <script th:src="@{/js/main/main.js}"></script>
+        <script th:src="@{/js/main/dashboard-main.js}"></script>
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI == '/chi-tiet'}">
@@ -172,6 +172,8 @@
         <script th:src="@{/js/main/detail/detail-main.js}"></script>
         <script th:src="@{/js/main/detail/team-directory-ryan-parag.js}"></script>
     </th:block>
+
+    <script th:src="@{/js/main/main.js}"></script>
 </body>
 
 </html>

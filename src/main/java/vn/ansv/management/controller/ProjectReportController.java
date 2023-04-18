@@ -58,6 +58,7 @@ public class ProjectReportController extends BaseController {
         userRole = userRole.substring(0, userRole.indexOf("___"));
         if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
                 || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
+            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
@@ -88,6 +89,7 @@ public class ProjectReportController extends BaseController {
         userRole = userRole.substring(0, userRole.indexOf("___"));
         if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
                 || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
+            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
@@ -119,6 +121,7 @@ public class ProjectReportController extends BaseController {
         userRole = userRole.substring(0, userRole.indexOf("___"));
         if (userRole.contains("DOC_BDC") || userRole.contains("Manager_AM")
                 || userRole.contains("Main_AM") || userRole.contains("Member_AM")) {
+            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
