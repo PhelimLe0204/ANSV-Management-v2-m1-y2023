@@ -39,9 +39,6 @@ public class BaseController {
         session.setAttribute("currentWeek", getWeekOfYear(trialTime));
         session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
         userSession(session);
-        _mvShare.addObject("userName", session.getAttribute("username"));
-        _mvShare.addObject("userRole", session.getAttribute("userRole"));
-        _mvShare.addObject("avatar", session.getAttribute("avatar"));
         String userRole = (String) session.getAttribute("userRole");
         // System.out.println("-------------------------------------------------
         // userRole: " + userRole);
