@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
+import vn.ansv.management.dto.User.UserProfileDTO;
 import vn.ansv.management.dto.member.DetailMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
 import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
@@ -271,5 +272,17 @@ public class ApiController {
 
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("success", "Chi tiết khách hàng", data));
+    }
+
+    @GetMapping("/getUserProfile/{userId}")
+    public ResponseEntity<ResponseObject> userProfile(@PathVariable Long userId) {
+        UserProfileDTO data = userService.findUserProfileById(userId);
+        if (data.getId() > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Thông tin cá nhân", data));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Đối tượng không xác định", ""));
+        }
     }
 }

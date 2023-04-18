@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.User.UserDefineDTO;
+import vn.ansv.management.dto.User.UserProfileDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.member.TotalReportByUserDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
@@ -164,6 +165,16 @@ public class UserService implements IUser {
             return data;
         } catch (Exception e) {
             System.out.println("----- UserService.reportTotalPM() ----- " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public UserProfileDTO findUserProfileById(Long userId) {
+        try {
+            return userRepository.findUserProfileById(userId);
+        } catch (Exception e) {
+            System.out.println("----- UserService.findUserProfileById() ----- " + e);
             return null;
         }
     }

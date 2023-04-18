@@ -1,4 +1,11 @@
 $("#user-profile-btn").click(function () {
+    $.ajax({
+        url: "/api/getUserProfile/" + $(this).data("id"),
+        success: function (result) {
+            console.log(result);
+        }
+    });
+
     $("#userProfileEditModalContent").hide();
     $("#userProfileModalContent").show();
     $('#userProfileModal').modal('show');
