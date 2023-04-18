@@ -301,11 +301,15 @@ public class HomeController extends BaseController {
                     "listTotalReportAm", userService.reportTotalManagerAmOne(thisWeek, thisYear, userId));
             _mvShare.addObject(
                     "listTotalReportManagerAm", userService.reportTotalManagerAm(thisWeek, thisYear, "Manager_AM"));
+            _mvShare.addObject("listTotalReportPm", false);
+            _mvShare.addObject("listTotalReportManagerPm", false);
             return _mvShare;
         }
 
         if (userRole.contains("Manager_PM")) {
             Long userId = (Long) session.getAttribute("userId");
+            _mvShare.addObject("listTotalReportAm", false);
+            _mvShare.addObject("listTotalReportManagerAm", false);
             _mvShare.addObject(
                     "listTotalReportPm", userService.reportTotalManagerPmOne(thisWeek, thisYear, userId));
             _mvShare.addObject(
