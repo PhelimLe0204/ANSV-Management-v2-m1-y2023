@@ -323,6 +323,7 @@ public class HomeController extends BaseController {
         if (userRole.contains("Main_AM") || userRole.contains("Member_AM")
                 || userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
                 || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
+            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(1L);
@@ -340,6 +341,7 @@ public class HomeController extends BaseController {
         if (userRole.contains("Main_PM") || userRole.contains("Member_PM")
                 || userRole.contains("DOC_BDC") || userRole.contains("Manager_AM")
                 || userRole.contains("Main_AM") || userRole.contains("Member_AM")) {
+            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(2L);
