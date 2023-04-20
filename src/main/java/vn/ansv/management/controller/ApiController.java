@@ -2,6 +2,8 @@ package vn.ansv.management.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
+import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserProfileDTO;
 import vn.ansv.management.dto.member.DetailMemberDTO;
 import vn.ansv.management.dto.selectOption.OptionCurrencyUnitDTO;
@@ -280,6 +283,20 @@ public class ApiController {
         if (data.getId() > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", "Thông tin cá nhân", data));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Đối tượng không xác định", ""));
+        }
+    }
+
+    @GetMapping("/getDashboardChart/{type}")
+    public ResponseEntity<ResponseObject> getDashboardChart(HttpSession session, @PathVariable Long type) {
+        int week = (int) session.getAttribute("thisWeek");
+        int year = (int) session.getAttribute("thisYear");
+        DashboardChartDTO data = projectReportService.dashboardChart(week, year, type, 1);
+        if (data != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Thống kê báo cáo Dashboard", data));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Đối tượng không xác định", ""));
