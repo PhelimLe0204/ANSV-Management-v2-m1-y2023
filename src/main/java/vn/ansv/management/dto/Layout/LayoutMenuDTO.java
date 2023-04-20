@@ -12,14 +12,17 @@ public class LayoutMenuDTO {
     private Integer include;
     private Integer level;
     private String link;
+    private String linkSub;
     private Object menuChild;
 
-    public LayoutMenuDTO(Long id, String menuName, String icon, Integer include, Integer level, String link) {
+    public LayoutMenuDTO(Long id, String menuName, String icon, Integer include, Integer level, String link,
+            String linkSub) {
         this.id = id;
         this.menuName = menuName;
         this.icon = icon;
         this.include = include;
         this.level = level;
         this.link = link;
+        this.linkSub = linkSub;
     }
 }

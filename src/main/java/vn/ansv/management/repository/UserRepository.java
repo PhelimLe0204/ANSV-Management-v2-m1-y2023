@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import vn.ansv.management.dto.User.UserDefineDTO;
+import vn.ansv.management.dto.User.UserProfileDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.member.ListReportLessByUserDTO;
 import vn.ansv.management.dto.member.TotalReportByUserDTO;
@@ -20,6 +21,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(nativeQuery = true)
     List<OptionUserDTO> findAllUserOption();
+
+    @Query(nativeQuery = true)
+    UserProfileDTO findUserProfileById(@Param("userId") Long userId);
 
     @Query(nativeQuery = true)
     List<TotalReportByUserDTO> reportTotalManagerAm(@Param("week") Integer week, @Param("year") Integer year,

@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var authorizationError = document.getElementById("authorizationError");
-    if (authorizationError.value.length > 0) {
-        alertify.error(authorizationError.value).delay(2);
+    var errorReturnDashboard = document.getElementById("errorReturnDashboard");
+    if (errorReturnDashboard.value.length > 0) {
+        alertify.error(errorReturnDashboard.value).delay(2);
     }
 
     var owl = $('.owl-carousel');

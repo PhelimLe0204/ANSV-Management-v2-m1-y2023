@@ -16,10 +16,31 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import vn.ansv.management.dto.User.UserDefineDTO;
+import vn.ansv.management.dto.User.UserProfileDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
 import vn.ansv.management.dto.member.ListReportLessByUserDTO;
 import vn.ansv.management.dto.member.TotalReportByUserDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
+
+/* ===== UserRepository.findUserProfileById() ===== */
+@NamedNativeQuery(name = "UserEntity.findUserProfileById", query = "SELECT "
+        + "u.id, u.avatar, u.fullname, u.username, u.employee_code AS employeeCode, "
+        + "r.role_name AS userRole, wc.description AS workCenter "
+        + "FROM user AS u "
+        + "INNER JOIN user_role AS ur ON u.id = ur.user_id "
+        + "INNER JOIN role AS r ON ur.role_id = r.id "
+        + "INNER JOIN work_center AS wc ON u.work_center_id = wc.id "
+        + "WHERE u.id = :userId", resultSetMapping = "Mapping.UserProfileDTO")
+
+/* ===== Set mapping: UserProfileDTO ===== */
+@SqlResultSetMapping(name = "Mapping.UserProfileDTO", classes = @ConstructorResult(targetClass = UserProfileDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "avatar", type = String.class),
+        @ColumnResult(name = "fullname", type = String.class),
+        @ColumnResult(name = "username", type = String.class),
+        @ColumnResult(name = "employeeCode", type = String.class),
+        @ColumnResult(name = "userRole", type = String.class),
+        @ColumnResult(name = "workCenter", type = String.class) }))
 
 /* ===== UserRepository.reportLessByManagerAM() ===== */
 @NamedNativeQuery(name = "UserEntity.reportLessByManagerAM", query = "SELECT "

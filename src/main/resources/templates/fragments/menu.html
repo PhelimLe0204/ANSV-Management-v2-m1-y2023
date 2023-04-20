@@ -7,7 +7,6 @@
     <nav class="pcoded-navbar menu-light" th:fragment="menu">
         <div class="navbar-wrapper">
             <div class="navbar-content scroll-div ">
-
                 <div class="">
                     <div class="main-menu-header">
                         <img th:src="${session.avatar} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${session.avatar}}"
@@ -23,7 +22,7 @@
                     <div class="collapse" id="nav-user-link">
                         <ul class="list-unstyled">
                             <li class="list-group-item">
-                                <a href="user-profile.html">
+                                <a href="javascript:void(0)" id="user-profile-btn" th:data-id="${session.userId}">
                                     <i class="feather icon-user m-r-5"></i>Thông tin cá nhân
                                 </a>
                             </li>
@@ -40,7 +39,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <ul class="nav pcoded-inner-navbar ">
                     <th:block th:each="mclItem : ${menuCategoryLayout}">
                         <li class="nav-item pcoded-menu-caption">
@@ -68,7 +66,11 @@
                                     <ul class="pcoded-submenu">
                                         <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
                                             <li>
-                                                <a th:href="'/' + ${menu_level_2.getLink()}"
+                                                <a th:if="${menu_level_2.getLinkSub() != 'week_year'}"
+                                                    th:href="'/' + ${menu_level_2.getLink()}"
+                                                    th:text="${menu_level_2.getMenuName()}"></a>
+                                                <a th:if="${menu_level_2.getLinkSub() == 'week_year'}"
+                                                    th:href="'/' + ${menu_level_2.getLink()} + '?week=' + ${session.thisWeek} + '&year=' + ${session.thisYear}"
                                                     th:text="${menu_level_2.getMenuName()}"></a>
                                             </li>
                                         </th:block>
