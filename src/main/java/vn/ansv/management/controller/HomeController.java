@@ -85,33 +85,97 @@ public class HomeController extends BaseController {
             return new ModelAndView("redirect:/");
         }
         Init(session); // Lấy dữ liệu cơ bản
-        int week = Integer.parseInt(request.getParameter("week"));
-        int year = Integer.parseInt(request.getParameter("year"));
-        session.setAttribute("thisWeek", week);
-        session.setAttribute("thisYear", year);
 
-        if (session.getAttribute("authorizationError") != null) {
-            _mvShare.addObject("authorizationError", session.getAttribute("authorizationError"));
-            session.removeAttribute("authorizationError");
-        }
+        try {
+            int week = Integer.parseInt(request.getParameter("week"));
+            int year = Integer.parseInt(request.getParameter("year"));
+            session.setAttribute("thisWeek", week);
+            session.setAttribute("thisYear", year);
 
-        String userRole = (String) session.getAttribute("userRole");
-        userRole = userRole.substring(0, userRole.indexOf("___"));
+            if (session.getAttribute("errorReturnDashboard") != null) {
+                _mvShare.addObject("errorReturnDashboard", session.getAttribute("errorReturnDashboard"));
+                session.removeAttribute("errorReturnDashboard");
+            }
 
-        List<ProjectDashboardDTO> telecomProject = null;
-        List<ProjectDashboardDTO> digitalTransferProject = null;
-        List<ProjectDashboardDTO> deploymentProject = null;
-        List<ShowDashboardDTO> dataShows = null;
+            String userRole = (String) session.getAttribute("userRole");
+            userRole = userRole.substring(0, userRole.indexOf("___"));
 
-        if (userRole.contains("Admin") || userRole.contains("CEO") || userRole.contains("DGD")) {
-            telecomProject = projectReportService.findAllDashboardProjectStep1(
-                    null, 1, 1l, week, year);
-            digitalTransferProject = projectReportService.findAllDashboardProjectStep1(
-                    null, 1, 2l, week, year);
-            deploymentProject = projectReportService.findAllDashboardProjectStep2(
-                    null, 1, 3l, week, year);
-            dataShows = projectReportService.modalShowDashboard(1,
-                    week, year, 3l, 3l);
+            List<ProjectDashboardDTO> telecomProject = null;
+            List<ProjectDashboardDTO> digitalTransferProject = null;
+            List<ProjectDashboardDTO> deploymentProject = null;
+            List<ShowDashboardDTO> dataShows = null;
+
+            if (userRole.contains("Admin") || userRole.contains("CEO") || userRole.contains("DGD")) {
+                telecomProject = projectReportService.findAllDashboardProjectStep1(
+                        null, 1, 1l, week, year);
+                digitalTransferProject = projectReportService.findAllDashboardProjectStep1(
+                        null, 1, 2l, week, year);
+                deploymentProject = projectReportService.findAllDashboardProjectStep2(
+                        null, 1, 3l, week, year);
+                dataShows = projectReportService.modalShowDashboard(1,
+                        week, year, 3l, 3l);
+
+                _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+                _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+                _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+                _mvShare.addObject("dataShows", dataShows);// Data show model
+                _mvShare.setViewName("non-admin/dashboard");
+                return _mvShare;
+            }
+
+            if (userRole.contains("Manager_AM")) {
+                // Hiển thị toàn bộ báo cáo dự án Viễn thông + Chuyển đổi số
+                telecomProject = projectReportService.findAllDashboardProjectStep1(null, 1, 1l, week, year);
+                digitalTransferProject = projectReportService.findAllDashboardProjectStep1(null, 1, 2l, week, year);
+
+                _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+                _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+                _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+                _mvShare.addObject("dataShows", dataShows);// Data show model
+                _mvShare.setViewName("non-admin/dashboard");
+                return _mvShare;
+            }
+
+            if (userRole.contains("Manager_PM")) {
+                // Hiển thị toàn bộ báo cáo dự án Triển khai + Slideshow
+                deploymentProject = projectReportService.findAllDashboardProjectStep2(null, 1, 3l, week, year);
+                dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
+
+                _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+                _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+                _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+                _mvShare.addObject("dataShows", dataShows);// Data show model
+                _mvShare.setViewName("non-admin/dashboard");
+                return _mvShare;
+            }
+
+            if (userRole.contains("Main_AM")) {
+                // Hiển thị báo cáo dự án Viễn thông + Chuyển đổi số (của người dùng)
+                String username = (String) session.getAttribute("username");
+                telecomProject = projectReportService.findAllDashboardProjectStep1(username, 1, 1l, week, year);
+                digitalTransferProject = projectReportService.findAllDashboardProjectStep1(username, 1, 2l, week, year);
+
+                _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+                _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+                _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+                _mvShare.addObject("dataShows", dataShows);// Data show model
+                _mvShare.setViewName("non-admin/dashboard");
+                return _mvShare;
+            }
+
+            if (userRole.contains("Main_PM")) {
+                // Hiển thị báo cáo dự án Triển khai + Slideshow (của người dùng)
+                String username = (String) session.getAttribute("username");
+                deploymentProject = projectReportService.findAllDashboardProjectStep2(username, 1, 3l, week, year);
+                dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
+
+                _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
+                _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
+                _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
+                _mvShare.addObject("dataShows", dataShows);// Data show model
+                _mvShare.setViewName("non-admin/dashboard");
+                return _mvShare;
+            }
 
             _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
             _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
@@ -119,68 +183,15 @@ public class HomeController extends BaseController {
             _mvShare.addObject("dataShows", dataShows);// Data show model
             _mvShare.setViewName("non-admin/dashboard");
             return _mvShare;
+        } catch (NumberFormatException nfe) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            session.setAttribute("errorReturnDashboard", "Tuần hoặc năm không xác định!");
+            return new ModelAndView("redirect:/");
+        } catch (Exception e) {
+            // NumberFormatException
+            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            return new ModelAndView("redirect:/");
         }
-
-        if (userRole.contains("Manager_AM")) {
-            // Hiển thị toàn bộ báo cáo dự án Viễn thông + Chuyển đổi số
-            telecomProject = projectReportService.findAllDashboardProjectStep1(null, 1, 1l, week, year);
-            digitalTransferProject = projectReportService.findAllDashboardProjectStep1(null, 1, 2l, week, year);
-
-            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
-            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
-            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
-            _mvShare.addObject("dataShows", dataShows);// Data show model
-            _mvShare.setViewName("non-admin/dashboard");
-            return _mvShare;
-        }
-
-        if (userRole.contains("Manager_PM")) {
-            // Hiển thị toàn bộ báo cáo dự án Triển khai + Slideshow
-            deploymentProject = projectReportService.findAllDashboardProjectStep2(null, 1, 3l, week, year);
-            dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
-
-            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
-            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
-            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
-            _mvShare.addObject("dataShows", dataShows);// Data show model
-            _mvShare.setViewName("non-admin/dashboard");
-            return _mvShare;
-        }
-
-        if (userRole.contains("Main_AM")) {
-            // Hiển thị báo cáo dự án Viễn thông + Chuyển đổi số (của người dùng)
-            String username = (String) session.getAttribute("username");
-            telecomProject = projectReportService.findAllDashboardProjectStep1(username, 1, 1l, week, year);
-            digitalTransferProject = projectReportService.findAllDashboardProjectStep1(username, 1, 2l, week, year);
-
-            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
-            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
-            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
-            _mvShare.addObject("dataShows", dataShows);// Data show model
-            _mvShare.setViewName("non-admin/dashboard");
-            return _mvShare;
-        }
-
-        if (userRole.contains("Main_PM")) {
-            // Hiển thị báo cáo dự án Triển khai + Slideshow (của người dùng)
-            String username = (String) session.getAttribute("username");
-            deploymentProject = projectReportService.findAllDashboardProjectStep2(username, 1, 3l, week, year);
-            dataShows = projectReportService.modalShowDashboard(1, week, year, 3l, 3l);
-
-            _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
-            _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
-            _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
-            _mvShare.addObject("dataShows", dataShows);// Data show model
-            _mvShare.setViewName("non-admin/dashboard");
-            return _mvShare;
-        }
-
-        _mvShare.addObject("telecomProject", telecomProject); // Du an kinh doanh Vien thong
-        _mvShare.addObject("digitalTransferProject", digitalTransferProject); // Du an kinh doanh Chuyen doi so
-        _mvShare.addObject("deploymentProject", deploymentProject); // Du an Trien khai
-        _mvShare.addObject("dataShows", dataShows);// Data show model
-        _mvShare.setViewName("non-admin/dashboard");
-        return _mvShare;
     }
 
     @RequestMapping(value = "/chi-tiet", method = RequestMethod.GET)
@@ -268,55 +279,69 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "thanh-vien/report", method = RequestMethod.GET)
-    public ModelAndView totalReportByUser(HttpSession session) {
+    public ModelAndView totalReportByUser(HttpServletRequest request, HttpSession session) {
+        if (request.getParameter("week") == null || request.getParameter("year") == null) {
+            return new ModelAndView("redirect:/");
+        }
         Init(session); // Lấy dữ liệu cơ bản
         _mvShare.setViewName("non-admin/members/totalReport");
 
-        Date trialTime = new Date();
-        String userRole = (String) session.getAttribute("userRole");
-        // System.out.println("-------------- " + userRole);
-        userRole = userRole.substring(0, userRole.indexOf("___"));
+        try {
+            int week = Integer.parseInt(request.getParameter("week"));
+            int year = Integer.parseInt(request.getParameter("year"));
+            session.setAttribute("thisWeek", week);
+            session.setAttribute("thisYear", year);
 
-        int thisWeek = session.getAttribute("thisWeek") != null ? (int) session.getAttribute("thisWeek")
-                : getWeekOfYear(trialTime);
-        int thisYear = session.getAttribute("thisYear") != null ? (int) session.getAttribute("thisYear")
-                : Calendar.getInstance().get(Calendar.YEAR);
+            String userRole = (String) session.getAttribute("userRole");
+            // System.out.println("-------------- " + userRole);
+            userRole = userRole.substring(0, userRole.indexOf("___"));
 
-        if (userRole.contains("DOC_BDC") || userRole.contains("DGD")
-                || userRole.contains("CEO") || userRole.contains("Admin")) {
-            _mvShare.addObject(
-                    "listTotalReportAm", userService.reportTotalAM(thisWeek, thisYear, "AM"));
-            _mvShare.addObject(
-                    "listTotalReportPm", userService.reportTotalPM(thisWeek, thisYear, "PM"));
-            _mvShare.addObject(
-                    "listTotalReportManagerAm", userService.reportTotalManagerAm(thisWeek, thisYear, "Manager_AM"));
-            _mvShare.addObject(
-                    "listTotalReportManagerPm", userService.reportTotalManagerPm(thisWeek, thisYear, "Manager_PM"));
-            return _mvShare;
+            if (userRole.contains("DOC_BDC") || userRole.contains("DGD")
+                    || userRole.contains("CEO") || userRole.contains("Admin")) {
+                _mvShare.addObject(
+                        "listTotalReportAm", userService.reportTotalAM(week, year, "Main_AM"));
+                _mvShare.addObject(
+                        "listTotalReportPm", userService.reportTotalPM(week, year, "Main_PM"));
+                _mvShare.addObject(
+                        "listTotalReportManagerAm", userService.reportTotalManagerAm(week, year, "Manager_AM"));
+                _mvShare.addObject(
+                        "listTotalReportManagerPm", userService.reportTotalManagerPm(week, year, "Manager_PM"));
+                return _mvShare;
+            }
+
+            if (userRole.contains("Manager_AM")) {
+                Long userId = (Long) session.getAttribute("userId");
+                _mvShare.addObject(
+                        "listTotalReportAm", userService.reportTotalAM(week, year, "Main_AM"));
+                _mvShare.addObject(
+                        "listTotalReportManagerAm", userService.reportTotalManagerAmOne(week, year, userId));
+                _mvShare.addObject("listTotalReportPm", false);
+                _mvShare.addObject("listTotalReportManagerPm", false);
+                return _mvShare;
+            }
+
+            if (userRole.contains("Manager_PM")) {
+                Long userId = (Long) session.getAttribute("userId");
+                _mvShare.addObject("listTotalReportAm", false);
+                _mvShare.addObject("listTotalReportManagerAm", false);
+                _mvShare.addObject(
+                        "listTotalReportPm", userService.reportTotalPM(week, year, "Main_PM"));
+                _mvShare.addObject(
+                        "listTotalReportManagerPm", userService.reportTotalManagerPmOne(week, year, userId));
+                return _mvShare;
+            }
+
+            session.setAttribute("errorReturnDashboard", "Không đủ quyền hạn để truy cập!");
+            return new ModelAndView("redirect:/");
+        } catch (NumberFormatException nfe) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            session.setAttribute("errorReturnDashboard", "Tuần hoặc năm không xác định!");
+            return new ModelAndView("redirect:/");
+        } catch (Exception e) {
+            // NumberFormatException
+            System.out.println("----- HomeController.totalReportByUser() ----- " + e);
+            return new ModelAndView("redirect:/");
         }
-
-        if (userRole.contains("Manager_AM")) {
-            Long userId = (Long) session.getAttribute("userId");
-            _mvShare.addObject(
-                    "listTotalReportAm", userService.reportTotalManagerAmOne(thisWeek, thisYear, userId));
-            _mvShare.addObject(
-                    "listTotalReportManagerAm", userService.reportTotalManagerAm(thisWeek, thisYear, "Manager_AM"));
-            _mvShare.addObject("listTotalReportPm", false);
-            _mvShare.addObject("listTotalReportManagerPm", false);
-            return _mvShare;
-        }
-
-        if (userRole.contains("Manager_PM")) {
-            Long userId = (Long) session.getAttribute("userId");
-            _mvShare.addObject("listTotalReportAm", false);
-            _mvShare.addObject("listTotalReportManagerAm", false);
-            _mvShare.addObject(
-                    "listTotalReportPm", userService.reportTotalManagerPmOne(thisWeek, thisYear, userId));
-            _mvShare.addObject(
-                    "listTotalReportManagerPm", userService.reportTotalManagerPm(thisWeek, thisYear, "Manager_PM"));
-            return _mvShare;
-        }
-        return _mvShare;
     }
 
     @RequestMapping(value = "thanh-vien/bdc", method = RequestMethod.GET)
@@ -327,7 +352,7 @@ public class HomeController extends BaseController {
         if (userRole.contains("Main_AM") || userRole.contains("Member_AM")
                 || userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
                 || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
-            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
+            session.setAttribute("errorReturnDashboard", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(1L);
@@ -345,7 +370,7 @@ public class HomeController extends BaseController {
         if (userRole.contains("Main_PM") || userRole.contains("Member_PM")
                 || userRole.contains("DOC_BDC") || userRole.contains("Manager_AM")
                 || userRole.contains("Main_AM") || userRole.contains("Member_AM")) {
-            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
+            session.setAttribute("errorReturnDashboard", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         }
         List<ListAllMemberDTO> data = userService.findAllByWorkCenter(2L);
