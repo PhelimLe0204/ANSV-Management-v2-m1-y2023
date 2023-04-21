@@ -33,6 +33,7 @@ import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
+import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.repository.CustomerRepository;
 import vn.ansv.management.repository.ProjectPriorityRepository;
@@ -64,6 +65,31 @@ public class ProjectReportService implements IProjectReport {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Override
+    public DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled) {
+        DashboardChartDTO data = new DashboardChartDTO();
+        data.setDangerPriority1(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 1L, 3L));
+        data.setDangerPriority2(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 2L, 3L));
+        data.setDangerPriority3(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 3L, 3L));
+        data.setWarningPriority1(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 1L, 2L));
+        data.setWarningPriority2(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 2L, 2L));
+        data.setWarningPriority3(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 3L, 2L));
+        data.setOngoingPriority1(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 1L, 1L));
+        data.setOngoingPriority2(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 2L, 1L));
+        data.setOngoingPriority3(
+                projectReportRepository.countReportForDashboardChart(week, year, type, enabled, 3L, 1L));
+
+        return data;
+    }
 
     @Override
     public List<ProjectDashboardDTO> findAllDashboardProjectStep1(

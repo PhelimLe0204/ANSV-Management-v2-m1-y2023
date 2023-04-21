@@ -19,8 +19,11 @@ import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
+import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 
 public interface IProjectReport {
+    DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled);
+
     List<ProjectDashboardDTO> findAllDashboardProjectStep1(String userName, int enabled, Long type, int week, int year);
 
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(String userName, int enabled, Long type, int week, int year);

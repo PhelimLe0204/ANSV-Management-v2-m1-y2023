@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 
 @NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel1ByRole", query = "SELECT "
-        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link "
+        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link, m.linkSub "
         + "FROM menu AS m "
         + "INNER JOIN role_menu AS rm on m.id = rm.menu_id "
         + "INNER JOIN role AS r on rm.role_id = r.id "
@@ -25,7 +25,7 @@ import vn.ansv.management.dto.Layout.LayoutMenuDTO;
         + "AND m.enabled = 1 AND r.role_name = :roleName", resultSetMapping = "Mapping.LayoutMenuDTO")
 
 @NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel2ByRole", query = "SELECT "
-        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link "
+        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link, m.linkSub "
         + "FROM menu AS m "
         + "INNER JOIN role_menu AS rm on m.id = rm.menu_id "
         + "INNER JOIN role AS r on rm.role_id = r.id "
@@ -38,7 +38,8 @@ import vn.ansv.management.dto.Layout.LayoutMenuDTO;
         @ColumnResult(name = "icon", type = String.class),
         @ColumnResult(name = "include", type = Integer.class),
         @ColumnResult(name = "level", type = Integer.class),
-        @ColumnResult(name = "link", type = String.class) }))
+        @ColumnResult(name = "link", type = String.class),
+        @ColumnResult(name = "linkSub", type = String.class) }))
 
 @Entity
 @Table(name = "menu")
@@ -60,6 +61,9 @@ public class MenuEntity extends BaseEntity {
 
     @Column(name = "link")
     private String link;
+
+    @Column(name = "linkSub")
+    private String linkSub;
 
     @Column(name = "include")
     private Integer include;
@@ -128,6 +132,14 @@ public class MenuEntity extends BaseEntity {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getLinkSub() {
+        return this.linkSub;
+    }
+
+    public void setLinkSub(String linkSub) {
+        this.linkSub = linkSub;
     }
 
     public Integer getInclude() {
