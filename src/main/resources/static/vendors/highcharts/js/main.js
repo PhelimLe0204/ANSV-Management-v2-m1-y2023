@@ -54,6 +54,14 @@
 //     }]
 // });
 
+// $.ajax({
+//     url: "/ldap/user",
+//     success: function (result) {
+//         console.log("============================ LDAP Get all users ===========================");
+//         console.log(result);
+//     }
+// });
+
 $.ajax({
     url: "/api/getDashboardChart/1",
     success: function (result) {
