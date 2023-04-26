@@ -1,5 +1,8 @@
 package vn.ansv.management.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import javax.naming.AuthenticationException;
@@ -11,9 +14,11 @@ import javax.naming.directory.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.ansv.management.dto.User.UserLdapDTO;
 import vn.ansv.management.entity.ResponseObject;
 
 @RestController
@@ -30,9 +35,7 @@ public class LdapController {
         env.put(Context.SECURITY_CREDENTIALS, "Thanh0204");
         try {
             connection = new InitialDirContext(env);
-            System.out.println("");
             System.out.println("------------------------------ Ket noi LDAP thanh cong! " + connection);
-            System.out.println("");
         } catch (AuthenticationException ex) {
             System.out.println(ex.getMessage());
         } catch (NamingException e) {
@@ -41,25 +44,83 @@ public class LdapController {
         }
     }
 
-    public void getAllUsers() throws NamingException {
-        String searchFilter = "(objectClass=inetOrgPerson)";
-        String[] reqAtt = { "cn", "sn" };
+    public void getAllGroups() throws NamingException {
+        String searchFilter = "(&(objectClass=group)(objectCategory=CN=Group,CN=Schema,CN=Configuration,DC=ansv,DC=vn))";
+        String[] reqAtt = { "cn" };
         SearchControls controls = new SearchControls();
         controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         controls.setReturningAttributes(reqAtt);
 
-        NamingEnumeration users = connection.search("CN=Users", searchFilter, controls);
+        NamingEnumeration users = connection.search("CN=Users,DC=ansv,DC=vn", searchFilter, controls);
 
         SearchResult result = null;
         while (users.hasMore()) {
             result = (SearchResult) users.next();
             Attributes attr = result.getAttributes();
-            String name = attr.get("cn").get(0).toString();
-            // deleteUserFromGroup(name,"Administrators");
             System.out.println(attr.get("cn"));
-            System.out.println(attr.get("sn"));
+            System.out.println("--------------------------------------------------------");
         }
+    }
 
+    public List<UserLdapDTO> getAllUsers() throws NamingException {
+        String searchFilter = "(&(objectClass=organizationalPerson)(objectClass=person)(objectClass=top)(objectClass=user))";
+        String[] reqAtt = { "cn", "sn", "userPrincipalName" };
+        SearchControls controls = new SearchControls();
+        controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        controls.setReturningAttributes(reqAtt);
+
+        NamingEnumeration users = connection.search("CN=Users,DC=ansv,DC=vn", searchFilter, controls);
+
+        SearchResult result = null;
+        List<UserLdapDTO> listUserLdap = new ArrayList<UserLdapDTO>();
+        while (users.hasMore()) {
+            result = (SearchResult) users.next();
+            Attributes attr = result.getAttributes();
+            // String name = attr.get("cn").get(0).toString();
+            // deleteUserFromGroup(name,"Administrators");
+            // System.out.println(attr.get("cn"));
+            // System.out.println(attr.get("sn"));
+            // System.out.println(attr.get("userPrincipalName"));
+            // System.out.println("------------------------------------------------------");
+
+            UserLdapDTO data = new UserLdapDTO();
+            data.setFullname((attr.get("cn") + "").replace("cn: ", ""));
+            data.setUsername((attr.get("userPrincipalName") + "").replace("userPrincipalName: ", ""));
+            listUserLdap.add(data);
+        }
+        return listUserLdap;
+    }
+
+    public List<UserLdapDTO> getAllUsersByGroup(String group) throws NamingException {
+        String searchFilter = "(&(objectClass=organizationalPerson)(objectClass=person)(objectClass=user)"
+                + "(memberOf=CN=" + group + ",CN=Users,DC=ansv,DC=vn))";
+        String[] reqAtt = { "cn", "description", "userPrincipalName" };
+        SearchControls controls = new SearchControls();
+        controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        controls.setReturningAttributes(reqAtt);
+
+        NamingEnumeration users = connection.search("CN=Users,DC=ansv,DC=vn", searchFilter, controls);
+
+        SearchResult result = null;
+        List<UserLdapDTO> listUserLdap = new ArrayList<UserLdapDTO>();
+        System.out.println("========================= Group: " + group + " =========================");
+        while (users.hasMore()) {
+            result = (SearchResult) users.next();
+            Attributes attr = result.getAttributes();
+
+            System.out.println("| " + attr.get("cn"));
+            System.out.println("| " + attr.get("description"));
+            System.out.println("| " + attr.get("userPrincipalName"));
+            System.out.println("|");
+
+            UserLdapDTO data = new UserLdapDTO();
+            data.setFullname((attr.get("cn") + "").replace("cn: ", ""));
+            data.setUsername((attr.get("userPrincipalName") + "").replace("userPrincipalName: ", ""));
+            data.setDescription((attr.get("description") + "").replace("description: ", ""));
+            data.setUsed(0);
+            listUserLdap.add(data);
+        }
+        return listUserLdap;
     }
 
     public void addUser() {
@@ -133,7 +194,7 @@ public class LdapController {
         while (users.hasMore()) {
             result = (SearchResult) users.next();
             Attributes attr = result.getAttributes();
-            String name = attr.get("cn").get(0).toString();
+            // String name = attr.get("cn").get(0).toString();
             // deleteUserFromGroup(name,"Administrators");
             System.out.println(attr.get("cn"));
             System.out.println(attr.get("sn"));
@@ -188,11 +249,19 @@ public class LdapController {
         }
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<ResponseObject> getAllUser() throws NamingException {
+    @GetMapping("/user/{group}")
+    public ResponseEntity<ResponseObject> getAllUser(@PathVariable String group) throws NamingException {
         newConnection();
         // addUser();
-        getAllUsers();
+        // getAllGroups();
+        // getAllUsers();
+        List<UserLdapDTO> data = getAllUsersByGroup(group);
+        getAllUsersByGroup("pm");
+        // for (UserLdapDTO userLdapDTO : data) {
+        // System.out.println(userLdapDTO.getFullname());
+        // System.out.println(userLdapDTO.getUsername());
+        // System.out.println("-------------------------------------------");
+        // }
         // deleteUser();
         // searchUsers();
 
@@ -201,6 +270,6 @@ public class LdapController {
         // updateUserDetails("Tommy", "123");
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("success", "Dữ liệu bảng Menu", ""));
+                new ResponseObject("success", "Danh sách user trên LDAP", data));
     }
 }
