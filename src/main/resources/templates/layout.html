@@ -121,16 +121,16 @@
                                             <span class="input-group-text bg-primary text-white w-100"
                                                 id="userNameUpdateSpan">Tên người dùng</span>
                                         </div>
-                                        <input type="text" name="userName" class="form-control"
-                                            id="userNameUpdate" aria-describedby="userNameUpdateSpan" disabled>
+                                        <input type="text" name="userName" class="form-control" id="userNameUpdate"
+                                            aria-describedby="userNameUpdateSpan" disabled>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend w-25">
                                             <span class="input-group-text bg-primary text-white w-100"
                                                 id="userEmailUpdateSpan">Email</span>
                                         </div>
-                                        <input type="text" name="userEmail" class="form-control"
-                                            id="userEmailUpdate" aria-describedby="userEmailUpdateSpan" disabled>
+                                        <input type="text" name="userEmail" class="form-control" id="userEmailUpdate"
+                                            aria-describedby="userEmailUpdateSpan" disabled>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend w-25">
@@ -138,7 +138,8 @@
                                                 id="userWorkCenterUpdateSpan">Phòng ban</span>
                                         </div>
                                         <input type="text" name="userWorkCenter" class="form-control"
-                                            id="userWorkCenterUpdate" aria-describedby="userWorkCenterUpdateSpan" disabled>
+                                            id="userWorkCenterUpdate" aria-describedby="userWorkCenterUpdateSpan"
+                                            disabled>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend w-25">
@@ -146,15 +147,16 @@
                                                 id="userEmployeeCodeUpdateSpan">Mã nhân viên</span>
                                         </div>
                                         <input type="text" name="userEmployeeCode" class="form-control"
-                                            id="userEmployeeCodeUpdate" aria-describedby="userEmployeeCodeUpdateSpan" disabled>
+                                            id="userEmployeeCodeUpdate" aria-describedby="userEmployeeCodeUpdateSpan"
+                                            disabled>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend w-25">
                                             <span class="input-group-text bg-primary text-white w-100"
                                                 id="userRoleUpdateSpan">Chức danh</span>
                                         </div>
-                                        <input type="text" name="userRole" class="form-control"
-                                            id="userRoleUpdate" aria-describedby="userRoleUpdateSpan" disabled>
+                                        <input type="text" name="userRole" class="form-control" id="userRoleUpdate"
+                                            aria-describedby="userRoleUpdateSpan" disabled>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend w-25">
@@ -180,7 +182,7 @@
                                 </div>
                             </div>
                         </form>
-                        
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -238,8 +240,8 @@
 
     <!-- Member scripts  -->
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/thanh-vien/')}">
-        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
         <script th:src="@{/js/main/member/member-main.js}"></script>
+        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     </th:block>
 
     <!-- ListReport scripts  -->
