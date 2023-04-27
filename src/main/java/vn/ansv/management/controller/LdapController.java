@@ -1,7 +1,6 @@
 package vn.ansv.management.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -103,15 +102,16 @@ public class LdapController {
 
         SearchResult result = null;
         List<UserLdapDTO> listUserLdap = new ArrayList<UserLdapDTO>();
-        System.out.println("========================= Group: " + group + " =========================");
+        // System.out.println("========================= Group: " + group + "
+        // =========================");
         while (users.hasMore()) {
             result = (SearchResult) users.next();
             Attributes attr = result.getAttributes();
 
-            System.out.println("| " + attr.get("cn"));
-            System.out.println("| " + attr.get("description"));
-            System.out.println("| " + attr.get("userPrincipalName"));
-            System.out.println("|");
+            // System.out.println("| " + attr.get("cn"));
+            // System.out.println("| " + attr.get("description"));
+            // System.out.println("| " + attr.get("userPrincipalName"));
+            // System.out.println("|");
 
             UserLdapDTO data = new UserLdapDTO();
             data.setFullname((attr.get("cn") + "").replace("cn: ", ""));
