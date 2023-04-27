@@ -67,16 +67,16 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0">
+                                <table class="table table-hover mb-0 table-list">
                                     <thead>
                                         <tr>
-                                            <th>Tên thành viên</th>
-                                            <th>Mã nhân viên</th>
-                                            <th>Chức vụ</th>
+                                            <th class="text-center">Tên thành viên</th>
+                                            <th class="text-center">Mã nhân viên</th>
+                                            <th class="text-center">Chức vụ</th>
                                             <th class="text-center">Tình trạng</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style="height: 490px;">
                                         <tr th:each="listUserBdcItem : ${listUserBDC}">
                                             <td>
                                                 <div class="d-inline-block align-middle">
@@ -89,9 +89,9 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="align-middle" th:text="${listUserBdcItem.getEmployeeCode()}">
+                                            <td class="align-middle text-center" th:text="${listUserBdcItem.getEmployeeCode()}">
                                             </td>
-                                            <td class="align-middle" th:text="${listUserBdcItem.getPositionExplain()}">
+                                            <td class="align-middle text-center" th:text="${listUserBdcItem.getPositionExplain()}">
                                             </td>
                                             <td class="align-middle text-center">
                                                 <input class="checkEnabled"
@@ -143,14 +143,14 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0">
+                                <table class="table table-hover mb-0 table-list">
                                     <thead>
                                         <tr>
                                             <th>Tên thành viên</th>
                                             <th class="text-center" style="width: 120px;">Sử dụng</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="body-list-member-ldap"></tbody>
+                                    <tbody id="body-list-member-ldap" style="height: 490px;"></tbody>
                                 </table>
                             </div>
                         </div>
