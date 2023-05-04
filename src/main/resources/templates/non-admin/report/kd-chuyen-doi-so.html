@@ -160,6 +160,11 @@
                                 data-target="#exportModal">
                                 <i class="feather mr-2 icon-download"></i>Export
                             </button>
+                            <span class="ml-3" style="color: white; font-size: 1.3rem; font-weight: bolder;">
+                                Tuần
+                                <select id="select_week" class="text-center"></select>
+                                / Năm <select id="select_year"></select>
+                            </span>
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -227,7 +232,7 @@
                                         id="table-vien-thong">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">STT</th>
+                                                <th class="text-center" style="width: 50px;">STT</th>
                                                 <th>Tên dự án</th>
                                                 <th class="text-center">Mức độ khả thi</th>
                                                 <th class="text-center">Tổng mức đầu tư</th>
@@ -239,9 +244,9 @@
                                         </thead>
                                         <tbody style="height: 490px;">
                                             <tr th:each="listReportType2Item : ${listReportType2}">
-                                                <td class="text-center" th:text="${listReportType2ItemStat.index + 1}">
+                                                <td class="text-center" style="width: 50px;" th:text="${listReportType2ItemStat.index + 1}">
                                                 </td>
-                                                <td class="d-inline-block">
+                                                <td >
                                                     <a th:href="@{/chi-tiet?id=} + ${listReportType2Item.getId()}"
                                                         th:text="${#strings.abbreviate(listReportType2Item.getJobName(),30)}"
                                                         data-toggle="tooltip"
@@ -251,7 +256,7 @@
                                                     </p>
                                                 </td>
                                                 <td class="text-center"
-                                                    th:text="${listReportType2Item.getMucDoKhaThi()}+ '%'"></td>
+                                                    th:text="${listReportType2Item.getMucDoKhaThi()} == null ? '' : ${listReportType2Item.getMucDoKhaThi()}+ '%'"></td>
                                                 <td class="text-center"
                                                     th:text="${listReportType2Item.getTongMucDauTuDuKien()}"></td>
                                                 <td class="text-center"
