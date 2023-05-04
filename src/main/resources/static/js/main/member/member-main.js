@@ -59,7 +59,7 @@ function getMemberLdap(groupMember) {
                     '</div>' +
                     '</div>' +
                     '</td>' +
-                    '<td class="align-middle text-center">' +
+                    '<td class="align-middle text-center" style="width: 120px;">' +
                     (result.data[i].used == 0
                         ? '<input type="checkbox" data-toggle="toggle" data-size="sm">'
                         : '<input type="checkbox" checked data-toggle="toggle" data-size="sm">') +
