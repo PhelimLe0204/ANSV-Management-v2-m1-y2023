@@ -209,13 +209,26 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     List<ListReport12DTO> findAllReportType12Limit(@Param("username") String username,
             @Param("project_type_id") Long project_type_id);
 
-    // Danh sách Triển khai (ALL)
+    /* Start: Danh sách Triển khai */
+    // Week
     @Query(nativeQuery = true)
-    List<ListReport3DTO> findAllReportType3(@Param("project_type_id") Long project_type_id);
+    List<ListReport3DTO> findListReportType3Week(@Param("project_type_id") Long project_type_id,
+            @Param("week") int week, @Param("startPosition") int startPosition, @Param("pageSize") int pageSize);
 
-    // Danh sách Triển khai (by username)
+    // CurrentDate
     @Query(nativeQuery = true)
-    List<ListReport3DTO> findAllReportType3Limit(@Param("username") String username,
+    List<ListReport3DTO> findListReportType3CurrentDate(@Param("project_type_id") Long project_type_id,
+            @Param("startPosition") int startPosition, @Param("pageSize") int pageSize);
+
+    // All
+    @Query(nativeQuery = true)
+    List<ListReport3DTO> findListReportType3All(@Param("project_type_id") Long project_type_id,
+            @Param("startPosition") int startPosition, @Param("pageSize") int pageSize);
+    /* End: Danh sách Triển khai */
+
+    /* Danh sách Triển khai (by username) */
+    @Query(nativeQuery = true)
+    List<ListReport3DTO> findListReportType3ByUser(@Param("username") String username,
             @Param("project_type_id") Long project_type_id);
 
     /*
@@ -393,4 +406,9 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
             + "AND pr.project_priority_id = :priority AND pr.project_status_id = :status", nativeQuery = true)
     Integer countReportForDashboardChart(@Param("week") int week, @Param("year") int year, @Param("type") Long type,
             @Param("enabled") int enabled, @Param("priority") Long priority, @Param("status") Long status);
+
+    // Count all by type
+    @Query(value = "SELECT COUNT(pr.id) AS totalReport FROM project_report AS pr "
+            + "WHERE pr.project_type_id = :type", nativeQuery = true)
+    Integer countAllByType(@Param("type") Long type);
 }

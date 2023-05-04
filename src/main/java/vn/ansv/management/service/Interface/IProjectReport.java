@@ -17,9 +17,9 @@ import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
-import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
+import vn.ansv.management.entity.ResponseObject;
 
 public interface IProjectReport {
     DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled);
@@ -30,7 +30,7 @@ public interface IProjectReport {
 
     List<ListReport12DTO> findAllReportType12(String username, Long type);
 
-    List<ListReport3DTO> findAllReportType3(String username, Long type);
+    ResponseObject findListReportType3(int card, Integer week, String username, Long type, int currentPage, int pageSize);
 
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 

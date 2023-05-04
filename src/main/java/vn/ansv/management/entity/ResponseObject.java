@@ -5,6 +5,7 @@ public class ResponseObject {
   private String status;
   private String message;
   private Object data;
+  private PaginatedEntity paging;
 
   public ResponseObject() {
   }
@@ -38,4 +39,13 @@ public class ResponseObject {
   public void setData(Object data) {
     this.data = data;
   }
+
+  public PaginatedEntity getPaging() {
+    return this.paging;
+  }
+
+  public void setPaging(PaginatedEntity paging) {
+    this.paging = paging;
+  }
+
 }
