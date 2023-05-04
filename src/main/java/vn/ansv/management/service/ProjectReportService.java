@@ -1060,14 +1060,7 @@ public class ProjectReportService implements IProjectReport {
                                 row.getCell(1).getStringCellValue(), customerId);
                         projectId = projectRepository.findIdByProjectName(row.getCell(1).getStringCellValue());
                     }
-                    // String jobName = row.getCell(1).getStringCellValue();
-                    // String description = row.getCell(3).getStringCellValue();
-                    // String hinhThucDauTu = row.getCell(4).getStringCellValue();
-                    // String tongMucDauTuDuKien = row.getCell(5).getStringCellValue();
-                    // Integer mucDoKhaThi = (int) row.getCell(6).getNumericCellValue();
-                    // String phanTichSwoot = row.getCell(7).getStringCellValue();
-                    // String generalIssue = row.getCell(8).getStringCellValue();
-                    // String solution = row.getCell(9).getStringCellValue();
+
                     Long priorityId = projectPriorityRepository
                             .findIdByPriorityName(row.getCell(24).getStringCellValue());
                     Long statusId = projectStatusRepository
@@ -1078,10 +1071,6 @@ public class ProjectReportService implements IProjectReport {
                             row.getCell(27).getStringCellValue(), "PM");
                     Long pmManagerId = userRepository.findIdByFullnameWithRoleName(
                             row.getCell(28).getStringCellValue(), "Manager_PM");
-                    // String ketQuaTuanTruoc = row.getCell(14).getStringCellValue();
-                    // String ketQuaTuanNay = row.getCell(15).getStringCellValue();
-                    // String keHoachTuanNay = row.getCell(16).getStringCellValue();
-                    // String keHoachTuanSau = row.getCell(17).getStringCellValue();
 
                     if (reportId == null) {
                         /* Chưa tồn tại báo cáo => Thêm mới */
@@ -1103,47 +1092,19 @@ public class ProjectReportService implements IProjectReport {
                                 (row.getCell(6).getStringCellValue().length() != 0)
                                         ? row.getCell(6).getStringCellValue()
                                         : null,
-                                (row.getCell(7).getStringCellValue().length() != 0)
-                                        ? row.getCell(7).getStringCellValue()
-                                        : null,
-                                (row.getCell(8).getStringCellValue().length() != 0)
-                                        ? row.getCell(8).getStringCellValue()
-                                        : null,
-                                (row.getCell(9).getStringCellValue().length() != 0)
-                                        ? row.getCell(9).getStringCellValue()
-                                        : null,
-                                null,
+                                hopDongDAC, mucTieuDAC, thucTeDAC, null,
                                 (row.getCell(11).getStringCellValue().length() != 0)
                                         ? row.getCell(11).getStringCellValue()
                                         : null,
-                                (row.getCell(12).getStringCellValue().length() != 0)
-                                        ? row.getCell(12).getStringCellValue()
-                                        : null,
-                                (row.getCell(13).getStringCellValue().length() != 0)
-                                        ? row.getCell(13).getStringCellValue()
-                                        : null,
-                                (row.getCell(14).getStringCellValue().length() != 0)
-                                        ? row.getCell(14).getStringCellValue()
-                                        : null,
-                                null,
+                                hopDongPAC, mucTieuPAC, thucTePAC, null,
                                 (row.getCell(16).getStringCellValue().length() != 0)
                                         ? row.getCell(16).getStringCellValue()
                                         : null,
-                                (row.getCell(17).getStringCellValue().length() != 0)
-                                        ? row.getCell(17).getStringCellValue()
-                                        : null,
-                                (row.getCell(18).getStringCellValue().length() != 0)
-                                        ? row.getCell(18).getStringCellValue()
-                                        : null,
-                                (row.getCell(19).getStringCellValue().length() != 0)
-                                        ? row.getCell(19).getStringCellValue()
-                                        : null,
-                                null,
+                                hopDongFAC, mucTieuFAC, thucTeFAC, null,
                                 (row.getCell(5).getStringCellValue().length() != 0)
                                         ? row.getCell(5).getStringCellValue()
                                         : null,
-                                null,
-                                null, null, null,
+                                null, null, null, null,
                                 (row.getCell(21).getStringCellValue().length() != 0)
                                         ? row.getCell(21).getStringCellValue()
                                         : null,
@@ -1184,39 +1145,15 @@ public class ProjectReportService implements IProjectReport {
                                 (row.getCell(6).getStringCellValue().length() != 0)
                                         ? row.getCell(6).getStringCellValue()
                                         : null,
-                                (row.getCell(7).getStringCellValue().length() != 0)
-                                        ? row.getCell(7).getStringCellValue()
-                                        : null,
-                                (row.getCell(8).getStringCellValue().length() != 0)
-                                        ? row.getCell(8).getStringCellValue()
-                                        : null,
-                                (row.getCell(9).getStringCellValue().length() != 0)
-                                        ? row.getCell(9).getStringCellValue()
-                                        : null,
+                                hopDongDAC, mucTieuDAC, thucTeDAC,
                                 (row.getCell(11).getStringCellValue().length() != 0)
                                         ? row.getCell(11).getStringCellValue()
                                         : null,
-                                (row.getCell(12).getStringCellValue().length() != 0)
-                                        ? row.getCell(12).getStringCellValue()
-                                        : null,
-                                (row.getCell(13).getStringCellValue().length() != 0)
-                                        ? row.getCell(13).getStringCellValue()
-                                        : null,
-                                (row.getCell(14).getStringCellValue().length() != 0)
-                                        ? row.getCell(14).getStringCellValue()
-                                        : null,
+                                hopDongPAC, mucTieuPAC, thucTePAC,
                                 (row.getCell(16).getStringCellValue().length() != 0)
                                         ? row.getCell(16).getStringCellValue()
                                         : null,
-                                (row.getCell(17).getStringCellValue().length() != 0)
-                                        ? row.getCell(17).getStringCellValue()
-                                        : null,
-                                (row.getCell(18).getStringCellValue().length() != 0)
-                                        ? row.getCell(18).getStringCellValue()
-                                        : null,
-                                (row.getCell(19).getStringCellValue().length() != 0)
-                                        ? row.getCell(19).getStringCellValue()
-                                        : null,
+                                hopDongFAC, mucTieuFAC, thucTeFAC,
                                 (row.getCell(5).getStringCellValue().length() != 0)
                                         ? row.getCell(5).getStringCellValue()
                                         : null,
