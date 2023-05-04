@@ -38,6 +38,14 @@ public class BaseController {
         Date trialTime = new Date();
         session.setAttribute("currentWeek", getWeekOfYear(trialTime));
         session.setAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+
+        if (session.getAttribute("thisWeek") == null) {
+            session.setAttribute("thisWeek", getWeekOfYear(trialTime));
+        }
+        if (session.getAttribute("thisYear") == null) {
+            session.setAttribute("thisYear", Calendar.getInstance().get(Calendar.YEAR));
+        }
+
         userSession(session);
         String userRole = (String) session.getAttribute("userRole");
         // System.out.println("-------------------------------------------------

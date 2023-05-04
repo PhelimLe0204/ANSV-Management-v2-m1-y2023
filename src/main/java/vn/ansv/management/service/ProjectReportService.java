@@ -1,7 +1,10 @@
 package vn.ansv.management.service;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +68,9 @@ public class ProjectReportService implements IProjectReport {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    final String OLD_FORMAT = "dd/MM/yyyy";
+    final String NEW_FORMAT = "dd / MM / yyyy";
 
     @Override
     public DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled) {
@@ -733,7 +739,8 @@ public class ProjectReportService implements IProjectReport {
     public List<Map<String, String>> checkExcelDataType3(
             MultipartFile readExcelDataFile, String username, Long type, Integer week, Integer year) {
         List<Map<String, String>> dataError = new ArrayList<>();
-
+        String hopDongDAC = null, mucTieuDAC = null, thucTeDAC = null, hopDongPAC = null, mucTieuPAC = null,
+                thucTePAC = null, hopDongFAC = null, mucTieuFAC = null, thucTeFAC = null;
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
             XSSFSheet worksheet = workbook.getSheetAt(0);
@@ -777,7 +784,205 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 5. Priority
+                    // 5. DAC hợp đồng (7)
+                    if (row.getCell(7).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(7).getStringCellValue());
+                            if (!row.getCell(7).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            hopDongDAC = sdf.format(date);
+                            System.out.println("------------------------- hopDongDAC: " + hopDongDAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "H" + (i + 1));
+                            errors.put("error", "DAC hợp đồng không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 6. Mục tiêu DAC (8)
+                    if (row.getCell(8).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(8).getStringCellValue());
+                            if (!row.getCell(8).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            mucTieuDAC = sdf.format(date);
+                            System.out.println("------------------------- mucTieuDAC: " + mucTieuDAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "I" + (i + 1));
+                            errors.put("error", "Mục tiêu DAC không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 7. DAC thực tế (9)
+                    if (row.getCell(9).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(9).getStringCellValue());
+                            if (!row.getCell(9).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            thucTeDAC = sdf.format(date);
+                            System.out.println("------------------------- thucTeDAC: " + thucTeDAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "J" + (i + 1));
+                            errors.put("error", "DAC thực tế không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 8. PAC hợp đồng (12)
+                    if (row.getCell(12).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(12).getStringCellValue());
+                            if (!row.getCell(12).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            hopDongPAC = sdf.format(date);
+                            System.out.println("------------------------- hopDongPAC: " + hopDongPAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "M" + (i + 1));
+                            errors.put("error", "PAC hợp đồng không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 9. Mục tiêu PAC (13)
+                    if (row.getCell(13).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(13).getStringCellValue());
+                            if (!row.getCell(13).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            mucTieuPAC = sdf.format(date);
+                            System.out.println("------------------------- mucTieuPAC: " + mucTieuPAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "N" + (i + 1));
+                            errors.put("error", "Mục tiêu PAC không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 10. PAC thực tế (14)
+                    if (row.getCell(14).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(14).getStringCellValue());
+                            if (!row.getCell(14).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            thucTePAC = sdf.format(date);
+                            System.out.println("------------------------- thucTePAC: " + thucTePAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "O" + (i + 1));
+                            errors.put("error", "PAC thực tế không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 11. FAC hợp đồng (17)
+                    if (row.getCell(17).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(17).getStringCellValue());
+                            if (!row.getCell(17).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            hopDongFAC = sdf.format(date);
+                            System.out.println("------------------------- hopDongFAC: " + hopDongFAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "R" + (i + 1));
+                            errors.put("error", "FAC hợp đồng không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 12. Mục tiêu FAC (18)
+                    if (row.getCell(18).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(18).getStringCellValue());
+                            if (!row.getCell(18).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            mucTieuFAC = sdf.format(date);
+                            System.out.println("------------------------- mucTieuFAC: " + mucTieuFAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "N" + (i + 1));
+                            errors.put("error", "Mục tiêu FAC không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 13. FAC thực tế (19)
+                    if (row.getCell(19).getRawValue() != null) {
+                        Date date = null;
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = sdf.parse(row.getCell(19).getStringCellValue());
+                            if (!row.getCell(19).getStringCellValue().equals(sdf.format(date))) {
+                                date = null;
+                            }
+                            sdf.applyPattern(NEW_FORMAT);
+                            thucTeFAC = sdf.format(date);
+                            System.out.println("------------------------- thucTeFAC: " + thucTeFAC);
+                        } catch (ParseException parseException) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "O" + (i + 1));
+                            errors.put("error", "FAC thực tế không đúng định dạng dd/MM/yyyy");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                            System.out.println("----- ParseException ----- ProjectReportService.checkExcelDataType3(): "
+                                    + parseException.getMessage());
+                        }
+                    }
+
+                    // 14. Priority
                     String excelPriority = row.getCell(24).getStringCellValue();
                     if (!excelPriority.equals("First") && !excelPriority.equals("Second")
                             && !excelPriority.equals("Third")) {
@@ -787,7 +992,7 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 6. Status
+                    // 15. Status
                     String excelStatus = row.getCell(25).getStringCellValue();
                     if (!excelStatus.equals("High") && !excelStatus.equals("Medium")
                             && !excelStatus.equals("Low")) {
@@ -797,7 +1002,7 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 7. AM
+                    // 16. AM
                     int checkAm = userRepository
                             .checkIssetByFullnameWithRoleName(row.getCell(26).getStringCellValue(), "AM");
                     if (checkAm == 0) {
@@ -807,7 +1012,7 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 8. PM
+                    // 17. PM
                     int checkPm = userRepository
                             .checkIssetByFullnameWithRoleName(row.getCell(27).getStringCellValue(), "PM");
                     if (checkPm == 0) {
@@ -817,7 +1022,7 @@ public class ProjectReportService implements IProjectReport {
                         dataError.add(errors); // Đẩy lỗi vào list
                     }
 
-                    // 8. PM's Manager
+                    // 18. PM's Manager
                     int checkPmManager = userRepository
                             .checkIssetByFullnameWithRoleName(row.getCell(28).getStringCellValue(), "Manager_PM");
                     if (checkPmManager == 0) {
@@ -855,14 +1060,7 @@ public class ProjectReportService implements IProjectReport {
                                 row.getCell(1).getStringCellValue(), customerId);
                         projectId = projectRepository.findIdByProjectName(row.getCell(1).getStringCellValue());
                     }
-                    // String jobName = row.getCell(1).getStringCellValue();
-                    // String description = row.getCell(3).getStringCellValue();
-                    // String hinhThucDauTu = row.getCell(4).getStringCellValue();
-                    // String tongMucDauTuDuKien = row.getCell(5).getStringCellValue();
-                    // Integer mucDoKhaThi = (int) row.getCell(6).getNumericCellValue();
-                    // String phanTichSwoot = row.getCell(7).getStringCellValue();
-                    // String generalIssue = row.getCell(8).getStringCellValue();
-                    // String solution = row.getCell(9).getStringCellValue();
+
                     Long priorityId = projectPriorityRepository
                             .findIdByPriorityName(row.getCell(24).getStringCellValue());
                     Long statusId = projectStatusRepository
@@ -873,10 +1071,6 @@ public class ProjectReportService implements IProjectReport {
                             row.getCell(27).getStringCellValue(), "PM");
                     Long pmManagerId = userRepository.findIdByFullnameWithRoleName(
                             row.getCell(28).getStringCellValue(), "Manager_PM");
-                    // String ketQuaTuanTruoc = row.getCell(14).getStringCellValue();
-                    // String ketQuaTuanNay = row.getCell(15).getStringCellValue();
-                    // String keHoachTuanNay = row.getCell(16).getStringCellValue();
-                    // String keHoachTuanSau = row.getCell(17).getStringCellValue();
 
                     if (reportId == null) {
                         /* Chưa tồn tại báo cáo => Thêm mới */
@@ -898,47 +1092,19 @@ public class ProjectReportService implements IProjectReport {
                                 (row.getCell(6).getStringCellValue().length() != 0)
                                         ? row.getCell(6).getStringCellValue()
                                         : null,
-                                (row.getCell(7).getStringCellValue().length() != 0)
-                                        ? row.getCell(7).getStringCellValue()
-                                        : null,
-                                (row.getCell(8).getStringCellValue().length() != 0)
-                                        ? row.getCell(8).getStringCellValue()
-                                        : null,
-                                (row.getCell(9).getStringCellValue().length() != 0)
-                                        ? row.getCell(9).getStringCellValue()
-                                        : null,
-                                null,
+                                hopDongDAC, mucTieuDAC, thucTeDAC, null,
                                 (row.getCell(11).getStringCellValue().length() != 0)
                                         ? row.getCell(11).getStringCellValue()
                                         : null,
-                                (row.getCell(12).getStringCellValue().length() != 0)
-                                        ? row.getCell(12).getStringCellValue()
-                                        : null,
-                                (row.getCell(13).getStringCellValue().length() != 0)
-                                        ? row.getCell(13).getStringCellValue()
-                                        : null,
-                                (row.getCell(14).getStringCellValue().length() != 0)
-                                        ? row.getCell(14).getStringCellValue()
-                                        : null,
-                                null,
+                                hopDongPAC, mucTieuPAC, thucTePAC, null,
                                 (row.getCell(16).getStringCellValue().length() != 0)
                                         ? row.getCell(16).getStringCellValue()
                                         : null,
-                                (row.getCell(17).getStringCellValue().length() != 0)
-                                        ? row.getCell(17).getStringCellValue()
-                                        : null,
-                                (row.getCell(18).getStringCellValue().length() != 0)
-                                        ? row.getCell(18).getStringCellValue()
-                                        : null,
-                                (row.getCell(19).getStringCellValue().length() != 0)
-                                        ? row.getCell(19).getStringCellValue()
-                                        : null,
-                                null,
+                                hopDongFAC, mucTieuFAC, thucTeFAC, null,
                                 (row.getCell(5).getStringCellValue().length() != 0)
                                         ? row.getCell(5).getStringCellValue()
                                         : null,
-                                null,
-                                null, null, null,
+                                null, null, null, null,
                                 (row.getCell(21).getStringCellValue().length() != 0)
                                         ? row.getCell(21).getStringCellValue()
                                         : null,
@@ -979,39 +1145,15 @@ public class ProjectReportService implements IProjectReport {
                                 (row.getCell(6).getStringCellValue().length() != 0)
                                         ? row.getCell(6).getStringCellValue()
                                         : null,
-                                (row.getCell(7).getStringCellValue().length() != 0)
-                                        ? row.getCell(7).getStringCellValue()
-                                        : null,
-                                (row.getCell(8).getStringCellValue().length() != 0)
-                                        ? row.getCell(8).getStringCellValue()
-                                        : null,
-                                (row.getCell(9).getStringCellValue().length() != 0)
-                                        ? row.getCell(9).getStringCellValue()
-                                        : null,
+                                hopDongDAC, mucTieuDAC, thucTeDAC,
                                 (row.getCell(11).getStringCellValue().length() != 0)
                                         ? row.getCell(11).getStringCellValue()
                                         : null,
-                                (row.getCell(12).getStringCellValue().length() != 0)
-                                        ? row.getCell(12).getStringCellValue()
-                                        : null,
-                                (row.getCell(13).getStringCellValue().length() != 0)
-                                        ? row.getCell(13).getStringCellValue()
-                                        : null,
-                                (row.getCell(14).getStringCellValue().length() != 0)
-                                        ? row.getCell(14).getStringCellValue()
-                                        : null,
+                                hopDongPAC, mucTieuPAC, thucTePAC,
                                 (row.getCell(16).getStringCellValue().length() != 0)
                                         ? row.getCell(16).getStringCellValue()
                                         : null,
-                                (row.getCell(17).getStringCellValue().length() != 0)
-                                        ? row.getCell(17).getStringCellValue()
-                                        : null,
-                                (row.getCell(18).getStringCellValue().length() != 0)
-                                        ? row.getCell(18).getStringCellValue()
-                                        : null,
-                                (row.getCell(19).getStringCellValue().length() != 0)
-                                        ? row.getCell(19).getStringCellValue()
-                                        : null,
+                                hopDongFAC, mucTieuFAC, thucTeFAC,
                                 (row.getCell(5).getStringCellValue().length() != 0)
                                         ? row.getCell(5).getStringCellValue()
                                         : null,
