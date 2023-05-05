@@ -267,7 +267,20 @@ public class ProjectReportService implements IProjectReport {
         try {
             PaginatedEntity paging = new PaginatedEntity();
             ResponseObject result = new ResponseObject();
-            int totalReport = projectReportRepository.countAllByType(3L);
+            int totalReport = 0;
+            switch (card) {
+                case 1:
+                    totalReport = projectReportRepository.countAllByTypeWeek(week, 3L);
+                    break;
+                case 2:
+                    totalReport = projectReportRepository.countAllByTypeCurrentDate(3L);
+                    break;
+                case 3:
+                    totalReport = projectReportRepository.countAllByType(3L);
+                    break;
+                default:
+                    break;
+            }
             if (totalReport == 0) {
                 return null;
             }
@@ -289,9 +302,15 @@ public class ProjectReportService implements IProjectReport {
                     paging.setListPageNumbers(pageNumbers);
                 }
             } else {
-                List<Integer> pageNumbers = IntStream.rangeClosed(totalPage - 4, totalPage)
-                        .boxed().collect(Collectors.toList());
-                paging.setListPageNumbers(pageNumbers);
+                if (totalPage >= 5) {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(totalPage - 4, totalPage)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                } else {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                }
             }
             int startPosition = pageSize * (currentPage - 1);
 

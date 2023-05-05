@@ -329,7 +329,7 @@
                                                     th:unless="${listReportType3Week.getPaging().getPageNumber() + 1 <= listReportType3Week.getPaging().getTotalPage()}">
                                                     <li class="page-item disabled">
                                                         <a class="page-link"
-                                                            th:href="@{/danh-sach/trien-khai(size=${listReportType3Week.getPaging().getPageSize()}, page=${listReportType3CurrentDate.getPaging().getPageNumber() + 1})}"
+                                                            th:href="@{/danh-sach/trien-khai(size=${listReportType3Week.getPaging().getPageSize()}, page=${listReportType3Week.getPaging().getPageNumber() + 1})}"
                                                             aria-label="Next">
                                                             <span aria-hidden="true">&raquo;</span>
                                                             <span class="sr-only">Next</span>

@@ -407,6 +407,16 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
     Integer countReportForDashboardChart(@Param("week") int week, @Param("year") int year, @Param("type") Long type,
             @Param("enabled") int enabled, @Param("priority") Long priority, @Param("status") Long status);
 
+    // Count all by type and week
+    @Query(value = "SELECT COUNT(pr.id) AS totalReport FROM project_report AS pr "
+            + "WHERE pr.week = :week AND pr.project_type_id = :type", nativeQuery = true)
+    Integer countAllByTypeWeek(@Param("week") int week, @Param("type") Long type);
+
+    // Count all by type and current date
+    @Query(value = "SELECT COUNT(pr.id) AS totalReport FROM project_report AS pr "
+            + "WHERE DATE(pr.created_date) = CURDATE() AND pr.project_type_id = :type", nativeQuery = true)
+    Integer countAllByTypeCurrentDate(@Param("type") Long type);
+
     // Count all by type
     @Query(value = "SELECT COUNT(pr.id) AS totalReport FROM project_report AS pr "
             + "WHERE pr.project_type_id = :type", nativeQuery = true)
