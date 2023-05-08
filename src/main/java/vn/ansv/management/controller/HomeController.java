@@ -188,7 +188,6 @@ public class HomeController extends BaseController {
             session.setAttribute("errorReturnDashboard", "Tuần hoặc năm không xác định!");
             return new ModelAndView("redirect:/");
         } catch (Exception e) {
-            // NumberFormatException
             System.out.println("----- HomeController.viewDashboard() ----- " + e);
             return new ModelAndView("redirect:/");
         }
