@@ -2,6 +2,7 @@ package vn.ansv.management.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.modelmapper.ModelMapper;
@@ -300,6 +301,46 @@ public class ApiController {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Đối tượng không xác định", ""));
+        }
+    }
+
+    @GetMapping("/danh-sach/trien-khai")
+    public ResponseEntity<ResponseObject> getList3Paging(HttpSession session, HttpServletRequest request) {
+        try {
+            int card = Integer.parseInt(request.getParameter("card"));
+            int size = Integer.parseInt(request.getParameter("size"));
+            int page = Integer.parseInt(request.getParameter("page"));
+
+            String userRole = (String) session.getAttribute("userRole");
+            userRole = userRole.substring(0, userRole.indexOf("___"));
+            if (userRole.contains("DOC_BDC") || userRole.contains("Manager_AM")
+                    || userRole.contains("Main_AM") || userRole.contains("Member_AM")) {
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("failed", "Bạn chưa đủ điều kiện tiếp nhận dữ liệu!", ""));
+            }
+            String username = (String) session.getAttribute("username");
+            int week = (int) session.getAttribute("thisWeek");
+            String msg = "Dữ liệu báo cáo tại mục thứ " + card + ", trang thứ " + page;
+            if (userRole.contains("Admin") || userRole.contains("CEO")
+                    || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
+                ResponseObject dataType3Week = projectReportService.findListReportType3(
+                        card, week, null, 3L, page, size);
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("success", msg, dataType3Week));
+            } else {
+                ResponseObject dataType3Week = projectReportService.findListReportType3(
+                        card, week, username, 3L, page, size);
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("success", msg, dataType3Week));
+            }
+        } catch (NumberFormatException nfe) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
+        } catch (Exception e) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
         }
     }
 }
