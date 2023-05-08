@@ -1,5 +1,41 @@
-$(".pagination").on("click",".page-link", function(){
-    console.log("ABC");
+var $week = null;
+var $current_year = null;
+
+$(document).ready(function () {
+    var $first_week = $("#week").attr("data-first");
+    var $first_year = $("#year").attr("data-first");
+
+    var currentYear = new Date().getFullYear();
+    $current_year = currentYear;
+    theLastDayOfYear = new Date(currentYear, 11, 31);
+    var year = new Date(theLastDayOfYear.getFullYear(), 0, 1);
+    var days = Math.floor((theLastDayOfYear - year) / (24 * 60 * 60 * 1000));
+    var week = Math.ceil((theLastDayOfYear.getDay() + 1 + days) / 7);
+    console.log("The current year (" + currentYear + ") has " + (week + 1) + " week.");
+    $week = week + 1;
+
+    var htmlSelectWeek = null;
+    for (let i = 1; i <= $week; i++) {
+        if (i == $first_week) {
+            htmlSelectWeek += '<option value="' + i + '" class="text-white bg-secondary font-weight-bold" selected>' + i + '</option>';
+        } else {
+            htmlSelectWeek += '<option value="' + i + '">' + i + '</option>';
+        }
+    }
+    $("#weekList").html(htmlSelectWeek);
+
+    var htmlSelectYear = null;
+    for (let i = 2021; i <= $current_year; i++) {
+        if (i == $first_year) {
+            htmlSelectYear += '<option value="' + i + '" class="text-white bg-secondary font-weight-bold" selected>' + i + '</option>';
+        } else {
+            htmlSelectYear += '<option value="' + i + '">' + i + '</option>';
+        }
+    }
+    $("#yearList").html(htmlSelectYear);
+});
+
+$(".pagination").on("click", ".page-link", function () {
     let data_size = $(this).attr("data-size");
     let data_page = $(this).attr("data-page");
     let data_target = $(this).attr("data-target");
@@ -9,7 +45,6 @@ $(".pagination").on("click",".page-link", function(){
         $.ajax({
             url: url,
             success: function (result) {
-                console.log(result);
                 let htmlBody = '';
                 let htmlPaging = '';
                 if (result.data.data != null) {
@@ -77,8 +112,6 @@ $(".pagination").on("click",".page-link", function(){
                 }
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
-
-                console.log(result.data.paging.listPageNumbers);
 
                 // var find_data = thisContent.parent().html();
                 // console.log(find_data);

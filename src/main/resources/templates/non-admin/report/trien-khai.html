@@ -182,12 +182,21 @@
                 <div class="col-xl-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <th:block th:if="${session.thisWeek == session.currentWeek}">
-                                <h5>Danh sách dự án Triển Khai - (Tuần hiện tại: [[${session.thisWeek}]])</h5>
-                            </th:block>
-                            <th:block th:unless="${session.thisWeek == session.currentWeek}">
-                                <h5>Danh sách dự án Triển Khai - (Tuần: [[${session.thisWeek}]])</h5>
-                            </th:block>
+                            <h5 class="float-left pt-2">Danh sách dự án Triển Khai - (Tuần: </h5>
+                            <select id="weekList"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold"
+                                style="height: 30px !important; width: 55px !important;"
+                                th:data-first="${session.thisWeek}">
+                                <option value="1">1</option>
+                            </select>
+                            <h5 class="float-left pt-2 pl-1">- Năm: </h5>
+                            <select id="yearList"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold"
+                                style="height: 30px !important; width: 65px !important;"
+                                th:data-first="${session.thisYear}">
+                                <option value="1">1</option>
+                            </select>
+                            <h5 class="float-left pt-2"> )</h5>
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
