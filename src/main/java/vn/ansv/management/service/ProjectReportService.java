@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -38,6 +40,8 @@ import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
+import vn.ansv.management.entity.PaginatedEntity;
+import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.CustomerRepository;
 import vn.ansv.management.repository.ProjectPriorityRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
@@ -258,17 +262,97 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public List<ListReport3DTO> findAllReportType3(String username, Long type) {
+    public ResponseObject findListReportType3(
+            int card, Integer week, String username, Long type, int currentPage, int pageSize) {
         try {
-            if (username == null) {
-                List<ListReport3DTO> result = projectReportRepository.findAllReportType3(type);
-                return result;
+            PaginatedEntity paging = new PaginatedEntity();
+            ResponseObject result = new ResponseObject();
+            int totalReport = 0;
+            switch (card) {
+                case 1:
+                    totalReport = projectReportRepository.countAllByTypeWeek(week, 3L);
+                    break;
+                case 2:
+                    totalReport = projectReportRepository.countAllByTypeCurrentDate(3L);
+                    break;
+                case 3:
+                    totalReport = projectReportRepository.countAllByType(3L);
+                    break;
+                default:
+                    break;
+            }
+            if (totalReport == 0) {
+                return null;
+            }
+            int totalPage = totalReport / pageSize;
+            if (totalReport % pageSize > 0) {
+                totalPage = (totalReport / pageSize) + 1;
+            }
+            paging.setPageSize(pageSize);
+            paging.setPageNumber(currentPage);
+            paging.setTotalPage(totalPage);
+            if (totalPage - currentPage >= 2) {
+                if (currentPage - 2 < 1) {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(1,
+                            (totalPage - currentPage >= 5) ? 5 : totalPage).boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                } else {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(currentPage - 2, currentPage + 2)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                }
             } else {
-                List<ListReport3DTO> result = projectReportRepository.findAllReportType3Limit(username, type);
+                if (totalPage >= 5) {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(totalPage - 4, totalPage)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                } else {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                }
+            }
+            int startPosition = pageSize * (currentPage - 1);
+
+            if (username == null) {
+                if (card == 1) {
+                    List<ListReport3DTO> data = projectReportRepository.findListReportType3Week(
+                            type, week, startPosition, pageSize);
+                    if (data.isEmpty()) {
+                        return null;
+                    }
+                    result.setData(data);
+                    result.setPaging(paging);
+                    return result;
+                }
+                if (card == 2) {
+                    List<ListReport3DTO> data = projectReportRepository.findListReportType3CurrentDate(
+                            type, startPosition, pageSize);
+                    if (data.isEmpty()) {
+                        return null;
+                    }
+                    result.setData(data);
+                    result.setPaging(paging);
+                    return result;
+                }
+                if (card == 3) {
+                    List<ListReport3DTO> data = projectReportRepository.findListReportType3All(
+                            type, startPosition, pageSize);
+                    if (data.isEmpty()) {
+                        return null;
+                    }
+                    result.setData(data);
+                    result.setPaging(paging);
+                    return result;
+                }
+            } else {
+                List<ListReport3DTO> data = projectReportRepository.findListReportType3ByUser(username, type);
+                result.setData(data);
+                result.setPaging(paging);
                 return result;
             }
         } catch (Exception e) {
-            System.out.println("----- ProjectReportService.findAllReportType3().e ----- " + e);
+            System.out.println("----- ProjectReportService.findListReportType3().e ----- " + e);
         }
         return null;
     }

@@ -24,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.ansv.management.dto.Report.ListReport12DTO;
-import vn.ansv.management.dto.Report.ListReport3DTO;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
 import vn.ansv.management.dto.Export.ExportInputDTO;
@@ -110,6 +109,18 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "/danh-sach/trien-khai", method = RequestMethod.GET)
     public ModelAndView viewReportType3(HttpSession session, HttpServletRequest request) {
+        int currentPage = 1;
+        int pageSize = 5;
+        if (request.getParameter("page") != null && request.getParameter("size") != null) {
+            try {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+                pageSize = Integer.parseInt(request.getParameter("size"));
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                return new ModelAndView("redirect:/");
+            }
+        }
+
         // Lấy last url
         String test = request.getRequestURI();
         String[] path = test.split("/");
@@ -125,16 +136,32 @@ public class ProjectReportController extends BaseController {
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
-        List<ListReport3DTO> dataType3 = null;
+        int week = (int) session.getAttribute("thisWeek");
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
-            dataType3 = projectReportService.findAllReportType3(null, 3L);
-            _mvShare.addObject("listReportType3", dataType3);
+            ResponseObject dataType3Week = projectReportService.findListReportType3(
+                    1, week, null, 3L, currentPage, pageSize);
+            ResponseObject dataType3CurrentDate = projectReportService.findListReportType3(
+                    2, null, null, 3L, currentPage, pageSize);
+            ResponseObject dataType3All = projectReportService.findListReportType3(
+                    3, null, null, 3L, currentPage, pageSize);
+            _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
+            _mvShare.addObject("listReportType3CurrentDate",
+                    dataType3CurrentDate != null ? dataType3CurrentDate : null);
+            _mvShare.addObject("listReportType3All", dataType3All != null ? dataType3All : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;
         } else {
-            dataType3 = projectReportService.findAllReportType3(username, 3L);
-            _mvShare.addObject("listReportType3", dataType3);
+            ResponseObject dataType3Week = projectReportService.findListReportType3(
+                    1, week, username, 3L, currentPage, pageSize);
+            ResponseObject dataType3CurrentDate = projectReportService.findListReportType3(
+                    2, null, username, 3L, currentPage, pageSize);
+            ResponseObject dataType3All = projectReportService.findListReportType3(
+                    3, null, username, 3L, currentPage, pageSize);
+            _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
+            _mvShare.addObject("listReportType3CurrentDate",
+                    dataType3CurrentDate != null ? dataType3CurrentDate : null);
+            _mvShare.addObject("listReportType3All", dataType3All != null ? dataType3All : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;
         }
