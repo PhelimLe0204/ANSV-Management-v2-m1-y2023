@@ -244,14 +244,93 @@ public class ProjectReportService implements IProjectReport {
     /* ========== End: Detail tab quá trình ========== */
 
     @Override
-    public List<ListReport12DTO> findAllReportType12(String username, Long type) {
+    public ResponseObject findAllReportType12(
+            int card, Integer week, String username, Long type, int currentPage, int pageSize) {
         try {
-            if (username == null) {
-                List<ListReport12DTO> result = projectReportRepository.findAllReportType12(type);
-                return result;
+            PaginatedEntity paging = new PaginatedEntity();
+            ResponseObject result = new ResponseObject();
+            int totalReport = 0;
+            switch (card) {
+                case 1:
+                    totalReport = projectReportRepository.countAllByTypeWeek(week, type);
+                    break;
+                case 2:
+                    totalReport = projectReportRepository.countAllByTypeCurrentDate(type);
+                    break;
+                case 3:
+                    totalReport = projectReportRepository.countAllByType(type);
+                    break;
+                default:
+                    break;
+            }
+            if (totalReport == 0) {
+                return null;
+            }
+            int totalPage = totalReport / pageSize;
+            if (totalReport % pageSize > 0) {
+                totalPage = (totalReport / pageSize) + 1;
+            }
+            paging.setPageSize(pageSize);
+            paging.setPageNumber(currentPage);
+            paging.setTotalPage(totalPage);
+            if (totalPage - currentPage >= 2) {
+                if (currentPage - 2 < 1) {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(1,
+                            (totalPage - currentPage >= 5) ? 5 : totalPage).boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                } else {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(currentPage - 2, currentPage + 2)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                }
             } else {
-                System.out.println(username + " - " + type);
-                List<ListReport12DTO> result = projectReportRepository.findAllReportType12Limit(username, type);
+                if (totalPage >= 5) {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(totalPage - 4, totalPage)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                } else {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
+                            .boxed().collect(Collectors.toList());
+                    paging.setListPageNumbers(pageNumbers);
+                }
+            }
+            int startPosition = pageSize * (currentPage - 1);
+
+            if (username == null) {
+                if (card == 1) {
+                    List<ListReport3DTO> data = projectReportRepository.findListReportType3Week(
+                            type, week, startPosition, pageSize);
+                    if (data.isEmpty()) {
+                        return null;
+                    }
+                    result.setData(data);
+                    result.setPaging(paging);
+                    return result;
+                }
+                if (card == 2) {
+                    List<ListReport3DTO> data = projectReportRepository.findListReportType3CurrentDate(
+                            type, startPosition, pageSize);
+                    if (data.isEmpty()) {
+                        return null;
+                    }
+                    result.setData(data);
+                    result.setPaging(paging);
+                    return result;
+                }
+                if (card == 3) {
+                    List<ListReport12DTO> data = projectReportRepository.findAllReportType12(
+                            type, startPosition, pageSize);
+                    if (data.isEmpty()) {
+                        return null;
+                    }
+                    result.setData(data);
+                    result.setPaging(paging);
+                    return result;
+                }
+            } else {
+                List<ListReport12DTO> data = projectReportRepository.findAllReportType12Limit(username, type);
+                result.setData(data);
+                result.setPaging(paging);
                 return result;
             }
         } catch (Exception e) {

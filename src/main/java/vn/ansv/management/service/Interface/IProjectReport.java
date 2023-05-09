@@ -28,9 +28,11 @@ public interface IProjectReport {
 
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(String userName, int enabled, Long type, int week, int year);
 
-    List<ListReport12DTO> findAllReportType12(String username, Long type);
+    ResponseObject findAllReportType12(int card, Integer week, String username, Long type, int currentPage,
+            int pageSize);
 
-    ResponseObject findListReportType3(int card, Integer week, String username, Long type, int currentPage, int pageSize);
+    ResponseObject findListReportType3(int card, Integer week, String username, Long type, int currentPage,
+            int pageSize);
 
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 
