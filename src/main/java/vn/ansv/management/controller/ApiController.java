@@ -363,16 +363,16 @@ public class ApiController {
             int week = (int) session.getAttribute("thisWeek");
             String msg = "Dữ liệu báo cáo tại mục thứ " + card + ", trang thứ " + page;
             if (userRole.contains("Admin") || userRole.contains("CEO")
-                    || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
-                ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        card, week, null, 3L, page, size);
+                    || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
+                ResponseObject dataType1Week = projectReportService.findAllReportType12(
+                        card, week, null, 1L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("success", msg, dataType3Week));
+                        new ResponseObject("success", msg, dataType1Week));
             } else {
-                ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        card, week, username, 3L, page, size);
+                ResponseObject dataType1Week = projectReportService.findAllReportType12(
+                        card, week, username, 1L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("success", msg, dataType3Week));
+                        new ResponseObject("success", msg, dataType1Week));
             }
         } catch (NumberFormatException nfe) {
             System.out.println("----- HomeController.viewDashboard() ----- " + nfe);

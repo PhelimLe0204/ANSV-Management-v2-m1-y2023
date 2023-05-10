@@ -200,6 +200,7 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
         @Query(nativeQuery = true)
         ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(@Param("id") Long id, @Param("enabled") int enabled);
 
+        /* Start: Danh sách dự án type 12 */
         // Danh sách KD viễn thông và KD chuyển đổi số (ALL)
         @Query(nativeQuery = true)
         List<ListReport12DTO> findAllReportType12(@Param("project_type_id") Long project_type_id,
@@ -209,6 +210,19 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
         @Query(nativeQuery = true)
         List<ListReport12DTO> findAllReportType12Limit(@Param("username") String username,
                         @Param("project_type_id") Long project_type_id);
+
+        // Week
+        @Query(nativeQuery = true)
+        List<ListReport12DTO> findAllReportType12Week(@Param("project_type_id") Long project_type_id,
+                        @Param("week") int week, @Param("startPosition") int startPosition,
+                        @Param("pageSize") int pageSize);
+
+        // CurrentDate
+        @Query(nativeQuery = true)
+        List<ListReport12DTO> findAllReportType12CurrentDate(@Param("project_type_id") Long project_type_id,
+                        @Param("startPosition") int startPosition, @Param("pageSize") int pageSize);
+
+        /* End: Danh sách dự án type 12 */
 
         /* Start: Danh sách Triển khai */
         // Week

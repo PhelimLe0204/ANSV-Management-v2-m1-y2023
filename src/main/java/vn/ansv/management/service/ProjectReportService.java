@@ -298,7 +298,7 @@ public class ProjectReportService implements IProjectReport {
 
             if (username == null) {
                 if (card == 1) {
-                    List<ListReport3DTO> data = projectReportRepository.findListReportType3Week(
+                    List<ListReport12DTO> data = projectReportRepository.findAllReportType12Week(
                             type, week, startPosition, pageSize);
                     if (data.isEmpty()) {
                         return null;
@@ -308,7 +308,7 @@ public class ProjectReportService implements IProjectReport {
                     return result;
                 }
                 if (card == 2) {
-                    List<ListReport3DTO> data = projectReportRepository.findListReportType3CurrentDate(
+                    List<ListReport12DTO> data = projectReportRepository.findAllReportType12CurrentDate(
                             type, startPosition, pageSize);
                     if (data.isEmpty()) {
                         return null;
