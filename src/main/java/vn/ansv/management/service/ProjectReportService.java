@@ -373,7 +373,7 @@ public class ProjectReportService implements IProjectReport {
             if (totalPage - currentPage >= 2) {
                 if (currentPage - 2 < 1) {
                     List<Integer> pageNumbers = IntStream.rangeClosed(1,
-                            (totalPage - currentPage >= 5) ? 5 : totalPage).boxed().collect(Collectors.toList());
+                            (totalPage - currentPage >= 4) ? 5 : totalPage).boxed().collect(Collectors.toList());
                     paging.setListPageNumbers(pageNumbers);
                 } else {
                     List<Integer> pageNumbers = IntStream.rangeClosed(currentPage - 2, currentPage + 2)

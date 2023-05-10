@@ -184,16 +184,18 @@
                         <div class="card-header">
                             <h5 class="float-left pt-2">Danh sách dự án Triển Khai - (Tuần: </h5>
                             <select id="weekList"
-                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
                                 style="height: 30px !important; width: 55px !important;"
-                                th:data-first="${session.thisWeek}">
+                                th:data-first="${session.thisWeek}" data-card="1" data-size="5" data-page="1"
+                                data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
                                 <option value="1">1</option>
                             </select>
                             <h5 class="float-left pt-2 pl-1">- Năm: </h5>
                             <select id="yearList"
-                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
                                 style="height: 30px !important; width: 65px !important;"
-                                th:data-first="${session.thisYear}">
+                                th:data-first="${session.thisYear}" data-card="1" data-size="5" data-page="1"
+                                data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
                                 <option value="1">1</option>
                             </select>
                             <h5 class="float-left pt-2"> )</h5>
@@ -292,9 +294,10 @@
                                             </th:block>
                                         </tbody>
                                     </table>
-                                    <th:block th:unless="${listReportType3Week == null}">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-center" id="pagingListReportWeek">
+
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center" id="pagingListReportWeek">
+                                            <th:block th:unless="${listReportType3Week == null}">
                                                 <th:block
                                                     th:if="${listReportType3Week.getPaging().getPageNumber() - 1 <= 0}">
                                                     <li class="page-item disabled">
@@ -361,9 +364,9 @@
                                                         </a>
                                                     </li>
                                                 </th:block>
-                                            </ul>
-                                        </nav>
-                                    </th:block>
+                                            </th:block>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
