@@ -311,6 +311,11 @@ public class ApiController {
             int size = Integer.parseInt(request.getParameter("size"));
             int page = Integer.parseInt(request.getParameter("page"));
 
+            if (card == 1 && request.getParameter("week") != null && request.getParameter("year") != null) {
+                session.setAttribute("thisWeek", Integer.parseInt(request.getParameter("week")));
+                session.setAttribute("thisYear", Integer.parseInt(request.getParameter("year")));
+            }
+
             String userRole = (String) session.getAttribute("userRole");
             userRole = userRole.substring(0, userRole.indexOf("___"));
             if (userRole.contains("DOC_BDC") || userRole.contains("Manager_AM")
