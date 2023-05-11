@@ -71,7 +71,7 @@ function getDataCard1(data_week, data_year, data_size, data_page, data_target, d
                             + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
                             + '</td>'
                             + '<td class="text-center">' + dataArray[i].tongGiaTriThucTe + '</td>'
-                            + '<td class="text-center">' + dataArray[i].customerName.substring(0, 15) + '...</td>'
+                            + '<td class="text-center"><span data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName.substring(0, 15) + '...</span></td>'
                             + '<td class="text-center">' + dataArray[i].picName + '</td>'
                             + '<td class="text-center">'
                             + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
@@ -131,6 +131,7 @@ function getDataCard1(data_week, data_year, data_size, data_page, data_target, d
                 }
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
+                $("[data-toggle=tooltip]").tooltip();
             }
         });
     }
