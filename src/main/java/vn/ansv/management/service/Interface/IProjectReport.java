@@ -21,46 +21,48 @@ import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.entity.ResponseObject;
 
 public interface IProjectReport {
-    DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled);
+        DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled);
 
-    List<ProjectDashboardDTO> findAllDashboardProjectStep1(String userName, int enabled, Long type, int week, int year);
+        List<ProjectDashboardDTO> findAllDashboardProjectStep1(String userName, int enabled, Long type, int week,
+                        int year);
 
-    List<ProjectDashboardDTO> findAllDashboardProjectStep2(String userName, int enabled, Long type, int week, int year);
+        List<ProjectDashboardDTO> findAllDashboardProjectStep2(String userName, int enabled, Long type, int week,
+                        int year);
 
-    ResponseObject findAllReportType12(int card, Integer week, String username, Long type, int currentPage,
-            int pageSize);
+        ResponseObject findAllReportType12(int week, String username, Long type, int currentPage,
+                        int pageSize);
 
-    ResponseObject findListReportType3(int week, String username, Long type, int currentPage, int pageSize);
+        ResponseObject findListReportType3(int week, String username, Long type, int currentPage, int pageSize);
 
-    ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
+        ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 
-    ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled);
+        ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled);
 
-    ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(Long id, int enabled);
+        ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(Long id, int enabled);
 
-    ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(Long id, int enabled);
+        ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(Long id, int enabled);
 
-    Boolean updateDetailTabPhanLoai(Long id, UpdateDetailTabPhanLoaiDTO dataUpdate);
+        Boolean updateDetailTabPhanLoai(Long id, UpdateDetailTabPhanLoaiDTO dataUpdate);
 
-    Boolean updateDetailTabDuThau(Long id, UpdateDetailTabDuThauDTO dataUpdate);
+        Boolean updateDetailTabDuThau(Long id, UpdateDetailTabDuThauDTO dataUpdate);
 
-    Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate);
+        Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate);
 
-    Boolean updateDetailTabQuaTrinh(Long id, ReportDetailTabQuaTrinhDTO dataUpdate);
+        Boolean updateDetailTabQuaTrinh(Long id, ReportDetailTabQuaTrinhDTO dataUpdate);
 
-    Integer deleteReportById(Long first_report_id);
+        Integer deleteReportById(Long first_report_id);
 
-    Integer addNewReport(AddNewReportDTO dataInsert);
+        Integer addNewReport(AddNewReportDTO dataInsert);
 
-    List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type);
+        List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type);
 
-    List<Map<String, String>> processingImportReport(
-            MultipartFile excelDataFile, String username, Long type, Integer week, Integer year);
+        List<Map<String, String>> processingImportReport(
+                        MultipartFile excelDataFile, String username, Long type, Integer week, Integer year);
 
-    List<ExportVienThongDTO> findAllExportVienThong(Integer type, Integer week, Integer year);
+        List<ExportVienThongDTO> findAllExportVienThong(Integer type, Integer week, Integer year);
 
-    List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(Integer type, Integer week, Integer year);
+        List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(Integer type, Integer week, Integer year);
 
-    List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year);
+        List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year);
 
 }

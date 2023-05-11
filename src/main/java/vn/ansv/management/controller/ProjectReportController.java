@@ -77,28 +77,18 @@ public class ProjectReportController extends BaseController {
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
             ResponseObject dataType1Week = projectReportService.findAllReportType12(
-                    1, week, null, 1L, currentPage, pageSize);
-            ResponseObject dataType1CurrentDate = projectReportService.findAllReportType12(
-                    2, null, null, 1L, currentPage, pageSize);
-            ResponseObject dataType1All = projectReportService.findAllReportType12(
-                    3, null, null, 1L, currentPage, pageSize);
+                    week, null, 1L, currentPage, pageSize);
+
             _mvShare.addObject("listReportType1Week", dataType1Week != null ? dataType1Week : null);
-            _mvShare.addObject("listReportType1CurrentDate",
-                    dataType1CurrentDate != null ? dataType1CurrentDate : null);
-            _mvShare.addObject("listReportType1All", dataType1All != null ? dataType1All : null);
+
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
         } else {
             ResponseObject dataType1Week = projectReportService.findAllReportType12(
-                    1, week, username, 1L, currentPage, pageSize);
-            ResponseObject dataType1CurrentDate = projectReportService.findAllReportType12(
-                    2, null, username, 1L, currentPage, pageSize);
-            ResponseObject dataType1All = projectReportService.findAllReportType12(
-                    3, null, username, 1L, currentPage, pageSize);
+                    week, username, 1L, currentPage, pageSize);
+
             _mvShare.addObject("listReportType1Week", dataType1Week != null ? dataType1Week : null);
-            _mvShare.addObject("listReportType1CurrentDate",
-                    dataType1CurrentDate != null ? dataType1CurrentDate : null);
-            _mvShare.addObject("listReportType1All", dataType1All != null ? dataType1All : null);
+
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
         }
