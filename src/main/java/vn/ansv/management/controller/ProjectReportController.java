@@ -91,7 +91,7 @@ public class ProjectReportController extends BaseController {
         } else {
             ResponseObject dataType1Week = projectReportService.findAllReportType12(
                     1, week, username, 1L, currentPage, pageSize);
-            ResponseObject dataType1CurrentDate = projectReportService.findListReportType3(
+            ResponseObject dataType1CurrentDate = projectReportService.findAllReportType12(
                     2, null, username, 1L, currentPage, pageSize);
             ResponseObject dataType1All = projectReportService.findAllReportType12(
                     3, null, username, 1L, currentPage, pageSize);
@@ -171,28 +171,14 @@ public class ProjectReportController extends BaseController {
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
             ResponseObject dataType3Week = projectReportService.findListReportType3(
-                    1, week, null, 3L, currentPage, pageSize);
-            ResponseObject dataType3CurrentDate = projectReportService.findListReportType3(
-                    2, null, null, 3L, currentPage, pageSize);
-            ResponseObject dataType3All = projectReportService.findListReportType3(
-                    3, null, null, 3L, currentPage, pageSize);
+                    week, null, 3L, currentPage, pageSize);
             _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
-            _mvShare.addObject("listReportType3CurrentDate",
-                    dataType3CurrentDate != null ? dataType3CurrentDate : null);
-            _mvShare.addObject("listReportType3All", dataType3All != null ? dataType3All : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;
         } else {
             ResponseObject dataType3Week = projectReportService.findListReportType3(
-                    1, week, username, 3L, currentPage, pageSize);
-            ResponseObject dataType3CurrentDate = projectReportService.findListReportType3(
-                    2, null, username, 3L, currentPage, pageSize);
-            ResponseObject dataType3All = projectReportService.findListReportType3(
-                    3, null, username, 3L, currentPage, pageSize);
+                    week, username, 3L, currentPage, pageSize);
             _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
-            _mvShare.addObject("listReportType3CurrentDate",
-                    dataType3CurrentDate != null ? dataType3CurrentDate : null);
-            _mvShare.addObject("listReportType3All", dataType3All != null ? dataType3All : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;
         }

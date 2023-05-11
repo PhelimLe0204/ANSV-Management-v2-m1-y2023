@@ -8,7 +8,6 @@ $(document).ready(function () {
 });
 
 $(".listWeekYear").on("change", function () {
-    let data_card = $(this).attr("data-card");
     let data_week = $("#weekList").val();
     let data_year = $("#yearList").val();
     let data_size = $(this).attr("data-size");
@@ -17,7 +16,7 @@ $(".listWeekYear").on("change", function () {
     let data_paging_content = $(this).attr("data-paging");
 
     if (data_size != undefined && data_page != undefined) {
-        getDataCard1(data_card, data_week, data_year, data_size, data_page, data_target, data_paging_content);
+        getDataCard1(data_week, data_year, data_size, data_page, data_target, data_paging_content);
     }
 });
 
@@ -52,9 +51,9 @@ function selectWeekAndYear(this_week, this_year) {
     $("#yearList").html(htmlSelectYear);
 }
 
-function getDataCard1(data_card, data_week, data_year, data_size, data_page, data_target, data_paging_content) {
+function getDataCard1(data_week, data_year, data_size, data_page, data_target, data_paging_content) {
     if (data_size != undefined && data_page != undefined) {
-        let url = "/api/danh-sach/trien-khai?card=" + data_card + "&week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
+        let url = "/api/danh-sach/trien-khai?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
         $.ajax({
             url: url,
             success: function (result) {
@@ -120,9 +119,15 @@ function getDataCard1(data_card, data_week, data_year, data_size, data_page, dat
                             + '</li>';
                     }
                     $("#" + data_paging_content).html(htmlPaging);
+                    if (result.message.includes("WeekAndYear")) {
+                        alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
+                    }
                 } else {
                     htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
+                    if (result.message.includes("WeekAndYear")) {
+                        alertify.success('Dữ liệu trống!').delay(1.5);
+                    }
                 }
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
@@ -132,7 +137,6 @@ function getDataCard1(data_card, data_week, data_year, data_size, data_page, dat
 }
 
 $(".pagination").on("click", ".page-link", function () {
-    let data_card = $(this).attr("data-card");
     let data_week = $("#weekList").val();
     let data_year = $("#yearList").val();
     let data_size = $(this).attr("data-size");
@@ -141,7 +145,7 @@ $(".pagination").on("click", ".page-link", function () {
     let data_paging_content = $(this).attr("data-paging");
 
     if (data_size != undefined && data_page != undefined) {
-        getDataCard1(data_card, data_week, data_year, data_size, data_page, data_target, data_paging_content);
+        getDataCard1(data_week, data_year, data_size, data_page, data_target, data_paging_content);
     }
     // let data_size = $(this).attr("data-size");
     // let data_page = $(this).attr("data-page");
@@ -757,41 +761,4 @@ $("#btn-open-modal-export-report").click(function () {
             );
         }, 2000);
     });
-});
-
-$(document).ready(function () {
-    let params = new URLSearchParams(location.search);
-    week_from_url = params.get('week') ?? 18;
-    year_from_url = params.get('year') ?? 2023;
-    $('#select_week').select2();
-    $('#select_year').select2();
-
-    var week_value = "";
-    var year_value = "";
-
-    for (let i = 2020; i <= 2030; i++) {
-        if (i == year_from_url) {
-            year_value += '<option value="' + i + '" selected>' + i + '</option>';
-        } else {
-            year_value += '<option value="' + i + '">' + i + '</option>';
-        }
-    }
-    document.getElementById("select_year").innerHTML = year_value; // Nhúng HTML cho dữ liệu Select2 (year)
-
-    var value_option_week = "";
-    for (let i = 1; i <= 53; i++) {
-        if (i < 10) {
-            value_option_week = value_option_week + "0" + i;
-        } else {
-            value_option_week = i;
-        }
-
-        if (i == week_from_url) {
-            week_value += '<option value="' + value_option_week + '" selected>' + i + '</option>';
-        } else {
-            week_value += '<option value="' + value_option_week + '">' + i + '</option>';
-        }
-        value_option_week = "";
-    }
-    document.getElementById("select_week").innerHTML = week_value; // Nhúng HTML cho dữ liệu Select2 (week)
 });

@@ -341,25 +341,11 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public ResponseObject findListReportType3(
-            int card, Integer week, String username, Long type, int currentPage, int pageSize) {
+    public ResponseObject findListReportType3(int week, String username, Long type, int currentPage, int pageSize) {
         try {
             PaginatedEntity paging = new PaginatedEntity();
             ResponseObject result = new ResponseObject();
-            int totalReport = 0;
-            switch (card) {
-                case 1:
-                    totalReport = projectReportRepository.countAllByTypeWeek(week, 3L);
-                    break;
-                case 2:
-                    totalReport = projectReportRepository.countAllByTypeCurrentDate(3L);
-                    break;
-                case 3:
-                    totalReport = projectReportRepository.countAllByType(3L);
-                    break;
-                default:
-                    break;
-            }
+            int totalReport = projectReportRepository.countAllByTypeWeek(week, 3L);
             if (totalReport == 0) {
                 return null;
             }
@@ -394,36 +380,14 @@ public class ProjectReportService implements IProjectReport {
             int startPosition = pageSize * (currentPage - 1);
 
             if (username == null) {
-                if (card == 1) {
-                    List<ListReport3DTO> data = projectReportRepository.findListReportType3Week(
-                            type, week, startPosition, pageSize);
-                    if (data.isEmpty()) {
-                        return null;
-                    }
-                    result.setData(data);
-                    result.setPaging(paging);
-                    return result;
+                List<ListReport3DTO> data = projectReportRepository.findListReportType3Week(
+                        type, week, startPosition, pageSize);
+                if (data.isEmpty()) {
+                    return null;
                 }
-                if (card == 2) {
-                    List<ListReport3DTO> data = projectReportRepository.findListReportType3CurrentDate(
-                            type, startPosition, pageSize);
-                    if (data.isEmpty()) {
-                        return null;
-                    }
-                    result.setData(data);
-                    result.setPaging(paging);
-                    return result;
-                }
-                if (card == 3) {
-                    List<ListReport3DTO> data = projectReportRepository.findListReportType3All(
-                            type, startPosition, pageSize);
-                    if (data.isEmpty()) {
-                        return null;
-                    }
-                    result.setData(data);
-                    result.setPaging(paging);
-                    return result;
-                }
+                result.setData(data);
+                result.setPaging(paging);
+                return result;
             } else {
                 List<ListReport3DTO> data = projectReportRepository.findListReportType3ByUser(username, type);
                 result.setData(data);
