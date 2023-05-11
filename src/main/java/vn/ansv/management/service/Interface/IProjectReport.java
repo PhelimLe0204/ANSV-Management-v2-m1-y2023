@@ -30,8 +30,7 @@ public interface IProjectReport {
     ResponseObject findAllReportType12(int card, Integer week, String username, Long type, int currentPage,
             int pageSize);
 
-    ResponseObject findListReportType3(int card, Integer week, String username, Long type, int currentPage,
-            int pageSize);
+    ResponseObject findListReportType3(int week, String username, Long type, int currentPage, int pageSize);
 
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 

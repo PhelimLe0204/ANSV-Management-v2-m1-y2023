@@ -307,13 +307,15 @@ public class ApiController {
     @GetMapping("/danh-sach/trien-khai")
     public ResponseEntity<ResponseObject> getList3Paging(HttpSession session, HttpServletRequest request) {
         try {
-            int card = Integer.parseInt(request.getParameter("card"));
             int size = Integer.parseInt(request.getParameter("size"));
             int page = Integer.parseInt(request.getParameter("page"));
-
-            if (card == 1 && request.getParameter("week") != null && request.getParameter("year") != null) {
-                session.setAttribute("thisWeek", Integer.parseInt(request.getParameter("week")));
-                session.setAttribute("thisYear", Integer.parseInt(request.getParameter("year")));
+            String msg = "Dữ liệu báo cáo Triển khai trang thứ " + page;
+            if (request.getParameter("week") != null && request.getParameter("year") != null) {
+                int week = Integer.parseInt(request.getParameter("week"));
+                int year = Integer.parseInt(request.getParameter("year"));
+                session.setAttribute("thisWeek", week);
+                session.setAttribute("thisYear", year);
+                msg = "WeekAndYear";
             }
 
             String userRole = (String) session.getAttribute("userRole");
@@ -325,16 +327,15 @@ public class ApiController {
             }
             String username = (String) session.getAttribute("username");
             int week = (int) session.getAttribute("thisWeek");
-            String msg = "Dữ liệu báo cáo tại mục thứ " + card + ", trang thứ " + page;
             if (userRole.contains("Admin") || userRole.contains("CEO")
                     || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
                 ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        card, week, null, 3L, page, size);
+                        week, null, 3L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType3Week));
             } else {
                 ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        card, week, username, 3L, page, size);
+                        week, username, 3L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType3Week));
             }
@@ -352,7 +353,6 @@ public class ApiController {
     @GetMapping("/danh-sach/kd-vien-thong")
     public ResponseEntity<ResponseObject> getList1paging(HttpSession session, HttpServletRequest request) {
         try {
-            int card = Integer.parseInt(request.getParameter("card"));
             int size = Integer.parseInt(request.getParameter("size"));
             int page = Integer.parseInt(request.getParameter("page"));
 
@@ -366,16 +366,16 @@ public class ApiController {
             }
             String username = (String) session.getAttribute("username");
             int week = (int) session.getAttribute("thisWeek");
-            String msg = "Dữ liệu báo cáo tại mục thứ " + card + ", trang thứ " + page;
+            String msg = "Dữ liệu báo cáo Viễn thông trang thứ " + page;
             if (userRole.contains("Admin") || userRole.contains("CEO")
                     || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
                 ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        card, week, null, 3L, page, size);
+                        week, null, 3L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType3Week));
             } else {
                 ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        card, week, username, 3L, page, size);
+                        week, username, 3L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType3Week));
             }
