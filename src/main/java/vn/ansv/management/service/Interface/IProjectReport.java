@@ -16,7 +16,6 @@ import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
 import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
-import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.entity.ResponseObject;
@@ -28,9 +27,10 @@ public interface IProjectReport {
 
     List<ProjectDashboardDTO> findAllDashboardProjectStep2(String userName, int enabled, Long type, int week, int year);
 
-    List<ListReport12DTO> findAllReportType12(String username, Long type);
+    ResponseObject findAllReportType12(int card, Integer week, String username, Long type, int currentPage,
+            int pageSize);
 
-    ResponseObject findListReportType3(int card, Integer week, String username, Long type, int currentPage, int pageSize);
+    ResponseObject findListReportType3(int week, String username, Long type, int currentPage, int pageSize);
 
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 

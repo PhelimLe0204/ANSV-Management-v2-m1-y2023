@@ -8,7 +8,6 @@ $(document).ready(function () {
 });
 
 $(".listWeekYear").on("change", function () {
-    let data_card = $(this).attr("data-card");
     let data_week = $("#weekList").val();
     let data_year = $("#yearList").val();
     let data_size = $(this).attr("data-size");
@@ -17,7 +16,7 @@ $(".listWeekYear").on("change", function () {
     let data_paging_content = $(this).attr("data-paging");
 
     if (data_size != undefined && data_page != undefined) {
-        getDataCard1(data_card, data_week, data_year, data_size, data_page, data_target, data_paging_content);
+        getDataCard1(data_week, data_year, data_size, data_page, data_target, data_paging_content);
     }
 });
 
@@ -52,9 +51,9 @@ function selectWeekAndYear(this_week, this_year) {
     $("#yearList").html(htmlSelectYear);
 }
 
-function getDataCard1(data_card, data_week, data_year, data_size, data_page, data_target, data_paging_content) {
+function getDataCard1(data_week, data_year, data_size, data_page, data_target, data_paging_content) {
     if (data_size != undefined && data_page != undefined) {
-        let url = "/api/danh-sach/trien-khai?card=" + data_card + "&week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
+        let url = "/api/danh-sach/trien-khai?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
         $.ajax({
             url: url,
             success: function (result) {
@@ -72,7 +71,7 @@ function getDataCard1(data_card, data_week, data_year, data_size, data_page, dat
                             + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
                             + '</td>'
                             + '<td class="text-center">' + dataArray[i].tongGiaTriThucTe + '</td>'
-                            + '<td class="text-center">' + dataArray[i].customerName.substring(0, 15) + '...</td>'
+                            + '<td class="text-center"><span data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName.substring(0, 15) + '...</span></td>'
                             + '<td class="text-center">' + dataArray[i].picName + '</td>'
                             + '<td class="text-center">'
                             + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
@@ -120,19 +119,25 @@ function getDataCard1(data_card, data_week, data_year, data_size, data_page, dat
                             + '</li>';
                     }
                     $("#" + data_paging_content).html(htmlPaging);
+                    if (result.message.includes("WeekAndYear")) {
+                        alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
+                    }
                 } else {
                     htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
+                    if (result.message.includes("WeekAndYear")) {
+                        alertify.success('Dữ liệu trống!').delay(1.5);
+                    }
                 }
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
+                $("[data-toggle=tooltip]").tooltip();
             }
         });
     }
 }
 
 $(".pagination").on("click", ".page-link", function () {
-    let data_card = $(this).attr("data-card");
     let data_week = $("#weekList").val();
     let data_year = $("#yearList").val();
     let data_size = $(this).attr("data-size");
@@ -141,7 +146,7 @@ $(".pagination").on("click", ".page-link", function () {
     let data_paging_content = $(this).attr("data-paging");
 
     if (data_size != undefined && data_page != undefined) {
-        getDataCard1(data_card, data_week, data_year, data_size, data_page, data_target, data_paging_content);
+        getDataCard1(data_week, data_year, data_size, data_page, data_target, data_paging_content);
     }
     // let data_size = $(this).attr("data-size");
     // let data_page = $(this).attr("data-page");

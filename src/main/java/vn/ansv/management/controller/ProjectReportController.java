@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
 import vn.ansv.management.dto.Export.ExportInputDTO;
@@ -47,6 +46,19 @@ public class ProjectReportController extends BaseController {
 
     @RequestMapping(value = "/danh-sach/kd-vien-thong", method = RequestMethod.GET)
     public ModelAndView viewReportType1(HttpSession session, HttpServletRequest request) {
+        int currentPage = 1;
+        int pageSize = 5;
+        if (request.getParameter("page") != null && request.getParameter("size") != null) {
+            try {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+                pageSize = Integer.parseInt(request.getParameter("size"));
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                return new ModelAndView("redirect:/");
+            }
+        }
+
+        // Lay last url
         String test = request.getRequestURI();
         String[] path = test.split("/");
         String lastPath = path[path.length - 1];
@@ -61,51 +73,56 @@ public class ProjectReportController extends BaseController {
             return new ModelAndView("redirect:/");
         }
         String username = (String) session.getAttribute("username");
-        List<ListReport12DTO> dataType1 = null;
+
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
-            dataType1 = projectReportService.findAllReportType12(null, 1L);
-            _mvShare.addObject("listReportType1", dataType1);
+            ResponseObject dataType1All = projectReportService.findAllReportType12(
+                    3, null, null, 1L, currentPage, pageSize);
+            _mvShare.addObject("listReportType1All", dataType1All != null ? dataType1All : null);
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
         } else {
-            dataType1 = projectReportService.findAllReportType12(username, 1L);
-            _mvShare.addObject("listReportType1", dataType1);
+            ResponseObject dataType1All = projectReportService.findAllReportType12(
+                    3, null, username, 1L, currentPage, pageSize);
+            _mvShare.addObject("listReportType1All", dataType1All != null ? dataType1All : null);
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
         }
     }
 
-    @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method = RequestMethod.GET)
-    public ModelAndView viewReportType2(HttpSession session, HttpServletRequest request) {
-        // Lấy url
-        String test = request.getRequestURI();
-        String[] path = test.split("/");
-        String lastPath = path[path.length - 1];
-        _mvShare.addObject("url", lastPath);
-        Init(session); // Lấy dữ liệu cơ bản
-        String userRole = (String) session.getAttribute("userRole");
-        userRole = userRole.substring(0, userRole.indexOf("___"));
-        if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
-                || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
-            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
-            return new ModelAndView("redirect:/");
-        }
-        String username = (String) session.getAttribute("username");
-        List<ListReport12DTO> dataType2 = null;
-        if (userRole.contains("Admin") || userRole.contains("CEO")
-                || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
-            dataType2 = projectReportService.findAllReportType12(null, 2L);
-            _mvShare.addObject("listReportType2", dataType2);
-            _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
-            return _mvShare;
-        } else {
-            dataType2 = projectReportService.findAllReportType12(username, 2L);
-            _mvShare.addObject("listReportType2", dataType2);
-            _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
-            return _mvShare;
-        }
-    }
+    // @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method =
+    // RequestMethod.GET)
+    // public ModelAndView viewReportType2(HttpSession session, HttpServletRequest
+    // request) {
+    // // Lấy url
+    // String test = request.getRequestURI();
+    // String[] path = test.split("/");
+    // String lastPath = path[path.length - 1];
+    // _mvShare.addObject("url", lastPath);
+    // Init(session); // Lấy dữ liệu cơ bản
+    // String userRole = (String) session.getAttribute("userRole");
+    // userRole = userRole.substring(0, userRole.indexOf("___"));
+    // if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
+    // || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
+    // session.setAttribute("authorizationError", "Không đủ quyền hạn để truy
+    // cập!");
+    // return new ModelAndView("redirect:/");
+    // }
+    // String username = (String) session.getAttribute("username");
+    // List<ListReport12DTO> dataType2 = null;
+    // if (userRole.contains("Admin") || userRole.contains("CEO")
+    // || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
+    // dataType2 = projectReportService.findAllReportType12(null, 2L);
+    // _mvShare.addObject("listReportType2", dataType2);
+    // _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
+    // return _mvShare;
+    // } else {
+    // dataType2 = projectReportService.findAllReportType12(username, 2L);
+    // _mvShare.addObject("listReportType2", dataType2);
+    // _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
+    // return _mvShare;
+    // }
+    // }
 
     @RequestMapping(value = "/danh-sach/trien-khai", method = RequestMethod.GET)
     public ModelAndView viewReportType3(HttpSession session, HttpServletRequest request) {
@@ -140,28 +157,14 @@ public class ProjectReportController extends BaseController {
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
             ResponseObject dataType3Week = projectReportService.findListReportType3(
-                    1, week, null, 3L, currentPage, pageSize);
-            ResponseObject dataType3CurrentDate = projectReportService.findListReportType3(
-                    2, null, null, 3L, currentPage, pageSize);
-            ResponseObject dataType3All = projectReportService.findListReportType3(
-                    3, null, null, 3L, currentPage, pageSize);
+                    week, null, 3L, currentPage, pageSize);
             _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
-            _mvShare.addObject("listReportType3CurrentDate",
-                    dataType3CurrentDate != null ? dataType3CurrentDate : null);
-            _mvShare.addObject("listReportType3All", dataType3All != null ? dataType3All : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;
         } else {
             ResponseObject dataType3Week = projectReportService.findListReportType3(
-                    1, week, username, 3L, currentPage, pageSize);
-            ResponseObject dataType3CurrentDate = projectReportService.findListReportType3(
-                    2, null, username, 3L, currentPage, pageSize);
-            ResponseObject dataType3All = projectReportService.findListReportType3(
-                    3, null, username, 3L, currentPage, pageSize);
+                    week, username, 3L, currentPage, pageSize);
             _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
-            _mvShare.addObject("listReportType3CurrentDate",
-                    dataType3CurrentDate != null ? dataType3CurrentDate : null);
-            _mvShare.addObject("listReportType3All", dataType3All != null ? dataType3All : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;
         }

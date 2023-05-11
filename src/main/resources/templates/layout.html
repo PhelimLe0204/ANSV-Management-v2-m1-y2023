@@ -256,6 +256,9 @@
                 src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
             <script th:src="@{/js/main/customer/customer-main.js}"></script>
         </th:block>
+        <th:block th:if="${#httpServletRequest.requestURI.startsWith('/danh-sach/kd-vien-thong')}">
+            <script th:src="@{/js/main/list-report/vien-thong.js}"></script>
+        </th:block>
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI != '/login'}">
