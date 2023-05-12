@@ -1,7 +1,7 @@
 $(document).ready(function() {
     
 });
-$(".listWeekYear1").on("change", function () {
+$(".listWeekYear2").on("change", function () {
     let data_week = $("#weekList").val();
     let data_year = $("#yearList").val();
     let data_size = $(this).attr("data-size");
@@ -16,7 +16,7 @@ $(".listWeekYear1").on("change", function () {
 });
 function getDataCard1(data_week, data_year, data_size, data_page, data_target, data_paging_content) {
     if (data_size != undefined && data_page != undefined) {
-        let url = "/api/danh-sach/kd-vien-thong?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
+        let url = "/api/danh-sach/kd-chuyen-doi-so?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
         $.ajax({
             url: url,
             success: function (result) {
@@ -83,6 +83,7 @@ function getDataCard1(data_week, data_year, data_size, data_page, data_target, d
                             + '</a>'
                             + '</li>';
                     }
+                    console.log("data_paging_content: " + htmlPaging);
                     $("#" + data_paging_content).html(htmlPaging);
                     if (result.message.includes("WeekAndYear")) {
                         alertify.success('Viễn Thông: tuần ' + data_week + ' năm ' + data_year).delay(1.5);

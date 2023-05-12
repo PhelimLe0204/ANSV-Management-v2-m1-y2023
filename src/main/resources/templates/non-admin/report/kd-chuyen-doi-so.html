@@ -160,11 +160,7 @@
                                 data-target="#exportModal">
                                 <i class="feather mr-2 icon-download"></i>Export
                             </button>
-                            <span class="ml-3" style="color: white; font-size: 1.3rem; font-weight: bolder;">
-                                Tuần
-                                <select id="select_week" class="text-center"></select>
-                                / Năm <select id="select_year"></select>
-                            </span>
+
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -187,7 +183,24 @@
                 <div class="col-xl-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Danh sách dự án KD Chuyển Đổi Số</h5>
+                            <h5 class="float-left pt-2">Danh sách dự án Chuyển Đổi Số - (Tuần: </h5>
+                            <select id="weekList"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
+                                style="height: 30px !important; width: 55px !important;"
+                                th:data-first="${session.thisWeek}" data-size="5" data-page="1" data-type="2"
+                                data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
+                                <option value="1">1</option>
+                            </select>
+                            <h5 class="float-left pt-2 pl-1">- Năm: </h5>
+                            <select id="yearList"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
+                                style="height: 30px !important; width: 65px !important;"
+                                th:data-first="${session.thisYear}" data-size="5" data-page="1" data-type="2"
+                                data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
+                                <option value="1">1</option>
+                            </select>
+                            <h5 class="float-left pt-2"> )</h5>
+
                             <div class="card-header-right">
                                 <div class="btn-group card-option">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
@@ -228,8 +241,7 @@
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-list-report"
-                                        id="table-vien-thong">
+                                    <table class="table table-striped table-hover" id="table-vien-thong">
                                         <thead>
                                             <tr>
                                                 <th class="text-center" style="width: 50px;">STT</th>
@@ -242,49 +254,130 @@
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody style="height: 490px;">
-                                            <tr th:each="listReportType2Item : ${listReportType2}">
-                                                <td class="text-center" style="width: 50px;" th:text="${listReportType2ItemStat.index + 1}">
-                                                </td>
-                                                <td >
-                                                    <a th:href="@{/chi-tiet?id=} + ${listReportType2Item.getId()}"
-                                                        th:text="${#strings.abbreviate(listReportType2Item.getJobName(),30)}"
-                                                        data-toggle="tooltip"
-                                                        th:title="${listReportType2Item.getJobName()}"></a>
-                                                    <p class="text-muted m-b-0"
-                                                        th:text="'Tuần ' + ${listReportType2Item.getWeek()} + ' năm ' + ${listReportType2Item.getYear()}">
-                                                    </p>
-                                                </td>
-                                                <td class="text-center"
-                                                    th:text="${listReportType2Item.getMucDoKhaThi()} == null ? '' : ${listReportType2Item.getMucDoKhaThi()}+ '%'"></td>
-                                                <td class="text-center"
-                                                    th:text="${listReportType2Item.getTongMucDauTuDuKien()}"></td>
-                                                <td class="text-center"
-                                                    th:text="${listReportType2Item.getCustomerName()}"></td>
-                                                <td class="text-center" th:text="${listReportType2Item.getPicName()}">
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button"
-                                                        th:class="'btn btn-' + ${listReportType2Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
-                                                        data-toggle="popover" data-html="true" data-placement="right"
-                                                        title=""
-                                                        th:attr="data-content=${listReportType2Item.getTinhTrangDuAn()}"
-                                                        data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                        th:text="${listReportType2Item.getStatusDisplay()}">
-                                                    </button>
-                                                </td>
-                                                <td class="text-center" th:id="${listReportType2Item.getId()}">
-                                                    <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
-                                                        title="Delete" th:data-id="${listReportType2Item.getId()}"
-                                                        th:data-name="${listReportType2Item.getJobName()}">
-                                                        <span class="btn-icon-wrapper opacity-8">
-                                                            <i class="fa fa-trash fa-w-20"></i>
-                                                        </span>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                        <tbody style="max-height: 250px;" id="bodyListReportWeek">
+                                            <th:block th:if="${listReportType2Week == null}">
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Dữ liệu trống!</td>
+                                                </tr>
+                                            </th:block>
+                                            <th:block th:unless="${listReportType2Week == null}">
+                                                <tr th:each="listReportType2Item : ${listReportType2Week.getData()}">
+                                                    <td class="text-center" style="width: 50px;"
+                                                        th:text="${listReportType2ItemStat.index + 1}">
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/chi-tiet?id=} + ${listReportType2Item.getId()}"
+                                                            th:text="${#strings.abbreviate(listReportType2Item.getJobName(),30)}"
+                                                            data-toggle="tooltip"
+                                                            th:title="${listReportType2Item.getJobName()}"></a>
+                                                        <p class="text-muted m-b-0"
+                                                            th:text="'Tuần ' + ${listReportType2Item.getWeek()} + ' năm ' + ${listReportType2Item.getYear()}">
+                                                        </p>
+                                                    </td>
+                                                    <td class="text-center"
+                                                        th:text="${listReportType2Item.getMucDoKhaThi()} == null ? '' : ${listReportType2Item.getMucDoKhaThi()}+ '%'"></td>
+                                                    <td class="text-center"
+                                                        th:text="${listReportType2Item.getTongMucDauTuDuKien()}"></td>
+                                                    <td class="text-center"
+                                                        th:text="${listReportType2Item.getCustomerName()}"></td>
+                                                    <td class="text-center" th:text="${listReportType2Item.getPicName()}">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="button"
+                                                            th:class="'btn btn-' + ${listReportType2Item.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
+                                                            data-toggle="popover" data-html="true" data-placement="right"
+                                                            title=""
+                                                            th:attr="data-content=${listReportType2Item.getTinhTrangDuAn()}"
+                                                            data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                            th:text="${listReportType2Item.getStatusDisplay()}">
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center" th:id="${listReportType2Item.getId()}">
+                                                        <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
+                                                            title="Delete" th:data-id="${listReportType2Item.getId()}"
+                                                            th:data-name="${listReportType2Item.getJobName()}">
+                                                            <span class="btn-icon-wrapper opacity-8">
+                                                                <i class="fa fa-trash fa-w-20"></i>
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </th:block>
                                         </tbody>
                                     </table>
+                                    
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center" id="pagingListReportWeek">
+                                            <th:block th:unless="${listReportType2Week == null}">
+                                                <th:block
+                                                    th:if="${listReportType2Week.getPaging().getPageNumber() - 1 <= 0}">
+                                                    <li class="page-item disabled">
+                                                        <a href="javascript:void(0)" class="page-link"
+                                                            aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block
+                                                    th:unless="${listReportType2Week.getPaging().getPageNumber() - 1 <= 0}">
+                                                    <li class="page-item">
+                                                        <a href="javascript:void(0)" class="page-link" data-card="1"
+                                                            th:data-size="${listReportType2Week.getPaging().getPageSize()}"
+                                                            th:data-page="${listReportType2Week.getPaging().getPageNumber() - 1}"
+                                                            data-type="2" data-target="bodyListReportWeek"
+                                                            data-paging="pagingListReportWeek" aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+                                                        <a href="javascript:void(0)" class="page-link"
+                                                            th:data-size="${listReportType2Week.getPaging().getPageSize()}"
+                                                            th:data-page="${listReportType2Week.getPaging().getPageNumber() - 1}"
+                                                            th:href="@{/danh-sach/trien-khai(size=${listReportType2Week.getPaging().getPageSize()}, page=${listReportType2Week.getPaging().getPageNumber() - 1})}"
+                                                            aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block
+                                                    th:each="pageNumber : ${listReportType2Week.getPaging().getListPageNumbers()}">
+                                                    <li class="page-item"
+                                                        th:classappend="${pageNumber == listReportType2Week.getPaging().getPageNumber()} ? active">
+                                                        <a href="javascript:void(0)" class="page-link"
+                                                            th:text=${pageNumber} data-card="1"
+                                                            th:data-size="${listReportType2Week.getPaging().getPageSize()}"
+                                                            th:data-page="${pageNumber}"
+                                                            data-type="2" data-target="bodyListReportWeek"
+                                                            data-paging="pagingListReportWeek"></a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block
+                                                    th:if="${listReportType2Week.getPaging().getPageNumber() + 1 <= listReportType2Week.getPaging().getTotalPage()}">
+                                                    <li class="page-item">
+                                                        <a href="javascript:void(0)" class="page-link" data-card="1"
+                                                            th:data-size="${listReportType2Week.getPaging().getPageSize()}"
+                                                            th:data-page="${listReportType2Week.getPaging().getPageNumber() + 1}"
+                                                            data-type="2" data-target="bodyListReportWeek"
+                                                            data-paging="pagingListReportWeek" aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                            <span class="sr-only">Next</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                                <th:block
+                                                    th:unless="${listReportType2Week.getPaging().getPageNumber() + 1 <= listReportType2Week.getPaging().getTotalPage()}">
+                                                    <li class="page-item disabled">
+                                                        <a href="javascript:void(0)" class="page-link" data-card="1"
+                                                            aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                            <span class="sr-only">Next</span>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                            </th:block>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>

@@ -285,6 +285,34 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "ORDER BY pr.year, pr.week DESC "
         + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport12DTO")
 
+/* ===== ProjectReportRepository.findAllReportType12Week ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllReportType12Week", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn, "
+        + "pr.muc_do_kha_thi AS mucDoKhaThi, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, pr.week, pr.year "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.project_type_id = :project_type_id AND pr.week = :week "
+        + "ORDER BY pr.year, pr.week DESC "
+        + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport12DTO")
+
+/* ===== ProjectReportRepository.findAllReportType12CurrentDate ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllReportType12CurrentDate", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
+        + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn, "
+        + "pr.muc_do_kha_thi AS mucDoKhaThi, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, pr.week, pr.year "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.project_type_id = :project_type_id AND DATE(pr.created_date) = CURDATE() "
+        + "ORDER BY pr.year, pr.week DESC "
+        + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport12DTO")
+
 /* ===== ProjectReportRepository.findAllReportType12Limit ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findAllReportType12Limit", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
