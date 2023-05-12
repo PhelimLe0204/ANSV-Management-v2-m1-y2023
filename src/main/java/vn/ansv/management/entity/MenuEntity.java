@@ -30,7 +30,7 @@ import vn.ansv.management.dto.Layout.LayoutMenuDTO;
         + "INNER JOIN role_menu AS rm on m.id = rm.menu_id "
         + "INNER JOIN role AS r on rm.role_id = r.id "
         + "WHERE m.previous = :previous AND m.level = :level AND m.enabled = 1 "
-        + "AND r.role_name = :roleName", resultSetMapping = "Mapping.LayoutMenuDTO")
+        + "AND r.role_name = :roleName ORDER BY m.display", resultSetMapping = "Mapping.LayoutMenuDTO")
 
 @SqlResultSetMapping(name = "Mapping.LayoutMenuDTO", classes = @ConstructorResult(targetClass = LayoutMenuDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),

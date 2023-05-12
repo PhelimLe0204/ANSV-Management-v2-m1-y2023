@@ -379,6 +379,24 @@ public class HomeController extends BaseController {
         return _mvShare;
     }
 
+    @RequestMapping(value = "thanh-vien/bcsa", method = RequestMethod.GET)
+    public ModelAndView membersBCSA(HttpSession session) {
+        Init(session); // Lấy dữ liệu cơ bản
+        String userRole = (String) session.getAttribute("userRole");
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("Main_AM") || userRole.contains("Member_AM")
+                || userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
+                || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
+            session.setAttribute("errorReturnDashboard", "Không đủ quyền hạn để truy cập!");
+            return new ModelAndView("redirect:/");
+        }
+        List<ListAllMemberDTO> data = userService.findAllByWorkCenter(4L);
+
+        _mvShare.addObject("listUserBCSA", data);
+        _mvShare.setViewName("non-admin/members/bcsa");
+        return _mvShare;
+    }
+
     // Tab "Thành viên": Thêm thành viên vào báo cáo
     @PostMapping("/chi-tiet/add-member/{id}")
     public String addMember(@PathVariable Long id, @ModelAttribute AddMemberDTO addMemberDTO) {

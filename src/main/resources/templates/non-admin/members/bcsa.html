@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Thành Viên | BCSA</title>
+</head>
+
+<body>
+    <div class="pcoded-main-container" layout:fragment="content">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h4 class="m-b-10 text-white">Danh sách thành viên ban BCSA</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="page-header-title"></div>
+                            <ul class="breadcrumb float-right">
+                                <li class="breadcrumb-item">
+                                    <a href="/dashboard"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row" style="margin-top: -20px;">
+                <div class="col-xl-8 col-md-12">
+                    <div class="card table-card">
+                        <div class="card-header">
+                            <h5>Danh sách thành viên BCSA</h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-maximize"></i> maximize</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-minimize"></i> Restore</span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item minimize-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-minus"></i> collapse</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-plus"></i> expand</span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item reload-card-member-ldap">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-refresh-cw"></i> reload</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0 table-list">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Tên thành viên</th>
+                                            <th class="text-center">Mã nhân viên</th>
+                                            <th class="text-center">Chức vụ</th>
+                                            <th class="text-center">Tình trạng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="height: 490px;">
+                                        <tr th:each="listUserBcsaItem : ${listUserBCSA}">
+                                            <td>
+                                                <div class="d-inline-block align-middle">
+                                                    <img th:src="${listUserBcsaItem.getAvatar()} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${listUserBcsaItem.getAvatar()}}"
+                                                        alt="user image" class="img-radius wid-40 align-top m-r-15">
+                                                    <div class="d-inline-block">
+                                                        <h6 th:text="${listUserBcsaItem.getFullname()}"></h6>
+                                                        <p class="text-muted m-b-0"
+                                                            th:text="${listUserBcsaItem.getUsername()}"></p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center" th:text="${listUserBcsaItem.getEmployeeCode()}"></td>
+                                            <td class="align-middle text-center" th:text="${listUserBcsaItem.getPositionExplain()}">
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <input class="checkEnabled"
+                                                    th:data-value="${listUserBcsaItem.getEnabled()}" type="checkbox"
+                                                    th:checked="${listUserBcsaItem.getEnabled()}" data-toggle="toggle"
+                                                    data-onstyle="primary" th:data-id="${listUserBcsaItem.getId()}"
+                                                    th:id="${listUserBcsaItem.getId()}" data-size="sm">
+                                                <!-- <input class="checked"  data-value="0" type="checkbox"  data-toggle="toggle" data-onstyle="primary"> -->
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card table-card">
+                        <div class="card-header">
+                            <h5>Thành viên BCSA (toàn bộ)</h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-maximize"></i> maximize</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-minimize"></i> Restore</span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item minimize-card">
+                                            <a href="javascript:void(0)">
+                                                <span><i class="feather icon-minus"></i> collapse</span>
+                                                <span style="display:none">
+                                                    <i class="feather icon-plus"></i> expand</span>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item reload-card-member-ldap" id="reload-member-ldap">
+                                            <a href="javascript:void(0)">
+                                                <i class="feather icon-refresh-cw"></i> reload</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0 table-list">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên thành viên</th>
+                                            <th class="text-center" style="width: 120px;">Sử dụng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="body-list-member-ldap" style="height: 490px;"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+</body>
+
+</html>
