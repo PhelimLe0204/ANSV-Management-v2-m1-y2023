@@ -186,7 +186,7 @@
                             <select id="weekList"
                                 class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
                                 style="height: 30px !important; width: 55px !important;"
-                                th:data-first="${session.thisWeek}" data-size="5" data-page="1"
+                                th:data-first="${session.thisWeek}" data-size="5" data-page="1" data-type="3"
                                 data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
                                 <option value="1">1</option>
                             </select>
@@ -194,7 +194,7 @@
                             <select id="yearList"
                                 class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
                                 style="height: 30px !important; width: 65px !important;"
-                                th:data-first="${session.thisYear}" data-size="5" data-page="1"
+                                th:data-first="${session.thisYear}" data-size="5" data-page="1" data-type="3"
                                 data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
                                 <option value="1">1</option>
                             </select>
@@ -229,8 +229,7 @@
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover"
-                                        id="table-vien-thong">
+                                    <table class="table table-striped table-hover" id="table-vien-thong">
                                         <thead>
                                             <tr>
                                                 <th class="text-center" style="width: 50px;">STT</th>
@@ -314,7 +313,7 @@
                                                         <a href="javascript:void(0)" class="page-link"
                                                             th:data-size="${listReportType3Week.getPaging().getPageSize()}"
                                                             th:data-page="${listReportType3Week.getPaging().getPageNumber() - 1}"
-                                                            data-target="bodyListReportWeek"
+                                                            data-type="3" data-target="bodyListReportWeek"
                                                             data-paging="pagingListReportWeek" aria-label="Previous">
                                                             <span aria-hidden="true">&laquo;</span>
                                                             <span class="sr-only">Previous</span>
@@ -336,7 +335,7 @@
                                                         <a href="javascript:void(0)" class="page-link"
                                                             th:text=${pageNumber}
                                                             th:data-size="${listReportType3Week.getPaging().getPageSize()}"
-                                                            th:data-page="${pageNumber}"
+                                                            th:data-page="${pageNumber}" data-type="3"
                                                             data-target="bodyListReportWeek"
                                                             data-paging="pagingListReportWeek"></a>
                                                     </li>
@@ -347,7 +346,7 @@
                                                         <a href="javascript:void(0)" class="page-link"
                                                             th:data-size="${listReportType3Week.getPaging().getPageSize()}"
                                                             th:data-page="${listReportType3Week.getPaging().getPageNumber() + 1}"
-                                                            data-target="bodyListReportWeek"
+                                                            data-type="3" data-target="bodyListReportWeek"
                                                             data-paging="pagingListReportWeek" aria-label="Next">
                                                             <span aria-hidden="true">&raquo;</span>
                                                             <span class="sr-only">Next</span>
