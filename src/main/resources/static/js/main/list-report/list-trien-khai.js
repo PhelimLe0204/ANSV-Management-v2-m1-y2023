@@ -103,7 +103,7 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
                             + '</li>';
                     } else {
                         htmlPaging += '<li class="page-item">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber - 1) + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Previous">'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber - 1) + '" data-type="1" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Previous">'
                             + '<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>'
                             + '</a>'
                             + '</li>';
@@ -111,13 +111,13 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
 
                     for (let i = 0; i < dataPaging.listPageNumbers.length; i++) {
                         htmlPaging += '<li class="page-item' + (dataPaging.listPageNumbers[i] == dataPaging.pageNumber ? ' active' : '') + '">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + dataPaging.listPageNumbers[i] + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek">' + dataPaging.listPageNumbers[i] + '</a>'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + dataPaging.listPageNumbers[i] + '" data-type="1" data-target="bodyListReportWeek" data-paging="pagingListReportWeek">' + dataPaging.listPageNumbers[i] + '</a>'
                             + '</li>';
                     }
 
                     if (dataPaging.pageNumber + 1 <= dataPaging.totalPage) {
                         htmlPaging += '<li class="page-item">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber + 1) + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Next">'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber + 1) + '" data-type="1" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Next">'
                             + '<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>'
                             + '</a>'
                             + '</li>';
@@ -149,7 +149,7 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
 
 function getDataListReport2(action_type, data_week, data_year, data_size, data_page, data_target, data_paging_content) {
     if (data_size != undefined && data_page != undefined) {
-        let url = "/api/danh-sach/trien-khai?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
+        let url = "/api/danh-sach/kd-chuyen-doi-so?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
 
         $.ajax({
             url: url,
@@ -162,23 +162,24 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                     let classSub = "'d-flex justify-content-center'";
                     for (let i = 0; i < dataArray.length; i++) {
                         let htmlBodySub = '<tr>'
-                            + '<td class="text-center" style="width: 50px;">' + (i + 1 + (result.data.paging.pageNumber - 1) * result.data.paging.pageSize) + '</td>'
-                            + '<td class="d-inline-block text-truncate" style="max-width: 220px;">'
-                            + '<a href="/chi-tiet?id=' + dataArray[i].id + '" data-toggle="tooltip" title="' + dataArray[i].jobName + '">' + dataArray[i].jobName + '</a>'
-                            + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
-                            + '</td>'
-                            + '<td class="text-center">' + dataArray[i].tongGiaTriThucTe + '</td>'
-                            + '<td class="text-center"><span data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName.substring(0, 15) + '...</span></td>'
-                            + '<td class="text-center">' + dataArray[i].picName + '</td>'
-                            + '<td class="text-center">'
-                            + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
-                            + '</td>'
-                            + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
-                            + '<a href="javascript:void(0)" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete" title="Delete" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
-                            + '<span class="btn-icon-wrapper opacity-8"><i class="fa fa-trash fa-w-20"></i></span>'
-                            + '</a>'
-                            + '</td>'
-                            + '</tr>';
+                        + '<td class="text-center" style="width: 50px;">' + (i + 1 + (result.data.paging.pageNumber - 1) * result.data.paging.pageSize) + '</td>'
+                        + '<td class="d-inline-block text-truncate" style="max-width: 220px;">'
+                        + '<a href="/chi-tiet?id=' + dataArray[i].id + '" data-toggle="tooltip" title="' + dataArray[i].jobName + '">' + dataArray[i].jobName + '</a>'
+                        + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
+                        + '</td>'
+                        + '<td class="text-center">' + dataArray[i].tongMucDauTuDuKien + '</td>'
+                        + '<td class="text-center">' + (dataArray[i].mucDoKhaThi == null ? '' : dataArray[i].mucDoKhaThi +'%') + '</td>'
+                        + '<td class="text-center">' + dataArray[i].customerName.substring(0, 15) + '...</td>'
+                        + '<td class="text-center">' + dataArray[i].picName + '</td>'
+                        + '<td class="text-center">'
+                        + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
+                        + '</td>'
+                        + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
+                        + '<a href="javascript:void(0)" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete" title="Delete" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
+                        + '<span class="btn-icon-wrapper opacity-8"><i class="fa fa-trash fa-w-20"></i></span>'
+                        + '</a>'
+                        + '</td>'
+                        + '</tr>';
                         htmlBody += htmlBodySub;
                     }
 
@@ -190,7 +191,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                             + '</li>';
                     } else {
                         htmlPaging += '<li class="page-item">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber - 1) + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Previous">'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber - 1) + '"data-type="2" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Previous">'
                             + '<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>'
                             + '</a>'
                             + '</li>';
@@ -198,13 +199,13 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
 
                     for (let i = 0; i < dataPaging.listPageNumbers.length; i++) {
                         htmlPaging += '<li class="page-item' + (dataPaging.listPageNumbers[i] == dataPaging.pageNumber ? ' active' : '') + '">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + dataPaging.listPageNumbers[i] + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek">' + dataPaging.listPageNumbers[i] + '</a>'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + dataPaging.listPageNumbers[i] + '"data-type="2" data-target="bodyListReportWeek" data-paging="pagingListReportWeek">' + dataPaging.listPageNumbers[i] + '</a>'
                             + '</li>';
                     }
 
                     if (dataPaging.pageNumber + 1 <= dataPaging.totalPage) {
                         htmlPaging += '<li class="page-item">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber + 1) + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Next">'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber + 1) + '"data-type="2" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Next">'
                             + '<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>'
                             + '</a>'
                             + '</li>';
@@ -216,6 +217,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                             + '</li>';
                     }
                     $("#" + data_paging_content).html(htmlPaging);
+                    console.log(`htmlPaging`, htmlPaging);
                     if (action_type.includes("WeekAndYear")) {
                         alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
                     }
@@ -236,7 +238,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
 
 function getDataListReport1(action_type, data_week, data_year, data_size, data_page, data_target, data_paging_content) {
     if (data_size != undefined && data_page != undefined) {
-        let url = "/api/danh-sach/trien-khai?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
+        let url = "/api/danh-sach/kd-vien-thong?week=" + data_week + "&year=" + data_year + "&size=" + data_size + "&page=" + data_page;
 
         $.ajax({
             url: url,
@@ -249,23 +251,24 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
                     let classSub = "'d-flex justify-content-center'";
                     for (let i = 0; i < dataArray.length; i++) {
                         let htmlBodySub = '<tr>'
-                            + '<td class="text-center" style="width: 50px;">' + (i + 1 + (result.data.paging.pageNumber - 1) * result.data.paging.pageSize) + '</td>'
-                            + '<td class="d-inline-block text-truncate" style="max-width: 220px;">'
-                            + '<a href="/chi-tiet?id=' + dataArray[i].id + '" data-toggle="tooltip" title="' + dataArray[i].jobName + '">' + dataArray[i].jobName + '</a>'
-                            + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
-                            + '</td>'
-                            + '<td class="text-center">' + dataArray[i].tongGiaTriThucTe + '</td>'
-                            + '<td class="text-center"><span data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName.substring(0, 15) + '...</span></td>'
-                            + '<td class="text-center">' + dataArray[i].picName + '</td>'
-                            + '<td class="text-center">'
-                            + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
-                            + '</td>'
-                            + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
-                            + '<a href="javascript:void(0)" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete" title="Delete" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
-                            + '<span class="btn-icon-wrapper opacity-8"><i class="fa fa-trash fa-w-20"></i></span>'
-                            + '</a>'
-                            + '</td>'
-                            + '</tr>';
+                        + '<td class="text-center" style="width: 50px;">' + (i + 1 + (result.data.paging.pageNumber - 1) * result.data.paging.pageSize) + '</td>'
+                        + '<td class="d-inline-block text-truncate" style="max-width: 220px;">'
+                        + '<a href="/chi-tiet?id=' + dataArray[i].id + '" data-toggle="tooltip" title="' + dataArray[i].jobName + '">' + dataArray[i].jobName + '</a>'
+                        + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
+                        + '</td>'
+                        + '<td class="text-center">' + dataArray[i].tongMucDauTuDuKien + '</td>'
+                        + '<td class="text-center">' + (dataArray[i].mucDoKhaThi == null ? '' : dataArray[i].mucDoKhaThi +'%') + '</td>'
+                        + '<td class="text-center">' + dataArray[i].customerName.substring(0, 15) + '...</td>'
+                        + '<td class="text-center">' + dataArray[i].picName + '</td>'
+                        + '<td class="text-center">'
+                        + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
+                        + '</td>'
+                        + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
+                        + '<a href="javascript:void(0)" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete" title="Delete" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
+                        + '<span class="btn-icon-wrapper opacity-8"><i class="fa fa-trash fa-w-20"></i></span>'
+                        + '</a>'
+                        + '</td>'
+                        + '</tr>';
                         htmlBody += htmlBodySub;
                     }
 
@@ -277,7 +280,7 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
                             + '</li>';
                     } else {
                         htmlPaging += '<li class="page-item">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber - 1) + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Previous">'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber - 1) + '"data-type="3" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Previous">'
                             + '<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>'
                             + '</a>'
                             + '</li>';
@@ -285,13 +288,13 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
 
                     for (let i = 0; i < dataPaging.listPageNumbers.length; i++) {
                         htmlPaging += '<li class="page-item' + (dataPaging.listPageNumbers[i] == dataPaging.pageNumber ? ' active' : '') + '">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + dataPaging.listPageNumbers[i] + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek">' + dataPaging.listPageNumbers[i] + '</a>'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + dataPaging.listPageNumbers[i] + '"data-type="3" data-target="bodyListReportWeek" data-paging="pagingListReportWeek">' + dataPaging.listPageNumbers[i] + '</a>'
                             + '</li>';
                     }
 
                     if (dataPaging.pageNumber + 1 <= dataPaging.totalPage) {
                         htmlPaging += '<li class="page-item">'
-                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber + 1) + '" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Next">'
+                            + '<a href="javascript:void(0)" class="page-link" data-card="1" data-size="' + dataPaging.pageSize + '" data-page="' + (dataPaging.pageNumber + 1) + '"data-type="3" data-target="bodyListReportWeek" data-paging="pagingListReportWeek" aria-label="Next">'
                             + '<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>'
                             + '</a>'
                             + '</li>';

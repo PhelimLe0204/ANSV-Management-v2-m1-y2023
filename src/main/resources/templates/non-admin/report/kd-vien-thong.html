@@ -160,7 +160,7 @@
                                 data-target="#exportModal">
                                 <i class="feather mr-2 icon-download"></i>Export
                             </button>
-                            
+
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -185,17 +185,17 @@
                         <div class="card-header">
                             <h5 class="float-left pt-2">Danh sách dự án Viễn Thông - (Tuần: </h5>
                             <select id="weekList"
-                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear1"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
                                 style="height: 30px !important; width: 55px !important;"
-                                th:data-first="${session.thisWeek}" data-size="5" data-page="1"
+                                th:data-first="${session.thisWeek}" data-size="5" data-page="1" data-type="1"
                                 data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
                                 <option value="1">1</option>
                             </select>
                             <h5 class="float-left pt-2 pl-1">- Năm: </h5>
                             <select id="yearList"
-                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear1"
+                                class="form-control bg-white text-primary w-25 float-left p-1 font-weight-bold listWeekYear"
                                 style="height: 30px !important; width: 65px !important;"
-                                th:data-first="${session.thisYear}" data-size="5" data-page="1"
+                                th:data-first="${session.thisYear}" data-size="5" data-page="1" data-type="1"
                                 data-target="bodyListReportWeek" data-paging="pagingListReportWeek">
                                 <option value="1">1</option>
                             </select>
@@ -230,8 +230,7 @@
                         <div class="card-body">
                             <div class="tab-content" id="myTabContent">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover"
-                                        id="table-vien-thong">
+                                    <table class="table table-striped table-hover" id="table-vien-thong">
                                         <thead>
                                             <tr>
                                                 <th class="text-center" style="width: 50px;">STT</th>
@@ -252,9 +251,10 @@
                                             </th:block>
                                             <th:block th:unless="${listReportType1Week == null}">
                                                 <tr th:each="listReportType1Item : ${listReportType1Week.getData()}">
-                                                    <td class="text-center" style="width: 50px;" th:text="${listReportType1ItemStat.index + 1}">
+                                                    <td class="text-center" style="width: 50px;"
+                                                        th:text="${listReportType1ItemStat.index + 1}">
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <a th:href="@{/chi-tiet?id=} + ${listReportType1Item.getId()}"
                                                             th:text="${#strings.abbreviate(listReportType1Item.getJobName(),30)}"
                                                             data-toggle="tooltip"
@@ -294,78 +294,79 @@
                                             </th:block>
                                         </tbody>
                                     </table>
-                                    <th:block th:unless="${listReportType1Week == null}">
+                                    
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-center" id="pagingListReportWeek">
-                                                <th:block
-                                                    th:if="${listReportType1Week.getPaging().getPageNumber() - 1 <= 0}">
-                                                    <li class="page-item disabled">
-                                                        <a href="javascript:void(0)" class="page-link"
-                                                            aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                            <span class="sr-only">Previous</span>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                                <th:block
-                                                    th:unless="${listReportType1Week.getPaging().getPageNumber() - 1 <= 0}">
-                                                    <li class="page-item">
-                                                        <a href="javascript:void(0)" class="page-link" data-card="1"
-                                                            th:data-size="${listReportType1Week.getPaging().getPageSize()}"
-                                                            th:data-page="${listReportType1Week.getPaging().getPageNumber() - 1}"
-                                                            data-target="bodyListReportWeek"
-                                                            data-paging="pagingListReportWeek" aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                            <span class="sr-only">Previous</span>
-                                                        </a>
-                                                        <a href="javascript:void(0)" class="page-link"
-                                                            th:data-size="${listReportType1Week.getPaging().getPageSize()}"
-                                                            th:data-page="${listReportType1Week.getPaging().getPageNumber() - 1}"
-                                                            th:href="@{/danh-sach/trien-khai(size=${listReportType1Week.getPaging().getPageSize()}, page=${listReportType1Week.getPaging().getPageNumber() - 1})}"
-                                                            aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                            <span class="sr-only">Previous</span>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                                <th:block
-                                                    th:each="pageNumber : ${listReportType1Week.getPaging().getListPageNumbers()}">
-                                                    <li class="page-item"
-                                                        th:classappend="${pageNumber == listReportType1Week.getPaging().getPageNumber()} ? active">
-                                                        <a href="javascript:void(0)" class="page-link"
-                                                            th:text=${pageNumber} data-card="1"
-                                                            th:data-size="${listReportType1Week.getPaging().getPageSize()}"
-                                                            th:data-page="${pageNumber}"
-                                                            data-target="bodyListReportWeek"
-                                                            data-paging="pagingListReportWeek"></a>
-                                                    </li>
-                                                </th:block>
-                                                <th:block
-                                                    th:if="${listReportType1Week.getPaging().getPageNumber() + 1 <= listReportType1Week.getPaging().getTotalPage()}">
-                                                    <li class="page-item">
-                                                        <a href="javascript:void(0)" class="page-link" data-card="1"
-                                                            th:data-size="${listReportType1Week.getPaging().getPageSize()}"
-                                                            th:data-page="${listReportType1Week.getPaging().getPageNumber() + 1}"
-                                                            data-target="bodyListReportWeek"
-                                                            data-paging="pagingListReportWeek" aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                            <span class="sr-only">Next</span>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                                <th:block
-                                                    th:unless="${listReportType1Week.getPaging().getPageNumber() + 1 <= listReportType1Week.getPaging().getTotalPage()}">
-                                                    <li class="page-item disabled">
-                                                        <a href="javascript:void(0)" class="page-link" data-card="1"
-                                                            aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                            <span class="sr-only">Next</span>
-                                                        </a>
-                                                    </li>
+                                                <th:block th:unless="${listReportType1Week == null}">
+                                                    <th:block
+                                                        th:if="${listReportType1Week.getPaging().getPageNumber() - 1 <= 0}">
+                                                        <li class="page-item disabled">
+                                                            <a href="javascript:void(0)" class="page-link"
+                                                                aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
+                                                    <th:block
+                                                        th:unless="${listReportType1Week.getPaging().getPageNumber() - 1 <= 0}">
+                                                        <li class="page-item">
+                                                            <a href="javascript:void(0)" class="page-link" data-card="1"
+                                                                th:data-size="${listReportType1Week.getPaging().getPageSize()}"
+                                                                th:data-page="${listReportType1Week.getPaging().getPageNumber() - 1}"
+                                                                data-type="1" data-target="bodyListReportWeek"
+                                                                data-paging="pagingListReportWeek" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                            <a href="javascript:void(0)" class="page-link"
+                                                                th:data-size="${listReportType1Week.getPaging().getPageSize()}"
+                                                                th:data-page="${listReportType1Week.getPaging().getPageNumber() - 1}"
+                                                                th:href="@{/danh-sach/trien-khai(size=${listReportType1Week.getPaging().getPageSize()}, page=${listReportType1Week.getPaging().getPageNumber() - 1})}"
+                                                                aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
+                                                    <th:block
+                                                        th:each="pageNumber : ${listReportType1Week.getPaging().getListPageNumbers()}">
+                                                        <li class="page-item"
+                                                            th:classappend="${pageNumber == listReportType1Week.getPaging().getPageNumber()} ? active">
+                                                            <a href="javascript:void(0)" class="page-link"
+                                                                th:text=${pageNumber} data-card="1"
+                                                                th:data-size="${listReportType1Week.getPaging().getPageSize()}"
+                                                                th:data-page="${pageNumber}"
+                                                                data-type="1" data-target="bodyListReportWeek"
+                                                                data-paging="pagingListReportWeek"></a>
+                                                        </li>
+                                                    </th:block>
+                                                    <th:block
+                                                        th:if="${listReportType1Week.getPaging().getPageNumber() + 1 <= listReportType1Week.getPaging().getTotalPage()}">
+                                                        <li class="page-item">
+                                                            <a href="javascript:void(0)" class="page-link" data-card="1"
+                                                                th:data-size="${listReportType1Week.getPaging().getPageSize()}"
+                                                                th:data-page="${listReportType1Week.getPaging().getPageNumber() + 1}"
+                                                                data-type="1" data-target="bodyListReportWeek"
+                                                                data-paging="pagingListReportWeek" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                                <span class="sr-only">Next</span>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
+                                                    <th:block
+                                                        th:unless="${listReportType1Week.getPaging().getPageNumber() + 1 <= listReportType1Week.getPaging().getTotalPage()}">
+                                                        <li class="page-item disabled">
+                                                            <a href="javascript:void(0)" class="page-link" data-card="1"
+                                                                aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                                <span class="sr-only">Next</span>
+                                                            </a>
+                                                        </li>
+                                                    </th:block>
                                                 </th:block>
                                             </ul>
                                         </nav>
-                                    </th:block>
                                 </div>
                             </div>
                         </div>
