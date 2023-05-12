@@ -1,12 +1,16 @@
 $(document).ready(function () {
     let groupMember = null;
 
+    if (location.pathname.substring(1) == "thanh-vien/bcsa") {
+        groupMember = "bcsa";
+    }
+
     if (location.pathname.substring(1) == "thanh-vien/bdc") {
-        groupMember = "am";
+        groupMember = "bdc";
     }
 
     if (location.pathname.substring(1) == "thanh-vien/do") {
-        groupMember = "pm";
+        groupMember = "do";
     }
 
     if (groupMember != null) {
