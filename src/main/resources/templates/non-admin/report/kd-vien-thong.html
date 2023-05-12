@@ -251,7 +251,7 @@
                                                 </tr>
                                             </th:block>
                                             <th:block th:unless="${listReportType1Week == null}">
-                                                <tr th:each="listReportType1Item : ${listReportType1}">
+                                                <tr th:each="listReportType1Item : ${listReportType1Week.getData()}">
                                                     <td class="text-center" style="width: 50px;" th:text="${listReportType1ItemStat.index + 1}">
                                                     </td>
                                                     <td >
@@ -296,7 +296,7 @@
                                     </table>
                                     <th:block th:unless="${listReportType1Week == null}">
                                         <nav aria-label="Page navigation example">
-                                            <ul class="pagination1 justify-content-center" id="pagingListReportWeek">
+                                            <ul class="pagination justify-content-center" id="pagingListReportWeek">
                                                 <th:block
                                                     th:if="${listReportType1Week.getPaging().getPageNumber() - 1 <= 0}">
                                                     <li class="page-item disabled">

@@ -94,39 +94,50 @@ public class ProjectReportController extends BaseController {
         }
     }
 
-    // @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method =
-    // RequestMethod.GET)
-    // public ModelAndView viewReportType2(HttpSession session, HttpServletRequest
-    // request) {
-    // // Lấy url
-    // String test = request.getRequestURI();
-    // String[] path = test.split("/");
-    // String lastPath = path[path.length - 1];
-    // _mvShare.addObject("url", lastPath);
-    // Init(session); // Lấy dữ liệu cơ bản
-    // String userRole = (String) session.getAttribute("userRole");
-    // userRole = userRole.substring(0, userRole.indexOf("___"));
-    // if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
-    // || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
-    // session.setAttribute("authorizationError", "Không đủ quyền hạn để truy
-    // cập!");
-    // return new ModelAndView("redirect:/");
-    // }
-    // String username = (String) session.getAttribute("username");
-    // List<ListReport12DTO> dataType2 = null;
-    // if (userRole.contains("Admin") || userRole.contains("CEO")
-    // || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
-    // dataType2 = projectReportService.findAllReportType12(null, 2L);
-    // _mvShare.addObject("listReportType2", dataType2);
-    // _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
-    // return _mvShare;
-    // } else {
-    // dataType2 = projectReportService.findAllReportType12(username, 2L);
-    // _mvShare.addObject("listReportType2", dataType2);
-    // _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
-    // return _mvShare;
-    // }
-    // }
+    @RequestMapping(value = "/danh-sach/kd-chuyen-doi-so", method = RequestMethod.GET)
+    public ModelAndView viewReportType2(HttpSession session, HttpServletRequest request) {
+        int currentPage = 1;
+        int pageSize = 5;
+        if (request.getParameter("page") != null && request.getParameter("size") != null) {
+            try {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+                pageSize = Integer.parseInt(request.getParameter("size"));
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                return new ModelAndView("redirect:/");
+            }
+        }
+
+        // Lấy url
+        String test = request.getRequestURI();
+        String[] path = test.split("/");
+        String lastPath = path[path.length - 1];
+        _mvShare.addObject("url", lastPath);
+        Init(session); // Lấy dữ liệu cơ bản
+        String userRole = (String) session.getAttribute("userRole");
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
+                || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
+            session.setAttribute("authorizationError", "Không đủ quyền hạn để truy cập!");
+            return new ModelAndView("redirect:/");
+        }
+        String username = (String) session.getAttribute("username");
+        int week = (int) session.getAttribute("thisWeek");
+        if (userRole.contains("Admin") || userRole.contains("CEO")
+                || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
+            ResponseObject dataType2Week = projectReportService.findAllReportType12(
+                    week, null, 2L, currentPage, pageSize);
+            _mvShare.addObject("listReportType2", dataType2Week != null ? dataType2Week : null);
+            _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
+            return _mvShare;
+        } else {
+            ResponseObject dataType2Week = projectReportService.findAllReportType12(
+                    week, username, 2L, currentPage, pageSize);
+            _mvShare.addObject("listReportType2", dataType2Week != null ? dataType2Week : null);
+            _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
+            return _mvShare;
+        }
+    }
 
     @RequestMapping(value = "/danh-sach/trien-khai", method = RequestMethod.GET)
     public ModelAndView viewReportType3(HttpSession session, HttpServletRequest request) {

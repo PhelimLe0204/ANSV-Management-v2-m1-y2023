@@ -396,4 +396,50 @@ public class ApiController {
         }
     }
 
+    @GetMapping("/danh-sach/kd-chuyen-doi-so")
+    public ResponseEntity<ResponseObject> getList2Paging(HttpSession session, HttpServletRequest request) {
+        try {
+            int size = Integer.parseInt(request.getParameter("size"));
+            int page = Integer.parseInt(request.getParameter("page"));
+            String msg = "Dữ liệu báo cáo Chuyển Đổi Số trang thứ " + page;
+            if (request.getParameter("week") != null && request.getParameter("year") != null) {
+                int week = Integer.parseInt(request.getParameter("week"));
+                int year = Integer.parseInt(request.getParameter("year"));
+                session.setAttribute("thisWeek", week);
+                session.setAttribute("thisYear", year);
+                msg = "WeekAndYear";
+            }
+
+            String userRole = (String) session.getAttribute("userRole");
+            userRole = userRole.substring(0, userRole.indexOf("___"));
+            if (userRole.contains("DOC_DO") || userRole.contains("Manager_PM")
+                    || userRole.contains("Main_PM") || userRole.contains("Member_PM")) {
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("failed", "Bạn chưa đủ điều kiện tiếp nhận dữ liệu!", ""));
+            }
+            String username = (String) session.getAttribute("username");
+            int week = (int) session.getAttribute("thisWeek");
+            if (userRole.contains("Admin") || userRole.contains("CEO")
+                    || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
+                ResponseObject dataType2Week = projectReportService.findAllReportType12(
+                        week, null, 2L, page, size);
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("success", msg, dataType2Week));
+            } else {
+                ResponseObject dataType2Week = projectReportService.findAllReportType12(
+                        week, username, 2L, page, size);
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("success", msg, dataType2Week));
+            }
+        } catch (NumberFormatException nfe) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
+        } catch (Exception e) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
+        }
+    }
+
 }
