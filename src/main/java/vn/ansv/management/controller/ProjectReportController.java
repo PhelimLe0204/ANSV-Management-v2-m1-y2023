@@ -78,17 +78,13 @@ public class ProjectReportController extends BaseController {
                 || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
             ResponseObject dataType1Week = projectReportService.findAllReportType12(
                     week, null, 1L, currentPage, pageSize);
-
             _mvShare.addObject("listReportType1Week", dataType1Week != null ? dataType1Week : null);
-
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
         } else {
             ResponseObject dataType1Week = projectReportService.findAllReportType12(
                     week, username, 1L, currentPage, pageSize);
-
             _mvShare.addObject("listReportType1Week", dataType1Week != null ? dataType1Week : null);
-
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
         }
@@ -127,13 +123,13 @@ public class ProjectReportController extends BaseController {
                 || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
             ResponseObject dataType2Week = projectReportService.findAllReportType12(
                     week, null, 2L, currentPage, pageSize);
-            _mvShare.addObject("listReportType2", dataType2Week != null ? dataType2Week : null);
+            _mvShare.addObject("listReportType2Week", dataType2Week != null ? dataType2Week : null);
             _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
             return _mvShare;
         } else {
             ResponseObject dataType2Week = projectReportService.findAllReportType12(
                     week, username, 2L, currentPage, pageSize);
-            _mvShare.addObject("listReportType2", dataType2Week != null ? dataType2Week : null);
+            _mvShare.addObject("listReportType2Week", dataType2Week != null ? dataType2Week : null);
             _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
             return _mvShare;
         }
