@@ -38,7 +38,7 @@
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row" style="margin-top: -20px;">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-10 col-md-12">
                     <!-- support-section start -->
                     <div class="row">
                         <div class="col-sm-4">
@@ -64,6 +64,98 @@
                         </div>
                     </div>
                     <!-- support-section end -->
+                </div>
+                <div class="col-lg-2 col-md-12">
+                    <!-- page statustic card start -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-9">
+                                            <h4 class="text-c-blue">30
+                                                <hr class="hr-custom" />
+                                            </h4>
+                                            <h6 class="text-muted m-b-0">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width: 82%;">M - AM:</td>
+                                                        <td>2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>AM:</td>
+                                                        <td>10</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Members:</td>
+                                                        <td>18</td>
+                                                    </tr>
+                                                </table>
+                                                <!-- M - AM: 2<br />AM: 10<br />Member: 18 -->
+                                            </h6>
+                                        </div>
+                                        <div class="col-3 text-right pl-1">
+                                            <i class="feather icon-users f-28"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-c-gray" style="height: 26px;">
+                                    <div class="row align-items-center" style="margin-top: -10px;">
+                                        <div class="col-9">
+                                            <p class="text-white m-b-0">Ban BDC</p>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <i class="feather icon-briefcase text-white f-16"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-9">
+                                            <h4 class="text-c-blue">35
+                                                <hr class="hr-custom" />
+                                            </h4>
+                                            <h6 class="text-muted m-b-0">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width: 82%;">M - PM:</td>
+                                                        <td>2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>PM:</td>
+                                                        <td>13</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Members:</td>
+                                                        <td>20</td>
+                                                    </tr>
+                                                </table>
+                                                <!-- M - PM: 2<br />PM: 13<br />Member: 20 -->
+                                            </h6>
+                                        </div>
+                                        <div class="col-3 text-right pl-1">
+                                            <i class="feather icon-users f-28"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-c-gray" style="height: 26px;">
+                                    <div class="row align-items-center" style="margin-top: -10px;">
+                                        <div class="col-9">
+                                            <p class="text-white m-b-0">Ban DO</p>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <i class="feather icon-briefcase text-white f-16"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- page statustic card end -->
                 </div>
 
                 <!-- Modal body -->
@@ -296,7 +388,7 @@
                 <!-- End modal -->
 
                 <!-- Project start -->
-                <div class="col-xl-10 col-md-12">
+                <div class="col-xl-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h5>Báo cáo dự án</h5>
@@ -383,37 +475,29 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody1" style="height: 400px;">
-                                                <th:block th:if="${#lists.isEmpty(deploymentProject)}">
+                                                <th:block th:each="deploymentItem : ${deploymentProject}">
                                                     <tr>
-                                                        <td colspan="5" class="text-center">Dữ liệu trống!</td>
+                                                        <td class="text-left" th:text="${deploymentItemStat.index + 1}"
+                                                            style="width:7%"></td>
+                                                        <td class="text-left">
+                                                            <a th:href="@{/chi-tiet?id=} + ${deploymentItem.getId()}"
+                                                                th:text="${#strings.abbreviate(deploymentItem.getJobName(),40)}"
+                                                                data-toggle="tooltip"
+                                                                th:title="${deploymentItem.getJobName()}"></a>
+                                                        </td>
+                                                        <td th:text="${deploymentItem.getCustomerName()}"></td>
+                                                        <td th:text="${deploymentItem.getPicName()}"></td>
+                                                        <td class="text-center" style="width: 15%;">
+                                                            <button type="button"
+                                                                th:class="'btn btn-' + ${deploymentItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
+                                                                data-toggle="popover" data-html="true"
+                                                                data-placement="right" title=""
+                                                                th:attr="data-content=${deploymentItem.getTinhTrangDuAn()}"
+                                                                data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                                th:text="${deploymentItem.getStatusDisplay()}">
+                                                            </button>
+                                                        </td>
                                                     </tr>
-                                                </th:block>
-                                                <th:block th:unless="${#lists.isEmpty(deploymentProject)}">
-                                                    <th:block th:each="deploymentItem : ${deploymentProject}">
-                                                        <tr>
-                                                            <td class="text-left"
-                                                                th:text="${deploymentItemStat.index + 1}"
-                                                                style="width:7%"></td>
-                                                            <td class="text-left">
-                                                                <a th:href="@{/chi-tiet?id=} + ${deploymentItem.getId()}"
-                                                                    th:text="${#strings.abbreviate(deploymentItem.getJobName(),40)}"
-                                                                    data-toggle="tooltip"
-                                                                    th:title="${deploymentItem.getJobName()}"></a>
-                                                            </td>
-                                                            <td th:text="${deploymentItem.getCustomerName()}"></td>
-                                                            <td th:text="${deploymentItem.getPicName()}"></td>
-                                                            <td class="text-center" style="width: 15%;">
-                                                                <button type="button"
-                                                                    th:class="'btn btn-' + ${deploymentItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
-                                                                    data-toggle="popover" data-html="true"
-                                                                    data-placement="right" title=""
-                                                                    th:attr="data-content=${deploymentItem.getTinhTrangDuAn()}"
-                                                                    data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                                    th:text="${deploymentItem.getStatusDisplay()}">
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    </th:block>
                                                 </th:block>
                                             </tbody>
                                         </table>
@@ -434,37 +518,30 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody1" style="height: 400px;">
-                                                <th:block th:if="${#lists.isEmpty(telecomProject)}">
+                                                <th:block th:each="telecomItem : ${telecomProject}">
                                                     <tr>
-                                                        <td colspan="5" class="text-center">Dữ liệu trống!</td>
+                                                        <td class="text-left" th:text="${telecomItemStat.index + 1}"
+                                                            style="width:7%">
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <a th:href="@{/chi-tiet?id=} + ${telecomItem.getId()}"
+                                                                th:text="${#strings.abbreviate(telecomItem.getJobName(),40)}"
+                                                                data-toggle="tooltip"
+                                                                th:title="${telecomItem.getJobName()}"></a>
+                                                        </td>
+                                                        <td th:text="${telecomItem.getCustomerName()}"></td>
+                                                        <td th:text="${telecomItem.getPicName()}"></td>
+                                                        <td class="text-center" style="width: 15%;">
+                                                            <button type="button"
+                                                                th:class="'btn btn-' + ${telecomItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
+                                                                data-toggle="popover" data-html="true"
+                                                                data-placement="right" title=""
+                                                                th:attr="data-content=${telecomItem.getTinhTrangDuAn()}"
+                                                                data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                                th:text="${telecomItem.getStatusDisplay()}">
+                                                            </button>
+                                                        </td>
                                                     </tr>
-                                                </th:block>
-                                                <th:block th:unless="${#lists.isEmpty(telecomProject)}">
-                                                    <th:block th:each="telecomItem : ${telecomProject}">
-                                                        <tr>
-                                                            <td class="text-left" th:text="${telecomItemStat.index + 1}"
-                                                                style="width:7%">
-                                                            </td>
-                                                            <td class="text-left">
-                                                                <a th:href="@{/chi-tiet?id=} + ${telecomItem.getId()}"
-                                                                    th:text="${#strings.abbreviate(telecomItem.getJobName(),40)}"
-                                                                    data-toggle="tooltip"
-                                                                    th:title="${telecomItem.getJobName()}"></a>
-                                                            </td>
-                                                            <td th:text="${telecomItem.getCustomerName()}"></td>
-                                                            <td th:text="${telecomItem.getPicName()}"></td>
-                                                            <td class="text-center" style="width: 15%;">
-                                                                <button type="button"
-                                                                    th:class="'btn btn-' + ${telecomItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
-                                                                    data-toggle="popover" data-html="true"
-                                                                    data-placement="right" title=""
-                                                                    th:attr="data-content=${telecomItem.getTinhTrangDuAn()}"
-                                                                    data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                                    th:text="${telecomItem.getStatusDisplay()}">
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    </th:block>
                                                 </th:block>
                                             </tbody>
                                         </table>
@@ -484,37 +561,30 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody1" style="height: 400px;">
-                                                <th:block th:if="${#lists.isEmpty(digitalTransferProject)}">
+                                                <th:block th:each="digitalTransferItem : ${digitalTransferProject}">
                                                     <tr>
-                                                        <td colspan="5" class="text-center">Dữ liệu trống!</td>
+                                                        <td class="text-left" style="width: 7%;"
+                                                            th:text="${digitalTransferItemStat.index + 1}">
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <a th:href="@{/chi-tiet?id=} + ${digitalTransferItem.getId()}"
+                                                                th:text="${#strings.abbreviate(digitalTransferItem.getJobName(),60)}"
+                                                                data-toggle="tooltip"
+                                                                th:title="${digitalTransferItem.getJobName()}"></a>
+                                                        </td>
+                                                        <td th:text="${digitalTransferItem.getCustomerName()}"></td>
+                                                        <td th:text="${digitalTransferItem.getPicName()}"></td>
+                                                        <td class="text-center" style="width: 15%;">
+                                                            <button type="button"
+                                                                th:class="'btn btn-' + ${digitalTransferItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
+                                                                data-toggle="popover" data-html="true"
+                                                                data-placement="right" title=""
+                                                                th:attr="data-content=${digitalTransferItem.getTinhTrangDuAn()}"
+                                                                data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
+                                                                th:text="${digitalTransferItem.getStatusDisplay()}">
+                                                            </button>
+                                                        </td>
                                                     </tr>
-                                                </th:block>
-                                                <th:block th:unless="${#lists.isEmpty(digitalTransferProject)}">
-                                                    <th:block th:each="digitalTransferItem : ${digitalTransferProject}">
-                                                        <tr>
-                                                            <td class="text-left" style="width: 7%;"
-                                                                th:text="${digitalTransferItemStat.index + 1}">
-                                                            </td>
-                                                            <td class="text-left">
-                                                                <a th:href="@{/chi-tiet?id=} + ${digitalTransferItem.getId()}"
-                                                                    th:text="${#strings.abbreviate(digitalTransferItem.getJobName(),60)}"
-                                                                    data-toggle="tooltip"
-                                                                    th:title="${digitalTransferItem.getJobName()}"></a>
-                                                            </td>
-                                                            <td th:text="${digitalTransferItem.getCustomerName()}"></td>
-                                                            <td th:text="${digitalTransferItem.getPicName()}"></td>
-                                                            <td class="text-center" style="width: 15%;">
-                                                                <button type="button"
-                                                                    th:class="'btn btn-' + ${digitalTransferItem.getStatusColor()} + ' rounded-pill pt-0 btn-status'"
-                                                                    data-toggle="popover" data-html="true"
-                                                                    data-placement="right" title=""
-                                                                    th:attr="data-content=${digitalTransferItem.getTinhTrangDuAn()}"
-                                                                    data-original-title="<span class='d-flex justify-content-center'>Tình trạng dự án</span>"
-                                                                    th:text="${digitalTransferItem.getStatusDisplay()}">
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    </th:block>
                                                 </th:block>
                                             </tbody>
                                         </table>
@@ -525,142 +595,6 @@
                     </div>
                 </div>
                 <!-- Project end -->
-
-                <div class="col-lg-2 col-md-12">
-                    <!-- page statustic card start -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-9">
-                                            <h4 class="text-c-blue">10
-                                                <hr class="hr-custom" />
-                                            </h4>
-                                            <h6 class="text-muted m-b-0">
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 82%;">M - AM:</td>
-                                                        <td>1</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>AM:</td>
-                                                        <td>6</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Members:</td>
-                                                        <td>3</td>
-                                                    </tr>
-                                                </table>
-                                                <!-- M - AM: 2<br />AM: 10<br />Member: 18 -->
-                                            </h6>
-                                        </div>
-                                        <div class="col-3 text-right pl-1">
-                                            <i class="feather icon-users f-28"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-c-gray" style="height: 26px;">
-                                    <div class="row align-items-center" style="margin-top: -10px;">
-                                        <div class="col-9">
-                                            <p class="text-white m-b-0">Ban BCSA</p>
-                                        </div>
-                                        <div class="col-3 text-right">
-                                            <i class="feather icon-briefcase text-white f-16"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-9">
-                                            <h4 class="text-c-blue">30
-                                                <hr class="hr-custom" />
-                                            </h4>
-                                            <h6 class="text-muted m-b-0">
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 82%;">M - AM:</td>
-                                                        <td>2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>AM:</td>
-                                                        <td>10</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Members:</td>
-                                                        <td>18</td>
-                                                    </tr>
-                                                </table>
-                                                <!-- M - AM: 2<br />AM: 10<br />Member: 18 -->
-                                            </h6>
-                                        </div>
-                                        <div class="col-3 text-right pl-1">
-                                            <i class="feather icon-users f-28"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-c-gray" style="height: 26px;">
-                                    <div class="row align-items-center" style="margin-top: -10px;">
-                                        <div class="col-9">
-                                            <p class="text-white m-b-0">Ban BDC</p>
-                                        </div>
-                                        <div class="col-3 text-right">
-                                            <i class="feather icon-briefcase text-white f-16"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-9">
-                                            <h4 class="text-c-blue">35
-                                                <hr class="hr-custom" />
-                                            </h4>
-                                            <h6 class="text-muted m-b-0">
-                                                <table>
-                                                    <tr>
-                                                        <td style="width: 82%;">M - PM:</td>
-                                                        <td>2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>PM:</td>
-                                                        <td>13</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Members:</td>
-                                                        <td>20</td>
-                                                    </tr>
-                                                </table>
-                                                <!-- M - PM: 2<br />PM: 13<br />Member: 20 -->
-                                            </h6>
-                                        </div>
-                                        <div class="col-3 text-right pl-1">
-                                            <i class="feather icon-users f-28"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-c-gray" style="height: 26px;">
-                                    <div class="row align-items-center" style="margin-top: -10px;">
-                                        <div class="col-9">
-                                            <p class="text-white m-b-0">Ban DO</p>
-                                        </div>
-                                        <div class="col-3 text-right">
-                                            <i class="feather icon-briefcase text-white f-16"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- page statustic card end -->
-                </div>
             </div>
             <!-- [ Main Content ] end -->
         </div>
