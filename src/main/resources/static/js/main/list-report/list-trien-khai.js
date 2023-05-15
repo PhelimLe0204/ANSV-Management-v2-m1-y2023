@@ -133,7 +133,7 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
                         alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
                     }
                 } else {
-                    htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+                    htmlBody = '<tr><td colspan="7" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
                     if (result.message.includes("WeekAndYear")) {
                         alertify.success('Dữ liệu trống!').delay(1.5);
@@ -221,7 +221,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                         alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
                     }
                 } else {
-                    htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+                    htmlBody = '<tr><td colspan="8" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
                     if (result.message.includes("WeekAndYear")) {
                         alertify.success('Dữ liệu trống!').delay(1.5);
@@ -309,7 +309,7 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
                         alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
                     }
                 } else {
-                    htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+                    htmlBody = '<tr><td colspan="8" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
                     if (result.message.includes("WeekAndYear")) {
                         alertify.success('Dữ liệu trống!').delay(1.5);
@@ -415,7 +415,7 @@ $(".pagination").on("click", ".page-link", function () {
     //                 }
     //                 $("#" + data_paging_content).html(htmlPaging);
     //             } else {
-    //                 htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+    //                 htmlBody = '<tr><td colspan="7" class="text-center">Dữ liệu trống!</td></tr>';
     //             }
     //             $("#" + data_target).html(htmlBody);
     //             $("[data-toggle=popover]").popover();
