@@ -327,15 +327,16 @@ public class ApiController {
             }
             String username = (String) session.getAttribute("username");
             int week = (int) session.getAttribute("thisWeek");
+            int year = (int) session.getAttribute("thisYear");
             if (userRole.contains("Admin") || userRole.contains("CEO")
                     || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
                 ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        week, null, 3L, page, size);
+                        week, year, null, 3L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType3Week));
             } else {
                 ResponseObject dataType3Week = projectReportService.findListReportType3(
-                        week, username, 3L, page, size);
+                        week, year, username, 3L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType3Week));
             }
@@ -373,15 +374,16 @@ public class ApiController {
             }
             String username = (String) session.getAttribute("username");
             int week = (int) session.getAttribute("thisWeek");
+            int year = (int) session.getAttribute("thisYear");
             if (userRole.contains("Admin") || userRole.contains("CEO")
                     || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
                 ResponseObject dataType1Week = projectReportService.findAllReportType12(
-                        week, null, 1L, page, size);
+                        week, year, null, 1L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType1Week));
             } else {
                 ResponseObject dataType1Week = projectReportService.findAllReportType12(
-                        week, username, 1L, page, size);
+                        week, year, username, 1L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType1Week));
             }
@@ -419,15 +421,16 @@ public class ApiController {
             }
             String username = (String) session.getAttribute("username");
             int week = (int) session.getAttribute("thisWeek");
+            int year = (int) session.getAttribute("thisYear");
             if (userRole.contains("Admin") || userRole.contains("CEO")
                     || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
                 ResponseObject dataType2Week = projectReportService.findAllReportType12(
-                        week, null, 2L, page, size);
+                        week, year, null, 2L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType2Week));
             } else {
                 ResponseObject dataType2Week = projectReportService.findAllReportType12(
-                        week, username, 2L, page, size);
+                        week, year, username, 2L, page, size);
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType2Week));
             }

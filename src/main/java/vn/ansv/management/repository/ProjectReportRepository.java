@@ -209,12 +209,14 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
         // Danh sách KD viễn thông và KD chuyển đổi số (by username)
         @Query(nativeQuery = true)
         List<ListReport12DTO> findAllReportType12Limit(@Param("username") String username,
-                        @Param("project_type_id") Long project_type_id);
+                        @Param("project_type_id") Long project_type_id, @Param("week") int week,
+                        @Param("year") int year, @Param("startPosition") int startPosition,
+                        @Param("pageSize") int pageSize);
 
         // Week
         @Query(nativeQuery = true)
-        List<ListReport12DTO> findAllReportType12Week(@Param("project_type_id") Long project_type_id,
-                        @Param("week") int week, @Param("startPosition") int startPosition,
+        List<ListReport12DTO> findAllReportType12WeekYear(@Param("project_type_id") Long project_type_id,
+                        @Param("week") int week, @Param("year") int year, @Param("startPosition") int startPosition,
                         @Param("pageSize") int pageSize);
 
         // CurrentDate
@@ -227,8 +229,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
         /* Start: Danh sách Triển khai */
         // Week
         @Query(nativeQuery = true)
-        List<ListReport3DTO> findListReportType3Week(@Param("project_type_id") Long project_type_id,
-                        @Param("week") int week, @Param("startPosition") int startPosition,
+        List<ListReport3DTO> findListReportType3WeekYear(@Param("project_type_id") Long project_type_id,
+                        @Param("week") int week, @Param("year") int year, @Param("startPosition") int startPosition,
                         @Param("pageSize") int pageSize);
 
         // CurrentDate
@@ -244,8 +246,10 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 
         /* Danh sách Triển khai (by username) */
         @Query(nativeQuery = true)
-        List<ListReport3DTO> findListReportType3ByUser(@Param("username") String username,
-                        @Param("project_type_id") Long project_type_id);
+        List<ListReport3DTO> findListReportType3WeekYearByUser(@Param("username") String username,
+                        @Param("project_type_id") Long project_type_id, @Param("week") int week,
+                        @Param("year") int year, @Param("startPosition") int startPosition,
+                        @Param("pageSize") int pageSize);
 
         /*
          * ----------------------------------------
@@ -425,8 +429,8 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 
         // Count all by type and week
         @Query(value = "SELECT COUNT(pr.id) AS totalReport FROM project_report AS pr "
-                        + "WHERE pr.week = :week AND pr.project_type_id = :type", nativeQuery = true)
-        Integer countAllByTypeWeek(@Param("week") int week, @Param("type") Long type);
+                        + "WHERE pr.year = :year AND pr.week = :week AND pr.project_type_id = :type", nativeQuery = true)
+        Integer countAllByTypeWeekYear(@Param("week") int week, @Param("year") int year, @Param("type") Long type);
 
         // Count all by type and current date
         @Query(value = "SELECT COUNT(pr.id) AS totalReport FROM project_report AS pr "

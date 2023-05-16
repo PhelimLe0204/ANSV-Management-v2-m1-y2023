@@ -74,16 +74,17 @@ public class ProjectReportController extends BaseController {
         }
         String username = (String) session.getAttribute("username");
         int week = (int) session.getAttribute("thisWeek");
+        int year = (int) session.getAttribute("thisYear");
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
             ResponseObject dataType1Week = projectReportService.findAllReportType12(
-                    week, null, 1L, currentPage, pageSize);
+                    week, year, null, 1L, currentPage, pageSize);
             _mvShare.addObject("listReportType1Week", dataType1Week != null ? dataType1Week : null);
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
         } else {
             ResponseObject dataType1Week = projectReportService.findAllReportType12(
-                    week, username, 1L, currentPage, pageSize);
+                    week, year, username, 1L, currentPage, pageSize);
             _mvShare.addObject("listReportType1Week", dataType1Week != null ? dataType1Week : null);
             _mvShare.setViewName("non-admin/report/kd-vien-thong");
             return _mvShare;
@@ -119,16 +120,17 @@ public class ProjectReportController extends BaseController {
         }
         String username = (String) session.getAttribute("username");
         int week = (int) session.getAttribute("thisWeek");
+        int year = (int) session.getAttribute("thisYear");
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_AM")) {
             ResponseObject dataType2Week = projectReportService.findAllReportType12(
-                    week, null, 2L, currentPage, pageSize);
+                    week, year, null, 2L, currentPage, pageSize);
             _mvShare.addObject("listReportType2Week", dataType2Week != null ? dataType2Week : null);
             _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
             return _mvShare;
         } else {
             ResponseObject dataType2Week = projectReportService.findAllReportType12(
-                    week, username, 2L, currentPage, pageSize);
+                    week, year, username, 2L, currentPage, pageSize);
             _mvShare.addObject("listReportType2Week", dataType2Week != null ? dataType2Week : null);
             _mvShare.setViewName("non-admin/report/kd-chuyen-doi-so");
             return _mvShare;
@@ -165,16 +167,17 @@ public class ProjectReportController extends BaseController {
         }
         String username = (String) session.getAttribute("username");
         int week = (int) session.getAttribute("thisWeek");
+        int year = (int) session.getAttribute("thisYear");
         if (userRole.contains("Admin") || userRole.contains("CEO")
                 || userRole.contains("DGD") || userRole.contains("Manager_PM")) {
             ResponseObject dataType3Week = projectReportService.findListReportType3(
-                    week, null, 3L, currentPage, pageSize);
+                    week, year, null, 3L, currentPage, pageSize);
             _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;
         } else {
             ResponseObject dataType3Week = projectReportService.findListReportType3(
-                    week, username, 3L, currentPage, pageSize);
+                    week, year, username, 3L, currentPage, pageSize);
             _mvShare.addObject("listReportType3Week", dataType3Week != null ? dataType3Week : null);
             _mvShare.setViewName("non-admin/report/trien-khai");
             return _mvShare;

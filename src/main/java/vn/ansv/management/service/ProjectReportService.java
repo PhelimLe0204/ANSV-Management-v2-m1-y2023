@@ -245,11 +245,11 @@ public class ProjectReportService implements IProjectReport {
 
     @Override
     public ResponseObject findAllReportType12(
-            int week, String username, Long type, int currentPage, int pageSize) {
+            int week, int year, String username, Long type, int currentPage, int pageSize) {
         try {
             PaginatedEntity paging = new PaginatedEntity();
             ResponseObject result = new ResponseObject();
-            int totalReport = projectReportRepository.countAllByTypeWeek(week, type);
+            int totalReport = projectReportRepository.countAllByTypeWeekYear(week, year, type);
             if (totalReport == 0) {
                 return null;
             }
@@ -285,8 +285,8 @@ public class ProjectReportService implements IProjectReport {
 
             if (username == null) {
 
-                List<ListReport12DTO> data = projectReportRepository.findAllReportType12Week(
-                        type, week, startPosition, pageSize);
+                List<ListReport12DTO> data = projectReportRepository.findAllReportType12WeekYear(
+                        type, week, year, startPosition, pageSize);
                 if (data.isEmpty()) {
                     return null;
                 }
@@ -295,7 +295,8 @@ public class ProjectReportService implements IProjectReport {
                 return result;
 
             } else {
-                List<ListReport12DTO> data = projectReportRepository.findAllReportType12Limit(username, type);
+                List<ListReport12DTO> data = projectReportRepository.findAllReportType12Limit(
+                        username, type, week, year, startPosition, pageSize);
                 result.setData(data);
                 result.setPaging(paging);
                 return result;
@@ -308,11 +309,12 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public ResponseObject findListReportType3(int week, String username, Long type, int currentPage, int pageSize) {
+    public ResponseObject findListReportType3(
+            int week, int year, String username, Long type, int currentPage, int pageSize) {
         try {
             PaginatedEntity paging = new PaginatedEntity();
             ResponseObject result = new ResponseObject();
-            int totalReport = projectReportRepository.countAllByTypeWeek(week, 3L);
+            int totalReport = projectReportRepository.countAllByTypeWeekYear(week, year, 3L);
             if (totalReport == 0) {
                 return null;
             }
@@ -347,8 +349,8 @@ public class ProjectReportService implements IProjectReport {
             int startPosition = pageSize * (currentPage - 1);
 
             if (username == null) {
-                List<ListReport3DTO> data = projectReportRepository.findListReportType3Week(
-                        type, week, startPosition, pageSize);
+                List<ListReport3DTO> data = projectReportRepository.findListReportType3WeekYear(
+                        type, week, year, startPosition, pageSize);
                 if (data.isEmpty()) {
                     return null;
                 }
@@ -356,7 +358,8 @@ public class ProjectReportService implements IProjectReport {
                 result.setPaging(paging);
                 return result;
             } else {
-                List<ListReport3DTO> data = projectReportRepository.findListReportType3ByUser(username, type);
+                List<ListReport3DTO> data = projectReportRepository.findListReportType3WeekYearByUser(
+                        username, type, week, year, startPosition, pageSize);
                 result.setData(data);
                 result.setPaging(paging);
                 return result;

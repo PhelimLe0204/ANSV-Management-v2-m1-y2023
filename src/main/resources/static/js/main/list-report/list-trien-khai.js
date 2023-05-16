@@ -142,6 +142,7 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
                 $("[data-toggle=tooltip]").tooltip();
+                selectWeekAndYear(data_week, data_year);
             }
         });
     }
@@ -230,6 +231,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
                 $("[data-toggle=tooltip]").tooltip();
+                selectWeekAndYear(data_week, data_year);
             }
         });
     }
@@ -318,6 +320,7 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
                 $("[data-toggle=tooltip]").tooltip();
+                selectWeekAndYear(data_week, data_year);
             }
         });
     }
