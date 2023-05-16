@@ -285,8 +285,8 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "ORDER BY pr.year, pr.week DESC "
         + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport12DTO")
 
-/* ===== ProjectReportRepository.findAllReportType12Week ===== */
-@NamedNativeQuery(name = "ProjectReportEntity.findAllReportType12Week", query = "SELECT "
+/* ===== ProjectReportRepository.findAllReportType12WeekYear ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllReportType12WeekYear", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, "
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS picName, "
         + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn, "
@@ -295,8 +295,8 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN project AS p ON pr.project_id = p.id "
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
-        + "WHERE pr.project_type_id = :project_type_id AND pr.week = :week "
-        + "ORDER BY pr.year, pr.week DESC "
+        + "WHERE pr.year = :year AND pr.week = :week AND pr.project_type_id = :project_type_id "
+        + "ORDER BY pr.job_name "
         + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport12DTO")
 
 /* ===== ProjectReportRepository.findAllReportType12CurrentDate ===== */
@@ -324,11 +324,12 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "INNER JOIN user AS u ON pr.am_id = u.id "
-        + "WHERE pr.project_type_id = :project_type_id AND u.username = :username "
-        + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport12DTO")
+        + "WHERE pr.year = :year AND pr.week = :week AND pr.project_type_id = :project_type_id AND u.username = :username "
+        + "ORDER BY pr.job_name"
+        + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport12DTO")
 
-/* ===== ProjectReportRepository.findListReportType3Week ===== */
-@NamedNativeQuery(name = "ProjectReportEntity.findListReportType3Week", query = "SELECT "
+/* ===== ProjectReportRepository.findListReportType3WeekYear ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findListReportType3WeekYear", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS picName, pr.week, pr.year, "
         + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
@@ -336,8 +337,8 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN project AS p ON pr.project_id = p.id "
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
-        + "WHERE pr.project_type_id = :project_type_id AND pr.week = :week "
-        + "ORDER BY pr.year, pr.week DESC "
+        + "WHERE pr.year = :year AND pr.week = :week AND pr.project_type_id = :project_type_id "
+        + "ORDER BY pr.job_name "
         + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport3DTO")
 
 /* ===== ProjectReportRepository.findListReportType3CurrentDate ===== */
@@ -366,8 +367,8 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "ORDER BY pr.year, pr.week DESC "
         + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport3DTO")
 
-/* ===== ProjectReportRepository.findListReportType3ByUser ===== */
-@NamedNativeQuery(name = "ProjectReportEntity.findListReportType3ByUser", query = "SELECT "
+/* ===== ProjectReportRepository.findListReportType3WeekYearByUser ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findListReportType3WeekYearByUser", query = "SELECT "
         + "pr.id, pr.job_name AS jobName, c.customer_name AS customerName, pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
         + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS picName, pr.week, pr.year, "
         + "ps.display AS statusDisplay, ps.color AS statusColor, pr.general_issue AS tinhTrangDuAn "
@@ -376,8 +377,9 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "INNER JOIN user AS u ON pr.pm_id = u.id "
-        + "WHERE pr.project_type_id = :project_type_id AND u.username = :username "
-        + "ORDER BY pr.year, pr.week", resultSetMapping = "Mapping.ListReport3DTO")
+        + "WHERE pr.year = :year AND pr.week = :week AND pr.project_type_id = :project_type_id AND u.username = :username "
+        + "ORDER BY pr.job_name"
+        + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport3DTO")
 
 /* ===== ShowDashboardDTO.modalShowDashboard ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.modalShowDashboard", query = "SELECT "

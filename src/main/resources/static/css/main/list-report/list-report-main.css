@@ -17,6 +17,14 @@
     height: 43px;
 }
 
+.table thead th {
+    background-color: #4680ff !important;
+    color: #FFF !important;
+    border-radius: 8px;
+    text-transform: none;
+    padding: 0px;
+}
+
 .table-list-report tbody {
     display: block;
     overflow: auto;

@@ -81,7 +81,7 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
                             + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
                             + '</td>'
                             + '<td class="text-center">' + (dataArray[i].tongGiaTriThucTe == null ? '' : dataArray[i].tongGiaTriThucTe) + '</td>'
-                            + '<td class="text-center"><span data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName.substring(0, 15) + '...</span></td>'
+                            + '<td class="text-center"><span class="d-inline-block text-truncate" style="max-width: 150px;" data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName + '</span></td>'
                             + '<td class="text-center">' + (dataArray[i].picName == null ? '' : dataArray[i].picName) + '</td>'
                             + '<td class="text-center">'
                             + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
@@ -133,7 +133,7 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
                         alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
                     }
                 } else {
-                    htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+                    htmlBody = '<tr><td colspan="7" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
                     if (result.message.includes("WeekAndYear")) {
                         alertify.success('Dữ liệu trống!').delay(1.5);
@@ -142,6 +142,7 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
                 $("[data-toggle=tooltip]").tooltip();
+                selectWeekAndYear(data_week, data_year);
             }
         });
     }
@@ -169,7 +170,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                             + '</td>'
                             + '<td class="text-center">' + (dataArray[i].mucDoKhaThi == null ? '' : dataArray[i].mucDoKhaThi + '%') + '</td>'
                             + '<td class="text-center">' + (dataArray[i].tongMucDauTuDuKien == null ? '' : dataArray[i].tongMucDauTuDuKien) + '</td>'
-                            + '<td class="text-center"><span data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName.substring(0, 15) + '...</span></td>'
+                            + '<td class="text-center"><span class="d-inline-block text-truncate" style="max-width: 150px;" data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName + '</span></td>'
                             + '<td class="text-center">' + dataArray[i].picName + '</td>'
                             + '<td class="text-center">'
                             + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
@@ -221,7 +222,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                         alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
                     }
                 } else {
-                    htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+                    htmlBody = '<tr><td colspan="8" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
                     if (result.message.includes("WeekAndYear")) {
                         alertify.success('Dữ liệu trống!').delay(1.5);
@@ -230,6 +231,7 @@ function getDataListReport2(action_type, data_week, data_year, data_size, data_p
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
                 $("[data-toggle=tooltip]").tooltip();
+                selectWeekAndYear(data_week, data_year);
             }
         });
     }
@@ -257,7 +259,7 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
                             + '</td>'
                             + '<td class="text-center">' + (dataArray[i].mucDoKhaThi == null ? '' : dataArray[i].mucDoKhaThi + '%') + '</td>'
                             + '<td class="text-center">' + (dataArray[i].tongMucDauTuDuKien == null ? '' : dataArray[i].tongMucDauTuDuKien) + '</td>'
-                            + '<td class="text-center"><span data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName.substring(0, 15) + '...</span></td>'
+                            + '<td class="text-center"><span class="d-inline-block text-truncate" style="max-width: 150px;" data-toggle="tooltip" title="' + dataArray[i].customerName + '">' + dataArray[i].customerName + '</span></td>'
                             + '<td class="text-center">' + dataArray[i].picName + '</td>'
                             + '<td class="text-center">'
                             + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
@@ -309,7 +311,7 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
                         alertify.success('Triển khai: tuần ' + data_week + ' năm ' + data_year).delay(1.5);
                     }
                 } else {
-                    htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+                    htmlBody = '<tr><td colspan="8" class="text-center">Dữ liệu trống!</td></tr>';
                     $("#" + data_paging_content).html("");
                     if (result.message.includes("WeekAndYear")) {
                         alertify.success('Dữ liệu trống!').delay(1.5);
@@ -318,6 +320,7 @@ function getDataListReport1(action_type, data_week, data_year, data_size, data_p
                 $("#" + data_target).html(htmlBody);
                 $("[data-toggle=popover]").popover();
                 $("[data-toggle=tooltip]").tooltip();
+                selectWeekAndYear(data_week, data_year);
             }
         });
     }
@@ -415,7 +418,7 @@ $(".pagination").on("click", ".page-link", function () {
     //                 }
     //                 $("#" + data_paging_content).html(htmlPaging);
     //             } else {
-    //                 htmlBody = '<tr><td colspan="5" class="text-center">Dữ liệu trống!</td></tr>';
+    //                 htmlBody = '<tr><td colspan="7" class="text-center">Dữ liệu trống!</td></tr>';
     //             }
     //             $("#" + data_target).html(htmlBody);
     //             $("[data-toggle=popover]").popover();
