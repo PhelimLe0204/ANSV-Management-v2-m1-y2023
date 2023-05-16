@@ -54,14 +54,6 @@
 //     }]
 // });
 
-$(document).ready(function () {
-    $(".link-none").on("click", function (event) {
-        event.preventDefault();
-        alertify.confirm('Thông báo', 'Chức năng đang trong quá trình phát triển! Mời bạn quay trở lại sau.'
-            , function () { }, function () { });
-    });
-});
-
 $.ajax({
     url: "/api/getDashboardChart/1",
     success: function (result) {
