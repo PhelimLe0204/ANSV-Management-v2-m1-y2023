@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 
 @NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel1ByRole", query = "SELECT "
-        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link, m.linkSub "
+        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link, m.linkSub, m.note "
         + "FROM menu AS m "
         + "INNER JOIN role_menu AS rm on m.id = rm.menu_id "
         + "INNER JOIN role AS r on rm.role_id = r.id "
@@ -25,7 +25,7 @@ import vn.ansv.management.dto.Layout.LayoutMenuDTO;
         + "AND m.enabled = 1 AND r.role_name = :roleName", resultSetMapping = "Mapping.LayoutMenuDTO")
 
 @NamedNativeQuery(name = "MenuEntity.findAllLayoutLevel2ByRole", query = "SELECT "
-        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link, m.linkSub "
+        + "m.id, m.display AS menuName, m.icon, m.include, m.level, m.link, m.linkSub, m.note "
         + "FROM menu AS m "
         + "INNER JOIN role_menu AS rm on m.id = rm.menu_id "
         + "INNER JOIN role AS r on rm.role_id = r.id "
@@ -39,7 +39,8 @@ import vn.ansv.management.dto.Layout.LayoutMenuDTO;
         @ColumnResult(name = "include", type = Integer.class),
         @ColumnResult(name = "level", type = Integer.class),
         @ColumnResult(name = "link", type = String.class),
-        @ColumnResult(name = "linkSub", type = String.class) }))
+        @ColumnResult(name = "linkSub", type = String.class),
+        @ColumnResult(name = "note", type = String.class) }))
 
 @Entity
 @Table(name = "menu")

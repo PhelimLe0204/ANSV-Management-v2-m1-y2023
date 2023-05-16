@@ -55,7 +55,8 @@
                                 th:classappend="${menu_level_1.getInclude() == 1} ? 'pcoded-hasmenu' : ''">
                                 <a th:href="${menu_level_1.getLink() } != 'javascript:void(0)' 
                                 ? @{'/' + ${menu_level_1.getLink()}}
-                                : ${menu_level_1.getLink() }" class="nav-link">
+                                : ${menu_level_1.getLink() }" class="nav-link"
+                                    th:classappend="${menu_level_1.getNote()}">
                                     <span class="pcoded-micon">
                                         <i class="feather" th:classappend="${menu_level_1.getIcon()}"></i>
                                     </span>
@@ -67,9 +68,11 @@
                                         <th:block th:each="menu_level_2 : ${menu_level_1.getMenuChild()}">
                                             <li>
                                                 <a th:if="${menu_level_2.getLinkSub() != 'week_year'}"
+                                                    th:classappend="${menu_level_2.getNote()}"
                                                     th:href="'/' + ${menu_level_2.getLink()}"
                                                     th:text="${menu_level_2.getMenuName()}"></a>
                                                 <a th:if="${menu_level_2.getLinkSub() == 'week_year'}"
+                                                    th:classappend="${menu_level_2.getNote()}"
                                                     th:href="'/' + ${menu_level_2.getLink()} + '?week=' + ${session.thisWeek} + '&year=' + ${session.thisYear}"
                                                     th:text="${menu_level_2.getMenuName()}"></a>
                                             </li>
