@@ -33,7 +33,7 @@
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row" style="margin-top: -20px;">
-                <div class="col-xl-12 col-md-12">
+                <div class="col-xl-8 col-md-12">
                     <div class="card table-card">
                         <div class="card-header">
                             <h5>Danh sách thành viên DO</h5>
@@ -77,10 +77,10 @@
                                             <th class="text-center">Tình trạng</th>
                                         </tr>
                                     </thead>
-                                    <tbody style="max-height: 490px;">
+                                    <tbody style="height: 490px;">
                                         <tr th:each="listUserDoItem : ${listUserDO}">
-                                            <td class="align-middle">
-                                                <div class="d-inline-block">
+                                            <td>
+                                                <div class="d-inline-block align-middle">
                                                     <img th:src="${listUserDoItem.getAvatar()} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${listUserDoItem.getAvatar()}}"
                                                         alt="user image" class="img-radius wid-40 align-top m-r-15">
                                                     <div class="d-inline-block">
@@ -110,8 +110,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-12 col-md-12">
+                <div class="col-xl-4 col-md-12">
                     <div class="card table-card">
                         <div class="card-header">
                             <h5>Thành viên DO (toàn bộ)</h5>
@@ -144,23 +143,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-3">
+                        <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table id="tableMemberLD" class="display" style="width:100%">
+                                <table class="table table-hover mb-0 table-list">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" style="width: 5%;">STT</th>
                                             <th>Tên thành viên</th>
-                                            <th>Sử dụng</th>
+                                            <th class="text-center" style="width: 120px;">Sử dụng</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th class="text-center">STT</th>
-                                            <th>Tên thành viên</th>
-                                            <th>Sử dụng</th>
-                                        </tr>
-                                    </tfoot>
+                                    <tbody id="body-list-member-ldap" style="height: 490px;"></tbody>
                                 </table>
                             </div>
                         </div>

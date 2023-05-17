@@ -1,56 +1,4 @@
-var dataSet = [
-    {
-        fullname: "abcxyz",
-        username: "abcxyz@ansv.vn"
-    }
-];
-
 $(document).ready(function () {
-    $('#tableMemberLD').DataTable({
-        data: dataSet,
-        columnDefs: [
-            {
-                targets: 0,
-                className: 'dt-body-center',
-                render: function (data, type, row, meta) {
-                    return meta.row + 1;
-                }
-            },
-            {
-                targets: 1,
-                render: function (data, type, row) {
-                    var html = '<div class="d-inline-block align-middle">' +
-                        '<div class="d-inline-block">' +
-                        '<h6>' + data.fullname + '</h6>' +
-                        '<p class="text-muted m-b-0">' + data.username + '</p>' +
-                        '</div>' +
-                        '</div>';
-                    return html;
-                }
-            },
-            {
-                orderable: false,
-                targets: 2,
-                render: function (data, type, row) {
-                    if (data.used == 0) {
-                        return '<input type="checkbox" data-toggle="toggle" data-size="sm">';
-                    } else {
-                        return '<input type="checkbox" checked data-toggle="toggle" data-size="sm">';
-                    }
-                }
-            },
-        ],
-        columns: [
-            { data: null },
-            { data: null },
-            { data: null },
-        ],
-        drawCallback: function (settings) {
-            $("[data-toggle='toggle']").bootstrapToggle('destroy')
-            $("[data-toggle='toggle']").bootstrapToggle();
-        }
-    });
-
     let groupMember = null;
 
     if (location.pathname.substring(1) == "thanh-vien/bcsa") {
@@ -105,9 +53,24 @@ function getMemberLdap(groupMember) {
             console.log('----- LDAP Get all users of group "' + groupMember + '"');
             console.log(result);
 
-            dataSet = result.data;
-            $('#tableMemberLD').DataTable().clear();
-            $('#tableMemberLD').DataTable().rows.add(dataSet).draw();
+            var memberLdapHtml;
+            for (let i = 0; i < result.data.length; i++) {
+                memberLdapHtml += ('<tr>' + '<td>' +
+                    '<div class="d-inline-block align-middle">' +
+                    '<div class="d-inline-block">' +
+                    '<h6>' + result.data[i].fullname + '</h6>' +
+                    '<p class="text-muted m-b-0">' + result.data[i].username + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td class="align-middle text-center" style="width: 120px;">' +
+                    (result.data[i].used == 0
+                        ? '<input type="checkbox" data-toggle="toggle" data-size="sm">'
+                        : '<input type="checkbox" checked data-toggle="toggle" data-size="sm">') +
+                    '</td>' +
+                    '</tr>');
+            }
+            $("#body-list-member-ldap").html(memberLdapHtml);
             $("[data-toggle='toggle']").bootstrapToggle('destroy')
             $("[data-toggle='toggle']").bootstrapToggle();
             return 1;
