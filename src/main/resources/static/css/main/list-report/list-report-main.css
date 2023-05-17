@@ -17,6 +17,10 @@
     height: 43px;
 }
 
+.table thead tr {
+    height: 45px;
+}
+
 .table thead th {
     background-color: #4680ff !important;
     color: #FFF !important;
