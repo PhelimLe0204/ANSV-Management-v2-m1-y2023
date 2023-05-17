@@ -33,7 +33,7 @@
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row" style="margin-top: -20px;">
-                <div class="col-xl-12 col-md-12">
+                <div class="col-xl-7 col-md-12">
                     <div class="card table-card">
                         <div class="card-header">
                             <h5>Danh sách thành viên DO</h5>
@@ -71,14 +71,16 @@
                                 <table class="table table-hover mb-0 table-list">
                                     <thead>
                                         <tr>
+                                            <th class="text-center" style="width: 5%;">STT</th>
                                             <th class="text-center">Tên thành viên</th>
-                                            <th class="text-center">Mã nhân viên</th>
-                                            <th class="text-center">Chức vụ</th>
-                                            <th class="text-center">Tình trạng</th>
+                                            <th class="text-center">Thông tin</th>
+                                            <th class="text-center" style="width: 15%;">Tình trạng</th>
                                         </tr>
                                     </thead>
                                     <tbody style="max-height: 490px;">
                                         <tr th:each="listUserDoItem : ${listUserDO}">
+                                            <td class="text-center align-middle"
+                                                th:text="${listUserDoItemStat.index + 1}"></td>
                                             <td class="align-middle">
                                                 <div class="d-inline-block">
                                                     <img th:src="${listUserDoItem.getAvatar()} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${listUserDoItem.getAvatar()}}"
@@ -90,10 +92,9 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="align-middle text-center"
-                                                th:text="${listUserDoItem.getEmployeeCode()}"></td>
-                                            <td class="align-middle text-center"
-                                                th:text="${listUserDoItem.getPositionExplain()}">
+                                            <td class="align-middle">
+                                                Mã NV: [[${listUserDoItem.getEmployeeCode()}]]<br>
+                                                Chức vụ: [[${listUserDoItem.getPositionExplain()}]]
                                             </td>
                                             <td class="align-middle text-center">
                                                 <input class="checkEnabled"
@@ -111,7 +112,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-12 col-md-12">
+                <div class="col-xl-5 col-md-12">
                     <div class="card table-card">
                         <div class="card-header">
                             <h5>Thành viên DO (toàn bộ)</h5>
