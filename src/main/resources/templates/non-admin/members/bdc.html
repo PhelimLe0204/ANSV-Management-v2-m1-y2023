@@ -77,10 +77,10 @@
                                                 Tình trạng</th>
                                         </tr>
                                     </thead>
-                                    <tbody style="height: 490px;">
+                                    <tbody style="max-height: 490px;">
                                         <tr th:each="listUserBdcItem : ${listUserBDC}">
-                                            <td>
-                                                <div class="d-inline-block align-middle">
+                                            <td class="align-middle">
+                                                <div class="d-inline-block">
                                                     <img th:src="${listUserBdcItem.getAvatar()} == null ? @{/images/user/_default-user.png} : @{'/images/user/' + ${listUserBdcItem.getAvatar()}}"
                                                         alt="user image" class="img-radius wid-40 align-top m-r-15">
                                                     <div class="d-inline-block">

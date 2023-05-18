@@ -8,6 +8,11 @@ td span {
     padding: 5px;
 }
 
+.dataTable th {
+    background-color: #4680ff !important;
+    color: #fff !important;
+}
+
 .table tr th:last-child,
 .table tr td:last-child {
     padding-right: 5px !important;

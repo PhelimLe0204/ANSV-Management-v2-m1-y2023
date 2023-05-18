@@ -66,6 +66,8 @@
         <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
             rel="stylesheet">
         <link rel="stylesheet" th:href="@{/css/main/member/member.css}" type="text/css" />
+
+        <link rel="stylesheet" type="text/css" th:href="@{/vendors/datatable/css/jquery.dataTables.min.css}">
     </th:block>
 
     <!-- Customer - CSS -->
@@ -242,6 +244,8 @@
     <th:block th:if="${#httpServletRequest.requestURI.startsWith('/thanh-vien/')}">
         <script th:src="@{/js/main/member/member-main.js}"></script>
         <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+        <script th:src="@{/vendors/datatable/js/jquery.dataTables.min.js}"></script>
     </th:block>
 
     <!-- ListReport scripts  -->
@@ -256,7 +260,6 @@
                 src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
             <script th:src="@{/js/main/customer/customer-main.js}"></script>
         </th:block>
-        
     </th:block>
 
     <th:block th:if="${#httpServletRequest.requestURI != '/login'}">
