@@ -242,10 +242,15 @@
                                                             th:value="${detailTabCptg.getNoteTamUng()}">
                                                     </td>
                                                 </tr>
-                                                <tr class="border-top border-white">
+                                                <tr class="border-top border-white" id="editDAC">
                                                     <td
-                                                        class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        DAC</td>
+                                                        class="bg-primary align-middle text-center text-white font-weight-bold p-0">
+                                                        <button type="button" class="btn btn-primary addMoreDate"
+                                                            data-target="DAC" data-toggle="tooltip"
+                                                            title="Thêm mới DAC">
+                                                            DAC <i class="fas fa-plus pl-2 text-warning"></i>
+                                                        </button>
+                                                    </td>
                                                     <td class="p-2">
                                                         <input type="text" name="soTienDac" id="so_tien_dac"
                                                             class="form-control text-center table-bg-form-input"

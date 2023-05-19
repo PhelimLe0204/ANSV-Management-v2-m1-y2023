@@ -1206,3 +1206,59 @@ function resetModalUpdate(tab, dataTinymce) {
 //         }
 //     }
 // });
+
+$(".addMoreDate").click(function () {
+    var stt = $('.deleteDate, [data-from="DAC"]').length + 2;
+
+    if (stt > 5) {
+        console.log("stt: " + stt);
+        alertify.warning("Số lượng đã đạt tối đa!").delay(1.5);
+        return;
+    }
+    var target = $(this).attr("data-target");
+    console.log($(this).attr("data-target"));
+    console.log('#edit' + target + '' + stt);
+    var html = '<tr class="border-top border-white" id="editDAC' + stt + '">'
+        + '<td class="bg-primary align-middle text-center text-white font-weight-bold p-0">'
+        + '<button type="button" class="btn btn-primary deleteDate" data-from="DAC" data-target="DAC' + stt + '" data-toggle="tooltip" title="Xóa DAC ' + stt + '">'
+        + 'DAC ' + stt + ' <i class="fas fa-edit pl-2 text-warning"></i>'
+        + '</button>'
+        + '</td>'
+        + '<td class="p-2">'
+        + '<input type="text" name="soTienDac' + stt + '" id="so_tien_dac_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền DAC ' + stt + '...">'
+        + '</td>'
+        + '<td class="p-2">'
+        + '<input type="text" name="hopDongDac' + stt + '" id="hop_dong_dac_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">'
+        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="hop_dong_dac_' + stt + '">'
+        + '<i class="feather icon-x"></i>'
+        + '</button>'
+        + '</td>'
+        + '<td class="p-2">'
+        + '<input type="text" name="mucTieuDac' + stt + '" id="muc_tieu_dac_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="thuc_te_dac_' + stt + '" data-calculate-result="chenh_lech_dac_' + stt + '" data-allow-change-status="0" readonly="">'
+        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="muc_tieu_dac_' + stt + '">'
+        + '<i class="feather icon-x"></i>'
+        + '</button>'
+        + '</td>'
+        + '<td class="p-2">'
+        + '<input type="text" name="thucTeDac' + stt + '" id="thuc_te_dac_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="muc_tieu_dac_' + stt + '" data-calculate-result="chenh_lech_dac_' + stt + '" data-allow-change-status="1" readonly="">'
+        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="thuc_te_dac_' + stt + '">'
+        + '<i class="feather icon-x"></i>'
+        + '</button>'
+        + '</td>'
+        + '<td class="align-middle text-center">'
+        + '<i class="fa-solid fa-square" data-status-for="thuc_te_dac_' + stt + '" style="font-size: 20px;"></i>'
+        + '<span id="chenh_lech_dac_' + stt + '"></span>'
+        + '</td>'
+        + '<td class="p-2">'
+        + '<input type="text" name="noteDac' + stt + '" id="note_dac_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú DAC ' + stt + '...">'
+        + '</td>'
+        + '</tr>';
+
+    if ((stt - 2) == 0) {
+        $('#edit' + target).after(html);
+    } else {
+        $('#edit' + target + (stt - 1)).after(html);
+    }
+    $(this).html('DAC 1 <i class="fas fa-plus pl-2 text-warning"></i>');
+    alertify.success("Thêm trường DAC " + (stt - 1)).delay(1.5);
+});
