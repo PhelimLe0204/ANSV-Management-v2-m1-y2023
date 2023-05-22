@@ -549,7 +549,7 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
             }
 
             if ($("[data-status-for=" + this_id + "]").hasClass("fa-square")) {
-                console.log("Có class fa-square");
+                // console.log("Có class fa-square");
                 $("[data-status-for=" + this_id + "]").removeAttr('class');
                 $("[data-status-for=" + this_id + "]").attr('class', 'fa-sharp fa-solid fa-square-check text-primary');
             }
@@ -561,14 +561,13 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
         $("#" + target_id).val("");
 
         // Trường hợp xóa ngày mục tiêu => Không còn ghi chú
-        if (target_id == "muc_tieu_dac" || target_id == "muc_tieu_pac" || target_id == "muc_tieu_fac") {
-            $("#chenh_lech_" + target_id.slice(9, 12)).html((""));
+        if (target_id == "muc_tieu_giao_hang" || target_id == "muc_tieu_dac" || target_id == "muc_tieu_pac" || target_id == "muc_tieu_fac") {
+            $("#chenh_lech_" + target_id.slice(9)).html((""));
         }
 
-        if (target_id == "thuc_te_dac" || target_id == "thuc_te_pac" || target_id == "thuc_te_fac") {
+        if (target_id == "thuc_te_giao_hang" || target_id == "thuc_te_dac" || target_id == "thuc_te_pac" || target_id == "thuc_te_fac") {
             // Tính toán lại số ngày chênh lệch giữa ngày mục tiêu và hiện tại
-            var dateMucTieuValue = $("#muc_tieu_" + target_id.slice(8, 11)).val();
-
+            var dateMucTieuValue = $("#muc_tieu_" + target_id.slice(8)).val();
             if (dateMucTieuValue != "") {
                 var dateMucTieu = new Date(dateMucTieuValue.slice(5, 7) + "/" + dateMucTieuValue.slice(0, 2) + "/" + dateMucTieuValue.slice(10, 15));
                 var dateNow = new Date();
@@ -577,14 +576,14 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
                 var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
 
                 if (diffDays == 0) {
-                    $("#chenh_lech_" + target_id.slice(8, 11)).html(("Deadline"));
+                    $("#chenh_lech_" + target_id.slice(8)).html(("Deadline"));
                 } else if (diffDays < 0) {
-                    $("#chenh_lech_" + target_id.slice(8, 11)).html(("Còn " + Math.abs(diffDays) + " ngày"));
+                    $("#chenh_lech_" + target_id.slice(8)).html(("Còn " + Math.abs(diffDays) + " ngày"));
                 } else {
-                    $("#chenh_lech_" + target_id.slice(8, 11)).html(("Quá " + diffDays + " ngày"));
+                    $("#chenh_lech_" + target_id.slice(8)).html(("Quá " + diffDays + " ngày"));
                 }
             } else {
-                $("#chenh_lech_" + target_id.slice(8, 11)).html((""));
+                $("#chenh_lech_" + target_id.slice(8)).html((""));
             }
         }
 
@@ -1226,7 +1225,7 @@ $(".addMoreDate").click(function () {
             }
         }
     }
-    console.log(count + " - " + stt);
+    // console.log(count + " - " + stt);
     // console.log($(this).attr("data-target"));
     // console.log('#edit' + target + '' + stt);
     var html = '<tr class="border-top border-white" id="editDAC' + stt + '">'
@@ -1258,7 +1257,7 @@ $(".addMoreDate").click(function () {
         + '</td>'
         + '<td class="align-middle text-center">'
         + '<i class="fa-solid fa-square" data-status-for="thuc_te_dac_' + stt + '" style="font-size: 20px;"></i>'
-        + '<span id="chenh_lech_dac_' + stt + '"></span>'
+        + '<span class="pl-1" id="chenh_lech_dac_' + stt + '"></span>'
         + '</td>'
         + '<td class="p-2">'
         + '<input type="text" name="noteDac' + stt + '" id="note_dac_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú DAC ' + stt + '...">'
@@ -1279,9 +1278,119 @@ $(".addMoreDate").click(function () {
         // window["$array" + target].push(stt); // Add stt into $arrayDAC / $arrayPAC / $arrayFAC
         window["$array" + target].splice((stt - 1), 0, stt);
     }
+    setDatePicker(target.toLowerCase(), stt);
     $('[data-toggle="tooltip"]').tooltip();
     alertify.success("Thêm trường DAC " + (stt - 1)).delay(1.5);
 });
+
+function setDatePicker(target, stt) {
+    $("#hop_dong_" + target + "_" + stt).datepicker({
+        dateFormat: 'dd / mm / yy'
+    });
+
+    $("#muc_tieu_" + target + "_" + stt).datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateMucTieu) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateThucTe = $("#" + $(this).attr("data-related-id")).val();
+
+            // To set two dates to two variables
+            var date1 = new Date(dateMucTieu.slice(5, 7) + "/" + dateMucTieu.slice(0, 2) + "/" + dateMucTieu.slice(10, 15));
+            var date2 = new Date(dateThucTe.slice(5, 7) + "/" + dateThucTe.slice(0, 2) + "/" + dateThucTe.slice(10, 15));
+            if (dateThucTe == "") {
+                var dateNow = new Date();
+                var c_m = dateNow.getUTCMonth() + 1; //months from 1-12
+                var c_d = dateNow.getUTCDate();
+                var c_y = dateNow.getUTCFullYear();
+                date2 = new Date(c_m + "/" + c_d + "/" + c_y);
+            }
+
+            var diffTime = date2 - date1; // To calculate the time difference of two dates
+            var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+            if (diffDays == 0) {
+                $("#" + calculate_result_id).html(("Đúng tiến độ"));
+            } else if (diffDays < 0) {
+                $("#" + calculate_result_id).html(("Sớm " + Math.abs(diffDays) + " ngày"));
+            } else {
+                $("#" + calculate_result_id).html(("Chậm " + diffDays + " ngày"));
+            }
+        }
+    });
+
+    $("#thuc_te_" + target + "_" + stt).datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateThucTe) {
+            var this_id = $(this).attr("id");
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateMucTieu = $("#" + $(this).attr("data-related-id")).val();
+
+            if (dateMucTieu != "") {
+                var date1 = new Date(dateThucTe.slice(5, 7) + "/" + dateThucTe.slice(0, 2) + "/" + dateThucTe.slice(10, 15));
+                var date2 = new Date(dateMucTieu.slice(5, 7) + "/" + dateMucTieu.slice(0, 2) + "/" + dateMucTieu.slice(10, 15));
+
+                var diffTime = date2 - date1; // Calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html(("Đúng tiến độ"));
+                } else if (diffDays < 0) {
+                    $("#" + calculate_result_id).html(("Chậm " + Math.abs(diffDays) + " ngày"));
+                } else {
+                    $("#" + calculate_result_id).html(("Sớm " + diffDays + " ngày"));
+                }
+            } else {
+                $("#" + calculate_result_id).html((""));
+            }
+
+            if ($("[data-status-for=" + this_id + "]").hasClass("fa-square")) {
+                // console.log("Có class fa-square");
+                $("[data-status-for=" + this_id + "]").removeAttr('class');
+                $("[data-status-for=" + this_id + "]").attr('class', 'fa-sharp fa-solid fa-square-check text-primary');
+            }
+        }
+    });
+
+    $(".btn-delete-input").click(function () {
+        var target_id = $(this).attr("data-target");
+        $("#" + target_id).val("");
+
+        // Trường hợp xóa ngày mục tiêu => Không còn ghi chú
+        if (target_id == ("muc_tieu_dac_" + stt) || target_id == ("muc_tieu_pac_" + stt) || target_id == ("muc_tieu_fac_" + stt)) {
+            $("#chenh_lech_" + target_id.slice(9)).html((""));
+        }
+
+        if (target_id == ("thuc_te_dac_" + stt) || target_id == ("thuc_te_pac_" + stt) || target_id == ("thuc_te_fac_" + stt)) {
+            // Tính toán lại số ngày chênh lệch giữa ngày mục tiêu và hiện tại
+            var dateMucTieuValue = $("#muc_tieu_" + target_id.slice(8)).val();
+
+            if (dateMucTieuValue != "") {
+                var dateMucTieu = new Date(dateMucTieuValue.slice(5, 7) + "/" + dateMucTieuValue.slice(0, 2) + "/" + dateMucTieuValue.slice(10, 15));
+                var dateNow = new Date();
+                dateNowFormat = new Date((dateNow.getUTCMonth() + 1) + "/" + (dateNow.getUTCDate()) + "/" + (dateNow.getUTCFullYear()));
+                var diffTime = dateNowFormat - dateMucTieu; // Calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#chenh_lech_" + target_id.slice(8)).html(("Deadline"));
+                } else if (diffDays < 0) {
+                    $("#chenh_lech_" + target_id.slice(8)).html(("Còn " + Math.abs(diffDays) + " ngày"));
+                } else {
+                    $("#chenh_lech_" + target_id.slice(8)).html(("Quá " + diffDays + " ngày"));
+                }
+            } else {
+                $("#chenh_lech_" + target_id.slice(8)).html((""));
+            }
+        }
+
+        if ($("#" + target_id).attr("data-allow-change-status") == "1") {
+            if ($("[data-status-for=" + target_id + "]").hasClass("fa-square-check")) {
+                $("[data-status-for=" + target_id + "]").removeAttr('class');
+                $("[data-status-for=" + target_id + "]").attr('class', 'fa-solid fa-square text-secondary');
+            }
+        }
+    });
+}
 
 $("#bodyEditDetailCptg").on("click", "tr .deleteDate", function () {
     var target = $(this).attr("data-target");
