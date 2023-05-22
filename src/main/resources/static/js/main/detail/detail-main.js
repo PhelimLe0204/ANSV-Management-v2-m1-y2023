@@ -1207,21 +1207,32 @@ function resetModalUpdate(tab, dataTinymce) {
 //     }
 // });
 
+var $arrayDAC = [1], $arrayPAC = [1], $arrayFAC = [1];
 $(".addMoreDate").click(function () {
-    var stt = $('.deleteDate, [data-from="DAC"]').length + 2;
+    var target = $(this).attr("data-target");
+    var count = $('.deleteDate, [data-from="' + target + '"]').length;
 
-    if (stt > 5) {
-        console.log("stt: " + stt);
+    if (count >= 4) {
         alertify.warning("Số lượng đã đạt tối đa!").delay(1.5);
         return;
     }
-    var target = $(this).attr("data-target");
-    console.log($(this).attr("data-target"));
-    console.log('#edit' + target + '' + stt);
+
+    var stt = count + 2;
+    if (count != 0) {
+        for (let i = 1; i < window["$array" + target].length; i++) {
+            if (window["$array" + target][i] != (i + 1)) {
+                stt = i + 1;
+                break;
+            }
+        }
+    }
+    console.log(count + " - " + stt);
+    // console.log($(this).attr("data-target"));
+    // console.log('#edit' + target + '' + stt);
     var html = '<tr class="border-top border-white" id="editDAC' + stt + '">'
         + '<td class="bg-primary align-middle text-center text-white font-weight-bold p-0">'
-        + '<button type="button" class="btn btn-primary deleteDate" data-from="DAC" data-target="DAC' + stt + '" data-toggle="tooltip" title="Xóa DAC ' + stt + '">'
-        + 'DAC ' + stt + ' <i class="fas fa-edit pl-2 text-warning"></i>'
+        + '<button type="button" class="btn btn-primary deleteDate" data-from="DAC" data-target="DAC' + stt + '" data-toggle="tooltip" data-placement="top" title="Xóa DAC ' + stt + '">'
+        + 'DAC ' + stt + ' <i class="fas fa-trash pl-2 text-warning"></i>'
         + '</button>'
         + '</td>'
         + '<td class="p-2">'
@@ -1259,6 +1270,36 @@ $(".addMoreDate").click(function () {
     } else {
         $('#edit' + target + (stt - 1)).after(html);
     }
-    $(this).html('DAC 1 <i class="fas fa-plus pl-2 text-warning"></i>');
+
+    if (count == 0) {
+        $(this).html('DAC 1 <i class="fas fa-plus pl-2 text-warning"></i>');
+    }
+
+    if (!window["$array" + target].includes(stt)) {
+        // window["$array" + target].push(stt); // Add stt into $arrayDAC / $arrayPAC / $arrayFAC
+        window["$array" + target].splice((stt - 1), 0, stt);
+    }
+    $('[data-toggle="tooltip"]').tooltip();
     alertify.success("Thêm trường DAC " + (stt - 1)).delay(1.5);
+});
+
+$("#bodyEditDetailCptg").on("click", "tr .deleteDate", function () {
+    var target = $(this).attr("data-target");
+    var count = $('.deleteDate, [data-from="' + target.substring(0, 3) + '"]').length;
+    console.log(count + " - " + target);
+    if (count != 0) {
+        $("#edit" + target).remove();
+        if (count == 1) {
+            $('.addMoreDate, [data-target="' + target.substring(0, 3) + '"]').html('DAC <i class="fas fa-plus pl-2 text-warning"></i>');
+        }
+
+        const index = window["$array" + target.substring(0, 3)].indexOf(parseInt(target.substring(3)));
+        if (index > -1) { // only splice array when item is found
+            window["$array" + target.substring(0, 3)].splice(index, 1); // 2nd parameter means remove one item only
+            console.log(window["$array" + target.substring(0, 3)]);
+        }
+        alertify.success("Đã xóa trường DAC " + target).delay(1.5);
+    } else {
+        alertify.error("Không thể xóa thêm " + target.substring(0, 3)).delay(1.5);
+    }
 });
