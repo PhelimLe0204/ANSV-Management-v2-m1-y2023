@@ -1209,7 +1209,7 @@ function resetModalUpdate(tab, dataTinymce) {
 var $arrayDAC = [1], $arrayPAC = [1], $arrayFAC = [1];
 $(".addMoreDate").click(function () {
     var target = $(this).attr("data-target");
-    var count = $('.deleteDate, [data-from="' + target + '"]').length;
+    var count = $('.deleteDate[data-from="' + target + '"]').length;
 
     if (count >= 4) {
         alertify.warning("Số lượng đã đạt tối đa!").delay(1.5);
@@ -1228,39 +1228,41 @@ $(".addMoreDate").click(function () {
     // console.log(count + " - " + stt);
     // console.log($(this).attr("data-target"));
     // console.log('#edit' + target + '' + stt);
-    var html = '<tr class="border-top border-white" id="editDAC' + stt + '">'
+    var upFisrtLetter = target.charAt(0).toUpperCase() + target.slice(1);
+    var lowAllLetter = target.toLowerCase();
+    var html = '<tr class="border-top border-white" id="edit' + target + stt + '">'
         + '<td class="bg-primary align-middle text-center text-white font-weight-bold p-0">'
-        + '<button type="button" class="btn btn-primary deleteDate" data-from="DAC" data-target="DAC' + stt + '" data-toggle="tooltip" data-placement="top" title="Xóa DAC ' + stt + '">'
-        + 'DAC ' + stt + ' <i class="fas fa-trash pl-2 text-warning"></i>'
+        + '<button type="button" class="btn btn-primary deleteDate" data-from="' + target + '" data-target="' + target + stt + '" data-toggle="tooltip" data-placement="top" title="Xóa ' + target + ' ' + stt + '">'
+        + target + ' ' + stt + ' <i class="fas fa-trash pl-2 text-warning"></i>'
         + '</button>'
         + '</td>'
         + '<td class="p-2">'
-        + '<input type="text" name="soTienDac' + stt + '" id="so_tien_dac_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền DAC ' + stt + '...">'
+        + '<input type="text" name="soTien' + upFisrtLetter + stt + '" id="so_tien_' + lowAllLetter + '_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền ' + target + ' ' + stt + '...">'
         + '</td>'
         + '<td class="p-2">'
-        + '<input type="text" name="hopDongDac' + stt + '" id="hop_dong_dac_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">'
-        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="hop_dong_dac_' + stt + '">'
+        + '<input type="text" name="hopDong' + upFisrtLetter + stt + '" id="hop_dong_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">'
+        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="hop_dong_' + lowAllLetter + '_' + stt + '">'
         + '<i class="feather icon-x"></i>'
         + '</button>'
         + '</td>'
         + '<td class="p-2">'
-        + '<input type="text" name="mucTieuDac' + stt + '" id="muc_tieu_dac_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="thuc_te_dac_' + stt + '" data-calculate-result="chenh_lech_dac_' + stt + '" data-allow-change-status="0" readonly="">'
-        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="muc_tieu_dac_' + stt + '">'
+        + '<input type="text" name="mucTieu' + upFisrtLetter + stt + '" id="muc_tieu_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="thuc_te_' + lowAllLetter + '_' + stt + '" data-calculate-result="chenh_lech_' + lowAllLetter + '_' + stt + '" data-allow-change-status="0" readonly="">'
+        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="muc_tieu_' + lowAllLetter + '_' + stt + '">'
         + '<i class="feather icon-x"></i>'
         + '</button>'
         + '</td>'
         + '<td class="p-2">'
-        + '<input type="text" name="thucTeDac' + stt + '" id="thuc_te_dac_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="muc_tieu_dac_' + stt + '" data-calculate-result="chenh_lech_dac_' + stt + '" data-allow-change-status="1" readonly="">'
-        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="thuc_te_dac_' + stt + '">'
+        + '<input type="text" name="thucTe' + upFisrtLetter + stt + '" id="thuc_te_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="muc_tieu_' + lowAllLetter + '_' + stt + '" data-calculate-result="chenh_lech_' + lowAllLetter + '_' + stt + '" data-allow-change-status="1" readonly="">'
+        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="thuc_te_' + lowAllLetter + '_' + stt + '">'
         + '<i class="feather icon-x"></i>'
         + '</button>'
         + '</td>'
         + '<td class="align-middle text-center">'
-        + '<i class="fa-solid fa-square" data-status-for="thuc_te_dac_' + stt + '" style="font-size: 20px;"></i>'
-        + '<span class="pl-1" id="chenh_lech_dac_' + stt + '"></span>'
+        + '<i class="fa-solid fa-square" data-status-for="thuc_te_' + lowAllLetter + '_' + stt + '" style="font-size: 20px;"></i>'
+        + '<span class="pl-1" id="chenh_lech_' + lowAllLetter + '_' + stt + '"></span>'
         + '</td>'
         + '<td class="p-2">'
-        + '<input type="text" name="noteDac' + stt + '" id="note_dac_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú DAC ' + stt + '...">'
+        + '<input type="text" name="note' + upFisrtLetter + stt + '" id="note_' + lowAllLetter + '_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú ' + target + ' ' + stt + '...">'
         + '</td>'
         + '</tr>';
 
@@ -1271,16 +1273,16 @@ $(".addMoreDate").click(function () {
     }
 
     if (count == 0) {
-        $(this).html('DAC 1 <i class="fas fa-plus pl-2 text-warning"></i>');
+        $(this).html(target + ' 1 <i class="fas fa-plus pl-2 text-warning"></i>');
     }
 
     if (!window["$array" + target].includes(stt)) {
         // window["$array" + target].push(stt); // Add stt into $arrayDAC / $arrayPAC / $arrayFAC
         window["$array" + target].splice((stt - 1), 0, stt);
     }
-    setDatePicker(target.toLowerCase(), stt);
+    setDatePicker(lowAllLetter, stt);
     $('[data-toggle="tooltip"]').tooltip();
-    alertify.success("Thêm trường DAC " + (stt - 1)).delay(1.5);
+    alertify.success("Thêm trường " + target + " " + (stt - 1)).delay(1.5);
 });
 
 function setDatePicker(target, stt) {
@@ -1394,12 +1396,13 @@ function setDatePicker(target, stt) {
 
 $("#bodyEditDetailCptg").on("click", "tr .deleteDate", function () {
     var target = $(this).attr("data-target");
-    var count = $('.deleteDate, [data-from="' + target.substring(0, 3) + '"]').length;
+    console.log(target.substring(0, 3));
+    var count = $('.deleteDate[data-from="' + target.substring(0, 3) + '"]').length;
     console.log(count + " - " + target);
     if (count != 0) {
         $("#edit" + target).remove();
         if (count == 1) {
-            $('.addMoreDate, [data-target="' + target.substring(0, 3) + '"]').html('DAC <i class="fas fa-plus pl-2 text-warning"></i>');
+            $('.addMoreDate[data-target="' + target.substring(0, 3) + '"]').html(target.substring(0, 3) + ' <i class="fas fa-plus pl-2 text-warning"></i>');
         }
 
         const index = window["$array" + target.substring(0, 3)].indexOf(parseInt(target.substring(3)));
@@ -1407,7 +1410,7 @@ $("#bodyEditDetailCptg").on("click", "tr .deleteDate", function () {
             window["$array" + target.substring(0, 3)].splice(index, 1); // 2nd parameter means remove one item only
             console.log(window["$array" + target.substring(0, 3)]);
         }
-        alertify.success("Đã xóa trường DAC " + target).delay(1.5);
+        alertify.success("Đã xóa trường DAC " + target.substring(3)).delay(1.5);
     } else {
         alertify.error("Không thể xóa thêm " + target.substring(0, 3)).delay(1.5);
     }
