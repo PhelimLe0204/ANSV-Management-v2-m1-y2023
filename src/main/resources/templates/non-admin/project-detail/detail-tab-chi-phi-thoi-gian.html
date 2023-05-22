@@ -319,10 +319,15 @@
                                                             th:value="${detailTabCptg.getNoteDac()}">
                                                     </td>
                                                 </tr>
-                                                <tr class="border-top border-white">
+                                                <tr class="border-top border-white" id="editPAC">
                                                     <td
-                                                        class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        PAC</td>
+                                                        class="bg-primary align-middle text-center text-white font-weight-bold p-0">
+                                                        <button type="button" class="btn btn-primary addMoreDate"
+                                                            data-target="PAC" data-toggle="tooltip"
+                                                            title="Thêm mới PAC">
+                                                            PAC <i class="fas fa-plus pl-2 text-warning"></i>
+                                                        </button>
+                                                    </td>
                                                     <td class="p-2">
                                                         <input type="text" name="soTienPac" id="so_tien_pac"
                                                             class="form-control text-center table-bg-form-input"
@@ -391,10 +396,15 @@
                                                             th:value="${detailTabCptg.getNotePac()}">
                                                     </td>
                                                 </tr>
-                                                <tr class="border-top border-white">
+                                                <tr class="border-top border-white" id="editFAC">
                                                     <td
-                                                        class="bg-primary align-middle text-center text-white font-weight-bold">
-                                                        FAC</td>
+                                                        class="bg-primary align-middle text-center text-white font-weight-bold p-0">
+                                                        <button type="button" class="btn btn-primary addMoreDate"
+                                                            data-target="FAC" data-toggle="tooltip"
+                                                            title="Thêm mới FAC">
+                                                            FAC <i class="fas fa-plus pl-2 text-warning"></i>
+                                                        </button>
+                                                    </td>
                                                     <td class="p-2">
                                                         <input type="text" name="soTienFac" id="so_tien_fac"
                                                             class="form-control text-center table-bg-form-input"
