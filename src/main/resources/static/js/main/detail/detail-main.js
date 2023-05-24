@@ -1228,8 +1228,8 @@ $(".addMoreDate").click(function () {
     // console.log(count + " - " + stt);
     // console.log($(this).attr("data-target"));
     // console.log('#edit' + target + '' + stt);
-    var upFisrtLetter = target.charAt(0).toUpperCase() + target.slice(1);
     var lowAllLetter = target.toLowerCase();
+    var upFisrtLetter = lowAllLetter.charAt(0).toUpperCase() + lowAllLetter.slice(1);
     var html = '<tr class="border-top border-white" id="edit' + target + stt + '">'
         + '<td class="bg-primary align-middle text-center text-white font-weight-bold p-0">'
         + '<button type="button" class="btn btn-primary deleteDate" data-from="' + target + '" data-target="' + target + stt + '" data-toggle="tooltip" data-placement="top" title="Xóa ' + target + ' ' + stt + '">'

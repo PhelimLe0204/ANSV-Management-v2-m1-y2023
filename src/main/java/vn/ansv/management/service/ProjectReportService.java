@@ -198,17 +198,46 @@ public class ProjectReportService implements IProjectReport {
     @Override
     public Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate) {
         try {
+            // Update project_report
             projectReportRepository.updateDetailTabCptg(id,
                     dataUpdate.getSoTienGiaoHang(), dataUpdate.getHopDongGiaoHang(), dataUpdate.getMucTieuGiaoHang(),
-                    dataUpdate.getThucTeGiaoHang(), dataUpdate.getNoteGiaoHang(),
-                    dataUpdate.getSoTienDac(), dataUpdate.getHopDongDac(), dataUpdate.getMucTieuDac(),
-                    dataUpdate.getThucTeDac(), dataUpdate.getNoteDac(),
-                    dataUpdate.getSoTienPac(), dataUpdate.getHopDongPac(), dataUpdate.getMucTieuPac(),
-                    dataUpdate.getThucTePac(), dataUpdate.getNotePac(),
+                    dataUpdate.getThucTeGiaoHang(), dataUpdate.getNoteGiaoHang(), dataUpdate.getSoTienDac(),
+                    dataUpdate.getHopDongDac(), dataUpdate.getMucTieuDac(), dataUpdate.getThucTeDac(),
+                    dataUpdate.getNoteDac(), dataUpdate.getSoTienPac(), dataUpdate.getHopDongPac(),
+                    dataUpdate.getMucTieuPac(), dataUpdate.getThucTePac(), dataUpdate.getNotePac(),
                     dataUpdate.getSoTienFac(), dataUpdate.getHopDongFac(), dataUpdate.getMucTieuFac(),
-                    dataUpdate.getThucTeFac(), dataUpdate.getNoteFac(),
-                    dataUpdate.getTongGiaTriThucTe(), dataUpdate.getNoteTongGiaTri(), dataUpdate.getSoTienTamUng(),
-                    dataUpdate.getKeHoachTamUng(), dataUpdate.getNoteTamUng());
+                    dataUpdate.getThucTeFac(), dataUpdate.getNoteFac(), dataUpdate.getTongGiaTriThucTe(),
+                    dataUpdate.getNoteTongGiaTri(), dataUpdate.getSoTienTamUng(), dataUpdate.getKeHoachTamUng(),
+                    dataUpdate.getNoteTamUng());
+
+            // Update project_report_subdata
+            projectReportRepository.updateDetailTabCptgSubdata(id,
+                    dataUpdate.getSoTienDac2(), dataUpdate.getHopDongDac2(), dataUpdate.getMucTieuDac2(),
+                    dataUpdate.getThucTeDac2(), dataUpdate.getNoteDac2(),
+                    dataUpdate.getSoTienDac3(), dataUpdate.getHopDongDac3(), dataUpdate.getMucTieuDac3(),
+                    dataUpdate.getThucTeDac3(), dataUpdate.getNoteDac3(),
+                    dataUpdate.getSoTienDac4(), dataUpdate.getHopDongDac4(), dataUpdate.getMucTieuDac4(),
+                    dataUpdate.getThucTeDac4(), dataUpdate.getNoteDac4(),
+                    dataUpdate.getSoTienDac5(), dataUpdate.getHopDongDac5(), dataUpdate.getMucTieuDac5(),
+                    dataUpdate.getThucTeDac5(), dataUpdate.getNoteDac5(),
+
+                    dataUpdate.getSoTienPac2(), dataUpdate.getHopDongPac2(), dataUpdate.getMucTieuPac2(),
+                    dataUpdate.getThucTePac2(), dataUpdate.getNotePac2(),
+                    dataUpdate.getSoTienPac3(), dataUpdate.getHopDongPac3(), dataUpdate.getMucTieuPac3(),
+                    dataUpdate.getThucTePac3(), dataUpdate.getNotePac3(),
+                    dataUpdate.getSoTienPac4(), dataUpdate.getHopDongPac4(), dataUpdate.getMucTieuPac4(),
+                    dataUpdate.getThucTePac4(), dataUpdate.getNotePac4(),
+                    dataUpdate.getSoTienPac5(), dataUpdate.getHopDongPac5(), dataUpdate.getMucTieuPac5(),
+                    dataUpdate.getThucTePac5(), dataUpdate.getNotePac5(),
+
+                    dataUpdate.getSoTienFac2(), dataUpdate.getHopDongFac2(), dataUpdate.getMucTieuFac2(),
+                    dataUpdate.getThucTeFac2(), dataUpdate.getNoteFac2(),
+                    dataUpdate.getSoTienFac3(), dataUpdate.getHopDongFac3(), dataUpdate.getMucTieuFac3(),
+                    dataUpdate.getThucTeFac3(), dataUpdate.getNoteFac3(),
+                    dataUpdate.getSoTienFac4(), dataUpdate.getHopDongFac4(), dataUpdate.getMucTieuFac4(),
+                    dataUpdate.getThucTeFac4(), dataUpdate.getNoteFac4(),
+                    dataUpdate.getSoTienFac5(), dataUpdate.getHopDongFac5(), dataUpdate.getMucTieuFac5(),
+                    dataUpdate.getThucTeFac5(), dataUpdate.getNoteFac5());
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportService.updateDetailTabCptg(): " + e.getMessage());
             e.printStackTrace();

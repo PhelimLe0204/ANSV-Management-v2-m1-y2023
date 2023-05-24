@@ -251,16 +251,45 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "pr.so_tien_giao_hang AS soTienGiaoHang, pr.hop_dong_giao_hang AS hopDongGiaoHang, "
         + "pr.muc_tieu_giao_hang AS mucTieuGiaoHang, pr.thuc_te_giao_hang AS thucTeGiaoHang, "
         + "pr.note_giao_hang AS noteGiaoHang, "
+
         + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, "
         + "pr.thuc_te_dac AS thucTeDac, pr.note_dac AS noteDac, "
+        + "prs.so_tien_dac_2 AS soTienDac2, prs.hop_dong_dac_2 AS hopDongDac2, prs.muc_tieu_dac_2 AS mucTieuDac2, "
+        + "prs.thuc_te_dac_2 AS thucTeDac2, prs.note_dac_2 AS noteDac2, "
+        + "prs.so_tien_dac_3 AS soTienDac3, prs.hop_dong_dac_3 AS hopDongDac3, prs.muc_tieu_dac_3 AS mucTieuDac3, "
+        + "prs.thuc_te_dac_3 AS thucTeDac3, prs.note_dac_3 AS noteDac3, "
+        + "prs.so_tien_dac_4 AS soTienDac4, prs.hop_dong_dac_4 AS hopDongDac4, prs.muc_tieu_dac_4 AS mucTieuDac4, "
+        + "prs.thuc_te_dac_4 AS thucTeDac4, prs.note_dac_4 AS noteDac4, "
+        + "prs.so_tien_dac_5 AS soTienDac5, prs.hop_dong_dac_5 AS hopDongDac5, prs.muc_tieu_dac_5 AS mucTieuDac5, "
+        + "prs.thuc_te_dac_5 AS thucTeDac5, prs.note_dac_5 AS noteDac5, "
+
         + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, "
         + "pr.thuc_te_pac AS thucTePac, pr.note_pac AS notePac, "
+        + "prs.so_tien_pac_2 AS soTienPac2, prs.hop_dong_pac_2 AS hopDongPac2, prs.muc_tieu_pac_2 AS mucTieuPac2, "
+        + "prs.thuc_te_pac_2 AS thucTePac2, prs.note_pac_2 AS notePac2, "
+        + "prs.so_tien_pac_3 AS soTienPac3, prs.hop_dong_pac_3 AS hopDongPac3, prs.muc_tieu_pac_3 AS mucTieuPac3, "
+        + "prs.thuc_te_pac_3 AS thucTePac3, prs.note_pac_3 AS notePac3, "
+        + "prs.so_tien_pac_4 AS soTienPac4, prs.hop_dong_pac_4 AS hopDongPac4, prs.muc_tieu_pac_4 AS mucTieuPac4, "
+        + "prs.thuc_te_pac_4 AS thucTePac4, prs.note_pac_4 AS notePac4, "
+        + "prs.so_tien_pac_5 AS soTienPac5, prs.hop_dong_pac_5 AS hopDongPac5, prs.muc_tieu_pac_5 AS mucTieuPac5, "
+        + "prs.thuc_te_pac_5 AS thucTePac5, prs.note_pac_5 AS notePac5, "
+
         + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, "
         + "pr.thuc_te_fac AS thucTeFac, pr.note_fac AS noteFac, "
+        + "prs.so_tien_fac_2 AS soTienFac2, prs.hop_dong_fac_2 AS hopDongFac2, prs.muc_tieu_fac_2 AS mucTieuFac2, "
+        + "prs.thuc_te_fac_2 AS thucTeFac2, prs.note_fac_2 AS noteFac2, "
+        + "prs.so_tien_fac_3 AS soTienFac3, prs.hop_dong_fac_3 AS hopDongFac3, prs.muc_tieu_fac_3 AS mucTieuFac3, "
+        + "prs.thuc_te_fac_3 AS thucTeFac3, prs.note_fac_3 AS noteFac3, "
+        + "prs.so_tien_fac_4 AS soTienFac4, prs.hop_dong_fac_4 AS hopDongFac4, prs.muc_tieu_fac_4 AS mucTieuFac4, "
+        + "prs.thuc_te_fac_4 AS thucTeFac4, prs.note_fac_4 AS noteFac4, "
+        + "prs.so_tien_fac_5 AS soTienFac5, prs.hop_dong_fac_5 AS hopDongFac5, prs.muc_tieu_fac_5 AS mucTieuFac5, "
+        + "prs.thuc_te_fac_5 AS thucTeFac5, prs.note_fac_5 AS noteFac5, "
+
         + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, pr.note_tong_gia_tri AS noteTongGiaTri, "
         + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng, "
         + "pr.note_tam_ung AS noteTamUng "
         + "FROM project_report AS pr "
+        + "INNER JOIN project_report_subdata AS prs on pr.id = prs.project_report_id "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabCptgDTO")
 
 /* ===== ProjectReportRepository.findDetailTabQuaTrinh() ===== */
@@ -537,21 +566,97 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         @ColumnResult(name = "mucTieuGiaoHang", type = String.class),
         @ColumnResult(name = "thucTeGiaoHang", type = String.class),
         @ColumnResult(name = "noteGiaoHang", type = String.class),
+
         @ColumnResult(name = "soTienDac", type = String.class),
         @ColumnResult(name = "hopDongDac", type = String.class),
         @ColumnResult(name = "mucTieuDac", type = String.class),
         @ColumnResult(name = "thucTeDac", type = String.class),
         @ColumnResult(name = "noteDac", type = String.class),
+
+        @ColumnResult(name = "soTienDac2", type = String.class),
+        @ColumnResult(name = "hopDongDac2", type = String.class),
+        @ColumnResult(name = "mucTieuDac2", type = String.class),
+        @ColumnResult(name = "thucTeDac2", type = String.class),
+        @ColumnResult(name = "noteDac2", type = String.class),
+
+        @ColumnResult(name = "soTienDac3", type = String.class),
+        @ColumnResult(name = "hopDongDac3", type = String.class),
+        @ColumnResult(name = "mucTieuDac3", type = String.class),
+        @ColumnResult(name = "thucTeDac3", type = String.class),
+        @ColumnResult(name = "noteDac3", type = String.class),
+
+        @ColumnResult(name = "soTienDac4", type = String.class),
+        @ColumnResult(name = "hopDongDac4", type = String.class),
+        @ColumnResult(name = "mucTieuDac4", type = String.class),
+        @ColumnResult(name = "thucTeDac4", type = String.class),
+        @ColumnResult(name = "noteDac4", type = String.class),
+
+        @ColumnResult(name = "soTienDac5", type = String.class),
+        @ColumnResult(name = "hopDongDac5", type = String.class),
+        @ColumnResult(name = "mucTieuDac5", type = String.class),
+        @ColumnResult(name = "thucTeDac5", type = String.class),
+        @ColumnResult(name = "noteDac5", type = String.class),
+
         @ColumnResult(name = "soTienPac", type = String.class),
         @ColumnResult(name = "hopDongPac", type = String.class),
         @ColumnResult(name = "mucTieuPac", type = String.class),
         @ColumnResult(name = "thucTePac", type = String.class),
         @ColumnResult(name = "notePac", type = String.class),
+
+        @ColumnResult(name = "soTienPac2", type = String.class),
+        @ColumnResult(name = "hopDongPac2", type = String.class),
+        @ColumnResult(name = "mucTieuPac2", type = String.class),
+        @ColumnResult(name = "thucTePac2", type = String.class),
+        @ColumnResult(name = "notePac2", type = String.class),
+
+        @ColumnResult(name = "soTienPac3", type = String.class),
+        @ColumnResult(name = "hopDongPac3", type = String.class),
+        @ColumnResult(name = "mucTieuPac3", type = String.class),
+        @ColumnResult(name = "thucTePac3", type = String.class),
+        @ColumnResult(name = "notePac3", type = String.class),
+
+        @ColumnResult(name = "soTienPac4", type = String.class),
+        @ColumnResult(name = "hopDongPac4", type = String.class),
+        @ColumnResult(name = "mucTieuPac4", type = String.class),
+        @ColumnResult(name = "thucTePac4", type = String.class),
+        @ColumnResult(name = "notePac4", type = String.class),
+
+        @ColumnResult(name = "soTienPac5", type = String.class),
+        @ColumnResult(name = "hopDongPac5", type = String.class),
+        @ColumnResult(name = "mucTieuPac5", type = String.class),
+        @ColumnResult(name = "thucTePac5", type = String.class),
+        @ColumnResult(name = "notePac5", type = String.class),
+
         @ColumnResult(name = "soTienFac", type = String.class),
         @ColumnResult(name = "hopDongFac", type = String.class),
         @ColumnResult(name = "mucTieuFac", type = String.class),
         @ColumnResult(name = "thucTeFac", type = String.class),
         @ColumnResult(name = "noteFac", type = String.class),
+
+        @ColumnResult(name = "soTienFac2", type = String.class),
+        @ColumnResult(name = "hopDongFac2", type = String.class),
+        @ColumnResult(name = "mucTieuFac2", type = String.class),
+        @ColumnResult(name = "thucTeFac2", type = String.class),
+        @ColumnResult(name = "noteFac2", type = String.class),
+
+        @ColumnResult(name = "soTienFac3", type = String.class),
+        @ColumnResult(name = "hopDongFac3", type = String.class),
+        @ColumnResult(name = "mucTieuFac3", type = String.class),
+        @ColumnResult(name = "thucTeFac3", type = String.class),
+        @ColumnResult(name = "noteFac3", type = String.class),
+
+        @ColumnResult(name = "soTienFac4", type = String.class),
+        @ColumnResult(name = "hopDongFac4", type = String.class),
+        @ColumnResult(name = "mucTieuFac4", type = String.class),
+        @ColumnResult(name = "thucTeFac4", type = String.class),
+        @ColumnResult(name = "noteFac4", type = String.class),
+
+        @ColumnResult(name = "soTienFac5", type = String.class),
+        @ColumnResult(name = "hopDongFac5", type = String.class),
+        @ColumnResult(name = "mucTieuFac5", type = String.class),
+        @ColumnResult(name = "thucTeFac5", type = String.class),
+        @ColumnResult(name = "noteFac5", type = String.class),
+
         @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
         @ColumnResult(name = "noteTongGiaTri", type = String.class),
         @ColumnResult(name = "soTienTamUng", type = String.class),
@@ -665,50 +770,83 @@ public class ProjectReportEntity extends BaseEntity {
     @Column(name = "note_DAC") // 37
     private String noteDac;
 
-    @Column(name = "so_tien_PAC") // 38
+    @Column(name = "so_tien_DAC_them") // 38
+    private String soTienDacThem;
+    @Column(name = "hop_dong_DAC_them") // 39
+    private String hopDongDacThem;
+    @Column(name = "muc_tieu_DAC_them") // 40
+    private String mucTieuDacThem;
+    @Column(name = "thuc_te_DAC_them") // 41
+    private String thucTeDacThem;
+    @Column(name = "note_DAC_them") // 42
+    private String noteDacThem;
+
+    @Column(name = "so_tien_PAC") // 43
     private String soTienPac;
-    @Column(name = "hop_dong_PAC") // 39
+    @Column(name = "hop_dong_PAC") // 44
     private String hopDongPac;
-    @Column(name = "muc_tieu_PAC") // 40
+    @Column(name = "muc_tieu_PAC") // 45
     private String mucTieuPac;
-    @Column(name = "thuc_te_PAC") // 41
+    @Column(name = "thuc_te_PAC") // 46
     private String thucTePac;
-    @Column(name = "note_PAC") // 42
+    @Column(name = "note_PAC") // 47
     private String notePac;
 
-    @Column(name = "so_tien_FAC") // 43
+    @Column(name = "so_tien_PAC_them") // 48
+    private String soTienPacThem;
+    @Column(name = "hop_dong_PAC_them") // 49
+    private String hopDongPacThem;
+    @Column(name = "muc_tieu_PAC_them") // 50
+    private String mucTieuPacThem;
+    @Column(name = "thuc_te_PAC_them") // 51
+    private String thucTePacThem;
+    @Column(name = "note_PAC_them") // 52
+    private String notePacThem;
+
+    @Column(name = "so_tien_FAC") // 53
     private String soTienFac;
-    @Column(name = "hop_dong_FAC") // 44
+    @Column(name = "hop_dong_FAC") // 54
     private String hopDongFac;
-    @Column(name = "muc_tieu_FAC") // 45
+    @Column(name = "muc_tieu_FAC") // 55
     private String mucTieuFac;
-    @Column(name = "thuc_te_FAC") // 46
+    @Column(name = "thuc_te_FAC") // 56
     private String thucTeFac;
-    @Column(name = "note_FAC") // 47
+    @Column(name = "note_FAC") // 57
     private String noteFac;
 
-    @Column(name = "general_issue", columnDefinition = "TEXT") // 48
+    @Column(name = "so_tien_FAC_them") // 58
+    private String soTienFacThem;
+    @Column(name = "hop_dong_FAC_them") // 59
+    private String hopDongFacThem;
+    @Column(name = "muc_tieu_FAC_them") // 60
+    private String mucTieuFacThem;
+    @Column(name = "thuc_te_FAC_them") // 61
+    private String thucTeFacThem;
+    @Column(name = "note_FAC_them") // 62
+    private String noteFacThem;
+
+    @Column(name = "general_issue", columnDefinition = "TEXT") // 63
     private String generalIssue;
-    @Column(name = "solution", columnDefinition = "TEXT") // 49
+    @Column(name = "solution", columnDefinition = "TEXT") // 64
     private String solution;
 
-    @Column(name = "ke_hoach_tuan_nay", columnDefinition = "TEXT") // 50
+    @Column(name = "ke_hoach_tuan_nay", columnDefinition = "TEXT") // 65
     private String keHoachTuanNay;
-    @Column(name = "ke_hoach_tuan_sau", columnDefinition = "TEXT") // 51
+    @Column(name = "ke_hoach_tuan_sau", columnDefinition = "TEXT") // 66
     private String keHoachTuanSau;
-    @Column(name = "ket_qua_tuan_truoc", columnDefinition = "TEXT") // 52
+    @Column(name = "ket_qua_tuan_truoc", columnDefinition = "TEXT") // 67
     private String ketQuaTuanTruoc;
-    @Column(name = "ket_qua_tuan_nay", columnDefinition = "TEXT") // 53
+    @Column(name = "ket_qua_tuan_nay", columnDefinition = "TEXT") // 68
     private String ketQuaTuanNay;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(4)") // 54
+    @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(4)") // 69
     private int enabled;
-    @Column(name = "tien_do_chung", columnDefinition = "TEXT") // 55
+    @Column(name = "tien_do_chung", columnDefinition = "TEXT") // 70
     private String tienDoChung;
 
-    // @Column(name = "created_by") // 56
+    // @Column(name = "created_by") // 71
     // private String created_by;
-    // @Column(name = "created_at") // 57
+    // @Column(name = "created_at") // 72
     // private Date created_at;
 
     @ManyToOne
