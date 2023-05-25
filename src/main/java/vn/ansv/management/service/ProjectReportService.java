@@ -28,6 +28,7 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -1393,5 +1394,19 @@ public class ProjectReportService implements IProjectReport {
     @Override
     public List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year) {
         return projectReportRepository.findAllExportTrienKhai(type, week, year);
+    }
+
+    @Override
+    public SupportCptgDTO findDetailMoreTabCptg(Long id, String target) {
+        switch (target) {
+            case "dac":
+                return projectReportRepository.findDetailMoreDAC(id);
+            case "pac":
+                return projectReportRepository.findDetailMorePAC(id);
+            case "fac":
+                return projectReportRepository.findDetailMoreFAC(id);
+            default:
+                return null;
+        }
     }
 }

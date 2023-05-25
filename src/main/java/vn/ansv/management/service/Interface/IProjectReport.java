@@ -9,6 +9,7 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -21,49 +22,51 @@ import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.entity.ResponseObject;
 
 public interface IProjectReport {
-        DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled);
+    DashboardChartDTO dashboardChart(int week, int year, Long type, int enabled);
 
-        List<ProjectDashboardDTO> findAllDashboardProjectStep1(
-                        String userName, int enabled, Long type, int week, int year);
+    List<ProjectDashboardDTO> findAllDashboardProjectStep1(
+            String userName, int enabled, Long type, int week, int year);
 
-        List<ProjectDashboardDTO> findAllDashboardProjectStep2(
-                        String userName, int enabled, Long type, int week, int year);
+    List<ProjectDashboardDTO> findAllDashboardProjectStep2(
+            String userName, int enabled, Long type, int week, int year);
 
-        ResponseObject findAllReportType12(
-                        int week, int year, String username, Long type, int currentPage, int pageSize);
+    ResponseObject findAllReportType12(
+            int week, int year, String username, Long type, int currentPage, int pageSize);
 
-        ResponseObject findListReportType3(
-                        int week, int year, String username, Long type, int currentPage, int pageSize);
+    ResponseObject findListReportType3(
+            int week, int year, String username, Long type, int currentPage, int pageSize);
 
-        ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
+    ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 
-        ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled);
+    ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled);
 
-        ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(Long id, int enabled);
+    ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(Long id, int enabled);
 
-        ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(Long id, int enabled);
+    SupportCptgDTO findDetailMoreTabCptg(Long id, String target);
 
-        Boolean updateDetailTabPhanLoai(Long id, UpdateDetailTabPhanLoaiDTO dataUpdate);
+    ReportDetailTabQuaTrinhDTO findDetailTabQuaTrinh(Long id, int enabled);
 
-        Boolean updateDetailTabDuThau(Long id, UpdateDetailTabDuThauDTO dataUpdate);
+    Boolean updateDetailTabPhanLoai(Long id, UpdateDetailTabPhanLoaiDTO dataUpdate);
 
-        Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate);
+    Boolean updateDetailTabDuThau(Long id, UpdateDetailTabDuThauDTO dataUpdate);
 
-        Boolean updateDetailTabQuaTrinh(Long id, ReportDetailTabQuaTrinhDTO dataUpdate);
+    Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate);
 
-        Integer deleteReportById(Long first_report_id);
+    Boolean updateDetailTabQuaTrinh(Long id, ReportDetailTabQuaTrinhDTO dataUpdate);
 
-        Integer addNewReport(AddNewReportDTO dataInsert);
+    Integer deleteReportById(Long first_report_id);
 
-        List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type);
+    Integer addNewReport(AddNewReportDTO dataInsert);
 
-        List<Map<String, String>> processingImportReport(
-                        MultipartFile excelDataFile, String username, Long type, Integer week, Integer year);
+    List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type);
 
-        List<ExportVienThongDTO> findAllExportVienThong(Integer type, Integer week, Integer year);
+    List<Map<String, String>> processingImportReport(
+            MultipartFile excelDataFile, String username, Long type, Integer week, Integer year);
 
-        List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(Integer type, Integer week, Integer year);
+    List<ExportVienThongDTO> findAllExportVienThong(Integer type, Integer week, Integer year);
 
-        List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year);
+    List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(Integer type, Integer week, Integer year);
+
+    List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year);
 
 }

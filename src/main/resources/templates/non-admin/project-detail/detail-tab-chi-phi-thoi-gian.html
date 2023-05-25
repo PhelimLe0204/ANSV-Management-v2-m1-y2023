@@ -41,7 +41,14 @@
                         <td class="text-center" th:text="${detailTabCptg.getNoteTamUng()}"></td>
                     </tr>
                     <tr>
-                        <td class="bg-primary text-white font-weight-bold text-center">DAC</td>
+                        <td class="bg-primary align-middle text-center text-white font-weight-bold p-0">
+                            <button type="button" class="btn btn-primary w-100 p-0" data-toggle="modal"
+                                data-target="#moreDetailModal" th:data-name="${'dac' + detailTabCptg.getId()}">
+                                <span data-toggle="tooltip" title="Xem thêm DAC">
+                                    DAC <i class="fas fa-list pl-2 text-warning"></i>
+                                </span>
+                            </button>
+                        </td>
                         <td class="text-center" th:text="${detailTabCptg.getSoTienDac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getHopDongDac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getMucTieuDac()}"></td>
@@ -50,7 +57,14 @@
                         <td class="text-center" th:text="${detailTabCptg.getNoteDac()}"></td>
                     </tr>
                     <tr>
-                        <td class="bg-primary text-white font-weight-bold text-center">PAC</td>
+                        <td class="bg-primary align-middle text-center text-white font-weight-bold p-0">
+                            <button type="button" class="btn btn-primary w-100 p-0" data-toggle="modal"
+                                data-target="#moreDetailModal" th:data-name="${'pac' + detailTabCptg.getId()}">
+                                <span data-toggle="tooltip" title="Xem thêm PAC">
+                                    PAC <i class="fas fa-list pl-2 text-warning"></i>
+                                </span>
+                            </button>
+                        </td>
                         <td class="text-center" th:text="${detailTabCptg.getSoTienPac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getHopDongPac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getMucTieuPac()}"></td>
@@ -59,7 +73,14 @@
                         <td class="text-center" th:text="${detailTabCptg.getNotePac()}"></td>
                     </tr>
                     <tr>
-                        <td class="bg-primary text-white font-weight-bold text-center">FAC</td>
+                        <td class="bg-primary align-middle text-center text-white font-weight-bold p-0">
+                            <button type="button" class="btn btn-primary w-100 p-0" data-toggle="modal"
+                                data-target="#moreDetailModal" th:data-name="${'fac' + detailTabCptg.getId()}">
+                                <span data-toggle="tooltip" title="Xem thêm FAC">
+                                    FAC <i class="fas fa-list pl-2 text-warning"></i>
+                                </span>
+                            </button>
+                        </td>
                         <td class="text-center" th:text="${detailTabCptg.getSoTienFac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getHopDongFac()}"></td>
                         <td class="text-center" th:text="${detailTabCptg.getMucTieuFac()}"></td>
@@ -90,6 +111,87 @@
         </div>
         <div class="col-md-12">
             <hr class="mt-0">
+            <div id="moreDetailModal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="moreDetailModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="max-width: 900px !important;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="moreDetailModalLabel">Xem thêm DAC</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped table-hover table-detail">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <td class="font-weight-bold text-center" style="width: 10%;">Kế hoạch</td>
+                                        <td class="font-weight-bold text-center">
+                                            Số tiền<br>([[${detailTabPhanLoai.getCurrencyUnitDisplay()}]])</td>
+                                        <td class="font-weight-bold text-center" style="width: 13%;">
+                                            Hợp đồng<br>(D / M / Y)</td>
+                                        <td class="font-weight-bold text-center" style="width: 13%;">
+                                            Mục tiêu<br>(D / M / Y)</td>
+                                        <td class="font-weight-bold text-center" style="width: 13%;">
+                                            Thực tế<br>(D / M / Y)</td>
+                                        <td class="font-weight-bold text-center" style="width: 15%;">Báo hạn</td>
+                                        <td class="font-weight-bold text-center">Ghi chú</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="moreDetailBody">
+                                    <tr>
+                                        <td class="bg-primary text-center text-white font-weight-bold p-0">DAC</td>
+                                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getHopDongDac()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getMucTieuDac()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getNoteDac()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-primary text-center text-white font-weight-bold p-0">DAC2</td>
+                                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac2()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getHopDongDac2()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getMucTieuDac2()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac2()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac2()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getNoteDac2()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-primary text-center text-white font-weight-bold p-0">DAC3</td>
+                                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac3()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getHopDongDac3()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getMucTieuDac3()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac3()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac3()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getNoteDac3()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-primary text-center text-white font-weight-bold p-0">DAC4</td>
+                                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac4()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getHopDongDac4()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getMucTieuDac4()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac4()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac4()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getNoteDac4()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-primary text-center text-white font-weight-bold p-0">DAC5</td>
+                                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac5()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getHopDongDac5()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getMucTieuDac5()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac5()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac5()}"></td>
+                                        <td class="text-center" th:text="${detailTabCptg.getNoteDac5()}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="tabChiPhiThoiGianEditModal" class="modal fade" tabindex="-1" role="dialog"
                 aria-labelledby="tabChiPhiThoiGianEditModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document" style="max-width: 1100px !important;">

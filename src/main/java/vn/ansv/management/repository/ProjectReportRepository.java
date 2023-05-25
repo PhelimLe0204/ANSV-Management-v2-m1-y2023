@@ -14,6 +14,7 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
 import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
@@ -150,6 +151,15 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 	 */
 	@Query(nativeQuery = true)
 	ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(@Param("id") Long id, @Param("enabled") int enabled);
+
+	@Query(nativeQuery = true)
+	SupportCptgDTO findDetailMoreDAC(@Param("id") Long id);
+
+	@Query(nativeQuery = true)
+	SupportCptgDTO findDetailMorePAC(@Param("id") Long id);
+
+	@Query(nativeQuery = true)
+	SupportCptgDTO findDetailMoreFAC(@Param("id") Long id);
 
 	/*
 	 * ----------------------------------------

@@ -18,6 +18,7 @@ import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
 import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
@@ -291,6 +292,57 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "FROM project_report AS pr "
         + "INNER JOIN project_report_subdata AS prs on pr.id = prs.project_report_id "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabCptgDTO")
+
+/* ===== ProjectReportRepository.findDetailMoreDAC() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailMoreDAC", query = "SELECT "
+        + "pr.id, "
+        + "pr.so_tien_dac AS soTien, pr.hop_dong_dac AS hopDong, pr.muc_tieu_dac AS mucTieu, "
+        + "pr.thuc_te_dac AS thucTe, pr.note_dac AS note, "
+        + "prs.so_tien_dac_2 AS soTien2, prs.hop_dong_dac_2 AS hopDong2, prs.muc_tieu_dac_2 AS mucTieu2, "
+        + "prs.thuc_te_dac_2 AS thucTe2, prs.note_dac_2 AS note2, "
+        + "prs.so_tien_dac_3 AS soTien3, prs.hop_dong_dac_3 AS hopDong3, prs.muc_tieu_dac_3 AS mucTieu3, "
+        + "prs.thuc_te_dac_3 AS thucTe3, prs.note_dac_3 AS note3, "
+        + "prs.so_tien_dac_4 AS soTien4, prs.hop_dong_dac_4 AS hopDong4, prs.muc_tieu_dac_4 AS mucTieu4, "
+        + "prs.thuc_te_dac_4 AS thucTe4, prs.note_dac_4 AS note4, "
+        + "prs.so_tien_dac_5 AS soTien5, prs.hop_dong_dac_5 AS hopDong5, prs.muc_tieu_dac_5 AS mucTieu5, "
+        + "prs.thuc_te_dac_5 AS thucTe5, prs.note_dac_5 AS note5 "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project_report_subdata AS prs on pr.id = prs.project_report_id "
+        + "WHERE pr.id = :id", resultSetMapping = "Mapping.SupportCptgDTO")
+
+/* ===== ProjectReportRepository.findDetailMorePAC() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailMorePAC", query = "SELECT "
+        + "pr.id, "
+        + "pr.so_tien_pac AS soTien, pr.hop_dong_pac AS hopDong, pr.muc_tieu_pac AS mucTieu, "
+        + "pr.thuc_te_pac AS thucTe, pr.note_pac AS note, "
+        + "prs.so_tien_pac_2 AS soTien2, prs.hop_dong_pac_2 AS hopDong2, prs.muc_tieu_pac_2 AS mucTieu2, "
+        + "prs.thuc_te_pac_2 AS thucTe2, prs.note_pac_2 AS note2, "
+        + "prs.so_tien_pac_3 AS soTien3, prs.hop_dong_pac_3 AS hopDong3, prs.muc_tieu_pac_3 AS mucTieu3, "
+        + "prs.thuc_te_pac_3 AS thucTe3, prs.note_pac_3 AS note3, "
+        + "prs.so_tien_pac_4 AS soTien4, prs.hop_dong_pac_4 AS hopDong4, prs.muc_tieu_pac_4 AS mucTieu4, "
+        + "prs.thuc_te_pac_4 AS thucTe4, prs.note_pac_4 AS note4, "
+        + "prs.so_tien_pac_5 AS soTien5, prs.hop_dong_pac_5 AS hopDong5, prs.muc_tieu_pac_5 AS mucTieu5, "
+        + "prs.thuc_te_pac_5 AS thucTe5, prs.note_pac_5 AS note5 "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project_report_subdata AS prs on pr.id = prs.project_report_id "
+        + "WHERE pr.id = :id", resultSetMapping = "Mapping.SupportCptgDTO")
+
+/* ===== ProjectReportRepository.findDetailMoreFAC() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findDetailMoreFAC", query = "SELECT "
+        + "pr.id, "
+        + "pr.so_tien_fac AS soTien, pr.hop_dong_fac AS hopDong, pr.muc_tieu_fac AS mucTieu, "
+        + "pr.thuc_te_fac AS thucTe, pr.note_fac AS note, "
+        + "prs.so_tien_fac_2 AS soTien2, prs.hop_dong_fac_2 AS hopDong2, prs.muc_tieu_fac_2 AS mucTieu2, "
+        + "prs.thuc_te_fac_2 AS thucTe2, prs.note_fac_2 AS note2, "
+        + "prs.so_tien_fac_3 AS soTien3, prs.hop_dong_fac_3 AS hopDong3, prs.muc_tieu_fac_3 AS mucTieu3, "
+        + "prs.thuc_te_fac_3 AS thucTe3, prs.note_fac_3 AS note3, "
+        + "prs.so_tien_fac_4 AS soTien4, prs.hop_dong_fac_4 AS hopDong4, prs.muc_tieu_fac_4 AS mucTieu4, "
+        + "prs.thuc_te_fac_4 AS thucTe4, prs.note_fac_4 AS note4, "
+        + "prs.so_tien_fac_5 AS soTien5, prs.hop_dong_fac_5 AS hopDong5, prs.muc_tieu_fac_5 AS mucTieu5, "
+        + "prs.thuc_te_fac_5 AS thucTe5, prs.note_fac_5 AS note5 "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project_report_subdata AS prs on pr.id = prs.project_report_id "
+        + "WHERE pr.id = :id", resultSetMapping = "Mapping.SupportCptgDTO")
 
 /* ===== ProjectReportRepository.findDetailTabQuaTrinh() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findDetailTabQuaTrinh", query = "SELECT "
@@ -662,6 +714,40 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         @ColumnResult(name = "soTienTamUng", type = String.class),
         @ColumnResult(name = "keHoachTamUng", type = String.class),
         @ColumnResult(name = "noteTamUng", type = String.class), }))
+
+/* ===== Set mapping: SupportCptgDTO ===== */
+@SqlResultSetMapping(name = "Mapping.SupportCptgDTO", classes = @ConstructorResult(targetClass = SupportCptgDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+
+        @ColumnResult(name = "soTien", type = String.class),
+        @ColumnResult(name = "hopDong", type = String.class),
+        @ColumnResult(name = "mucTieu", type = String.class),
+        @ColumnResult(name = "thucTe", type = String.class),
+        @ColumnResult(name = "note", type = String.class),
+
+        @ColumnResult(name = "soTien2", type = String.class),
+        @ColumnResult(name = "hopDong2", type = String.class),
+        @ColumnResult(name = "mucTieu2", type = String.class),
+        @ColumnResult(name = "thucTe2", type = String.class),
+        @ColumnResult(name = "note2", type = String.class),
+
+        @ColumnResult(name = "soTien3", type = String.class),
+        @ColumnResult(name = "hopDong3", type = String.class),
+        @ColumnResult(name = "mucTieu3", type = String.class),
+        @ColumnResult(name = "thucTe3", type = String.class),
+        @ColumnResult(name = "note3", type = String.class),
+
+        @ColumnResult(name = "soTien4", type = String.class),
+        @ColumnResult(name = "hopDong4", type = String.class),
+        @ColumnResult(name = "mucTieu4", type = String.class),
+        @ColumnResult(name = "thucTe4", type = String.class),
+        @ColumnResult(name = "note4", type = String.class),
+
+        @ColumnResult(name = "soTien5", type = String.class),
+        @ColumnResult(name = "hopDong5", type = String.class),
+        @ColumnResult(name = "mucTieu5", type = String.class),
+        @ColumnResult(name = "thucTe5", type = String.class),
+        @ColumnResult(name = "note5", type = String.class) }))
 
 /* ===== Set mapping: ReportDetailTabQuaTrinhDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ReportDetailTabQuaTrinhDTO", classes = @ConstructorResult(targetClass = ReportDetailTabQuaTrinhDTO.class, columns = {
