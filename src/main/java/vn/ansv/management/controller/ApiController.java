@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
+import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserProfileDTO;
@@ -434,6 +435,27 @@ public class ApiController {
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("success", msg, dataType2Week));
             }
+        } catch (NumberFormatException nfe) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
+        } catch (Exception e) {
+            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
+        }
+    }
+
+    @GetMapping("/report/getDetailMore")
+    public ResponseEntity<ResponseObject> getDetailMore(HttpSession session, HttpServletRequest request) {
+        try {
+            Long id = Long.parseLong(request.getParameter("id"));
+            String target = request.getParameter("target");
+            String msg = "Dữ liệu " + target + " chi tiết " + id;
+
+            SupportCptgDTO data = projectReportService.findDetailMoreTabCptg(id, target);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", msg, data));
         } catch (NumberFormatException nfe) {
             System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
             return ResponseEntity.status(HttpStatus.OK).body(
