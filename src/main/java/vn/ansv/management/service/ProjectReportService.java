@@ -689,7 +689,7 @@ public class ProjectReportService implements IProjectReport {
 
                     // 5. PIC
                     int checkPic = userRepository
-                            .checkIssetByFullnameWithRoleName(row.getCell(12).getStringCellValue(), "AM");
+                            .checkIssetByFullnameWithRoleName(row.getCell(12).getStringCellValue(), "Main_AM");
                     if (checkPic == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "M" + (i + 1));
@@ -698,18 +698,21 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 6. Phó ban
-                    int checkPhoBan = userRepository
-                            .checkIssetByFullnameWithRoleName(row.getCell(13).getStringCellValue(), "Manager_AM");
-                    if (checkPhoBan == 0) {
-                        Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("position", "N" + (i + 1));
-                        errors.put("error", "Phó ban không tồn tại");
-                        dataError.add(errors); // Đẩy lỗi vào list
+                    if (row.getCell(13).getStringCellValue() != null
+                            && row.getCell(13).getStringCellValue().length() > 0) {
+                        int checkPhoBan = userRepository
+                                .checkIssetByFullnameWithRoleName(row.getCell(13).getStringCellValue(), "Manager_AM");
+                        if (checkPhoBan == 0) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "N" + (i + 1));
+                            errors.put("error", "Phó ban không tồn tại");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                        }
                     }
 
                     // dataError.add((i - 1), errors); // Đẩy lỗi vào list
                 } else {
-                    System.out.println("Dòng " + i + " rỗng");
+                    System.out.println("Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -752,9 +755,13 @@ public class ProjectReportService implements IProjectReport {
                     Long statusId = projectStatusRepository
                             .findIdByStatusName(row.getCell(11).getStringCellValue());
                     Long amId = userRepository.findIdByFullnameWithRoleName(
-                            row.getCell(12).getStringCellValue(), "AM");
-                    Long amManagerId = userRepository.findIdByFullnameWithRoleName(
-                            row.getCell(13).getStringCellValue(), "Manager_AM");
+                            row.getCell(12).getStringCellValue(), "Main_AM");
+                    Long amManagerId = 42L;
+                    if (row.getCell(13).getStringCellValue() != null
+                            && row.getCell(13).getStringCellValue().length() > 0) {
+                        amManagerId = userRepository.findIdByFullnameWithRoleName(
+                                row.getCell(13).getStringCellValue(), "Manager_AM");
+                    }
                     // String ketQuaTuanTruoc = row.getCell(14).getStringCellValue();
                     // String ketQuaTuanNay = row.getCell(15).getStringCellValue();
                     // String keHoachTuanNay = row.getCell(16).getStringCellValue();
@@ -1131,7 +1138,7 @@ public class ProjectReportService implements IProjectReport {
 
                     // 16. AM
                     int checkAm = userRepository
-                            .checkIssetByFullnameWithRoleName(row.getCell(26).getStringCellValue(), "AM");
+                            .checkIssetByFullnameWithRoleName(row.getCell(26).getStringCellValue(), "Main_AM");
                     if (checkAm == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "AA" + (i + 1));
@@ -1141,7 +1148,7 @@ public class ProjectReportService implements IProjectReport {
 
                     // 17. PM
                     int checkPm = userRepository
-                            .checkIssetByFullnameWithRoleName(row.getCell(27).getStringCellValue(), "PM");
+                            .checkIssetByFullnameWithRoleName(row.getCell(27).getStringCellValue(), "Main_PM");
                     if (checkPm == 0) {
                         Map<String, String> errors = new HashMap<String, String>();
                         errors.put("position", "AB" + (i + 1));
@@ -1150,13 +1157,17 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 18. PM's Manager
-                    int checkPmManager = userRepository
-                            .checkIssetByFullnameWithRoleName(row.getCell(28).getStringCellValue(), "Manager_PM");
-                    if (checkPmManager == 0) {
-                        Map<String, String> errors = new HashMap<String, String>();
-                        errors.put("position", "AC" + (i + 1));
-                        errors.put("error", "Phó ban không tồn tại");
-                        dataError.add(errors); // Đẩy lỗi vào list
+                    if (row.getCell(28).getStringCellValue() != null
+                            && row.getCell(28).getStringCellValue().length() > 0) {
+                        int checkPmManager = userRepository
+                                .checkIssetByFullnameWithRoleName(row.getCell(28).getStringCellValue(), "Manager_PM");
+
+                        if (checkPmManager == 0) {
+                            Map<String, String> errors = new HashMap<String, String>();
+                            errors.put("position", "AC" + (i + 1));
+                            errors.put("error", "Phó ban không tồn tại");
+                            dataError.add(errors); // Đẩy lỗi vào list
+                        }
                     }
                 } else {
                     System.out.println("Dòng " + (i + 1) + " rỗng");
@@ -1187,17 +1198,52 @@ public class ProjectReportService implements IProjectReport {
                                 row.getCell(1).getStringCellValue(), customerId);
                         projectId = projectRepository.findIdByProjectName(row.getCell(1).getStringCellValue());
                     }
-
+                    String tongGiaTriThucTe = null;
+                    if (row.getCell(5).getCellType() == CellType.NUMERIC) {
+                        tongGiaTriThucTe = "" + row.getCell(5).getNumericCellValue();
+                        System.out.println("--- " + row.getCell(5).getNumericCellValue());
+                    } else {
+                        tongGiaTriThucTe = row.getCell(5).getStringCellValue();
+                        System.out.println("--- " + row.getCell(5).getStringCellValue());
+                    }
+                    String soTienDAC = null;
+                    if (row.getCell(6).getCellType() == CellType.NUMERIC) {
+                        soTienDAC = "" + row.getCell(6).getNumericCellValue();
+                        System.out.println("--- soTienDAC: " + row.getCell(6).getNumericCellValue());
+                    } else {
+                        soTienDAC = row.getCell(6).getStringCellValue();
+                        System.out.println("--- soTienDAC: " + row.getCell(6).getStringCellValue());
+                    }
+                    String soTienPAC = null;
+                    if (row.getCell(11).getCellType() == CellType.NUMERIC) {
+                        soTienPAC = "" + row.getCell(11).getNumericCellValue();
+                        System.out.println("--- soTienPAC: " + row.getCell(11).getNumericCellValue());
+                    } else {
+                        soTienPAC = row.getCell(11).getStringCellValue();
+                        System.out.println("--- soTienPAC: " + row.getCell(11).getStringCellValue());
+                    }
+                    String soTienFAC = null;
+                    if (row.getCell(16).getCellType() == CellType.NUMERIC) {
+                        soTienFAC = "" + row.getCell(16).getNumericCellValue();
+                        System.out.println("--- soTienFAC: " + row.getCell(16).getNumericCellValue());
+                    } else {
+                        soTienFAC = row.getCell(16).getStringCellValue();
+                        System.out.println("--- soTienFAC: " + row.getCell(16).getStringCellValue());
+                    }
                     Long priorityId = projectPriorityRepository
                             .findIdByPriorityName(row.getCell(24).getStringCellValue());
                     Long statusId = projectStatusRepository
                             .findIdByStatusName(row.getCell(25).getStringCellValue());
                     Long amId = userRepository.findIdByFullnameWithRoleName(
-                            row.getCell(26).getStringCellValue(), "AM");
+                            row.getCell(26).getStringCellValue(), "Main_AM");
                     Long pmId = userRepository.findIdByFullnameWithRoleName(
-                            row.getCell(27).getStringCellValue(), "PM");
-                    Long pmManagerId = userRepository.findIdByFullnameWithRoleName(
-                            row.getCell(28).getStringCellValue(), "Manager_PM");
+                            row.getCell(27).getStringCellValue(), "Main_PM");
+                    Long pmManagerId = 43L;
+                    if (row.getCell(28).getStringCellValue() != null
+                            && row.getCell(28).getStringCellValue().length() > 0) {
+                        pmManagerId = userRepository.findIdByFullnameWithRoleName(
+                                row.getCell(28).getStringCellValue(), "Manager_PM");
+                    }
 
                     if (reportId == null) {
                         /* Chưa tồn tại báo cáo => Thêm mới */
@@ -1216,21 +1262,9 @@ public class ProjectReportService implements IProjectReport {
                                 null, 1, null, null,
                                 null, null, null,
                                 null, null, null, null, null,
-                                (row.getCell(6).getStringCellValue().length() != 0)
-                                        ? row.getCell(6).getStringCellValue()
-                                        : null,
-                                hopDongDAC, mucTieuDAC, thucTeDAC, null,
-                                (row.getCell(11).getStringCellValue().length() != 0)
-                                        ? row.getCell(11).getStringCellValue()
-                                        : null,
-                                hopDongPAC, mucTieuPAC, thucTePAC, null,
-                                (row.getCell(16).getStringCellValue().length() != 0)
-                                        ? row.getCell(16).getStringCellValue()
-                                        : null,
-                                hopDongFAC, mucTieuFAC, thucTeFAC, null,
-                                (row.getCell(5).getStringCellValue().length() != 0)
-                                        ? row.getCell(5).getStringCellValue()
-                                        : null,
+                                soTienDAC, hopDongDAC, mucTieuDAC, thucTeDAC, null,
+                                soTienPAC, hopDongPAC, mucTieuPAC, thucTePAC, null,
+                                soTienFAC, hopDongFAC, mucTieuFAC, thucTeFAC, null, tongGiaTriThucTe,
                                 null, null, null, null,
                                 (row.getCell(21).getStringCellValue().length() != 0)
                                         ? row.getCell(21).getStringCellValue()
@@ -1269,22 +1303,10 @@ public class ProjectReportService implements IProjectReport {
                                         : null,
                                 null, 1, null, null,
                                 null, null, null,
-                                (row.getCell(6).getStringCellValue().length() != 0)
-                                        ? row.getCell(6).getStringCellValue()
-                                        : null,
-                                hopDongDAC, mucTieuDAC, thucTeDAC,
-                                (row.getCell(11).getStringCellValue().length() != 0)
-                                        ? row.getCell(11).getStringCellValue()
-                                        : null,
-                                hopDongPAC, mucTieuPAC, thucTePAC,
-                                (row.getCell(16).getStringCellValue().length() != 0)
-                                        ? row.getCell(16).getStringCellValue()
-                                        : null,
-                                hopDongFAC, mucTieuFAC, thucTeFAC,
-                                (row.getCell(5).getStringCellValue().length() != 0)
-                                        ? row.getCell(5).getStringCellValue()
-                                        : null,
-                                null, null,
+                                soTienDAC, hopDongDAC, mucTieuDAC, thucTeDAC,
+                                soTienPAC, hopDongPAC, mucTieuPAC, thucTePAC,
+                                soTienFAC, hopDongFAC, mucTieuFAC, thucTeFAC,
+                                tongGiaTriThucTe, null, null,
                                 (row.getCell(21).getStringCellValue().length() != 0)
                                         ? row.getCell(21).getStringCellValue()
                                         : null,
@@ -1308,7 +1330,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null);
                     }
                 } else {
-                    System.out.println("Dòng " + i + " rỗng");
+                    System.out.println("Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
