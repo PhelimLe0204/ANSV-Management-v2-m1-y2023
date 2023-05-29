@@ -912,7 +912,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 5. DAC hợp đồng (7)
-                    if (row.getCell(7).getRawValue() != null) {
+                    if (row.getCell(7).getRawValue() != null && row.getCell(7).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -922,7 +922,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             hopDongDAC = sdf.format(date);
-                            System.out.println("------------------------- hopDongDAC: " + hopDongDAC);
+                            // System.out.println("------------------------- hopDongDAC: " + hopDongDAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "H" + (i + 1));
@@ -934,7 +934,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 6. Mục tiêu DAC (8)
-                    if (row.getCell(8).getRawValue() != null) {
+                    if (row.getCell(8).getRawValue() != null && row.getCell(8).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -944,7 +944,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             mucTieuDAC = sdf.format(date);
-                            System.out.println("------------------------- mucTieuDAC: " + mucTieuDAC);
+                            // System.out.println("------------------------- mucTieuDAC: " + mucTieuDAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "I" + (i + 1));
@@ -956,7 +956,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 7. DAC thực tế (9)
-                    if (row.getCell(9).getRawValue() != null) {
+                    if (row.getCell(9).getRawValue() != null && row.getCell(9).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -966,7 +966,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             thucTeDAC = sdf.format(date);
-                            System.out.println("------------------------- thucTeDAC: " + thucTeDAC);
+                            // System.out.println("------------------------- thucTeDAC: " + thucTeDAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "J" + (i + 1));
@@ -978,7 +978,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 8. PAC hợp đồng (12)
-                    if (row.getCell(12).getRawValue() != null) {
+                    if (row.getCell(12).getRawValue() != null && row.getCell(12).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -988,7 +988,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             hopDongPAC = sdf.format(date);
-                            System.out.println("------------------------- hopDongPAC: " + hopDongPAC);
+                            // System.out.println("------------------------- hopDongPAC: " + hopDongPAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "M" + (i + 1));
@@ -1000,7 +1000,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 9. Mục tiêu PAC (13)
-                    if (row.getCell(13).getRawValue() != null) {
+                    if (row.getCell(13).getRawValue() != null && row.getCell(13).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1010,7 +1010,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             mucTieuPAC = sdf.format(date);
-                            System.out.println("------------------------- mucTieuPAC: " + mucTieuPAC);
+                            // System.out.println("------------------------- mucTieuPAC: " + mucTieuPAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "N" + (i + 1));
@@ -1022,7 +1022,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 10. PAC thực tế (14)
-                    if (row.getCell(14).getRawValue() != null) {
+                    if (row.getCell(14).getRawValue() != null && row.getCell(14).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1032,7 +1032,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             thucTePAC = sdf.format(date);
-                            System.out.println("------------------------- thucTePAC: " + thucTePAC);
+                            // System.out.println("------------------------- thucTePAC: " + thucTePAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "O" + (i + 1));
@@ -1044,7 +1044,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 11. FAC hợp đồng (17)
-                    if (row.getCell(17).getRawValue() != null) {
+                    if (row.getCell(17).getRawValue() != null && row.getCell(17).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1054,7 +1054,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             hopDongFAC = sdf.format(date);
-                            System.out.println("------------------------- hopDongFAC: " + hopDongFAC);
+                            // System.out.println("------------------------- hopDongFAC: " + hopDongFAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "R" + (i + 1));
@@ -1066,7 +1066,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 12. Mục tiêu FAC (18)
-                    if (row.getCell(18).getRawValue() != null) {
+                    if (row.getCell(18).getRawValue() != null && row.getCell(18).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1076,7 +1076,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             mucTieuFAC = sdf.format(date);
-                            System.out.println("------------------------- mucTieuFAC: " + mucTieuFAC);
+                            // System.out.println("------------------------- mucTieuFAC: " + mucTieuFAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "N" + (i + 1));
@@ -1088,7 +1088,7 @@ public class ProjectReportService implements IProjectReport {
                     }
 
                     // 13. FAC thực tế (19)
-                    if (row.getCell(19).getRawValue() != null) {
+                    if (row.getCell(19).getRawValue() != null && row.getCell(19).getStringCellValue().length() > 0) {
                         Date date = null;
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -1098,7 +1098,7 @@ public class ProjectReportService implements IProjectReport {
                             }
                             sdf.applyPattern(NEW_FORMAT);
                             thucTeFAC = sdf.format(date);
-                            System.out.println("------------------------- thucTeFAC: " + thucTeFAC);
+                            // System.out.println("------------------------- thucTeFAC: " + thucTeFAC);
                         } catch (ParseException parseException) {
                             Map<String, String> errors = new HashMap<String, String>();
                             errors.put("position", "O" + (i + 1));
