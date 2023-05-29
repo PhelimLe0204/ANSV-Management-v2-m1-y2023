@@ -1201,34 +1201,26 @@ public class ProjectReportService implements IProjectReport {
                     String tongGiaTriThucTe = null;
                     if (row.getCell(5).getCellType() == CellType.NUMERIC) {
                         tongGiaTriThucTe = "" + row.getCell(5).getNumericCellValue();
-                        System.out.println("--- " + row.getCell(5).getNumericCellValue());
                     } else {
                         tongGiaTriThucTe = row.getCell(5).getStringCellValue();
-                        System.out.println("--- " + row.getCell(5).getStringCellValue());
                     }
                     String soTienDAC = null;
                     if (row.getCell(6).getCellType() == CellType.NUMERIC) {
                         soTienDAC = "" + row.getCell(6).getNumericCellValue();
-                        System.out.println("--- soTienDAC: " + row.getCell(6).getNumericCellValue());
                     } else {
                         soTienDAC = row.getCell(6).getStringCellValue();
-                        System.out.println("--- soTienDAC: " + row.getCell(6).getStringCellValue());
                     }
                     String soTienPAC = null;
                     if (row.getCell(11).getCellType() == CellType.NUMERIC) {
                         soTienPAC = "" + row.getCell(11).getNumericCellValue();
-                        System.out.println("--- soTienPAC: " + row.getCell(11).getNumericCellValue());
                     } else {
                         soTienPAC = row.getCell(11).getStringCellValue();
-                        System.out.println("--- soTienPAC: " + row.getCell(11).getStringCellValue());
                     }
                     String soTienFAC = null;
                     if (row.getCell(16).getCellType() == CellType.NUMERIC) {
                         soTienFAC = "" + row.getCell(16).getNumericCellValue();
-                        System.out.println("--- soTienFAC: " + row.getCell(16).getNumericCellValue());
                     } else {
                         soTienFAC = row.getCell(16).getStringCellValue();
-                        System.out.println("--- soTienFAC: " + row.getCell(16).getStringCellValue());
                     }
                     Long priorityId = projectPriorityRepository
                             .findIdByPriorityName(row.getCell(24).getStringCellValue());
