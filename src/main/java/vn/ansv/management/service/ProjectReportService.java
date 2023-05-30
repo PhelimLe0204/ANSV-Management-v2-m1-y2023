@@ -1,12 +1,15 @@
 package vn.ansv.management.service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -712,7 +715,7 @@ public class ProjectReportService implements IProjectReport {
 
                     // dataError.add((i - 1), errors); // Đẩy lỗi vào list
                 } else {
-                    System.out.println("Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType1AndType2() - Line 718: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -850,7 +853,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null);
                     }
                 } else {
-                    System.out.println("Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType1AndType2() - Line 856: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1170,7 +1173,7 @@ public class ProjectReportService implements IProjectReport {
                         }
                     }
                 } else {
-                    System.out.println("Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType3() - Line 1176: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1200,25 +1203,29 @@ public class ProjectReportService implements IProjectReport {
                     }
                     String tongGiaTriThucTe = null;
                     if (row.getCell(5).getCellType() == CellType.NUMERIC) {
-                        tongGiaTriThucTe = "" + row.getCell(5).getNumericCellValue();
+                        tongGiaTriThucTe = currencyFormat(row.getCell(5).getNumericCellValue());
+                        // System.out.println("--- tongGiaTriThucTe: " + tongGiaTriThucTe);
                     } else {
                         tongGiaTriThucTe = row.getCell(5).getStringCellValue();
                     }
                     String soTienDAC = null;
                     if (row.getCell(6).getCellType() == CellType.NUMERIC) {
-                        soTienDAC = "" + row.getCell(6).getNumericCellValue();
+                        soTienDAC = currencyFormat(row.getCell(6).getNumericCellValue());
+                        // System.out.println("--- soTienDAC: " + soTienDAC);
                     } else {
                         soTienDAC = row.getCell(6).getStringCellValue();
                     }
                     String soTienPAC = null;
                     if (row.getCell(11).getCellType() == CellType.NUMERIC) {
-                        soTienPAC = "" + row.getCell(11).getNumericCellValue();
+                        soTienPAC = currencyFormat(row.getCell(11).getNumericCellValue());
+                        // System.out.println("--- soTienPAC: " + soTienPAC);
                     } else {
                         soTienPAC = row.getCell(11).getStringCellValue();
                     }
                     String soTienFAC = null;
                     if (row.getCell(16).getCellType() == CellType.NUMERIC) {
-                        soTienFAC = "" + row.getCell(16).getNumericCellValue();
+                        soTienFAC = currencyFormat(row.getCell(16).getNumericCellValue());
+                        // System.out.println("--- soTienFAC: " + soTienFAC);
                     } else {
                         soTienFAC = row.getCell(16).getStringCellValue();
                     }
@@ -1322,7 +1329,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null);
                     }
                 } else {
-                    System.out.println("Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType3() - Line 1332: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1330,10 +1337,32 @@ public class ProjectReportService implements IProjectReport {
             workbook.close();
             return dataError;
         } catch (Exception e) {
-            System.out.println("----- Error ----- ProjectReportService.checkExcelData3(): " + e.getMessage());
+            System.out.println("----- Error ----- ProjectReportService.checkExcelData3() - Line 1340: " + e.getMessage());
             e.printStackTrace();
             return dataError;
         }
+    }
+
+    public String currencyFormat(Double dataPrice) {
+        String price_data = dataPrice + "";
+        int indexOfE = price_data.indexOf("E");
+        Double price_data_correct = dataPrice * Math.pow(10, Double.parseDouble(price_data.substring(indexOfE + 1)));
+        String price_big_decimal = new BigDecimal(price_data_correct).toPlainString();
+        // System.out.println(price_big_decimal.substring(0, (price_big_decimal.length()
+        // / 2 + 1))
+        // + " --- " + price_big_decimal);
+        double currencyAmount = Double
+                .parseDouble(price_big_decimal.substring(0, (price_big_decimal.length() / 2 + 1)));
+        Locale viet = new Locale("vi", "VN"); // Create a new Locale
+        // Create a Currency instance for the Locale
+        // Currency dollars = Currency.getInstance(viet);
+        // Create a formatter given the Locale
+        NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(viet);
+        // Format the Number into a Currency String
+        String currencyAmountFormat = dollarFormat.format(currencyAmount);
+        // System.out.println(dollars.getDisplayName() + ": "
+        // + currencyAmountFormat.substring(0, currencyAmountFormat.length() - 2));
+        return currencyAmountFormat.substring(0, currencyAmountFormat.length() - 2);
     }
 
     @Override
