@@ -894,6 +894,7 @@ $("#btn-open-import-report-modal").click(function () {
                         '<button type="submit" class="btn btn-primary pt-1 pb-1 float-right" '
                         + 'id="btn-submit-import-report" disabled>Import</button>'
                     );
+                    setTimeout(() => { location.reload(); }, 1000);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
