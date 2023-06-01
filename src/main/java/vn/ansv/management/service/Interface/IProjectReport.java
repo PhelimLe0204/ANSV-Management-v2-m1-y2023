@@ -10,6 +10,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -50,7 +51,7 @@ public interface IProjectReport {
 
     Boolean updateDetailTabDuThau(Long id, UpdateDetailTabDuThauDTO dataUpdate);
 
-    Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate);
+    Boolean updateDetailTabCptg(Long id, UpdateDetailTabCptgDTO dataUpdate);
 
     Boolean updateDetailTabQuaTrinh(Long id, ReportDetailTabQuaTrinhDTO dataUpdate);
 

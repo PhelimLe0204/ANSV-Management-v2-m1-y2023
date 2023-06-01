@@ -252,40 +252,12 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "pr.so_tien_giao_hang AS soTienGiaoHang, pr.hop_dong_giao_hang AS hopDongGiaoHang, "
         + "pr.muc_tieu_giao_hang AS mucTieuGiaoHang, pr.thuc_te_giao_hang AS thucTeGiaoHang, "
         + "pr.note_giao_hang AS noteGiaoHang, "
-
         + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, "
         + "pr.thuc_te_dac AS thucTeDac, pr.note_dac AS noteDac, "
-        + "null AS soTienDac2, null AS hopDongDac2, null AS mucTieuDac2, "
-        + "null AS thucTeDac2, null AS noteDac2, "
-        + "null AS soTienDac3, null AS hopDongDac3, null AS mucTieuDac3, "
-        + "null AS thucTeDac3, null AS noteDac3, "
-        + "null AS soTienDac4, null AS hopDongDac4, null AS mucTieuDac4, "
-        + "null AS thucTeDac4, null AS noteDac4, "
-        + "null AS soTienDac5, null AS hopDongDac5, null AS mucTieuDac5, "
-        + "null AS thucTeDac5, null AS noteDac5, "
-
         + "pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, "
         + "pr.thuc_te_pac AS thucTePac, pr.note_pac AS notePac, "
-        + "null AS soTienPac2, null AS hopDongPac2, null AS mucTieuPac2, "
-        + "null AS thucTePac2, null AS notePac2, "
-        + "null AS soTienPac3, null AS hopDongPac3, null AS mucTieuPac3, "
-        + "null AS thucTePac3, null AS notePac3, "
-        + "null AS soTienPac4, null AS hopDongPac4, null AS mucTieuPac4, "
-        + "null AS thucTePac4, null AS notePac4, "
-        + "null AS soTienPac5, null AS hopDongPac5, null AS mucTieuPac5, "
-        + "null AS thucTePac5, null AS notePac5, "
-
         + "pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, "
         + "pr.thuc_te_fac AS thucTeFac, pr.note_fac AS noteFac, "
-        + "null AS soTienFac2, null AS hopDongFac2, null AS mucTieuFac2, "
-        + "null AS thucTeFac2, null AS noteFac2, "
-        + "null AS soTienFac3, null AS hopDongFac3, null AS mucTieuFac3, "
-        + "null AS thucTeFac3, null AS noteFac3, "
-        + "null AS soTienFac4, null AS hopDongFac4, null AS mucTieuFac4, "
-        + "null AS thucTeFac4, null AS noteFac4, "
-        + "null AS soTienFac5, null AS hopDongFac5, null AS mucTieuFac5, "
-        + "null AS thucTeFac5, null AS noteFac5, "
-
         + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, pr.note_tong_gia_tri AS noteTongGiaTri, "
         + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng, "
         + "pr.note_tam_ung AS noteTamUng "
@@ -624,89 +596,17 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         @ColumnResult(name = "thucTeDac", type = String.class),
         @ColumnResult(name = "noteDac", type = String.class),
 
-        @ColumnResult(name = "soTienDac2", type = String.class),
-        @ColumnResult(name = "hopDongDac2", type = String.class),
-        @ColumnResult(name = "mucTieuDac2", type = String.class),
-        @ColumnResult(name = "thucTeDac2", type = String.class),
-        @ColumnResult(name = "noteDac2", type = String.class),
-
-        @ColumnResult(name = "soTienDac3", type = String.class),
-        @ColumnResult(name = "hopDongDac3", type = String.class),
-        @ColumnResult(name = "mucTieuDac3", type = String.class),
-        @ColumnResult(name = "thucTeDac3", type = String.class),
-        @ColumnResult(name = "noteDac3", type = String.class),
-
-        @ColumnResult(name = "soTienDac4", type = String.class),
-        @ColumnResult(name = "hopDongDac4", type = String.class),
-        @ColumnResult(name = "mucTieuDac4", type = String.class),
-        @ColumnResult(name = "thucTeDac4", type = String.class),
-        @ColumnResult(name = "noteDac4", type = String.class),
-
-        @ColumnResult(name = "soTienDac5", type = String.class),
-        @ColumnResult(name = "hopDongDac5", type = String.class),
-        @ColumnResult(name = "mucTieuDac5", type = String.class),
-        @ColumnResult(name = "thucTeDac5", type = String.class),
-        @ColumnResult(name = "noteDac5", type = String.class),
-
         @ColumnResult(name = "soTienPac", type = String.class),
         @ColumnResult(name = "hopDongPac", type = String.class),
         @ColumnResult(name = "mucTieuPac", type = String.class),
         @ColumnResult(name = "thucTePac", type = String.class),
         @ColumnResult(name = "notePac", type = String.class),
 
-        @ColumnResult(name = "soTienPac2", type = String.class),
-        @ColumnResult(name = "hopDongPac2", type = String.class),
-        @ColumnResult(name = "mucTieuPac2", type = String.class),
-        @ColumnResult(name = "thucTePac2", type = String.class),
-        @ColumnResult(name = "notePac2", type = String.class),
-
-        @ColumnResult(name = "soTienPac3", type = String.class),
-        @ColumnResult(name = "hopDongPac3", type = String.class),
-        @ColumnResult(name = "mucTieuPac3", type = String.class),
-        @ColumnResult(name = "thucTePac3", type = String.class),
-        @ColumnResult(name = "notePac3", type = String.class),
-
-        @ColumnResult(name = "soTienPac4", type = String.class),
-        @ColumnResult(name = "hopDongPac4", type = String.class),
-        @ColumnResult(name = "mucTieuPac4", type = String.class),
-        @ColumnResult(name = "thucTePac4", type = String.class),
-        @ColumnResult(name = "notePac4", type = String.class),
-
-        @ColumnResult(name = "soTienPac5", type = String.class),
-        @ColumnResult(name = "hopDongPac5", type = String.class),
-        @ColumnResult(name = "mucTieuPac5", type = String.class),
-        @ColumnResult(name = "thucTePac5", type = String.class),
-        @ColumnResult(name = "notePac5", type = String.class),
-
         @ColumnResult(name = "soTienFac", type = String.class),
         @ColumnResult(name = "hopDongFac", type = String.class),
         @ColumnResult(name = "mucTieuFac", type = String.class),
         @ColumnResult(name = "thucTeFac", type = String.class),
         @ColumnResult(name = "noteFac", type = String.class),
-
-        @ColumnResult(name = "soTienFac2", type = String.class),
-        @ColumnResult(name = "hopDongFac2", type = String.class),
-        @ColumnResult(name = "mucTieuFac2", type = String.class),
-        @ColumnResult(name = "thucTeFac2", type = String.class),
-        @ColumnResult(name = "noteFac2", type = String.class),
-
-        @ColumnResult(name = "soTienFac3", type = String.class),
-        @ColumnResult(name = "hopDongFac3", type = String.class),
-        @ColumnResult(name = "mucTieuFac3", type = String.class),
-        @ColumnResult(name = "thucTeFac3", type = String.class),
-        @ColumnResult(name = "noteFac3", type = String.class),
-
-        @ColumnResult(name = "soTienFac4", type = String.class),
-        @ColumnResult(name = "hopDongFac4", type = String.class),
-        @ColumnResult(name = "mucTieuFac4", type = String.class),
-        @ColumnResult(name = "thucTeFac4", type = String.class),
-        @ColumnResult(name = "noteFac4", type = String.class),
-
-        @ColumnResult(name = "soTienFac5", type = String.class),
-        @ColumnResult(name = "hopDongFac5", type = String.class),
-        @ColumnResult(name = "mucTieuFac5", type = String.class),
-        @ColumnResult(name = "thucTeFac5", type = String.class),
-        @ColumnResult(name = "noteFac5", type = String.class),
 
         @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
         @ColumnResult(name = "noteTongGiaTri", type = String.class),
