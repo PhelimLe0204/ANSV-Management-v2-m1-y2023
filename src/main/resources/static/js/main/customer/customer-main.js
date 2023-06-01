@@ -25,6 +25,21 @@ $(document).ready(function () {
         frameAddNew.src = "/images/logo/image_undefined_2.jpg";
     });
 
+    let updateStatus =  new URLSearchParams(window.location.search).get('updateStatus');
+    
+    // console.log(typeof(JSON.stringify(status)));
+    if(updateStatus == 'true'){
+        alertify.success('Update khách hàng thành công').delay(3);
+    }
+
+    if(uploadStatus == 2){
+        alertify.error('Khách hàng có thể đã bị trùng').delay(3);
+    }
+    else if(uploadStatus == 1){
+        alertify.success('Thêm khách thành công').delay(3);
+    }
+    
+
     $("#btn-submit-add-new-customer").click(function () {
         // Call API upload file
         var form = document.getElementById('form-add-new-customer');
