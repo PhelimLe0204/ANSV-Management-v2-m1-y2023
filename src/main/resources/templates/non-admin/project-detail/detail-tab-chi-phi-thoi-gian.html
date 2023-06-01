@@ -140,48 +140,60 @@
                                 <tbody id="moreDetailBody">
                                     <tr>
                                         <td class="bg-primary text-center text-white font-weight-bold p-0">DAC</td>
-                                        <td class="text-center" th:text="${detailTabCptg.getSoTienDac()}"></td>
-                                        <td class="text-center" th:text="${detailTabCptg.getHopDongDac()}"></td>
-                                        <td class="text-center" th:text="${detailTabCptg.getMucTieuDac()}"></td>
-                                        <td class="text-center" th:text="${detailTabCptg.getThucTeDac()}"></td>
-                                        <td class="text-center" th:text="${detailTabCptg.getChenhLechDac()}"></td>
-                                        <td class="text-center" th:text="${detailTabCptg.getNoteDac()}"></td>
+                                        <td class="text-center">
+                                            [[${detailTabCptg.getSoTienDac() != null ? detailTabCptg.getSoTienDac() :
+                                            '...'}]]</td>
+                                        <td class="text-center">
+                                            [[${detailTabCptg.getHopDongDac() != null ? detailTabCptg.getHopDongDac() :
+                                            '...'}]]</td>
+                                        <td class="text-center">
+                                            [[${detailTabCptg.getMucTieuDac() != null ? detailTabCptg.getMucTieuDac() :
+                                            '...'}]]</td>
+                                        <td class="text-center">
+                                            [[${detailTabCptg.getThucTeDac() != null ? detailTabCptg.getThucTeDac() :
+                                            '...'}]]</td>
+                                        <td class="text-center">
+                                            [[${detailTabCptg.getChenhLechDac() != null ?
+                                            detailTabCptg.getChenhLechDac() : '...'}]]</td>
+                                        <td class="text-center">
+                                            [[${detailTabCptg.getNoteDac() != null ? detailTabCptg.getNoteDac() :
+                                            '...'}]]</td>
                                     </tr>
                                     <tr>
                                         <td class="bg-primary text-center text-white font-weight-bold p-0">DAC2</td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
                                     </tr>
                                     <tr>
                                         <td class="bg-primary text-center text-white font-weight-bold p-0">DAC3</td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
                                     </tr>
                                     <tr>
                                         <td class="bg-primary text-center text-white font-weight-bold p-0">DAC4</td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
                                     </tr>
                                     <tr>
                                         <td class="bg-primary text-center text-white font-weight-bold p-0">DAC5</td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
+                                        <td class="text-center">...</td>
                                     </tr>
                                 </tbody>
                             </table>
