@@ -26,6 +26,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -256,7 +257,7 @@ public class HomeController extends BaseController {
     }
 
     @PostMapping("/chi-tiet/update/3/{id}")
-    public String updateDetailTabCPTT(@PathVariable Long id, @ModelAttribute ReportDetailTabCptgDTO dataUpdate,
+    public String updateDetailTabCPTT(@PathVariable Long id, @ModelAttribute UpdateDetailTabCptgDTO dataUpdate,
             Model model, HttpServletRequest request) {
         // System.out.println("----- HomeController.updateDetailTabCPTT - id: " +
         // dataUpdate.getId());

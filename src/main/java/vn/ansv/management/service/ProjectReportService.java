@@ -32,6 +32,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -49,6 +50,7 @@ import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.CustomerRepository;
 import vn.ansv.management.repository.ProjectPriorityRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
+import vn.ansv.management.repository.ProjectReportSubdataRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.repository.ProjectStatusRepository;
 import vn.ansv.management.repository.UserRepository;
@@ -58,6 +60,9 @@ import vn.ansv.management.service.Interface.IProjectReport;
 public class ProjectReportService implements IProjectReport {
     @Autowired
     private ProjectReportRepository projectReportRepository;
+
+    @Autowired
+    private ProjectReportSubdataRepository projectReportSubdataRepository;
 
     @Autowired
     private UserService userService;
@@ -200,7 +205,7 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public Boolean updateDetailTabCptg(Long id, ReportDetailTabCptgDTO dataUpdate) {
+    public Boolean updateDetailTabCptg(Long id, UpdateDetailTabCptgDTO dataUpdate) {
         try {
             // Update project_report
             projectReportRepository.updateDetailTabCptg(id,
@@ -215,33 +220,63 @@ public class ProjectReportService implements IProjectReport {
                     dataUpdate.getNoteTamUng());
 
             // Update project_report_subdata
-            projectReportRepository.updateDetailTabCptgSubdata(id,
-                    dataUpdate.getSoTienDac2(), dataUpdate.getHopDongDac2(), dataUpdate.getMucTieuDac2(),
-                    dataUpdate.getThucTeDac2(), dataUpdate.getNoteDac2(),
-                    dataUpdate.getSoTienDac3(), dataUpdate.getHopDongDac3(), dataUpdate.getMucTieuDac3(),
-                    dataUpdate.getThucTeDac3(), dataUpdate.getNoteDac3(),
-                    dataUpdate.getSoTienDac4(), dataUpdate.getHopDongDac4(), dataUpdate.getMucTieuDac4(),
-                    dataUpdate.getThucTeDac4(), dataUpdate.getNoteDac4(),
-                    dataUpdate.getSoTienDac5(), dataUpdate.getHopDongDac5(), dataUpdate.getMucTieuDac5(),
-                    dataUpdate.getThucTeDac5(), dataUpdate.getNoteDac5(),
+            if (projectReportSubdataRepository.countReportSubdataByReportId(id) > 0) {
+                // Tồn tại subdata => update
+                projectReportSubdataRepository.updateDetailTabCptgSubdata(id,
+                        dataUpdate.getSoTienDac2(), dataUpdate.getHopDongDac2(), dataUpdate.getMucTieuDac2(),
+                        dataUpdate.getThucTeDac2(), dataUpdate.getNoteDac2(),
+                        dataUpdate.getSoTienDac3(), dataUpdate.getHopDongDac3(), dataUpdate.getMucTieuDac3(),
+                        dataUpdate.getThucTeDac3(), dataUpdate.getNoteDac3(),
+                        dataUpdate.getSoTienDac4(), dataUpdate.getHopDongDac4(), dataUpdate.getMucTieuDac4(),
+                        dataUpdate.getThucTeDac4(), dataUpdate.getNoteDac4(),
+                        dataUpdate.getSoTienDac5(), dataUpdate.getHopDongDac5(), dataUpdate.getMucTieuDac5(),
+                        dataUpdate.getThucTeDac5(), dataUpdate.getNoteDac5(),
 
-                    dataUpdate.getSoTienPac2(), dataUpdate.getHopDongPac2(), dataUpdate.getMucTieuPac2(),
-                    dataUpdate.getThucTePac2(), dataUpdate.getNotePac2(),
-                    dataUpdate.getSoTienPac3(), dataUpdate.getHopDongPac3(), dataUpdate.getMucTieuPac3(),
-                    dataUpdate.getThucTePac3(), dataUpdate.getNotePac3(),
-                    dataUpdate.getSoTienPac4(), dataUpdate.getHopDongPac4(), dataUpdate.getMucTieuPac4(),
-                    dataUpdate.getThucTePac4(), dataUpdate.getNotePac4(),
-                    dataUpdate.getSoTienPac5(), dataUpdate.getHopDongPac5(), dataUpdate.getMucTieuPac5(),
-                    dataUpdate.getThucTePac5(), dataUpdate.getNotePac5(),
+                        dataUpdate.getSoTienPac2(), dataUpdate.getHopDongPac2(), dataUpdate.getMucTieuPac2(),
+                        dataUpdate.getThucTePac2(), dataUpdate.getNotePac2(),
+                        dataUpdate.getSoTienPac3(), dataUpdate.getHopDongPac3(), dataUpdate.getMucTieuPac3(),
+                        dataUpdate.getThucTePac3(), dataUpdate.getNotePac3(),
+                        dataUpdate.getSoTienPac4(), dataUpdate.getHopDongPac4(), dataUpdate.getMucTieuPac4(),
+                        dataUpdate.getThucTePac4(), dataUpdate.getNotePac4(),
+                        dataUpdate.getSoTienPac5(), dataUpdate.getHopDongPac5(), dataUpdate.getMucTieuPac5(),
+                        dataUpdate.getThucTePac5(), dataUpdate.getNotePac5(),
 
-                    dataUpdate.getSoTienFac2(), dataUpdate.getHopDongFac2(), dataUpdate.getMucTieuFac2(),
-                    dataUpdate.getThucTeFac2(), dataUpdate.getNoteFac2(),
-                    dataUpdate.getSoTienFac3(), dataUpdate.getHopDongFac3(), dataUpdate.getMucTieuFac3(),
-                    dataUpdate.getThucTeFac3(), dataUpdate.getNoteFac3(),
-                    dataUpdate.getSoTienFac4(), dataUpdate.getHopDongFac4(), dataUpdate.getMucTieuFac4(),
-                    dataUpdate.getThucTeFac4(), dataUpdate.getNoteFac4(),
-                    dataUpdate.getSoTienFac5(), dataUpdate.getHopDongFac5(), dataUpdate.getMucTieuFac5(),
-                    dataUpdate.getThucTeFac5(), dataUpdate.getNoteFac5());
+                        dataUpdate.getSoTienFac2(), dataUpdate.getHopDongFac2(), dataUpdate.getMucTieuFac2(),
+                        dataUpdate.getThucTeFac2(), dataUpdate.getNoteFac2(),
+                        dataUpdate.getSoTienFac3(), dataUpdate.getHopDongFac3(), dataUpdate.getMucTieuFac3(),
+                        dataUpdate.getThucTeFac3(), dataUpdate.getNoteFac3(),
+                        dataUpdate.getSoTienFac4(), dataUpdate.getHopDongFac4(), dataUpdate.getMucTieuFac4(),
+                        dataUpdate.getThucTeFac4(), dataUpdate.getNoteFac4(),
+                        dataUpdate.getSoTienFac5(), dataUpdate.getHopDongFac5(), dataUpdate.getMucTieuFac5(),
+                        dataUpdate.getThucTeFac5(), dataUpdate.getNoteFac5());
+            } else {
+                // Không tồn tại subdata => insert
+                projectReportSubdataRepository.addNewReportSubdata(id,
+                        dataUpdate.getSoTienDac2(), dataUpdate.getHopDongDac2(), dataUpdate.getMucTieuDac2(),
+                        dataUpdate.getThucTeDac2(), dataUpdate.getNoteDac2(),
+                        dataUpdate.getSoTienDac3(), dataUpdate.getHopDongDac3(), dataUpdate.getMucTieuDac3(),
+                        dataUpdate.getThucTeDac3(), dataUpdate.getNoteDac3(),
+                        dataUpdate.getSoTienDac4(), dataUpdate.getHopDongDac4(), dataUpdate.getMucTieuDac4(),
+                        dataUpdate.getThucTeDac4(), dataUpdate.getNoteDac4(),
+                        dataUpdate.getSoTienDac5(), dataUpdate.getHopDongDac5(), dataUpdate.getMucTieuDac5(),
+                        dataUpdate.getThucTeDac5(), dataUpdate.getNoteDac5(),
+                        dataUpdate.getSoTienPac2(), dataUpdate.getHopDongPac2(), dataUpdate.getMucTieuPac2(),
+                        dataUpdate.getThucTePac2(), dataUpdate.getNotePac2(),
+                        dataUpdate.getSoTienPac3(), dataUpdate.getHopDongPac3(), dataUpdate.getMucTieuPac3(),
+                        dataUpdate.getThucTePac3(), dataUpdate.getNotePac3(),
+                        dataUpdate.getSoTienPac4(), dataUpdate.getHopDongPac4(), dataUpdate.getMucTieuPac4(),
+                        dataUpdate.getThucTePac4(), dataUpdate.getNotePac4(),
+                        dataUpdate.getSoTienPac5(), dataUpdate.getHopDongPac5(), dataUpdate.getMucTieuPac5(),
+                        dataUpdate.getThucTePac5(), dataUpdate.getNotePac5(),
+                        dataUpdate.getSoTienFac2(), dataUpdate.getHopDongFac2(), dataUpdate.getMucTieuFac2(),
+                        dataUpdate.getThucTeFac2(), dataUpdate.getNoteFac2(),
+                        dataUpdate.getSoTienFac3(), dataUpdate.getHopDongFac3(), dataUpdate.getMucTieuFac3(),
+                        dataUpdate.getThucTeFac3(), dataUpdate.getNoteFac3(),
+                        dataUpdate.getSoTienFac4(), dataUpdate.getHopDongFac4(), dataUpdate.getMucTieuFac4(),
+                        dataUpdate.getThucTeFac4(), dataUpdate.getNoteFac4(),
+                        dataUpdate.getSoTienFac5(), dataUpdate.getHopDongFac5(), dataUpdate.getMucTieuFac5(),
+                        dataUpdate.getThucTeFac5(), dataUpdate.getNoteFac5());
+            }
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportService.updateDetailTabCptg(): " + e.getMessage());
             e.printStackTrace();
@@ -1337,7 +1372,8 @@ public class ProjectReportService implements IProjectReport {
             workbook.close();
             return dataError;
         } catch (Exception e) {
-            System.out.println("----- Error ----- ProjectReportService.checkExcelData3() - Line 1340: " + e.getMessage());
+            System.out
+                    .println("----- Error ----- ProjectReportService.checkExcelData3() - Line 1340: " + e.getMessage());
             e.printStackTrace();
             return dataError;
         }
