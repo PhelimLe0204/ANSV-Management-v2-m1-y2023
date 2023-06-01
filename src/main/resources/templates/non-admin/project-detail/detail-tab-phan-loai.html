@@ -27,7 +27,7 @@
                         <th:block th:each="optionPriorityItem : ${optionPriority}">
                             <div class="btn pt-1"
                                 th:classappend="${optionPriorityItem.getId() == detailTabPhanLoai.getPriorityId()} ? 'btn-primary' : 'disabled btn-outline-secondary'"
-                                style="height: 30px; width: 120px;"
+                                style="height: 30px; width: 160px;"
                                 th:text="${optionPriorityItem.getPriorityDisplay()}">
                             </div>
                         </th:block>
@@ -39,7 +39,7 @@
                         <th:block th:each="optionStatusItem : ${optionStatus}">
                             <div class="btn pt-1"
                                 th:classappend="${optionStatusItem.getId() == detailTabPhanLoai.getStatusId()} ? 'btn-' + ${optionStatusItem.getStatusColor()} : 'disabled btn-outline-' + ${optionStatusItem.getStatusColor()}"
-                                style="height: 30px; width: 120px;" th:text="${optionStatusItem.getStatusDisplay()}">
+                                style="height: 30px; width: 160px;" th:text="${optionStatusItem.getStatusDisplay()}">
                             </div>
                         </th:block>
                     </td>

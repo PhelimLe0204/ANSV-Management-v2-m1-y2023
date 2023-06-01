@@ -46,7 +46,7 @@
     width: calc(100% - 1em);
 }
 
-.select2-container {
+/* .select2-container {
     width: 80px !important;
     height: 30px;
 }
@@ -57,4 +57,4 @@
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: -45% !important;
-}
+} */
