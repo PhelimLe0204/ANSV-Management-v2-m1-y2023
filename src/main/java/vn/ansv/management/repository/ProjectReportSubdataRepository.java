@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import vn.ansv.management.dto.Detail.SupportCptgLessDTO;
 import vn.ansv.management.entity.ProjectReportSubdataEntity;
 
 @Repository
@@ -162,4 +163,41 @@ public interface ProjectReportSubdataRepository extends JpaRepository<ProjectRep
             @Param("soTienFac5") String soTienFac5, @Param("hopDongFac5") String hopDongFac5,
             @Param("mucTieuFac5") String mucTieuFac5, @Param("thucTeFac5") String thucTeFac5,
             @Param("noteFac5") String noteFac5);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataDAC2(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataDAC3(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataDAC4(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataDAC5(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataPAC2(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataPAC3(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataPAC4(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataPAC5(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataFAC2(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataFAC3(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataFAC4(@Param("projectReportId") Long projectReportId);
+
+    @Query(nativeQuery = true)
+    SupportCptgLessDTO findSubdataFAC5(@Param("projectReportId") Long projectReportId);
+
 }

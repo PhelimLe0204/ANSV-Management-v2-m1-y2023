@@ -57,7 +57,7 @@ $('[data-target="#moreDetailModal"]').click(function () {
                     + '<td class="text-center">' + (data.chenhLech5 != null ? data.chenhLech5 : '...') + '</td>'
                     + '<td class="text-center">' + (data.note5 != null ? data.note5 : '...') + '</td>'
                     + '</tr>';
-                    
+
                 $('#moreDetailBody').html(html);
             }
         }
@@ -66,14 +66,23 @@ $('[data-target="#moreDetailModal"]').click(function () {
 
 var $arrayDAC = [1], $arrayPAC = [1], $arrayFAC = [1];
 $(".addMoreDate").click(function () {
-    console.log("ABCXYZ");
     var target = $(this).attr("data-target");
+    var targetId = $(this).attr("data-id");
+    console.log(target + " - " + targetId);
     var count = $('.deleteDate[data-from="' + target + '"]').length;
 
     if (count >= 4) {
         alertify.warning("Số lượng đã đạt tối đa!").delay(1.5);
         return;
     }
+
+    $.ajax({
+        url: "/api/report/subdata-less?id=" + targetId + "&target=" + target + "&count=" + (count + 2),
+        success: function (result) {
+            console.log(result);
+
+        }
+    });
 
     var stt = count + 2;
     if (count != 0) {
