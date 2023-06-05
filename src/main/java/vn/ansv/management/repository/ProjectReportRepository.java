@@ -15,6 +15,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
+import vn.ansv.management.dto.Detail.SupportCptgLessDTO;
 import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
 import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
@@ -447,4 +448,22 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 	@Query(value = "SELECT COUNT(pr.id) AS totalReport FROM project_report AS pr "
 			+ "WHERE pr.project_type_id = :type", nativeQuery = true)
 	Integer countAllByType(@Param("type") Long type);
+
+	@Query(value = "SELECT prs.id, prs.so_tien_dac AS soTien, prs.hop_dong_dac AS hopDong, "
+			+ "prs.muc_tieu_dac AS mucTieu, prs.thuc_te_dac AS thucTe, prs.note_dac AS note "
+			+ "FROM project_report_subdata AS prs "
+			+ "WHERE prs.project_report_id = :projectReportId", nativeQuery = true)
+	SupportCptgLessDTO findDataDAC(@Param("projectReportId") Long projectReportId);
+
+	@Query(value = "SELECT prs.id, prs.so_tien_pac AS soTien, prs.hop_dong_pac AS hopDong, "
+			+ "prs.muc_tieu_pac AS mucTieu, prs.thuc_te_pac AS thucTe, prs.note_pac AS note "
+			+ "FROM project_report_subdata AS prs "
+			+ "WHERE prs.project_report_id = :projectReportId", nativeQuery = true)
+	SupportCptgLessDTO findDataPAC(@Param("projectReportId") Long projectReportId);
+
+	@Query(value = "SELECT prs.id, prs.so_tien_fac AS soTien, prs.hop_dong_fac AS hopDong, "
+			+ "prs.muc_tieu_fac AS mucTieu, prs.thuc_te_fac AS thucTe, prs.note_fac AS note "
+			+ "FROM project_report_subdata AS prs "
+			+ "WHERE prs.project_report_id = :projectReportId", nativeQuery = true)
+	SupportCptgLessDTO findDataFAC(@Param("projectReportId") Long projectReportId);
 }

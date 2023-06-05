@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
+import vn.ansv.management.dto.Detail.SupportCptgLessDTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserProfileDTO;
@@ -36,6 +37,7 @@ import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.FileUploadService;
 import vn.ansv.management.service.ProjectReportMemberService;
 import vn.ansv.management.service.ProjectReportService;
+import vn.ansv.management.service.ProjectReportSubdataService;
 import vn.ansv.management.service.ProjectService;
 import vn.ansv.management.service.UserService;
 
@@ -57,6 +59,9 @@ public class ApiController {
 
     @Autowired
     private ProjectReportService projectReportService;
+
+    @Autowired
+    private ProjectReportSubdataService projectReportSubdataService;
 
     @Autowired
     private ProjectService projectService;
@@ -457,11 +462,33 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("success", msg, data));
         } catch (NumberFormatException nfe) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            System.out.println("----- ApiController.getDetailMore() ----- " + nfe);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
         } catch (Exception e) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            System.out.println("----- ApiController.getDetailMore() ----- " + e);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
+        }
+    }
+
+    @GetMapping("/report/subdata-less")
+    public ResponseEntity<ResponseObject> getDetailMoreByTarget(HttpSession session, HttpServletRequest request) {
+        try {
+            Long id = Long.parseLong(request.getParameter("id"));
+            String target = request.getParameter("target");
+            int count = Integer.parseInt(request.getParameter("count"));
+            String msg = "Dữ liệu " + target + "-" + count + " chi tiết " + id;
+
+            SupportCptgLessDTO data = projectReportSubdataService.findSubdataLess(id, target, count);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", msg, data));
+        } catch (NumberFormatException nfe) {
+            System.out.println("----- ApiController.getDetailMoreByTarget() ----- " + nfe);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
+        } catch (Exception e) {
+            System.out.println("----- ApiController.getDetailMoreByTarget() ----- " + e);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
         }
