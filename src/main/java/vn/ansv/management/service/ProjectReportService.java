@@ -1472,7 +1472,33 @@ public class ProjectReportService implements IProjectReport {
 
     @Override
     public List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year) {
-        return projectReportRepository.findAllExportTrienKhai(type, week, year);
+        try {
+            List<ExportTrienKhaiDTO> result = projectReportRepository.findAllExportTrienKhai(type, week, year);
+            result.forEach((item) -> {
+                if (item.getKetQuaTuanTruoc() != null) {
+                    item.setKetQuaTuanTruoc(item.getKetQuaTuanTruoc().replaceAll("<[^>]*>", ""));
+                }
+                if (item.getKeHoachTuanNay() != null) {
+                    item.setKeHoachTuanNay(item.getKeHoachTuanNay().replaceAll("<[^>]*>", ""));
+                }
+                if (item.getKetQuaTuanNay() != null) {
+                    item.setKetQuaTuanNay(item.getKetQuaTuanNay().replaceAll("<[^>]*>", ""));
+                }
+                if (item.getGeneralIssue() != null) {
+                    item.setGeneralIssue(item.getGeneralIssue().replaceAll("<[^>]*>", ""));
+                }
+                if (item.getSolution() != null) {
+                    item.setSolution(item.getSolution().replaceAll("<[^>]*>", ""));
+                }
+                if (item.getKeHoachTuanSau() != null) {
+                    item.setKeHoachTuanSau(item.getKeHoachTuanSau().replaceAll("<[^>]*>", ""));
+                }
+            });
+            return result;
+        } catch (Exception e) {
+            System.out.println("--- ProjectReportService line 1479: " + e.getMessage());
+            return null;
+        }
     }
 
     @Override
