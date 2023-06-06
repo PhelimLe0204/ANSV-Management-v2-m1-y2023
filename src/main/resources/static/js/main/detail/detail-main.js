@@ -723,7 +723,8 @@ $("#qua-trinh-open-modal-edit").click(function () {
                     $tinymceOriginal.push(a);
                     // console.log($tinymceOriginal);
                 });
-            }
+            },
+            entity_encoding : "raw"
         });
 
         $tinymceChangeTabQuaTrinh = true;
@@ -941,7 +942,8 @@ $("#thanh-vien-tab").click(function () {
                     // editor.getContent();
                     $("#newJobAssigned").val(editor.getContent());
                 });
-            }
+            },
+            entity_encoding : "raw"
         });
 
         $tinymceChangeTabThanhVien = true;

@@ -46,6 +46,9 @@ public class ExportTrienKhaiDTO {
     private String chenhLechPac;
     private String chenhLechFac;
 
+    public ExportTrienKhaiDTO() {
+    }
+
     public ExportTrienKhaiDTO(Long id, String jobName, String maHopDong, String maKeToan, String customerName,
             String tongGiaTriThucTe, String soTienDac, String hopDongDac, String mucTieuDac, String thucTeDac,
             String soTienPac, String hopDongPac, String mucTieuPac, String thucTePac, String soTienFac,
