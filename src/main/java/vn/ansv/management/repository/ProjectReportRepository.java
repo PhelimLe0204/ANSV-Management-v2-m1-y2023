@@ -427,6 +427,11 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 	List<ExportTrienKhaiDTO> findAllExportTrienKhai(
 			@Param("type") int type, @Param("week") int week, @Param("year") int year);
 
+	@Query(nativeQuery = true)
+	List<ExportTrienKhaiDTO> findExportTrienKhaiByPM(
+			@Param("type") int type, @Param("week") int week, @Param("year") int year,
+			@Param("userId") Long userId);
+
 	// Kiểm tra tồn tại của report
 	@Query(value = "SELECT COUNT(pr.id) FROM project_report AS pr "
 			+ "WHERE pr.week = :week AND pr.year = :year AND pr.project_type_id = :type AND pr.enabled = :enabled "

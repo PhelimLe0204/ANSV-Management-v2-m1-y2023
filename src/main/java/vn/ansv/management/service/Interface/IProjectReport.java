@@ -68,6 +68,7 @@ public interface IProjectReport {
 
     List<ExportChuyenDoiSoDTO> findAllExportChuyenDoiSo(Integer type, Integer week, Integer year);
 
-    List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year);
+    List<ExportTrienKhaiDTO> findAllExportTrienKhai(
+            String userRole, Long userId, Integer type, Integer week, Integer year);
 
 }

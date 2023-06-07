@@ -43,7 +43,7 @@ $(document).ready(function () {
             'alignright alignjustify | bullist numlist outdent indent | ' +
             'removeformat | help',
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
-        entity_encoding : "raw"
+        entity_encoding: "raw"
     });
 
     $("#btn-open-import-report-modal").click(function () {
@@ -57,7 +57,7 @@ $(document).ready(function () {
     // $(".btn-close-import-report").click(function(){
 
     //     $('.animatebutton').fadeOut(1000);
-        
+
     // })
 
 

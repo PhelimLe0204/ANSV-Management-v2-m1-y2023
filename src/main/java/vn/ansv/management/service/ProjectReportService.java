@@ -53,11 +53,16 @@ import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectReportSubdataRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.repository.ProjectStatusRepository;
+import vn.ansv.management.repository.RoleRepository;
 import vn.ansv.management.repository.UserRepository;
 import vn.ansv.management.service.Interface.IProjectReport;
 
 @Service
 public class ProjectReportService implements IProjectReport {
+
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Autowired
     private ProjectReportRepository projectReportRepository;
 
@@ -1471,29 +1476,68 @@ public class ProjectReportService implements IProjectReport {
     }
 
     @Override
-    public List<ExportTrienKhaiDTO> findAllExportTrienKhai(Integer type, Integer week, Integer year) {
+    public List<ExportTrienKhaiDTO> findAllExportTrienKhai(
+            String userRole, Long userId, Integer type, Integer week, Integer year) {
         try {
-            List<ExportTrienKhaiDTO> result = projectReportRepository.findAllExportTrienKhai(type, week, year);
-            result.forEach((item) -> {
-                if (item.getKetQuaTuanTruoc() != null) {
-                    item.setKetQuaTuanTruoc(item.getKetQuaTuanTruoc().replaceAll("<[^>]*>", ""));
-                }
-                if (item.getKeHoachTuanNay() != null) {
-                    item.setKeHoachTuanNay(item.getKeHoachTuanNay().replaceAll("<[^>]*>", ""));
-                }
-                if (item.getKetQuaTuanNay() != null) {
-                    item.setKetQuaTuanNay(item.getKetQuaTuanNay().replaceAll("<[^>]*>", ""));
-                }
-                if (item.getGeneralIssue() != null) {
-                    item.setGeneralIssue(item.getGeneralIssue().replaceAll("<[^>]*>", ""));
-                }
-                if (item.getSolution() != null) {
-                    item.setSolution(item.getSolution().replaceAll("<[^>]*>", ""));
-                }
-                if (item.getKeHoachTuanSau() != null) {
-                    item.setKeHoachTuanSau(item.getKeHoachTuanSau().replaceAll("<[^>]*>", ""));
-                }
-            });
+            // Get allow_export
+            String allow_export = roleRepository.findAllowExportByRoleName(userRole);
+
+            if (allow_export.contains("NONE")) {
+                return null;
+            }
+
+            List<ExportTrienKhaiDTO> result = null;
+
+            if (allow_export.contains("ALL_REPORT") || allow_export.contains("ALL_3")) {
+                // Cho phép xuất toàn bộ báo cáo Triển khai
+                result = projectReportRepository.findAllExportTrienKhai(type, week, year);
+                result.forEach((item) -> {
+                    if (item.getKetQuaTuanTruoc() != null) {
+                        item.setKetQuaTuanTruoc(item.getKetQuaTuanTruoc().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getKeHoachTuanNay() != null) {
+                        item.setKeHoachTuanNay(item.getKeHoachTuanNay().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getKetQuaTuanNay() != null) {
+                        item.setKetQuaTuanNay(item.getKetQuaTuanNay().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getGeneralIssue() != null) {
+                        item.setGeneralIssue(item.getGeneralIssue().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getSolution() != null) {
+                        item.setSolution(item.getSolution().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getKeHoachTuanSau() != null) {
+                        item.setKeHoachTuanSau(item.getKeHoachTuanSau().replaceAll("<[^>]*>", ""));
+                    }
+                });
+            }
+
+            if (allow_export.contains("OWN_3")) {
+                // Cho phép xuất báo cáo Triển khai của người dùng
+                result = projectReportRepository.findExportTrienKhaiByPM(type, week, year, userId);
+                result.forEach((item) -> {
+                    if (item.getKetQuaTuanTruoc() != null) {
+                        item.setKetQuaTuanTruoc(item.getKetQuaTuanTruoc().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getKeHoachTuanNay() != null) {
+                        item.setKeHoachTuanNay(item.getKeHoachTuanNay().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getKetQuaTuanNay() != null) {
+                        item.setKetQuaTuanNay(item.getKetQuaTuanNay().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getGeneralIssue() != null) {
+                        item.setGeneralIssue(item.getGeneralIssue().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getSolution() != null) {
+                        item.setSolution(item.getSolution().replaceAll("<[^>]*>", ""));
+                    }
+                    if (item.getKeHoachTuanSau() != null) {
+                        item.setKeHoachTuanSau(item.getKeHoachTuanSau().replaceAll("<[^>]*>", ""));
+                    }
+                });
+            }
+
             return result;
         } catch (Exception e) {
             System.out.println("--- ProjectReportService line 1479: " + e.getMessage());

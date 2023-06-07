@@ -44,6 +44,44 @@ public class ProjectReportController extends BaseController {
     @Autowired // Inject "IStorageService" - Dependency Injection
     private IStorageService storageService;
 
+    @RequestMapping(value = "/danh-sach/report-pm", method = RequestMethod.GET)
+    public ModelAndView viewReportByPm(HttpSession session, HttpServletRequest request) {
+        int currentPage = 1;
+        int pageSize = 5;
+        if (request.getParameter("page") != null && request.getParameter("size") != null) {
+            try {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+                pageSize = Integer.parseInt(request.getParameter("size"));
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                return new ModelAndView("redirect:/");
+            }
+        }
+
+        // Lấy last url
+        String test = request.getRequestURI();
+        String[] path = test.split("/");
+        String lastPath = path[path.length - 1];
+        _mvShare.addObject("url", lastPath);
+
+        Init(session); // Lấy dữ liệu cơ bản
+        String userRole = (String) session.getAttribute("userRole");
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+        if (userRole.contains("Main_PM") == false) {
+            session.setAttribute("authorizationError", "Chỉ PM có thể truy cập!");
+            return new ModelAndView("redirect:/");
+        }
+        String username = (String) session.getAttribute("username");
+        int week = (int) session.getAttribute("thisWeek");
+        int year = (int) session.getAttribute("thisYear");
+
+        ResponseObject dataType3Week = projectReportService.findListReportType3(
+                week, year, username, 3L, currentPage, pageSize);
+        _mvShare.addObject("listReportPM", dataType3Week != null ? dataType3Week : null);
+        _mvShare.setViewName("non-admin/report/report-pm");
+        return _mvShare;
+    }
+
     @RequestMapping(value = "/danh-sach/kd-vien-thong", method = RequestMethod.GET)
     public ModelAndView viewReportType1(HttpSession session, HttpServletRequest request) {
         int currentPage = 1;
@@ -245,7 +283,8 @@ public class ProjectReportController extends BaseController {
     }
 
     @RequestMapping(value = "/export/{type}", method = RequestMethod.POST)
-    public void exportIntoExcelFile(HttpServletResponse response, @ModelAttribute ExportInputDTO dataInput,
+    public void exportIntoExcelFile(HttpSession session, HttpServletResponse response,
+            @ModelAttribute ExportInputDTO dataInput,
             @PathVariable Integer type) throws IOException {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -255,6 +294,10 @@ public class ProjectReportController extends BaseController {
         String headerValue = "";
         Integer week = dataInput.getWeekExport();
         Integer year = dataInput.getYearExport();
+        String userRole = (String) session.getAttribute("userRole");
+        Long userId = (Long) session.getAttribute("userId");
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+
         if (type == 1) {
             headerValue = "attachment; filename=Vien thong tuan " + week + " nam " + year + " "
                     + currentDateTime + ".xlsx";
@@ -280,7 +323,8 @@ public class ProjectReportController extends BaseController {
                     + currentDateTime + ".xlsx";
             response.setHeader(headerKey, headerValue);
 
-            List<ExportTrienKhaiDTO> listOfReport = projectReportService.findAllExportTrienKhai(type, week, year);
+            List<ExportTrienKhaiDTO> listOfReport = projectReportService.findAllExportTrienKhai(
+                    userRole, userId, type, week, year);
             ExcelGenerator3 generator = new ExcelGenerator3(listOfReport);
             generator.generateExcelFile(response);
         }

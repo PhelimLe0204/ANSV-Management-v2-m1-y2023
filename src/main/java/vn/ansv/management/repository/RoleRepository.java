@@ -15,4 +15,8 @@ public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
     @Modifying
     @Query(value = "INSERT INTO user_role (user_id, role_id) VALUES (:userId, :roleId)", nativeQuery = true)
     void addUserRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
+
+    // Get allow_export
+    @Query(value = "SELECT r.allow_export FROM role AS r WHERE r.role_name = :roleName", nativeQuery = true)
+    String findAllowExportByRoleName(@Param("roleName") String roleName);
 }
