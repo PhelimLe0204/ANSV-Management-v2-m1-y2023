@@ -132,6 +132,30 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "WHERE pr.project_type_id = :type AND pr.week = :week AND pr.year = :year "
         + "ORDER BY pr.id", resultSetMapping = "Mapping.ExportTrienKhaiDTO")
 
+/* ===== ProjectReportRepository.findExportTrienKhaiByPM() ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findExportTrienKhaiByPM", query = "SELECT "
+        + "pr.id, pr.job_name AS jobName, pr.ma_hop_dong AS maHopDong, pr.ma_ke_toan AS maKeToan, "
+        + "c.customer_name AS customerName, pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, "
+        + "pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, pr.muc_tieu_dac AS mucTieuDac, "
+        + "pr.thuc_te_dac AS thucTeDac, pr.so_tien_pac AS soTienPac, pr.hop_dong_pac AS hopDongPac, "
+        + "pr.muc_tieu_pac AS mucTieuPac ,pr.thuc_te_pac AS thucTePac, pr.so_tien_fac AS soTienFac, "
+        + "pr.hop_dong_fac AS hopDongFac, pr.muc_tieu_fac AS mucTieuFac, pr.thuc_te_fac AS thucTeFac, "
+        + "pr.tien_do_chung AS tienDoChung, pr.general_issue AS generalIssue, pr.solution, "
+        + "pp.priority_name AS priorityName, ps.status_name AS statusName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.am_id) AS amName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_id) AS pmName, "
+        + "(SELECT u.fullname FROM user AS u WHERE u.id = pr.pm_manager_id) AS pmManagerName, "
+        + "pr.ket_qua_tuan_truoc AS ketQuaTuanTruoc, pr.ket_qua_tuan_nay AS ketQuaTuanNay, "
+        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau "
+        + "FROM project_report AS pr "
+        + "INNER JOIN project AS p ON pr.project_id = p.id "
+        + "INNER JOIN user AS u ON p.pm_id = u.id "
+        + "INNER JOIN customer AS c ON p.customer_id = c.id "
+        + "INNER JOIN project_priority AS pp ON pr.project_priority_id = pp.id "
+        + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
+        + "WHERE pr.project_type_id = :type AND pr.week = :week AND pr.year = :year AND pr.pm_id = :userId "
+        + "ORDER BY pr.id", resultSetMapping = "Mapping.ExportTrienKhaiDTO")
+
 /* ===== Set mapping: ExportTrienKhaiDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ExportTrienKhaiDTO", classes = @ConstructorResult(targetClass = ExportTrienKhaiDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
