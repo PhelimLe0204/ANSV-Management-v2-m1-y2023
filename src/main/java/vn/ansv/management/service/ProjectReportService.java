@@ -1250,29 +1250,48 @@ public class ProjectReportService implements IProjectReport {
                         tongGiaTriThucTe = currencyFormat(row.getCell(5).getNumericCellValue());
                         // System.out.println("--- tongGiaTriThucTe: " + tongGiaTriThucTe);
                     } else {
-                        tongGiaTriThucTe = row.getCell(5).getStringCellValue();
+                        if (row.getCell(5).getCellType() == CellType.FORMULA
+                                && row.getCell(5).getCachedFormulaResultType() == CellType.NUMERIC) {
+                            tongGiaTriThucTe = currencyFormat(row.getCell(5).getNumericCellValue());
+                        } else {
+                            tongGiaTriThucTe = row.getCell(5).getStringCellValue();
+                        }
                     }
                     String soTienDAC = null;
                     if (row.getCell(6).getCellType() == CellType.NUMERIC) {
                         soTienDAC = currencyFormat(row.getCell(6).getNumericCellValue());
                         // System.out.println("--- soTienDAC: " + soTienDAC);
                     } else {
-                        soTienDAC = row.getCell(6).getStringCellValue();
+                        if (row.getCell(6).getCellType() == CellType.FORMULA
+                                && row.getCell(6).getCachedFormulaResultType() == CellType.NUMERIC) {
+                            soTienDAC = currencyFormat(row.getCell(6).getNumericCellValue());
+                        } else {
+                            soTienDAC = row.getCell(6).getStringCellValue();
+                        }
                     }
                     String soTienPAC = null;
                     if (row.getCell(11).getCellType() == CellType.NUMERIC) {
                         soTienPAC = currencyFormat(row.getCell(11).getNumericCellValue());
                         // System.out.println("--- soTienPAC: " + soTienPAC);
                     } else {
-                        soTienPAC = row.getCell(11).getStringCellValue();
+                        if (row.getCell(11).getCellType() == CellType.FORMULA
+                                && row.getCell(11).getCachedFormulaResultType() == CellType.NUMERIC) {
+                            soTienPAC = currencyFormat(row.getCell(11).getNumericCellValue());
+                        } else {
+                            soTienPAC = row.getCell(11).getStringCellValue();
+                        }
                     }
                     String soTienFAC = null;
-                    if (row.getCell(16).getCellType() == CellType.NUMERIC
-                            || row.getCell(16).getCachedFormulaResultType() == CellType.NUMERIC) {
+                    if (row.getCell(16).getCellType() == CellType.NUMERIC) {
                         soTienFAC = currencyFormat(row.getCell(16).getNumericCellValue());
                         // System.out.println("--- soTienFAC: " + soTienFAC);
                     } else {
-                        soTienFAC = row.getCell(16).getStringCellValue();
+                        if (row.getCell(16).getCellType() == CellType.FORMULA
+                                && row.getCell(16).getCachedFormulaResultType() == CellType.NUMERIC) {
+                            soTienFAC = currencyFormat(row.getCell(16).getNumericCellValue());
+                        } else {
+                            soTienFAC = row.getCell(16).getStringCellValue();
+                        }
                     }
                     Long priorityId = projectPriorityRepository
                             .findIdByPriorityName(row.getCell(24).getStringCellValue());
