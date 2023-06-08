@@ -1241,6 +1241,10 @@ public class ProjectReportService implements IProjectReport {
                                 row.getCell(1).getStringCellValue(), customerId);
                         projectId = projectRepository.findIdByProjectName(row.getCell(1).getStringCellValue());
                     }
+                    // System.out.println("--- reportId: " + reportId);
+                    // System.out.println("--- uid: " + uid);
+                    // System.out.println("--- customerId: " + customerId);
+                    // System.out.println("--- projectId: " + projectId);
                     String tongGiaTriThucTe = null;
                     if (row.getCell(5).getCellType() == CellType.NUMERIC) {
                         tongGiaTriThucTe = currencyFormat(row.getCell(5).getNumericCellValue());
@@ -1263,7 +1267,8 @@ public class ProjectReportService implements IProjectReport {
                         soTienPAC = row.getCell(11).getStringCellValue();
                     }
                     String soTienFAC = null;
-                    if (row.getCell(16).getCellType() == CellType.NUMERIC) {
+                    if (row.getCell(16).getCellType() == CellType.NUMERIC
+                            || row.getCell(16).getCachedFormulaResultType() == CellType.NUMERIC) {
                         soTienFAC = currencyFormat(row.getCell(16).getNumericCellValue());
                         // System.out.println("--- soTienFAC: " + soTienFAC);
                     } else {
@@ -1378,13 +1383,14 @@ public class ProjectReportService implements IProjectReport {
             return dataError;
         } catch (Exception e) {
             System.out
-                    .println("----- Error ----- ProjectReportService.checkExcelData3() - Line 1340: " + e.getMessage());
+                    .println("----- Error ----- ProjectReportService.checkExcelData3() - Line 1381: " + e.getMessage());
             e.printStackTrace();
             return dataError;
         }
     }
 
     public String currencyFormat(Double dataPrice) {
+        System.out.println("---------------- dataPrice: " + dataPrice);
         String price_data = dataPrice + "";
         int indexOfE = price_data.indexOf("E");
         Double price_data_correct = dataPrice * Math.pow(10, Double.parseDouble(price_data.substring(indexOfE + 1)));
