@@ -23,7 +23,7 @@ import vn.ansv.management.dto.selectOption.OptionProjectDTO;
         + "(SELECT u1.fullname FROM user AS u1 WHERE u1.id = (SELECT u2.id FROM project_report AS pr INNER JOIN user AS u2 ON pr.pm_id = u2.id WHERE pr.project_id = p.id ORDER BY pr.created_date DESC LIMIT 1) LIMIT 1) AS currentPm "
         + "FROM project AS p "
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
-        + "WHERE p.enabled = 1", resultSetMapping = "Mapping.OptionProjectDTO")
+        + "WHERE p.enabled = 1 ORDER BY p.project_name", resultSetMapping = "Mapping.OptionProjectDTO")
 
 /* ===== Set mapping: OptionProjectDTO ===== */
 @SqlResultSetMapping(name = "Mapping.OptionProjectDTO", classes = @ConstructorResult(targetClass = OptionProjectDTO.class, columns = {
