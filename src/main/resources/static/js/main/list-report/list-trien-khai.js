@@ -499,6 +499,7 @@ $("#btn-open-add-new-report-modal").click(function () {
                     return $state;
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
+            $('#project_id').val(data_project_select_option[0].id).trigger('change');
         }
     });
 

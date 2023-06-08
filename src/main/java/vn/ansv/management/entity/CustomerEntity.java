@@ -19,7 +19,7 @@ import vn.ansv.management.dto.selectOption.OptionCustomerDTO;
 /* ===== CustomerRepository.findAllSelectOption() ===== */
 @NamedNativeQuery(name = "CustomerEntity.findAllSelectOption", query = "SELECT "
         + "c.id, c.avatar, c.customer_name AS customerName "
-        + "FROM customer AS c", resultSetMapping = "Mapping.OptionCustomerDTO")
+        + "FROM customer AS c ORDER BY c.customer_name", resultSetMapping = "Mapping.OptionCustomerDTO")
 
 /* ===== Set mapping: OptionCustomerDTO ===== */
 @SqlResultSetMapping(name = "Mapping.OptionCustomerDTO", classes = @ConstructorResult(targetClass = OptionCustomerDTO.class, columns = {

@@ -17,9 +17,15 @@
                             <div class="page-header-title">
                                 <!-- <h4 class="m-b-10 text-white"
                                     th:text="'Dashboard - Tuần ' + ${param.week} + ' / Năm ' + ${param.year}"></h4><br> -->
-                                <h4 class="m-b-10 text-white">Dashboard - Tuần
-                                    <select id="select_week" class="text-center"></select>
-                                    / Năm <select id="select_year"></select>
+                                <h4 class="m-b-10 text-white">
+                                    <span class="float-left">Dashboard - Tuần</span>
+                                    <div class="float-left pl-2" style="width: 65px; height: 30px;">
+                                        <select id="select_week" class="text-center"></select>
+                                    </div>
+                                    <span class="float-left pl-2">/ Năm</span>
+                                    <div class="float-left pl-2" style="width: 95px; height: 30px;">
+                                        <select id="select_year"></select>
+                                    </div>
                                 </h4>
                             </div>
                         </div>

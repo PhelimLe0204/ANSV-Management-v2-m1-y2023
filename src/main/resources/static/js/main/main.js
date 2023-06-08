@@ -6,6 +6,105 @@ $(document).ready(function () {
     });
 });
 
+$("#addNewProjectModalOpen").click(function () {
+    $.ajax({
+        url: "/api/getCustomerSelectOption",
+        success: function (result) {
+            // console.log(result);
+            data_customer_select_option = result.data;
+
+            $("#projectCustomer").select2({
+                dropdownParent: $('#project-customer-selection'),
+                placeholder: 'Khách hàng...',
+                data: data_customer_select_option,
+                allowClear: true,
+                selectOnClose: true,
+                templateResult: function (data, container) {
+                    var $state = $(
+                        '<div class="row">'
+                        + '<div class="col-md-2">'
+                        + '<img src="/images/logo/'
+                        + (data.avatar ? data.avatar : 'image_undefined.jpg')
+                        + '" class="img-flag" style="width: 40px; height: 40px; margin-left: 10px;" />'
+                        + '</div>'
+                        + '<div class="col-md-10 pt-1">'
+                        + '<span class="font-weight-bold" style="font-size: 20px;">'
+                        + (data.customerName ? data.customerName : '. . . . .')
+                        + '</span>'
+                        + '</div>'
+                        + '</div>'
+                    );
+
+                    return $state;
+                },
+                templateSelection: function (data, container) {
+                    var $state = $(
+                        '<div class="row">'
+                        + '<div class="col-md-2 pb-1">'
+                        + '<img src="/images/logo/image_undefined.jpg" class="img-flag" style="width: 54px; height: 54px; margin-left: 5px; padding-top: 5px;" />'
+                        + '</div>'
+                        + '<div class="col-md-10 pt-3">'
+                        + '<span class="font-weight-bold">Mời chọn khách hàng...</span>'
+                        + '</div>'
+                        + '</div>'
+                    );
+
+                    if (data.id && data.customerName) {
+                        var $state = $(
+                            '<div class="row">'
+                            + '<div class="col-md-2 pb-1">'
+                            + '<img src="/images/logo/'
+                            + (data.avatar ? data.avatar : 'image_undefined.jpg')
+                            + '" class="img-flag" style="width: 50px; height: 50px; margin-left: 5px; padding-top: 5px;" />'
+                            + '</div>'
+                            + '<div class="col-md-10 pt-3">'
+                            + '<span class="font-weight-bold" style="font-size: 25px;">'
+                            + (data.customerName ? data.customerName : '. . . . .')
+                            + '</span>'
+                            + '</div>'
+                            + '</div>'
+                        );
+                        return $state;
+                    }
+
+                    return $state;
+                },
+            }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
+            // console.log(data_customer_select_option[0].id);
+            $('#projectCustomer').val(data_customer_select_option[0].id).trigger('change');
+        }
+    });
+
+    $("#addNewProjectSubmit").one('click', function () {
+        // console.log("AJAX ongoing!!!");
+        var form = document.getElementById('form-insert-project');
+        var data = new FormData(form);
+
+        $.ajax({
+            url: "/api/project/insert",
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                // console.log(result);
+                if (result.status == "success") {
+                    alertify.success(result.message).delay(3);
+                }
+                if (result.status == "failed") {
+                    alertify.warning(result.message).delay(3);
+                }
+                $('#addNewProjectModal').modal('hide');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+            }
+        });
+    });
+});
+
 $("#user-profile-btn").click(function () {
     $.ajax({
         url: "/api/getUserProfile/" + $(this).data("id"),

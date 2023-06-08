@@ -13,9 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.ansv.management.dto.AddNewProjectDTO;
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
@@ -491,6 +493,21 @@ public class ApiController {
             System.out.println("----- ApiController.getDetailMoreByTarget() ----- " + e);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
+        }
+    }
+
+    @PostMapping("/project/insert")
+    public ResponseEntity<ResponseObject> addNewProject(AddNewProjectDTO dataInsert) {
+        String result = projectService.addNewProject(dataInsert);
+        if (result.contains("duplicate")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Dự án đã tồn tại!", ""));
+        } else if (result.contains("true")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Thêm mới dự án thành công!", ""));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Có lỗi xảy ra! Vui lòng thử lại sau.", ""));
         }
     }
 
