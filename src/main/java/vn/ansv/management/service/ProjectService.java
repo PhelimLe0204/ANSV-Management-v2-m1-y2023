@@ -34,7 +34,7 @@ public class ProjectService implements IProject {
                 return "duplicate";
             }
             String uid = RandomStringUtils.randomAlphanumeric(20);
-            projectRepository.addNewProject(dataInsert.getCreatedBy(), uid, dataInsert.getProjectDescription(), 0,
+            projectRepository.addNewProject(dataInsert.getCreatedBy(), uid, dataInsert.getProjectDescription(), 1,
                     dataInsert.getProjectName(), dataInsert.getProjectCustomer());
             return "true";
         } catch (Exception e) {
