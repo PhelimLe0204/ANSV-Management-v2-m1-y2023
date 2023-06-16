@@ -314,9 +314,9 @@
                                             <div class="col-sm-9">
                                                 <input type="hidden" name="mucDoKhaThi" id="muc_do_kha_thi"
                                                     class="irs-hidden-input"
-                                                    th:data-first="${detailTabDuThau.getMucDoKhaThi()}"
-                                                    th:value="${detailTabDuThau.getMucDoKhaThi()}" tabindex="-1"
-                                                    readonly="">
+                                                    th:data-first="${detailTabDuThau.getMucDoKhaThi() != null ? detailTabDuThau.getMucDoKhaThi() : '0'}"
+                                                    th:value="${detailTabDuThau.getMucDoKhaThi() != null ? detailTabDuThau.getMucDoKhaThi() : '0'}"
+                                                    tabindex="-1" readonly="">
                                             </div>
                                         </div>
                                     </div>

@@ -306,6 +306,7 @@ $("#phan-loai-open-modal-edit").click(function () {
                 $(".project-step").off('click');
 
                 $('#tabPhanLoaiEditModal').modal('hide');
+                $('#tab-phan-loai-edit-modal-close').off('click');
             },
             function () {
                 // Cancel => Do nothing
@@ -392,7 +393,7 @@ $("#du-thau-open-modal-edit").click(function () {
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
 
-            $("#customer_id").select2("val", $first_customer_id);
+            $('#customer_id').val($first_customer_id).trigger('change');
         }
     });
 
@@ -405,6 +406,8 @@ $("#du-thau-open-modal-edit").click(function () {
     // CLOSE Modal update tab "Dự thầu"
     $(".tab-du-thau-edit-modal-close").click(function () {
         var dataCompare = getFormData($("#form-tab-du-thau-edit"));
+        console.log("dataCompare: " + dataCompare);
+        console.log("$formDataOrigin: " + $formDataOrigin);
         if (dataCompare == $formDataOrigin) {
             $('#tabDuThauEditModal').modal('hide');
             return;
@@ -420,7 +423,13 @@ $("#du-thau-open-modal-edit").click(function () {
             function () {
                 // Ok => Reset modal update, then close modal
                 resetModalUpdate(2);
+
+                // close event
+                $('#form-tab-du-thau-edit').off('submit');
+                $('#btn-tab-du-thau-edit-reset').off('click');
+
                 $('#tabDuThauEditModal').modal('hide');
+                $('#tab-du-thau-edit-modal-close').off('click');
             },
             function () {
                 // Cancel => Do nothing
@@ -1183,7 +1192,8 @@ function resetModalUpdate(tab, dataTinymce) {
 
     if (tab == 2) {
         /* Tab "Dự thầu" */
-        $("#customer_id").select2("val", $first_customer_id); // Reset khách hàng
+        $('#customer_id').val($first_customer_id).trigger('change'); // Reset khách hàng
+
 
         // Reset mức độ khả thi
         $("#muc_do_kha_thi").data("ionRangeSlider").update({
