@@ -48,7 +48,9 @@ $(document).ready(function () {
 
 
 
-/* ===== Start: Tab phân loại ===== */
+/* ==================================
+ *      Start: Tab phân loại        *  
+ ================================== */
 $("#phan-loai-open-modal-edit").click(function () {
     $first_project_id = $("#project_id").attr("data-first");
     $first_project_type_id = $("#project_type_id").attr("data-first");
@@ -184,7 +186,7 @@ $("#phan-loai-open-modal-edit").click(function () {
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
 
-            $("#project_id").select2("val", $first_project_id);
+            $('#project_id').val($first_project_id).trigger('change');
         }
     });
 
@@ -297,6 +299,12 @@ $("#phan-loai-open-modal-edit").click(function () {
             function () {
                 // Ok => Reset modal update, then close modal
                 resetModalUpdate(1);
+
+                // close event
+                $('#form-tab-phan-loai-edit').off('submit');
+                $('#btn-tab-phan-loai-edit-reset').off('click');
+                $(".project-step").off('click');
+
                 $('#tabPhanLoaiEditModal').modal('hide');
             },
             function () {
@@ -305,11 +313,15 @@ $("#phan-loai-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab phân loại ===== */
+/* ==============================
+ *      End: Tab phân loại      *  
+ ============================== */
 
 
 
-/* ===== Start: Tab dự thầu ===== */
+/* ==============================
+ *      Start: Tab dự thầu      *
+ ============================== */
 $("#du-thau-open-modal-edit").click(function () {
     var data_customer_select_option;
     var $formDataOrigin = getFormData($("#form-tab-du-thau-edit")); // old form data
@@ -468,11 +480,15 @@ $("#du-thau-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab dự thầu ===== */
+/* ==============================
+ *      End: Tab dự thầu        *
+ ============================== */
 
 
 
-/* ===== Start: Tab chi phí & thời gian ===== */
+/* ==========================================
+ *      Start: Tab chi phí & thời gian      *
+ ========================================== */
 $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
     var $formDataOrigin = getFormData($("#form-tab-chi-phi-thoi-gian-edit")); // old form data
 
@@ -675,11 +691,15 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab thời gian & chi phí ===== */
+/* ==========================================
+ *      End: Tab chi phí & thời gian        *
+ ========================================== */
 
 
 
-/* ===== Start: Tab quá trình ===== */
+/* ==================================
+ *      Start: Tab quá trình        *
+=================================== */
 // $(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 $(".btn-change-data-view").click(function () {
     // var data_showing = $(this).attr("data-showing");
@@ -724,7 +744,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
                     // console.log($tinymceOriginal);
                 });
             },
-            entity_encoding : "raw"
+            entity_encoding: "raw"
         });
 
         $tinymceChangeTabQuaTrinh = true;
@@ -833,15 +853,17 @@ $("#qua-trinh-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab quá trình ===== */
+/* ==============================
+ *      End: Tab quá trình      *
+=============================== */
 
 
 
-/* ===== Start: Tab thành viên ===== */
+/* ==================================
+ *      Start: Tab thành viên       *
+=================================== */
 var $tinymceChangeTabThanhVien = false;
 $("#thanh-vien-tab").click(function () {
-    console.log("TEST thanh-vien-open-modal-edit");
-
     var data_user_select_option;
 
     // Ajax get data for project's selection
@@ -943,7 +965,7 @@ $("#thanh-vien-tab").click(function () {
                     $("#newJobAssigned").val(editor.getContent());
                 });
             },
-            entity_encoding : "raw"
+            entity_encoding: "raw"
         });
 
         $tinymceChangeTabThanhVien = true;
@@ -1079,7 +1101,9 @@ $("#thanh-vien-tab").click(function () {
     //     });
     // });
 });
-/* ===== End: Tab thành viên ===== */
+/* ==============================
+ *      End: Tab thành viên     *
+=============================== */
 
 
 
@@ -1114,7 +1138,7 @@ function resetModalUpdate(tab, dataTinymce) {
 
     if (tab == 1) {
         /* Tab "Phân loại" */
-        $("#project_id").select2("val", $first_project_id); // Reset dự án
+        $('#project_id').val($first_project_id).trigger('change'); // Reset dự án
 
         // Reset giai đoạn
         var current_project_type_id = $('.project-step').closest('.step-class').find('div[data-status="active"]').attr('id');
