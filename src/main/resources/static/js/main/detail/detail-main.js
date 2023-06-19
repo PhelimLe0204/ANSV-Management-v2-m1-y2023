@@ -48,7 +48,9 @@ $(document).ready(function () {
 
 
 
-/* ===== Start: Tab phân loại ===== */
+/* ==================================
+ *      Start: Tab phân loại        *  
+ ================================== */
 $("#phan-loai-open-modal-edit").click(function () {
     $first_project_id = $("#project_id").attr("data-first");
     $first_project_type_id = $("#project_type_id").attr("data-first");
@@ -64,7 +66,8 @@ $("#phan-loai-open-modal-edit").click(function () {
     var data_project_select_option;
 
     // Bắt sự kiện SUBMIT form tab "Phân loại"
-    $("#form-tab-phan-loai-edit").submit(function (e) {
+    $("#form-tab-phan-loai-edit").unbind('submit').submit(function (e) {
+        console.log("form-tab-phan-loai-edit");
         e.preventDefault();
 
         var dataCompare = getFormData($(this));
@@ -92,7 +95,8 @@ $("#phan-loai-open-modal-edit").click(function () {
     });
 
     // Bắt sự kiện RESET form tab "Phân loại"
-    $("#btn-tab-phan-loai-edit-reset").click(function () {
+    $("#btn-tab-phan-loai-edit-reset").unbind('click').click(function () {
+        console.log("btn-tab-phan-loai-edit-reset");
         var dataCompare = getFormData($("#form-tab-phan-loai-edit"));
         if (dataCompare == $formDataOrigin) {
             alertify.warning('Bạn chưa thay đổi dữ liệu!').delay(1.5);
@@ -184,12 +188,12 @@ $("#phan-loai-open-modal-edit").click(function () {
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
 
-            $("#project_id").select2("val", $first_project_id);
+            $('#project_id').val($first_project_id).trigger('change');
         }
     });
 
     // Form input: project_type_id
-    $(".project-step").click(function () {
+    $(".project-step").unbind('click').click(function () {
         var onFocus = $(this).hasClass("btn-primary");
 
         if (onFocus == true) {
@@ -206,7 +210,7 @@ $("#phan-loai-open-modal-edit").click(function () {
     });
 
     // Form input: project_priority_id
-    $(".project-priority").click(function () {
+    $(".project-priority").unbind('click').click(function () {
         var onFocus = $(this).hasClass("btn-primary");
 
         if (onFocus == true) {
@@ -222,7 +226,7 @@ $("#phan-loai-open-modal-edit").click(function () {
     });
 
     // Form input: project_status_id
-    $(".project-status").click(function () {
+    $(".project-status").unbind('click').click(function () {
         var onFocus = $(this).hasClass("disabled");
 
         if (onFocus != true) {
@@ -280,7 +284,7 @@ $("#phan-loai-open-modal-edit").click(function () {
     });
 
     // CLOSE Modal update tab "Phân loại"
-    $(".tab-phan-loai-edit-modal-close").click(function () {
+    $(".tab-phan-loai-edit-modal-close").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-tab-phan-loai-edit"));
         if (dataCompare == $formDataOrigin) {
             $('#tabPhanLoaiEditModal').modal('hide');
@@ -297,7 +301,14 @@ $("#phan-loai-open-modal-edit").click(function () {
             function () {
                 // Ok => Reset modal update, then close modal
                 resetModalUpdate(1);
+
+                // close event
+                // $('#form-tab-phan-loai-edit').off('submit');
+                // $('#btn-tab-phan-loai-edit-reset').off('click');
+                // $(".project-step").off('click');
+
                 $('#tabPhanLoaiEditModal').modal('hide');
+                // $('#tab-phan-loai-edit-modal-close').off('click');
             },
             function () {
                 // Cancel => Do nothing
@@ -305,11 +316,15 @@ $("#phan-loai-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab phân loại ===== */
+/* ==============================
+ *      End: Tab phân loại      *  
+ ============================== */
 
 
 
-/* ===== Start: Tab dự thầu ===== */
+/* ==============================
+ *      Start: Tab dự thầu      *
+ ============================== */
 $("#du-thau-open-modal-edit").click(function () {
     var data_customer_select_option;
     var $formDataOrigin = getFormData($("#form-tab-du-thau-edit")); // old form data
@@ -380,7 +395,7 @@ $("#du-thau-open-modal-edit").click(function () {
                 },
             }).on("select2:selecting", (e) => { }).on("select2:unselecting", (e) => { });
 
-            $("#customer_id").select2("val", $first_customer_id);
+            $('#customer_id').val($first_customer_id).trigger('change');
         }
     });
 
@@ -391,8 +406,10 @@ $("#du-thau-open-modal-edit").click(function () {
     });
 
     // CLOSE Modal update tab "Dự thầu"
-    $(".tab-du-thau-edit-modal-close").click(function () {
+    $(".tab-du-thau-edit-modal-close").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-tab-du-thau-edit"));
+        console.log("dataCompare: " + dataCompare);
+        console.log("$formDataOrigin: " + $formDataOrigin);
         if (dataCompare == $formDataOrigin) {
             $('#tabDuThauEditModal').modal('hide');
             return;
@@ -417,7 +434,7 @@ $("#du-thau-open-modal-edit").click(function () {
     });
 
     // Bắt sự kiện SUBMIT form tab "Dự thầu"
-    $("#form-tab-du-thau-edit").submit(function (e) {
+    $("#form-tab-du-thau-edit").unbind('submit').submit(function (e) {
         e.preventDefault();
 
         var dataCompare = getFormData($(this));
@@ -443,7 +460,7 @@ $("#du-thau-open-modal-edit").click(function () {
     });
 
     // Bắt sự kiện RESET form tab "Dự thầu"
-    $("#btn-tab-du-thau-edit-reset").click(function () {
+    $("#btn-tab-du-thau-edit-reset").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-tab-du-thau-edit"));
         if (dataCompare == $formDataOrigin) {
             alertify.warning('Bạn chưa thay đổi dữ liệu!').delay(1.5);
@@ -468,11 +485,15 @@ $("#du-thau-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab dự thầu ===== */
+/* ==============================
+ *      End: Tab dự thầu        *
+ ============================== */
 
 
 
-/* ===== Start: Tab chi phí & thời gian ===== */
+/* ==========================================
+ *      Start: Tab chi phí & thời gian      *
+ ========================================== */
 $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
     var $formDataOrigin = getFormData($("#form-tab-chi-phi-thoi-gian-edit")); // old form data
 
@@ -556,7 +577,7 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
         }
     });
 
-    $(".btn-delete-input").click(function () {
+    $(".btn-delete-input").unbind('click').click(function () {
         var target_id = $(this).attr("data-target");
         $("#" + target_id).val("");
 
@@ -596,7 +617,7 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
     });
 
     // Bắt sự kiện SUBMIT form tab "Chi phí & thời gian"
-    $("#form-tab-chi-phi-thoi-gian-edit").submit(function (e) {
+    $("#form-tab-chi-phi-thoi-gian-edit").unbind('submit').submit(function (e) {
         e.preventDefault();
 
         var dataCompare = getFormData($(this));
@@ -622,7 +643,7 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
     });
 
     // Bắt sự kiện RESET form tab "Chi phí & thời gian"
-    $("#btn-tab-chi-phi-thoi-gian-edit-reset").click(function () {
+    $("#btn-tab-chi-phi-thoi-gian-edit-reset").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-tab-chi-phi-thoi-gian-edit"));
         if (dataCompare == $formDataOrigin) {
             alertify.warning('Bạn chưa thay đổi dữ liệu!').delay(1.5);
@@ -649,7 +670,7 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
     });
 
     // CLOSE Modal update tab "Chi phí & thời gian"
-    $(".tab-chi-phi-thoi-gian-edit-modal-close").click(function () {
+    $(".tab-chi-phi-thoi-gian-edit-modal-close").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-tab-chi-phi-thoi-gian-edit"));
         if (dataCompare == $formDataOrigin) {
             $('#tabChiPhiThoiGianEditModal').modal('hide');
@@ -675,11 +696,15 @@ $("#chi-phi-thoi-gian-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab thời gian & chi phí ===== */
+/* ==========================================
+ *      End: Tab chi phí & thời gian        *
+ ========================================== */
 
 
 
-/* ===== Start: Tab quá trình ===== */
+/* ==================================
+ *      Start: Tab quá trình        *
+=================================== */
 // $(".card-1-2, .card-2-2, .card-3-2, .card-4-2").hide();
 $(".btn-change-data-view").click(function () {
     // var data_showing = $(this).attr("data-showing");
@@ -724,14 +749,14 @@ $("#qua-trinh-open-modal-edit").click(function () {
                     // console.log($tinymceOriginal);
                 });
             },
-            entity_encoding : "raw"
+            entity_encoding: "raw"
         });
 
         $tinymceChangeTabQuaTrinh = true;
     }
 
     // Bắt sự kiện SUBMIT form tab "Quá trình"
-    $("#form-tab-qua-trinh-edit").submit(function (e) {
+    $("#form-tab-qua-trinh-edit").unbind('submit').submit(function (e) {
         e.preventDefault();
 
         var changeStatus = false;
@@ -764,7 +789,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
     });
 
     // Bắt sự kiện RESET form tab "Quá trình"
-    $("#btn-tab-qua-trinh-edit-reset").click(function () {
+    $("#btn-tab-qua-trinh-edit-reset").unbind('click').click(function () {
         var changeStatus = false;
         for (let i = 0; i < 6; i++) {
             if (tinymce.get($tinymceOriginal[i].tinymceId).getContent() != $tinymceOriginal[i].dataOrrigin) {
@@ -798,7 +823,7 @@ $("#qua-trinh-open-modal-edit").click(function () {
     });
 
     // CLOSE Modal update tab "Quá trình"
-    $(".tab-qua-trinh-edit-modal-close").click(function () {
+    $(".tab-qua-trinh-edit-modal-close").unbind('click').click(function () {
         var changeStatus = false;
         console.log($tinymceOriginal);
         for (let i = 0; i < 6; i++) {
@@ -833,15 +858,17 @@ $("#qua-trinh-open-modal-edit").click(function () {
         );
     });
 });
-/* ===== End: Tab quá trình ===== */
+/* ==============================
+ *      End: Tab quá trình      *
+=============================== */
 
 
 
-/* ===== Start: Tab thành viên ===== */
+/* ==================================
+ *      Start: Tab thành viên       *
+=================================== */
 var $tinymceChangeTabThanhVien = false;
 $("#thanh-vien-tab").click(function () {
-    console.log("TEST thanh-vien-open-modal-edit");
-
     var data_user_select_option;
 
     // Ajax get data for project's selection
@@ -943,13 +970,13 @@ $("#thanh-vien-tab").click(function () {
                     $("#newJobAssigned").val(editor.getContent());
                 });
             },
-            entity_encoding : "raw"
+            entity_encoding: "raw"
         });
 
         $tinymceChangeTabThanhVien = true;
     }
 
-    $(".btn-view-report-member").click(function () {
+    $(".btn-view-report-member").unbind('click').click(function () {
         console.log($(this).attr("data-id"));
 
         $.ajax({
@@ -1079,7 +1106,9 @@ $("#thanh-vien-tab").click(function () {
     //     });
     // });
 });
-/* ===== End: Tab thành viên ===== */
+/* ==============================
+ *      End: Tab thành viên     *
+=============================== */
 
 
 
@@ -1114,7 +1143,7 @@ function resetModalUpdate(tab, dataTinymce) {
 
     if (tab == 1) {
         /* Tab "Phân loại" */
-        $("#project_id").select2("val", $first_project_id); // Reset dự án
+        $('#project_id').val($first_project_id).trigger('change'); // Reset dự án
 
         // Reset giai đoạn
         var current_project_type_id = $('.project-step').closest('.step-class').find('div[data-status="active"]').attr('id');
@@ -1159,7 +1188,8 @@ function resetModalUpdate(tab, dataTinymce) {
 
     if (tab == 2) {
         /* Tab "Dự thầu" */
-        $("#customer_id").select2("val", $first_customer_id); // Reset khách hàng
+        $('#customer_id').val($first_customer_id).trigger('change'); // Reset khách hàng
+
 
         // Reset mức độ khả thi
         $("#muc_do_kha_thi").data("ionRangeSlider").update({
