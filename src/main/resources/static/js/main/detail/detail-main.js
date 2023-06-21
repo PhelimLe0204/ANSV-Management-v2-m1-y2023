@@ -1113,22 +1113,29 @@ $("#thanh-vien-tab").click(function () {
 
 
 function detectMessage(data) {
-    if (data == 1) {
-        return 'PHÂN LOẠI';
+    switch (data) {
+        case "phanLoai":
+            return 'PHÂN LOẠI';
+        case "duThau":
+            return 'Dự thầu';
+        case "hopDong":
+            return 'Hợp đồng';
+        case "chiPhiThoiGian":
+            return 'CHI PHÍ & THỜI GIAN';
+        case "quaTrinh":
+            return 'Quá trình';
+        case "thanhVien":
+            return 'Thành viên';
+        default:
+            return null;
     }
-    if (data == 2) {
-        return 'DỰ THẦU';
-    }
-    if (data == 3) {
-        return 'CHI PHÍ & THỜI GIAN';
-    }
-    if (data == 4) {
-        return 'QUÁ TRÌNH';
-    }
-    if (data == 5) {
-        return 'THÀNH VIÊN';
-    }
-    return null;
+    // if (data == "phanLoai") { return 'PHÂN LOẠI'; }
+    // if (data == "duThau") { return 'DỰ THẦU'; }
+    // if (data == "hopDong") { return 'Hợp đồng'; }
+    // if (data == "chiPhiThoiGian") { return 'CHI PHÍ & THỜI GIAN'; }
+    // if (data == "quaTrinh") { return 'QUÁ TRÌNH'; }
+    // if (data == "thanhVien") { return 'THÀNH VIÊN'; }
+    // return null;
 }
 
 // Get Form data

@@ -79,6 +79,47 @@
                     </tr>
                 </table>
             </div>
+
+            <div class="col-md-12">
+                <hr class="mt-0">
+                <div id="tabHopDongEditModal" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="tabHopDongEditModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document" style="max-width: 1100px !important;">
+                        <div class="modal-content">
+                            <div class="modal-header pt-2 pb-2">
+                                <h5 class="modal-title" id="tabHopDongEditModalLabel">
+                                    Thay đổi thông tin (Mục: Hợp đồng)
+                                </h5>
+                                <button type="button" class="tab-hop-dong-edit-modal-close close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form th:action="@{/chi-tiet/update/hop-dong/{id}(id=${detailTabHopDong.getId()})}"
+                                id="form-tab-hop-dong-edit" method="post">
+                                <div class="modal-body">
+                                    <div class="row mb-4">
+                                        <h1>Hello!!!</h1>
+                                    </div>
+                                </div>
+                                <div class="modal-footer pr-2 pt-2 pb-2">
+                                    <button type="button" class="tab-hop-dong-edit-modal-close btn btn-secondary pt-1"
+                                        style="height: 30px; width: 100px;">Hủy</button>
+                                    <button type="button" id="btn-tab-hop-dong-edit-reset" class="btn btn-light pt-1"
+                                        style="height: 30px; width: 100px;">
+                                        Hoàn tác</button>
+                                    <button type="submit" id="btn-tab-hop-dong-edit-submit" class="btn btn-primary pt-1"
+                                        style="height: 30px; width: 100px;">
+                                        Cập nhật</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="hop-dong-open-modal-edit" class="btn btn-warning pt-1 float-right"
+                    data-toggle="modal" data-target="#tabHopDongEditModal" style="height: 30px; width: 130px;">
+                    <i class="feather mr-2 icon-edit"></i>Chỉnh sửa
+                </button>
+            </div>
         </th:block>
     </div>
 </div>
