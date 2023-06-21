@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
@@ -48,6 +49,7 @@ import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.entity.PaginatedEntity;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.CustomerRepository;
+import vn.ansv.management.repository.HopDongRepository;
 import vn.ansv.management.repository.ProjectPriorityRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectReportSubdataRepository;
@@ -65,6 +67,9 @@ public class ProjectReportService implements IProjectReport {
 
     @Autowired
     private ProjectReportRepository projectReportRepository;
+
+    @Autowired
+    private HopDongRepository hopDongRepository;
 
     @Autowired
     private ProjectReportSubdataRepository projectReportSubdataRepository;
@@ -173,6 +178,16 @@ public class ProjectReportService implements IProjectReport {
     @Override
     public ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled) {
         return projectReportRepository.findDetailTabDuThau(id, enabled);
+    }
+
+    /*
+     * =====================================
+     * ----- Start: Detail tab hợp đồng ----
+     * =====================================
+     */
+    @Override
+    public ReportDetailTabHopDongDTO findDetailTabHopDong(Long id, int enabled) {
+        return hopDongRepository.findDetailTabHopDong(id, enabled);
     }
 
     @Override

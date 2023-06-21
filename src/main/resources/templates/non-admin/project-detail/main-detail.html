@@ -94,6 +94,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="hop-dong-tab" data-toggle="tab"
+                                        href="#hop-dong" role="tab" aria-controls="hop-dong" aria-selected="false">
+                                        Hợp đồng
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-uppercase" id="chi-phi-va-thoi-gian-tab" data-toggle="tab"
                                         href="#chi-phi-va-thoi-gian" role="tab" aria-controls="chi-phi-va-thoi-gian"
                                         aria-selected="false">
@@ -116,6 +122,7 @@
                             <div class="tab-content" id="myTabContent">
                                 <th:block th:insert="non-admin/project-detail/detail-tab-phan-loai :: body"></th:block>
                                 <th:block th:insert="non-admin/project-detail/detail-tab-du-thau :: body"></th:block>
+                                <th:block th:insert="non-admin/project-detail/detail-tab-hop-dong :: body"></th:block>
                                 <th:block th:insert="non-admin/project-detail/detail-tab-chi-phi-thoi-gian :: body">
                                 </th:block>
                                 <th:block th:insert="non-admin/project-detail/detail-tab-qua-trinh :: body"></th:block>

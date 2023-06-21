@@ -23,6 +23,7 @@ import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Customer.UpdateCustomerDTO;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
@@ -205,6 +206,16 @@ public class HomeController extends BaseController {
                 .findDetailTabPhanLoai(project_report_id, 1);
         ReportDetailTabDuThauDTO projectDetailTabDuThau = projectReportService
                 .findDetailTabDuThau(project_report_id, 1);
+
+        ReportDetailTabHopDongDTO projectDetailTabHopDong = null;
+        try {
+            projectDetailTabHopDong = projectReportService
+                    .findDetailTabHopDong(project_report_id, 1);
+            // System.out.println("--- projectDetailTabHopDong: " + projectDetailTabHopDong.getNgayKy());
+        } catch (Exception e) {
+            System.out.println("--- HomeController() - viewDetail() - Line 216: " + e.getMessage());
+        }
+
         ReportDetailTabCptgDTO projectDetailTabCptg = projectReportService
                 .findDetailTabChiPhiThoiGian(project_report_id, 1);
         ReportDetailTabQuaTrinhDTO projectDetailTabQuaTrinh = projectReportService
@@ -220,6 +231,7 @@ public class HomeController extends BaseController {
 
         _mvShare.addObject("detailTabPhanLoai", projectDetailTabPhanLoai);
         _mvShare.addObject("detailTabDuThau", projectDetailTabDuThau);
+        _mvShare.addObject("detailTabHopDong", projectDetailTabHopDong);
         _mvShare.addObject("detailTabCptg", projectDetailTabCptg);
         _mvShare.addObject("detailTabQuaTrinh", projectDetailTabQuaTrinh);
         _mvShare.addObject("detailTabThanhVien", projectDetailTabThanhVien);
