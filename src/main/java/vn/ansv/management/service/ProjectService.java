@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.AddNewProjectDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
+import vn.ansv.management.repository.HopDongRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.Interface.IProject;
 
@@ -15,6 +16,8 @@ import vn.ansv.management.service.Interface.IProject;
 public class ProjectService implements IProject {
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private HopDongRepository hopDongRepository;
 
     @Override
     public List<OptionProjectDTO> findAllSelectOption() {
@@ -36,6 +39,8 @@ public class ProjectService implements IProject {
             String uid = RandomStringUtils.randomAlphanumeric(20);
             projectRepository.addNewProject(dataInsert.getCreatedBy(), uid, dataInsert.getProjectDescription(), 1,
                     dataInsert.getProjectName(), dataInsert.getProjectCustomer());
+            Long idProject = projectRepository.findIdByProjectName(dataInsert.getProjectName());
+            hopDongRepository.addNewHopDong(idProject);
             return "true";
         } catch (Exception e) {
             System.out.println("--- ProjectService - line 33: " + e.getMessage());
