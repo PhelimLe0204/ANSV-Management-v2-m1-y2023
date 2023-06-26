@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.AddNewProjectDTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
-import vn.ansv.management.repository.HopDongRepository;
+import vn.ansv.management.repository.BaoLanhBhRepository;
+import vn.ansv.management.repository.BaoLanhThhdRepository;
+import vn.ansv.management.repository.BaoLanhTuRepository;
 import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.Interface.IProject;
 
@@ -16,8 +18,15 @@ import vn.ansv.management.service.Interface.IProject;
 public class ProjectService implements IProject {
     @Autowired
     private ProjectRepository projectRepository;
+
     @Autowired
-    private HopDongRepository hopDongRepository;
+    private BaoLanhThhdRepository baoLanhThhdRepository;
+
+    @Autowired
+    private BaoLanhTuRepository baoLanhTuRepository;
+
+    @Autowired
+    private BaoLanhBhRepository baoLanhBhRepository;
 
     @Override
     public List<OptionProjectDTO> findAllSelectOption() {
@@ -40,7 +49,9 @@ public class ProjectService implements IProject {
             projectRepository.addNewProject(dataInsert.getCreatedBy(), uid, dataInsert.getProjectDescription(), 1,
                     dataInsert.getProjectName(), dataInsert.getProjectCustomer());
             Long idProject = projectRepository.findIdByProjectName(dataInsert.getProjectName());
-            hopDongRepository.addNewHopDong(idProject);
+            baoLanhThhdRepository.addNewBLTHHD(idProject); // Thêm mới bảo lãnh thực hiện hợp đồng
+            baoLanhTuRepository.addNewBLTU(idProject); // Thêm mới bảo lãnh tạm ứng
+            baoLanhBhRepository.addNewBLBH(idProject); // Thêm mới bảo lãnh bảo hành
             return "true";
         } catch (Exception e) {
             System.out.println("--- ProjectService - line 33: " + e.getMessage());

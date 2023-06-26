@@ -17,13 +17,13 @@ public class ReportDetailTabHopDongDTO {
     private String ngayKy;
     private String ngayHieuLuc;
     private String ngayKetThuc;
-    private String ngayMoBLTHHD; // Ngày mở bảo lãnh thực hiện hợp đồng
+    private String ngayPhatHanhBLTHHD; // Ngày phát hành bảo lãnh thực hiện hợp đồng
     private String ngayHetHanBLTHHD; // Ngày hết hạn bảo lãnh thực hiện hợp đồng
     private String noteBLTHHD; // Ghi chú bảo lãnh thực hiện hợp đồng
-    private String ngayMoBLTU; // Ngày mở bảo lãnh tạm ứng
+    private String ngayPhatHanhBLTU; // Ngày phát hành bảo lãnh tạm ứng
     private String ngayHetHanBLTU; // Ngày hết hạn bảo lãnh tạm ứng
     private String noteBLTU; // Ghi chú bảo lãnh tạm ứng
-    private String ngayMoBLBH; // Ngày mở bảo lãnh bảo hành
+    private String ngayPhatHanhBLBH; // Ngày phát hành bảo lãnh bảo hành
     private String ngayHetHanBLBH; // Ngày hết hạn bảo lãnh bảo hành
     private String noteBLBH; // Ghi chú bảo lãnh bảo hành
     private Long projectId;
@@ -38,7 +38,7 @@ public class ReportDetailTabHopDongDTO {
                 .parseCaseInsensitive()
                 .appendPattern("dd / MM / uuuu")
                 .toFormatter(Locale.ENGLISH);
-        String result = "Đã hết hiệu lực";
+        String result = null;
 
         if ((ngayHieuLuc == null || ngayHieuLuc.isEmpty() || ngayHieuLuc.trim().isEmpty())
                 || (ngayHetHan == null || ngayHetHan.isEmpty() || ngayHetHan.trim().isEmpty())) {
@@ -50,34 +50,24 @@ public class ReportDetailTabHopDongDTO {
 
         Long dif = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
 
-        if (dif >= 0) {
+        if (dif > 0) {
             result = "Còn " + Math.abs(dif) + " ngày";
+        }
+
+        if (dif == 0) {
+            result = "Đã hết hiệu lực";
         }
 
         return result;
     }
 
-    public ReportDetailTabHopDongDTO(Long id, String ngayKy, String ngayHieuLuc, String ngayKetThuc,
-            String ngayMoBLTHHD, String ngayHetHanBLTHHD, String noteBLTHHD, String ngayMoBLTU, String ngayHetHanBLTU,
-            String noteBLTU, String ngayMoBLBH, String ngayHetHanBLBH, String noteBLBH, Long projectId) {
+    public ReportDetailTabHopDongDTO(Long id, String ngayKy, String ngayHieuLuc, String ngayKetThuc, Long projectId) {
         this.id = id;
         this.ngayKy = ngayKy;
         this.ngayHieuLuc = ngayHieuLuc;
         this.ngayKetThuc = ngayKetThuc;
-        this.ngayMoBLTHHD = ngayMoBLTHHD;
-        this.ngayHetHanBLTHHD = ngayHetHanBLTHHD;
-        this.noteBLTHHD = noteBLTHHD;
-        this.ngayMoBLTU = ngayMoBLTU;
-        this.ngayHetHanBLTU = ngayHetHanBLTU;
-        this.noteBLTU = noteBLTU;
-        this.ngayMoBLBH = ngayMoBLBH;
-        this.ngayHetHanBLBH = ngayHetHanBLBH;
-        this.noteBLBH = noteBLBH;
         this.projectId = projectId;
         this.chenhLechHieuLuc = tinhNgayChenhLech(ngayHieuLuc, ngayKetThuc);
-        this.chenhLechBLTHHD = tinhNgayChenhLech(ngayMoBLTHHD, ngayHetHanBLTHHD);
-        this.chenhLechBLTU = tinhNgayChenhLech(ngayMoBLTU, ngayHetHanBLTU);
-        this.chenhLechBLBH = tinhNgayChenhLech(ngayMoBLBH, ngayHetHanBLBH);
     }
 
 }

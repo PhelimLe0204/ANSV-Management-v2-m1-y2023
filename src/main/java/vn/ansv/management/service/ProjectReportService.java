@@ -32,6 +32,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
@@ -48,8 +49,10 @@ import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.entity.PaginatedEntity;
 import vn.ansv.management.entity.ResponseObject;
+import vn.ansv.management.repository.BaoLanhBhRepository;
+import vn.ansv.management.repository.BaoLanhThhdRepository;
+import vn.ansv.management.repository.BaoLanhTuRepository;
 import vn.ansv.management.repository.CustomerRepository;
-import vn.ansv.management.repository.HopDongRepository;
 import vn.ansv.management.repository.ProjectPriorityRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectReportSubdataRepository;
@@ -69,9 +72,6 @@ public class ProjectReportService implements IProjectReport {
     private ProjectReportRepository projectReportRepository;
 
     @Autowired
-    private HopDongRepository hopDongRepository;
-
-    @Autowired
     private ProjectReportSubdataRepository projectReportSubdataRepository;
 
     @Autowired
@@ -82,6 +82,15 @@ public class ProjectReportService implements IProjectReport {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private BaoLanhThhdRepository baoLanhThhdRepository;
+
+    @Autowired
+    private BaoLanhTuRepository baoLanhTuRepository;
+
+    @Autowired
+    private BaoLanhBhRepository baoLanhBhRepository;
 
     @Autowired
     private ProjectPriorityRepository projectPriorityRepository;
@@ -187,7 +196,33 @@ public class ProjectReportService implements IProjectReport {
      */
     @Override
     public ReportDetailTabHopDongDTO findDetailTabHopDong(Long id, int enabled) {
-        return hopDongRepository.findDetailTabHopDong(id, enabled);
+        SupportBaoLanhHopDongDTO dataBLTHHD = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+        SupportBaoLanhHopDongDTO dataBLTU = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
+        SupportBaoLanhHopDongDTO dataBLBH = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+        ReportDetailTabHopDongDTO result = projectReportRepository.findDetailTabHopDong(id, enabled);
+
+        if (dataBLTHHD != null) {
+            result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());
+            result.setNgayHetHanBLTHHD(dataBLTHHD.getNgayHetHan());
+            result.setNoteBLTHHD(dataBLTHHD.getNote());
+            result.setChenhLechBLTHHD(dataBLTHHD.getChenhLech());
+        }
+
+        if (dataBLTU != null) {
+            result.setNgayPhatHanhBLTU(dataBLTU.getNgayPhatHanh());
+            result.setNgayHetHanBLTU(dataBLTU.getNgayHetHan());
+            result.setNoteBLTU(dataBLTU.getNote());
+            result.setChenhLechBLTU(dataBLTU.getChenhLech());
+        }
+
+        if (dataBLBH != null) {
+            result.setNgayPhatHanhBLBH(dataBLBH.getNgayPhatHanh());
+            result.setNgayHetHanBLBH(dataBLBH.getNgayHetHan());
+            result.setNoteBLBH(dataBLBH.getNote());
+            result.setChenhLechBLBH(dataBLBH.getChenhLech());
+        }
+
+        return result;
     }
 
     @Override

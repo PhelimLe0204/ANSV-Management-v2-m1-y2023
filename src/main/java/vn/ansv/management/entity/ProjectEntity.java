@@ -59,7 +59,7 @@ public class ProjectEntity extends BaseEntity {
      * )
      */
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customer; // 1 'project' sử dụng 1 'customer' => hứng 1 bản ghi
+    private CustomerEntity customer; // nhiều 'project' sử dụng 1 'customer' => hứng 1 bản ghi
 
     /*
      * @OneToMany(mappedBy =
@@ -72,6 +72,39 @@ public class ProjectEntity extends BaseEntity {
      * => dùng List để hứng mảng dữ liệu
      */
     private List<ProjectReportEntity> projectReports = new ArrayList<>();
+
+    /*
+     * @OneToMany(mappedBy =
+     * "tên biến hứng dữ liệu từ class hiện tại (ProjectEntity) trong BaoLanhThhdEntity: project"
+     * )
+     */
+    @OneToMany(mappedBy = "project")
+    /*
+     * 1 'project' có nhiều 'bao_lanh_thhd' => dùng List để hứng mảng dữ liệu
+     */
+    private List<BaoLanhThhdEntity> baoLanhThhds = new ArrayList<>();
+
+    /*
+     * @OneToMany(mappedBy =
+     * "tên biến hứng dữ liệu từ class hiện tại (ProjectEntity) trong BaoLanhTuEntity: project"
+     * )
+     */
+    @OneToMany(mappedBy = "project")
+    /*
+     * 1 'project' có nhiều 'bao_lanh_tu' => dùng List để hứng mảng dữ liệu
+     */
+    private List<BaoLanhTuEntity> baoLanhTus = new ArrayList<>();
+
+    /*
+     * @OneToMany(mappedBy =
+     * "tên biến hứng dữ liệu từ class hiện tại (ProjectEntity) trong BaoLanhBhEntity: project"
+     * )
+     */
+    @OneToMany(mappedBy = "project")
+    /*
+     * 1 'project' có nhiều 'bao_lanh_bh' => dùng List để hứng mảng dữ liệu
+     */
+    private List<BaoLanhBhEntity> baoLanhBhs = new ArrayList<>();
 
     // public Long getCustomerId() {
     // return this.customerId;
@@ -126,6 +159,30 @@ public class ProjectEntity extends BaseEntity {
 
     public void setProjectReports(List<ProjectReportEntity> projectReports) {
         this.projectReports = projectReports;
+    }
+
+    public List<BaoLanhThhdEntity> getBaoLanhThhds() {
+        return this.baoLanhThhds;
+    }
+
+    public void setBaoLanhThhds(List<BaoLanhThhdEntity> baoLanhThhds) {
+        this.baoLanhThhds = baoLanhThhds;
+    }
+
+    public List<BaoLanhTuEntity> getBaoLanhTus() {
+        return this.baoLanhTus;
+    }
+
+    public void setBaoLanhTus(List<BaoLanhTuEntity> baoLanhTus) {
+        this.baoLanhTus = baoLanhTus;
+    }
+
+    public List<BaoLanhBhEntity> getBaoLanhBhs() {
+        return this.baoLanhBhs;
+    }
+
+    public void setBaoLanhBhs(List<BaoLanhBhEntity> baoLanhBhs) {
+        this.baoLanhBhs = baoLanhBhs;
     }
 
 }

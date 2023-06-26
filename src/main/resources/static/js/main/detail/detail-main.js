@@ -408,8 +408,6 @@ $("#du-thau-open-modal-edit").click(function () {
     // CLOSE Modal update tab "Dự thầu"
     $(".tab-du-thau-edit-modal-close").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-tab-du-thau-edit"));
-        console.log("dataCompare: " + dataCompare);
-        console.log("$formDataOrigin: " + $formDataOrigin);
         if (dataCompare == $formDataOrigin) {
             $('#tabDuThauEditModal').modal('hide');
             return;
@@ -488,6 +486,115 @@ $("#du-thau-open-modal-edit").click(function () {
 /* ==============================
  *      End: Tab dự thầu        *
  ============================== */
+
+
+
+/* ==============================
+*      Start: Tab hợp đồng      *
+============================== */
+$("#hop-dong-open-modal-edit").click(function () {
+    var $formDataOrigin = getFormData($("#form-tab-hop-dong-edit")); // old form data
+
+    $("#ngay_ky").datepicker({ dateFormat: 'dd / mm / yy' });
+
+    $("#ngay_hieu_luc").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays < 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
+                }
+            }
+
+            $("#ngay_ket_thuc").datepicker("option", "minDate", date1);
+        }
+    });
+
+    $("#ngay_ket_thuc").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays > 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + Math.abs(diffDays) + ' ngày</span>');
+                }
+            }
+
+            $("#ngay_hieu_luc").datepicker("option", "maxDate", date1);
+        }
+    });
+
+    $(".btn-delete-input").unbind('click').click(function () {
+        var target_id = $(this).attr("data-target");
+        $("#" + target_id).val("");
+
+        // Trường hợp xóa ngày hiệu lực => Không còn chênh lệch
+        if (target_id == "ngay_hieu_luc" || target_id == "ngay_ket_thuc") {
+            $("#chenh_lech_hieu_luc").html((""));
+        }
+
+        // Trường hợp xóa ngày kết thúc
+        if (target_id == "ngay_ket_thuc") {
+            $("#chenh_lech_hieu_luc").html('<span class="text-primaryr">Vô thời hạn</span>');
+        }
+    });
+
+    // CLOSE Modal update tab "Hợp đồng"
+    $(".tab-hop-dong-edit-modal-close").unbind('click').click(function () {
+        var dataCompare = getFormData($("#form-tab-hop-dong-edit"));
+        console.log("dataCompare: " + dataCompare);
+        console.log("$formDataOrigin: " + $formDataOrigin);
+        if (dataCompare == $formDataOrigin) {
+            $('#tabHopDongEditModal').modal('hide');
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận hủy',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">HỢP ĐỒNG</span><br>'
+            + 'Bạn chắc chắn muốn hủy?'
+            + '</p>',
+            function () {
+                // Ok => Reset modal update, then close modal
+                resetModalUpdate(2);
+                $('#tabHopDongEditModal').modal('hide');
+            },
+            function () {
+                // Cancel => Do nothing
+            }
+        );
+    });
+});
+/* ==============================
+*      End: Tab hợp đồng        *
+============================== */
 
 
 
