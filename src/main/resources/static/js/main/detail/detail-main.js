@@ -492,7 +492,12 @@ $("#du-thau-open-modal-edit").click(function () {
 /* ==============================
 *      Start: Tab hợp đồng      *
 ============================== */
-$("#hop-dong-open-modal-edit").click(function () {
+// $('#thoiHanHopDongEditModal').on('shown.bs.modal', function (e) {
+//     console.log("XYZ");
+//     alert("I want this to appear after the modal has opened!");
+// })
+$("#thoi-han-hop-dong-open-modal-edit").click(function () {
+    console.log("ABC");
     var $formDataOrigin = getFormData($("#form-tab-hop-dong-edit")); // old form data
 
     $("#ngay_ky").datepicker({ dateFormat: 'dd / mm / yy' });
@@ -517,6 +522,8 @@ $("#hop-dong-open-modal-edit").click(function () {
                 } else {
                     $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
                 }
+            } else {
+                $("#" + calculate_result_id).html('<span class="text-primaryr">Vô thời hạn</span>');
             }
 
             $("#ngay_ket_thuc").datepicker("option", "minDate", date1);
@@ -551,16 +558,28 @@ $("#hop-dong-open-modal-edit").click(function () {
 
     $(".btn-delete-input").unbind('click').click(function () {
         var target_id = $(this).attr("data-target");
+        var data_relate_id = $("#" + target_id).attr("data-related-id");
+        var target_compare_id = $(this).attr("data-compare");
+        console.log("data_relate_id: " + data_relate_id);
         $("#" + target_id).val("");
 
         // Trường hợp xóa ngày hiệu lực => Không còn chênh lệch
-        if (target_id == "ngay_hieu_luc" || target_id == "ngay_ket_thuc") {
+        if (target_id == "ngay_hieu_luc") {
+            $("#" + data_relate_id).datepicker("option", "minDate", null);
             $("#chenh_lech_hieu_luc").html((""));
         }
 
         // Trường hợp xóa ngày kết thúc
         if (target_id == "ngay_ket_thuc") {
-            $("#chenh_lech_hieu_luc").html('<span class="text-primaryr">Vô thời hạn</span>');
+            $("#" + data_relate_id).datepicker("option", "maxDate", null);
+            var data_compare = $("#" + target_compare_id).val();
+            // console.log("target_compare_id: " + target_compare_id);
+            // console.log("data_compare: " + data_compare);
+            if (data_compare != undefined && data_compare.length > 0) {
+                $("#chenh_lech_hieu_luc").html('<span class="text-primaryr">Vô thời hạn</span>');
+            } else {
+                $("#chenh_lech_hieu_luc").html((""));
+            }
         }
     });
 

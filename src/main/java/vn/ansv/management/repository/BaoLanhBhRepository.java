@@ -14,12 +14,7 @@ import vn.ansv.management.entity.BaoLanhBhEntity;
 @Repository
 public interface BaoLanhBhRepository extends JpaRepository<BaoLanhBhEntity, Long> {
     /* Thông tin bổ sung: Chi tiết báo cáo tab hợp đồng */
-    @Query(value = "SELECT blbh.id, blbh.ngay_phat_hanh AS ngayPhatHanh, blbh.ngay_het_han AS ngayHetHan, "
-            + "blbh.note FROM bao_lanh_bh AS blbh "
-            + "INNER JOIN project AS p ON blbh.project_id = p.id "
-            + "INNER JOIN project_report AS pr ON p.id = pr.project_id "
-            + "WHERE pr.id = :projectReportId AND pr.enabled = :enabled "
-            + "ORDER BY blbh.modified_at DESC LIMIT 1", nativeQuery = true)
+    @Query(nativeQuery = true)
     SupportBaoLanhHopDongDTO findDetailTabHopDong(@Param("projectReportId") Long projectReportId,
             @Param("enabled") int enabled);
 

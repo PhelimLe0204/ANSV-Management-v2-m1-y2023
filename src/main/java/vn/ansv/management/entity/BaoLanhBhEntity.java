@@ -4,7 +4,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
+
+/* ===== BaoLanhBhRepository.findDetailTabHopDong() ===== */
+@NamedNativeQuery(name = "BaoLanhBhEntity.findDetailTabHopDong", query = "SELECT "
+        + "blbh.id, blbh.ngay_phat_hanh AS ngayPhatHanh, blbh.ngay_het_han AS ngayHetHan, blbh.note "
+        + "FROM bao_lanh_bh AS blbh "
+        + "INNER JOIN project AS p ON blbh.project_id = p.id "
+        + "INNER JOIN project_report AS pr ON p.id = pr.project_id "
+        + "WHERE pr.id = :projectReportId AND pr.enabled = :enabled "
+        + "ORDER BY blbh.modified_at DESC LIMIT 1", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
+
+/*
+ * ===== Set mapping: SupportBaoLanhHopDongDTO =====
+ * Mapping already isset in BaoLanhThhdEntity
+ */
 
 @Entity
 @Table(name = "bao_lanh_bh")

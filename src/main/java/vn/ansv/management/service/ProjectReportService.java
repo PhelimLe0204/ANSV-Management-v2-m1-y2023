@@ -196,33 +196,64 @@ public class ProjectReportService implements IProjectReport {
      */
     @Override
     public ReportDetailTabHopDongDTO findDetailTabHopDong(Long id, int enabled) {
-        SupportBaoLanhHopDongDTO dataBLTHHD = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
-        SupportBaoLanhHopDongDTO dataBLTU = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
-        SupportBaoLanhHopDongDTO dataBLBH = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+        SupportBaoLanhHopDongDTO dataBLTHHD = findBaoLanhHopDong(id, enabled, "BLTHHD");
+        SupportBaoLanhHopDongDTO dataBLTU = findBaoLanhHopDong(id, enabled, "BLTU");
+        SupportBaoLanhHopDongDTO dataBLBH = findBaoLanhHopDong(id, enabled, "BLBH");
         ReportDetailTabHopDongDTO result = projectReportRepository.findDetailTabHopDong(id, enabled);
 
-        if (dataBLTHHD != null) {
-            result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());
-            result.setNgayHetHanBLTHHD(dataBLTHHD.getNgayHetHan());
-            result.setNoteBLTHHD(dataBLTHHD.getNote());
-            result.setChenhLechBLTHHD(dataBLTHHD.getChenhLech());
-        }
+        result.setBlThhdId(dataBLTHHD.getId());
+        result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());
+        result.setNgayHetHanBLTHHD(dataBLTHHD.getNgayHetHan());
+        result.setNoteBLTHHD(dataBLTHHD.getNote());
+        result.setChenhLechBLTHHD(dataBLTHHD.getChenhLech());
 
-        if (dataBLTU != null) {
-            result.setNgayPhatHanhBLTU(dataBLTU.getNgayPhatHanh());
-            result.setNgayHetHanBLTU(dataBLTU.getNgayHetHan());
-            result.setNoteBLTU(dataBLTU.getNote());
-            result.setChenhLechBLTU(dataBLTU.getChenhLech());
-        }
+        result.setBlTuId(dataBLTU.getId());
+        result.setNgayPhatHanhBLTU(dataBLTU.getNgayPhatHanh());
+        result.setNgayHetHanBLTU(dataBLTU.getNgayHetHan());
+        result.setNoteBLTU(dataBLTU.getNote());
+        result.setChenhLechBLTU(dataBLTU.getChenhLech());
 
-        if (dataBLBH != null) {
-            result.setNgayPhatHanhBLBH(dataBLBH.getNgayPhatHanh());
-            result.setNgayHetHanBLBH(dataBLBH.getNgayHetHan());
-            result.setNoteBLBH(dataBLBH.getNote());
-            result.setChenhLechBLBH(dataBLBH.getChenhLech());
-        }
+        result.setBlBhId(dataBLBH.getId());
+        result.setNgayPhatHanhBLBH(dataBLBH.getNgayPhatHanh());
+        result.setNgayHetHanBLBH(dataBLBH.getNgayHetHan());
+        result.setNoteBLBH(dataBLBH.getNote());
+        result.setChenhLechBLBH(dataBLBH.getChenhLech());
 
         return result;
+    }
+
+    public SupportBaoLanhHopDongDTO findBaoLanhHopDong(Long id, int enabled, String target) {
+        if (target.equals("BLTHHD")) {
+            SupportBaoLanhHopDongDTO result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+            if (result == null) {
+                Long project_id = projectRepository.findIdByReport(id);
+                baoLanhThhdRepository.addNewBLTHHD(project_id);
+                result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+            }
+            return result;
+        }
+
+        if (target.equals("BLTU")) {
+            SupportBaoLanhHopDongDTO result = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
+            if (result == null) {
+                Long project_id = projectRepository.findIdByReport(id);
+                baoLanhTuRepository.addNewBLTU(project_id);
+                result = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
+            }
+            return result;
+        }
+
+        if (target.equals("BLBH")) {
+            SupportBaoLanhHopDongDTO result = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+            if (result == null) {
+                Long project_id = projectRepository.findIdByReport(id);
+                baoLanhBhRepository.addNewBLBH(project_id);
+                result = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+            }
+            return result;
+        }
+
+        return null;
     }
 
     @Override
@@ -805,7 +836,7 @@ public class ProjectReportService implements IProjectReport {
 
                     // dataError.add((i - 1), errors); // Đẩy lỗi vào list
                 } else {
-                    System.out.println("--- checkExcelDataType1AndType2() - Line 718: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType1AndType2() - Line 839: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -943,7 +974,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null);
                     }
                 } else {
-                    System.out.println("--- checkExcelDataType1AndType2() - Line 856: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType1AndType2() - Line 977: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1263,7 +1294,7 @@ public class ProjectReportService implements IProjectReport {
                         }
                     }
                 } else {
-                    System.out.println("--- checkExcelDataType3() - Line 1176: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType3() - Line 1297: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1443,7 +1474,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null);
                     }
                 } else {
-                    System.out.println("--- checkExcelDataType3() - Line 1332: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType3() - Line 1477: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1615,7 +1646,7 @@ public class ProjectReportService implements IProjectReport {
 
             return result;
         } catch (Exception e) {
-            System.out.println("--- ProjectReportService line 1479: " + e.getMessage());
+            System.out.println("--- ProjectReportService line 1649: " + e.getMessage());
             return null;
         }
     }

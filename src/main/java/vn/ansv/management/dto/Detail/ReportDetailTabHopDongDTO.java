@@ -27,6 +27,9 @@ public class ReportDetailTabHopDongDTO {
     private String ngayHetHanBLBH; // Ngày hết hạn bảo lãnh bảo hành
     private String noteBLBH; // Ghi chú bảo lãnh bảo hành
     private Long projectId;
+    private Long blThhdId;
+    private Long blTuId;
+    private Long blBhId;
 
     private String chenhLechHieuLuc;
     private String chenhLechBLTHHD;
