@@ -560,13 +560,12 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
         var target_id = $(this).attr("data-target");
         var data_relate_id = $("#" + target_id).attr("data-related-id");
         var target_compare_id = $(this).attr("data-compare");
-        console.log("data_relate_id: " + data_relate_id);
         $("#" + target_id).val("");
 
         // Trường hợp xóa ngày hiệu lực => Không còn chênh lệch
         if (target_id == "ngay_hieu_luc") {
             $("#" + data_relate_id).datepicker("option", "minDate", null);
-            $("#chenh_lech_hieu_luc").html((""));
+            $("#chenh_lech_hieu_luc").html("");
         }
 
         // Trường hợp xóa ngày kết thúc
@@ -578,7 +577,7 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
             if (data_compare != undefined && data_compare.length > 0) {
                 $("#chenh_lech_hieu_luc").html('<span class="text-primaryr">Vô thời hạn</span>');
             } else {
-                $("#chenh_lech_hieu_luc").html((""));
+                $("#chenh_lech_hieu_luc").html("");
             }
         }
     });
@@ -609,6 +608,31 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
                 // Cancel => Do nothing
             }
         );
+    });
+
+    $(".form-tab-hop-dong").unbind('submit').submit(function (e) {
+        e.preventDefault();
+
+        var form = document.getElementById($(this).attr("id"));
+        var data = new FormData(form);
+        var url = $(this).attr('action');
+        console.log("url: " + url);
+
+        $.ajax({
+            url: "/api" + url,
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                console.log(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+            }
+        });
     });
 });
 /* ==============================

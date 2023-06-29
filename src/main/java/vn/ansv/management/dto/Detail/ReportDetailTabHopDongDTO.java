@@ -19,13 +19,10 @@ public class ReportDetailTabHopDongDTO {
     private String ngayKetThuc;
     private String ngayPhatHanhBLTHHD; // Ngày phát hành bảo lãnh thực hiện hợp đồng
     private String ngayHetHanBLTHHD; // Ngày hết hạn bảo lãnh thực hiện hợp đồng
-    private String noteBLTHHD; // Ghi chú bảo lãnh thực hiện hợp đồng
     private String ngayPhatHanhBLTU; // Ngày phát hành bảo lãnh tạm ứng
     private String ngayHetHanBLTU; // Ngày hết hạn bảo lãnh tạm ứng
-    private String noteBLTU; // Ghi chú bảo lãnh tạm ứng
     private String ngayPhatHanhBLBH; // Ngày phát hành bảo lãnh bảo hành
     private String ngayHetHanBLBH; // Ngày hết hạn bảo lãnh bảo hành
-    private String noteBLBH; // Ghi chú bảo lãnh bảo hành
     private Long projectId;
     private Long blThhdId;
     private Long blTuId;
@@ -62,6 +59,9 @@ public class ReportDetailTabHopDongDTO {
         }
 
         return result;
+    }
+
+    public ReportDetailTabHopDongDTO() {
     }
 
     public ReportDetailTabHopDongDTO(Long id, String ngayKy, String ngayHieuLuc, String ngayKetThuc, Long projectId) {

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
@@ -124,10 +123,6 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 	 */
 	@Query(nativeQuery = true)
 	ReportDetailTabDuThauDTO findDetailTabDuThau(@Param("id") Long id, @Param("enabled") int enabled);
-
-	/* ========== Chi tiết báo cáo tab HỢP ĐỒNG ========== */
-	@Query(nativeQuery = true)
-	ReportDetailTabHopDongDTO findDetailTabHopDong(@Param("id") Long id, @Param("enabled") int enabled);
 
 	/*
 	 * ---------------------------------

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.ansv.management.dto.AddNewProjectDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabHopDong1_DTO;
 import vn.ansv.management.dto.selectOption.OptionProjectDTO;
 import vn.ansv.management.repository.BaoLanhBhRepository;
 import vn.ansv.management.repository.BaoLanhThhdRepository;
@@ -57,5 +58,11 @@ public class ProjectService implements IProject {
             System.out.println("--- ProjectService - line 33: " + e.getMessage());
             return "false";
         }
+    }
+
+    @Override
+    public String updateDataHopDong(UpdateDetailTabHopDong1_DTO dataUpdate) {
+        // projectRepository.updateDataHopDong();
+        return null;
     }
 }

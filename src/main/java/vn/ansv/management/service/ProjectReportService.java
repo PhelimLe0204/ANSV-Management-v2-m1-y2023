@@ -35,6 +35,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabCptgDTO;
+import vn.ansv.management.dto.Detail.HopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -53,6 +54,7 @@ import vn.ansv.management.repository.BaoLanhBhRepository;
 import vn.ansv.management.repository.BaoLanhThhdRepository;
 import vn.ansv.management.repository.BaoLanhTuRepository;
 import vn.ansv.management.repository.CustomerRepository;
+import vn.ansv.management.repository.HopDongRepository;
 import vn.ansv.management.repository.ProjectPriorityRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectReportSubdataRepository;
@@ -64,6 +66,9 @@ import vn.ansv.management.service.Interface.IProjectReport;
 
 @Service
 public class ProjectReportService implements IProjectReport {
+
+    @Autowired
+    private HopDongRepository hopDongRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -196,27 +201,36 @@ public class ProjectReportService implements IProjectReport {
      */
     @Override
     public ReportDetailTabHopDongDTO findDetailTabHopDong(Long id, int enabled) {
+        Long projectId = projectRepository.findIdByReport(id);
+        ReportDetailTabHopDongDTO result = new ReportDetailTabHopDongDTO();
+        HopDongDTO dataHopDong = hopDongRepository.findDetailTabHopDong(id, enabled);
+        if (dataHopDong == null) {
+            Long project_id = projectRepository.findIdByReport(id);
+            hopDongRepository.addNewHopDong(project_id);
+            dataHopDong = hopDongRepository.findDetailTabHopDong(id, enabled);
+        }
         SupportBaoLanhHopDongDTO dataBLTHHD = findBaoLanhHopDong(id, enabled, "BLTHHD");
         SupportBaoLanhHopDongDTO dataBLTU = findBaoLanhHopDong(id, enabled, "BLTU");
         SupportBaoLanhHopDongDTO dataBLBH = findBaoLanhHopDong(id, enabled, "BLBH");
-        ReportDetailTabHopDongDTO result = projectReportRepository.findDetailTabHopDong(id, enabled);
+
+        result.setId(projectId);
+        result.setNgayKy(dataHopDong.getNgayKy());
+        result.setNgayHieuLuc(dataHopDong.getNgayHieuLuc());
+        result.setNgayKetThuc(dataHopDong.getNgayKetThuc());
 
         result.setBlThhdId(dataBLTHHD.getId());
         result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());
         result.setNgayHetHanBLTHHD(dataBLTHHD.getNgayHetHan());
-        result.setNoteBLTHHD(dataBLTHHD.getNote());
         result.setChenhLechBLTHHD(dataBLTHHD.getChenhLech());
 
         result.setBlTuId(dataBLTU.getId());
         result.setNgayPhatHanhBLTU(dataBLTU.getNgayPhatHanh());
         result.setNgayHetHanBLTU(dataBLTU.getNgayHetHan());
-        result.setNoteBLTU(dataBLTU.getNote());
         result.setChenhLechBLTU(dataBLTU.getChenhLech());
 
         result.setBlBhId(dataBLBH.getId());
         result.setNgayPhatHanhBLBH(dataBLBH.getNgayPhatHanh());
         result.setNgayHetHanBLBH(dataBLBH.getNgayHetHan());
-        result.setNoteBLBH(dataBLBH.getNote());
         result.setChenhLechBLBH(dataBLBH.getChenhLech());
 
         return result;

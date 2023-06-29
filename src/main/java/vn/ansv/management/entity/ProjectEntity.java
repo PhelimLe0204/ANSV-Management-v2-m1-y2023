@@ -75,6 +75,18 @@ public class ProjectEntity extends BaseEntity {
 
     /*
      * @OneToMany(mappedBy =
+     * "tên biến hứng dữ liệu từ ProjectEntity trong HopDongEntity (project)"
+     * )
+     */
+    @OneToMany(mappedBy = "project")
+    /*
+     * 1 'project' nằm trong nhiều 'hop_dong'
+     * => dùng List để hứng mảng dữ liệu
+     */
+    private List<HopDongEntity> hopDongs = new ArrayList<>();
+
+    /*
+     * @OneToMany(mappedBy =
      * "tên biến hứng dữ liệu từ class hiện tại (ProjectEntity) trong BaoLanhThhdEntity: project"
      * )
      */
@@ -159,6 +171,14 @@ public class ProjectEntity extends BaseEntity {
 
     public void setProjectReports(List<ProjectReportEntity> projectReports) {
         this.projectReports = projectReports;
+    }
+
+    public List<HopDongEntity> getHopDongs() {
+        return this.hopDongs;
+    }
+
+    public void setHopDongs(List<HopDongEntity> hopDongs) {
+        this.hopDongs = hopDongs;
     }
 
     public List<BaoLanhThhdEntity> getBaoLanhThhds() {

@@ -110,9 +110,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form
-                                th:action="@{/chi-tiet/update/hop-dong/thoi-han-hop-dong/{id}(id=${detailTabHopDong.getId()})}"
-                                id="form-thoi-han-hop-dong-edit" method="post">
+                            <form th:action="@{/chi-tiet/update/thoi-han-hop-dong/{id}(id=${detailTabHopDong.getId()})}"
+                                id="form-thoi-han-hop-dong-edit" method="post" class="form-tab-hop-dong">
                                 <div class="modal-body">
                                     <div class="row mb-4">
                                         <div class="col-md-12 table-responsive">
@@ -146,7 +145,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="font-weight-bold">Ngày kết thúc</td>
+                                                    <td class="font-weight-bold">Ngày kết thúc (mới nhất)</td>
                                                     <td class="p-2">
                                                         <input type="text" name="ngayKetThuc" id="ngay_ket_thuc"
                                                             class="form-control text-center input-datepicker float-left"

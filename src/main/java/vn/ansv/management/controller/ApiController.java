@@ -22,6 +22,7 @@ import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.SupportCptgLessDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabHopDong1_DTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserProfileDTO;
@@ -509,6 +510,14 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Có lỗi xảy ra! Vui lòng thử lại sau.", ""));
         }
+    }
+
+    @PostMapping("/chi-tiet/update/thoi-han-hop-dong/{projectReportId}")
+    public ResponseEntity<ResponseObject> updateTabHopDong1(UpdateDetailTabHopDong1_DTO dataUpdate,
+            @PathVariable Long projectReportId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("success", "Cập nhật chi tiết dự án - tab hợp động - 1", projectReportId));
     }
 
 }

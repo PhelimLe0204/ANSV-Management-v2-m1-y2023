@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
-import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
@@ -270,14 +269,6 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN project AS p ON pr.project_id = p.id "
         + "INNER JOIN customer AS c ON p.customer_id = c.id "
         + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabDuThauDTO")
-
-/* ===== ProjectReportRepository.findDetailTabHopDong() ===== */
-@NamedNativeQuery(name = "ProjectReportEntity.findDetailTabHopDong", query = "SELECT "
-        + "pr.id, p.ngay_ky_hop_dong AS ngayKy, p.ngay_hieu_luc_hop_dong AS ngayHieuLuc, "
-        + "p.ngay_ket_thuc_hop_dong AS ngayKetThuc, p.id AS projectId "
-        + "FROM project_report AS pr "
-        + "INNER JOIN project AS p ON pr.project_id = p.id "
-        + "WHERE pr.id = :id AND pr.enabled = :enabled", resultSetMapping = "Mapping.ReportDetailTabHopDongDTO")
 
 /* ===== ProjectReportRepository.findDetailTabChiPhiThoiGian() ===== */
 @NamedNativeQuery(name = "ProjectReportEntity.findDetailTabChiPhiThoiGian", query = "SELECT "
@@ -613,14 +604,6 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         @ColumnResult(name = "phamViCungCap", type = String.class),
         @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
         @ColumnResult(name = "mucDoKhaThi", type = Integer.class) }))
-
-/* ===== Set mapping: ReportDetailTabHopDongDTO ===== */
-@SqlResultSetMapping(name = "Mapping.ReportDetailTabHopDongDTO", classes = @ConstructorResult(targetClass = ReportDetailTabHopDongDTO.class, columns = {
-        @ColumnResult(name = "id", type = Long.class),
-        @ColumnResult(name = "ngayKy", type = String.class),
-        @ColumnResult(name = "ngayHieuLuc", type = String.class),
-        @ColumnResult(name = "ngayKetThuc", type = String.class),
-        @ColumnResult(name = "projectId", type = Long.class) }))
 
 /* ===== Set mapping: ReportDetailTabCptgDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ReportDetailTabCptgDTO", classes = @ConstructorResult(targetClass = ReportDetailTabCptgDTO.class, columns = {
