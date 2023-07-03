@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
@@ -40,6 +41,8 @@ public interface IProjectReport {
     ReportDetailTabPhanLoaiDTO findDetailTabPhanLoai(Long id, int enabled);
 
     ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled);
+
+    ReportDetailTabHopDongDTO findDetailTabHopDong(Long id, int enabled);
 
     ReportDetailTabCptgDTO findDetailTabChiPhiThoiGian(Long id, int enabled);
 

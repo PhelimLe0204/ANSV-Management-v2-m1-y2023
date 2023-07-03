@@ -29,10 +29,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
+import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabCptgDTO;
+import vn.ansv.management.dto.Detail.HopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabDuThauDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabPhanLoaiDTO;
@@ -47,7 +50,11 @@ import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.entity.PaginatedEntity;
 import vn.ansv.management.entity.ResponseObject;
+import vn.ansv.management.repository.BaoLanhBhRepository;
+import vn.ansv.management.repository.BaoLanhThhdRepository;
+import vn.ansv.management.repository.BaoLanhTuRepository;
 import vn.ansv.management.repository.CustomerRepository;
+import vn.ansv.management.repository.HopDongRepository;
 import vn.ansv.management.repository.ProjectPriorityRepository;
 import vn.ansv.management.repository.ProjectReportRepository;
 import vn.ansv.management.repository.ProjectReportSubdataRepository;
@@ -59,6 +66,9 @@ import vn.ansv.management.service.Interface.IProjectReport;
 
 @Service
 public class ProjectReportService implements IProjectReport {
+
+    @Autowired
+    private HopDongRepository hopDongRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -77,6 +87,15 @@ public class ProjectReportService implements IProjectReport {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private BaoLanhThhdRepository baoLanhThhdRepository;
+
+    @Autowired
+    private BaoLanhTuRepository baoLanhTuRepository;
+
+    @Autowired
+    private BaoLanhBhRepository baoLanhBhRepository;
 
     @Autowired
     private ProjectPriorityRepository projectPriorityRepository;
@@ -173,6 +192,84 @@ public class ProjectReportService implements IProjectReport {
     @Override
     public ReportDetailTabDuThauDTO findDetailTabDuThau(Long id, int enabled) {
         return projectReportRepository.findDetailTabDuThau(id, enabled);
+    }
+
+    /*
+     * =====================================
+     * ----- Start: Detail tab hợp đồng ----
+     * =====================================
+     */
+    @Override
+    public ReportDetailTabHopDongDTO findDetailTabHopDong(Long id, int enabled) {
+        Long projectId = projectRepository.findIdByReport(id);
+        ReportDetailTabHopDongDTO result = new ReportDetailTabHopDongDTO();
+        HopDongDTO dataHopDong = hopDongRepository.findDetailTabHopDongByReport(id, enabled);
+        if (dataHopDong == null) {
+            hopDongRepository.addNewHopDong(projectId);
+            dataHopDong = hopDongRepository.findDetailTabHopDongByReport(id, enabled);
+        }
+        SupportBaoLanhHopDongDTO dataBLTHHD = findBaoLanhHopDong(id, enabled, "BLTHHD");
+        SupportBaoLanhHopDongDTO dataBLTU = findBaoLanhHopDong(id, enabled, "BLTU");
+        SupportBaoLanhHopDongDTO dataBLBH = findBaoLanhHopDong(id, enabled, "BLBH");
+
+        result.setId(id);
+
+        result.setHopDongId(dataHopDong.getId());
+        result.setNgayKy(dataHopDong.getNgayKy());
+        result.setNgayHieuLuc(dataHopDong.getNgayHieuLuc());
+        result.setNgayKetThuc(dataHopDong.getNgayKetThuc());
+        result.setChenhLechHieuLuc(dataHopDong.getChenhLech());
+
+        result.setBlThhdId(dataBLTHHD.getId());
+        result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());
+        result.setNgayHetHanBLTHHD(dataBLTHHD.getNgayHetHan());
+        result.setChenhLechBLTHHD(dataBLTHHD.getChenhLech());
+
+        result.setBlTuId(dataBLTU.getId());
+        result.setNgayPhatHanhBLTU(dataBLTU.getNgayPhatHanh());
+        result.setNgayHetHanBLTU(dataBLTU.getNgayHetHan());
+        result.setChenhLechBLTU(dataBLTU.getChenhLech());
+
+        result.setBlBhId(dataBLBH.getId());
+        result.setNgayPhatHanhBLBH(dataBLBH.getNgayPhatHanh());
+        result.setNgayHetHanBLBH(dataBLBH.getNgayHetHan());
+        result.setChenhLechBLBH(dataBLBH.getChenhLech());
+
+        return result;
+    }
+
+    public SupportBaoLanhHopDongDTO findBaoLanhHopDong(Long id, int enabled, String target) {
+        if (target.equals("BLTHHD")) {
+            SupportBaoLanhHopDongDTO result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+            if (result == null) {
+                Long project_id = projectRepository.findIdByReport(id);
+                baoLanhThhdRepository.addNewBLTHHD(project_id);
+                result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+            }
+            return result;
+        }
+
+        if (target.equals("BLTU")) {
+            SupportBaoLanhHopDongDTO result = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
+            if (result == null) {
+                Long project_id = projectRepository.findIdByReport(id);
+                baoLanhTuRepository.addNewBLTU(project_id);
+                result = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
+            }
+            return result;
+        }
+
+        if (target.equals("BLBH")) {
+            SupportBaoLanhHopDongDTO result = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+            if (result == null) {
+                Long project_id = projectRepository.findIdByReport(id);
+                baoLanhBhRepository.addNewBLBH(project_id);
+                result = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+            }
+            return result;
+        }
+
+        return null;
     }
 
     @Override
@@ -755,7 +852,7 @@ public class ProjectReportService implements IProjectReport {
 
                     // dataError.add((i - 1), errors); // Đẩy lỗi vào list
                 } else {
-                    System.out.println("--- checkExcelDataType1AndType2() - Line 718: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType1AndType2() - Line 839: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -893,7 +990,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null);
                     }
                 } else {
-                    System.out.println("--- checkExcelDataType1AndType2() - Line 856: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType1AndType2() - Line 977: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1213,7 +1310,7 @@ public class ProjectReportService implements IProjectReport {
                         }
                     }
                 } else {
-                    System.out.println("--- checkExcelDataType3() - Line 1176: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType3() - Line 1297: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1393,7 +1490,7 @@ public class ProjectReportService implements IProjectReport {
                                         : null);
                     }
                 } else {
-                    System.out.println("--- checkExcelDataType3() - Line 1332: Dòng " + (i + 1) + " rỗng");
+                    System.out.println("--- checkExcelDataType3() - Line 1477: Dòng " + (i + 1) + " rỗng");
                     break;
                 }
             }
@@ -1565,7 +1662,7 @@ public class ProjectReportService implements IProjectReport {
 
             return result;
         } catch (Exception e) {
-            System.out.println("--- ProjectReportService line 1479: " + e.getMessage());
+            System.out.println("--- ProjectReportService line 1649: " + e.getMessage());
             return null;
         }
     }

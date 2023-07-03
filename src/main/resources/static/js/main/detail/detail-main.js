@@ -408,8 +408,6 @@ $("#du-thau-open-modal-edit").click(function () {
     // CLOSE Modal update tab "Dự thầu"
     $(".tab-du-thau-edit-modal-close").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-tab-du-thau-edit"));
-        console.log("dataCompare: " + dataCompare);
-        console.log("$formDataOrigin: " + $formDataOrigin);
         if (dataCompare == $formDataOrigin) {
             $('#tabDuThauEditModal').modal('hide');
             return;
@@ -488,6 +486,199 @@ $("#du-thau-open-modal-edit").click(function () {
 /* ==============================
  *      End: Tab dự thầu        *
  ============================== */
+
+
+
+/* ==============================
+*      Start: Tab hợp đồng      *
+============================== */
+// $('#thoiHanHopDongEditModal').on('shown.bs.modal', function (e) {
+//     console.log("XYZ");
+//     alert("I want this to appear after the modal has opened!");
+// })
+$("#thoi-han-hop-dong-open-modal-edit").click(function () {
+    console.log("thoi-han-hop-dong-open-modal-edit");
+    // bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
+    var $formDataOrigin = getFormData($("#form-thoi-han-hop-dong-edit")); // old form data
+
+    $("#ngay_ky").datepicker({ dateFormat: 'dd / mm / yy' });
+
+    $("#ngay_hieu_luc").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays < 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
+                }
+            } else {
+                $("#" + calculate_result_id).html('<span class="text-primaryr">Vô thời hạn</span>');
+            }
+
+            $("#ngay_ket_thuc").datepicker("option", "minDate", date1);
+        }
+    });
+
+    $("#ngay_ket_thuc").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays > 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + Math.abs(diffDays) + ' ngày</span>');
+                }
+            }
+
+            $("#ngay_hieu_luc").datepicker("option", "maxDate", date1);
+        }
+    });
+
+    $(".btn-delete-input").unbind('click').click(function () {
+        var target_id = $(this).attr("data-target");
+        var data_relate_id = $("#" + target_id).attr("data-related-id");
+        var target_compare_id = $(this).attr("data-compare");
+        $("#" + target_id).val("");
+
+        // Trường hợp xóa ngày hiệu lực => Không còn chênh lệch
+        if (target_id == "ngay_hieu_luc") {
+            $("#" + data_relate_id).datepicker("option", "minDate", null);
+            $("#chenh_lech_hieu_luc").html("");
+        }
+
+        // Trường hợp xóa ngày kết thúc
+        if (target_id == "ngay_ket_thuc") {
+            $("#" + data_relate_id).datepicker("option", "maxDate", null);
+            var data_compare = $("#" + target_compare_id).val();
+            // console.log("target_compare_id: " + target_compare_id);
+            // console.log("data_compare: " + data_compare);
+            if (data_compare != undefined && data_compare.length > 0) {
+                $("#chenh_lech_hieu_luc").html('<span class="text-primaryr">Vô thời hạn</span>');
+            } else {
+                $("#chenh_lech_hieu_luc").html("");
+            }
+        }
+    });
+
+    // CLOSE Modal update tab "Hợp đồng"
+    $(".tab-hop-dong-edit-modal-close").unbind('click').click(function () {
+        var dataCompare = getFormData($("#form-thoi-han-hop-dong-edit"));
+        // console.log("dataCompare: " + dataCompare);
+        // console.log("$formDataOrigin: " + $formDataOrigin);
+        if (dataCompare == $formDataOrigin) {
+            $('#thoiHanHopDongEditModal').modal('hide');
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận hủy',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">HỢP ĐỒNG</span><br>'
+            + 'Bạn chắc chắn muốn hủy?'
+            + '</p>',
+            function () {
+                // Ok => Reset modal update, then close modal
+                $("#form-thoi-han-hop-dong-edit")[0].reset(); // Hoàn tác dữ liệu form
+                bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
+                $('#thoiHanHopDongEditModal').modal('hide');
+            },
+            function () {
+                // Cancel => Do nothing
+            }
+        );
+    });
+
+    $(".form-tab-hop-dong").unbind('submit').submit(function (e) {
+        e.preventDefault();
+
+        var form = document.getElementById($(this).attr("id"));
+        var data = new FormData(form);
+        var url = $(this).attr('action');
+        console.log("url: " + url);
+
+        $.ajax({
+            url: "/api" + url,
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                if (result.status == "failed") {
+                    alertify.error(result.message).delay(3);
+                }
+                if (result.status == "success") {
+                    alertify.success(result.message).delay(2);
+                }
+                console.log(result);
+
+                $('#ngay-ky-display').html(result.data.ngayKy);
+                $('#ngay-hieu-luc-display').html(result.data.ngayHieuLuc);
+                $('#ngay-ket-thuc-display').html(result.data.ngayKetThuc);
+                $('#chenh-lech-hieu-luc-display').html(result.data.chenhLech);
+
+                $formDataOrigin = getFormData($("#form-thoi-han-hop-dong-edit"));
+                $('#thoiHanHopDongEditModal').modal('hide');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+            }
+        });
+    });
+});
+
+function bao_han(startDate, endDate, target) {
+    var dataStartDate = $("#" + startDate).val();
+    var dataEndDate = $("#" + endDate).val();
+    if (dataStartDate.length == 0) {
+        $("#" + target).html("");
+        return;
+    }
+    if (dataEndDate.length == 0) {
+        $("#" + target).html('<span class="text-primaryr">Vô thời hạn</span>');
+        return;
+    }
+    var dataStartDateFormat = new Date(dataStartDate.slice(5, 7) + "/" + dataStartDate.slice(0, 2) + "/" + dataStartDate.slice(10, 15));
+    var dataEndDateFormat = new Date(dataEndDate.slice(5, 7) + "/" + dataEndDate.slice(0, 2) + "/" + dataEndDate.slice(10, 15));
+    var diffTime = dataEndDateFormat - dataStartDateFormat;
+    var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays == 0) {
+        $("#" + target).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+    } else if (diffDays < 0) {
+        $("#" + target).html('<span class="text-muted">Đã hết hiệu lực</span>');
+    } else {
+        $("#" + target).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
+    }
+}
+/* ==============================
+*      End: Tab hợp đồng        *
+============================== */
 
 
 
@@ -1113,22 +1304,29 @@ $("#thanh-vien-tab").click(function () {
 
 
 function detectMessage(data) {
-    if (data == 1) {
-        return 'PHÂN LOẠI';
+    switch (data) {
+        case "phanLoai":
+            return 'PHÂN LOẠI';
+        case "duThau":
+            return 'Dự thầu';
+        case "hopDong":
+            return 'Hợp đồng';
+        case "chiPhiThoiGian":
+            return 'CHI PHÍ & THỜI GIAN';
+        case "quaTrinh":
+            return 'Quá trình';
+        case "thanhVien":
+            return 'Thành viên';
+        default:
+            return null;
     }
-    if (data == 2) {
-        return 'DỰ THẦU';
-    }
-    if (data == 3) {
-        return 'CHI PHÍ & THỜI GIAN';
-    }
-    if (data == 4) {
-        return 'QUÁ TRÌNH';
-    }
-    if (data == 5) {
-        return 'THÀNH VIÊN';
-    }
-    return null;
+    // if (data == "phanLoai") { return 'PHÂN LOẠI'; }
+    // if (data == "duThau") { return 'DỰ THẦU'; }
+    // if (data == "hopDong") { return 'Hợp đồng'; }
+    // if (data == "chiPhiThoiGian") { return 'CHI PHÍ & THỜI GIAN'; }
+    // if (data == "quaTrinh") { return 'QUÁ TRÌNH'; }
+    // if (data == "thanhVien") { return 'THÀNH VIÊN'; }
+    // return null;
 }
 
 // Get Form data

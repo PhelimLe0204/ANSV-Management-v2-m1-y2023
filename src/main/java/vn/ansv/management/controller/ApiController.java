@@ -22,6 +22,7 @@ import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.SupportCptgLessDTO;
+import vn.ansv.management.dto.Detail.UpdateDetailTabHopDong1_DTO;
 import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserProfileDTO;
@@ -37,6 +38,7 @@ import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.FileUploadService;
+import vn.ansv.management.service.HopDongService;
 import vn.ansv.management.service.ProjectReportMemberService;
 import vn.ansv.management.service.ProjectReportService;
 import vn.ansv.management.service.ProjectReportSubdataService;
@@ -53,8 +55,8 @@ public class ApiController {
     @Autowired
     private MenuCategoryRepository menuCategoryRepository;
 
-    // @Autowired
-    // private MenuRepository menuRepository;
+    @Autowired
+    private HopDongService hopDongService;
 
     @Autowired
     private FileUploadService fileUploadService;
@@ -509,6 +511,26 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Có lỗi xảy ra! Vui lòng thử lại sau.", ""));
         }
+    }
+
+    @PostMapping("/chi-tiet/update/thoi-han-hop-dong/{reportId}_{hopDongId}")
+    public ResponseEntity<ResponseObject> updateTabHopDong1(UpdateDetailTabHopDong1_DTO dataUpdate,
+            @PathVariable Long reportId, @PathVariable Long hopDongId) {
+        ResponseObject result = hopDongService.updateDataHopDong(reportId, hopDongId, dataUpdate);
+        if (result.getMessage().equals("SUCCESS")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cập nhật thời hạn hợp đồng thành công!", result.getData()));
+        }
+        if (result.getMessage().equals("NOT FOUND")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Cập nhật thời hạn hợp đồng thất bại!", null));
+        }
+        if (result.getMessage().equals("EXCEPTION")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Có lỗi! Vui lòng thử lại sau.", null));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", "Lỗi không xác định!", null));
     }
 
 }

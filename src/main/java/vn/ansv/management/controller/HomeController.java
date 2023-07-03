@@ -23,6 +23,7 @@ import vn.ansv.management.dto.Customer.ListCustomerDTO;
 import vn.ansv.management.dto.Customer.UpdateCustomerDTO;
 import vn.ansv.management.dto.Dashboard.ProjectDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabDuThauDTO;
+import vn.ansv.management.dto.Detail.ReportDetailTabHopDongDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabPhanLoaiDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabQuaTrinhDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabThanhVienDTO;
@@ -205,6 +206,17 @@ public class HomeController extends BaseController {
                 .findDetailTabPhanLoai(project_report_id, 1);
         ReportDetailTabDuThauDTO projectDetailTabDuThau = projectReportService
                 .findDetailTabDuThau(project_report_id, 1);
+
+        ReportDetailTabHopDongDTO projectDetailTabHopDong = null;
+        try {
+            projectDetailTabHopDong = projectReportService
+                    .findDetailTabHopDong(project_report_id, 1);
+            // System.out.println("--- projectDetailTabHopDong: " +
+            // projectDetailTabHopDong.getNgayKy());
+        } catch (Exception e) {
+            System.out.println("--- HomeController() - viewDetail() - Line 216: " + e.getMessage());
+        }
+
         ReportDetailTabCptgDTO projectDetailTabCptg = projectReportService
                 .findDetailTabChiPhiThoiGian(project_report_id, 1);
         ReportDetailTabQuaTrinhDTO projectDetailTabQuaTrinh = projectReportService
@@ -220,6 +232,7 @@ public class HomeController extends BaseController {
 
         _mvShare.addObject("detailTabPhanLoai", projectDetailTabPhanLoai);
         _mvShare.addObject("detailTabDuThau", projectDetailTabDuThau);
+        _mvShare.addObject("detailTabHopDong", projectDetailTabHopDong);
         _mvShare.addObject("detailTabCptg", projectDetailTabCptg);
         _mvShare.addObject("detailTabQuaTrinh", projectDetailTabQuaTrinh);
         _mvShare.addObject("detailTabThanhVien", projectDetailTabThanhVien);
@@ -232,49 +245,49 @@ public class HomeController extends BaseController {
         return _mvShare;
     }
 
-    @PostMapping("/chi-tiet/update/1/{id}")
+    @PostMapping("/chi-tiet/update/phan-loai/{id}")
     public String updateDetailTabPhanLoai(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabPhanLoaiDTO dataUpdate, Model model, HttpServletRequest request) {
         // System.out.println("----- HomeController.updateDetailTabPhanLoai - id: " +
         // dataUpdate.getId());
         if (projectReportService.updateDetailTabPhanLoai(id, dataUpdate)) {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 1;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=phanLoai";
         } else {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 1;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=phanLoai";
         }
     }
 
-    @PostMapping("/chi-tiet/update/2/{id}")
+    @PostMapping("/chi-tiet/update/du-thau/{id}")
     public String updateDetailTabDuThau(@PathVariable Long id,
             @ModelAttribute UpdateDetailTabDuThauDTO dataUpdate, Model model, HttpServletRequest request) {
         // System.out.println("----- HomeController.updateDetailTabDuThau - id: " +
         // dataUpdate.getId());
         if (projectReportService.updateDetailTabDuThau(id, dataUpdate)) {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 2;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=duThau";
         } else {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 2;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=duThau";
         }
     }
 
-    @PostMapping("/chi-tiet/update/3/{id}")
+    @PostMapping("/chi-tiet/update/chi-phi-thoi-gian/{id}")
     public String updateDetailTabCPTT(@PathVariable Long id, @ModelAttribute UpdateDetailTabCptgDTO dataUpdate,
             Model model, HttpServletRequest request) {
         // System.out.println("----- HomeController.updateDetailTabCPTT - id: " +
         // dataUpdate.getId());
         if (projectReportService.updateDetailTabCptg(id, dataUpdate)) {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 3;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=chiPhiThoiGian";
         } else {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 3;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=chiPhiThoiGian";
         }
     }
 
-    @PostMapping("/chi-tiet/update/4/{id}")
+    @PostMapping("/chi-tiet/update/qua-trinh/{id}")
     public String updateDetailTabQuaTrinh(@PathVariable Long id,
             @ModelAttribute ReportDetailTabQuaTrinhDTO dataUpdate, Model model, HttpServletRequest request) {
         if (projectReportService.updateDetailTabQuaTrinh(id, dataUpdate)) {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 4;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=quaTrinh";
         } else {
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 4;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=quaTrinh";
         }
     }
 
@@ -406,15 +419,15 @@ public class HomeController extends BaseController {
 
         if (count == 0) {
             // Thêm thành viên thất bại
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=" + 5;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&tab=thanhVien";
         }
         if (count == 1) {
             // Thêm thành viên thành công
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=" + 5;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=true&tab=thanhVien";
         }
         if (count == 2) {
             // Thành viên đã tồn tại
-            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&status=2&tab=" + 5;
+            return "redirect:/chi-tiet?id=" + id + "&updateSuccess=false&status=2&tab=thanhVien";
         }
         return "redirect:/chi-tiet?id=" + id;
     }
