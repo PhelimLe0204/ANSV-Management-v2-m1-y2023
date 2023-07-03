@@ -219,21 +219,25 @@ public class ProjectReportService implements IProjectReport {
         result.setNgayHieuLuc(dataHopDong.getNgayHieuLuc());
         result.setNgayKetThuc(dataHopDong.getNgayKetThuc());
         result.setChenhLechHieuLuc(dataHopDong.getChenhLech());
+        result.setNoteHopDong(dataHopDong.getNote());
 
         result.setBlThhdId(dataBLTHHD.getId());
         result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());
         result.setNgayHetHanBLTHHD(dataBLTHHD.getNgayHetHan());
         result.setChenhLechBLTHHD(dataBLTHHD.getChenhLech());
+        result.setNoteBLTHHD(dataBLTHHD.getNote());
 
         result.setBlTuId(dataBLTU.getId());
         result.setNgayPhatHanhBLTU(dataBLTU.getNgayPhatHanh());
         result.setNgayHetHanBLTU(dataBLTU.getNgayHetHan());
         result.setChenhLechBLTU(dataBLTU.getChenhLech());
+        result.setNoteBLTU(dataBLTU.getNote());
 
         result.setBlBhId(dataBLBH.getId());
         result.setNgayPhatHanhBLBH(dataBLBH.getNgayPhatHanh());
         result.setNgayHetHanBLBH(dataBLBH.getNgayHetHan());
         result.setChenhLechBLBH(dataBLBH.getChenhLech());
+        result.setNoteBLBH(dataBLBH.getNote());
 
         return result;
     }
