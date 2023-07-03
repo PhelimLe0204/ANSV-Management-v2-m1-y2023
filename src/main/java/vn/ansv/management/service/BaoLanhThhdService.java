@@ -33,4 +33,14 @@ public class BaoLanhThhdService implements IBaoLanhThhd {
             return result;
         }
     }
+
+    @Override
+    public SupportBaoLanhHopDongDTO baoLanhHopDongByReport(Long reportId) {
+        try {
+            return baoLanhThhdRepository.findDetailTabHopDongByReport(reportId, 1);
+        } catch (Exception e) {
+            System.out.println("--- BaoLanhThhdService - Line 42: " + e.getMessage());
+            return null;
+        }
+    }
 }

@@ -38,21 +38,21 @@
                     <tr>
                         <td colspan="2" class="bg-primary font-weight-bold text-white pt-2 pb-2">
                             <span>Bảo lãnh thực hiện hợp đồng</span>
-                            <span class="float-right" id="cl-bl-thhd-display">
+                            <span class="float-right" id="cl-blthhd-display">
                                 [[${detailTabHopDong.getChenhLechBLTHHD() != null ?
                                 detailTabHopDong.getChenhLechBLTHHD() : '. . . . .'}]]</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="font-weight-bold">Ngày mở: </span>
-                            <span class="pl-3" id="nph-bl-thhd-display">
+                            <span class="font-weight-bold">Ngày phát hành: </span>
+                            <span class="pl-3" id="nph-blthhd-display">
                                 [[${detailTabHopDong.getNgayPhatHanhBLTHHD() != null ?
                                 detailTabHopDong.getNgayPhatHanhBLTHHD() : '. . . . .'}]]</span>
                         </td>
                         <td>
                             <span class="font-weight-bold">Ngày hết hạn: </span>
-                            <span class="pl-3" id="nhh-bl-thhd-display">
+                            <span class="pl-3" id="nhh-blthhd-display">
                                 [[${detailTabHopDong.getNgayHetHanBLTHHD() != null ?
                                 detailTabHopDong.getNgayHetHanBLTHHD() : '. . . . .'}]]</span>
                         </td>
@@ -61,21 +61,21 @@
                     <tr>
                         <td colspan="2" class="bg-primary font-weight-bold text-white pt-2 pb-2">
                             <span>Bảo lãnh tạm ứng</span>
-                            <span class="float-right" id="cl-bl-tu-display">
+                            <span class="float-right" id="cl-bltu-display">
                                 [[${detailTabHopDong.getChenhLechBLTU() != null ?
                                 detailTabHopDong.getChenhLechBLTU() : '. . . . .'}]]</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="font-weight-bold">Ngày mở: </span>
-                            <span class="pl-3" id="nph-bl-tu-display">
+                            <span class="font-weight-bold">Ngày phát hành: </span>
+                            <span class="pl-3" id="nph-bltu-display">
                                 [[${detailTabHopDong.getNgayPhatHanhBLTU() != null ?
                                 detailTabHopDong.getNgayPhatHanhBLTU() : '. . . . .'}]]</span>
                         </td>
                         <td>
                             <span class="font-weight-bold">Ngày hết hạn: </span>
-                            <span class="pl-3" id="nhh-bl-tu-display">
+                            <span class="pl-3" id="nhh-bltu-display">
                                 [[${detailTabHopDong.getNgayHetHanBLTU() != null ?
                                 detailTabHopDong.getNgayHetHanBLTU() : '. . . . .'}]]</span>
                         </td>
@@ -84,21 +84,21 @@
                     <tr>
                         <td colspan="2" class="bg-primary font-weight-bold text-white pt-2 pb-2">
                             <span>Bảo lãnh bảo hành</span>
-                            <span class="float-right" id="cl-bl-bh-display">
+                            <span class="float-right" id="cl-blbh-display">
                                 [[${detailTabHopDong.getChenhLechBLBH() != null ?
                                 detailTabHopDong.getChenhLechBLBH() : '. . . . .'}]]</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="font-weight-bold">Ngày mở: </span>
-                            <span class="pl-3" id="nph-bl-bh-display">
+                            <span class="font-weight-bold">Ngày phát hành: </span>
+                            <span class="pl-3" id="nph-blbh-display">
                                 [[${detailTabHopDong.getNgayPhatHanhBLBH() != null ?
                                 detailTabHopDong.getNgayPhatHanhBLBH() : '. . . . .'}]]</span>
                         </td>
                         <td>
                             <span class="font-weight-bold">Ngày hết hạn: </span>
-                            <span class="pl-3" id="nhh-bl-bh-display">
+                            <span class="pl-3" id="nhh-blbh-display">
                                 [[${detailTabHopDong.getNgayHetHanBLBH() != null ?
                                 detailTabHopDong.getNgayHetHanBLBH() : '. . . . .'}]]</span>
                         </td>
@@ -212,7 +212,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <span class="font-weight-bold">Ngày mở: </span>
+                                                        <span class="font-weight-bold">Ngày phát hành: </span>
                                                         <span class="pl-3">
                                                             [[${detailTabHopDong.getNgayPhatHanhBLTHHD()}]]</span>
                                                     </td>
@@ -233,7 +233,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <span class="font-weight-bold">Ngày mở: </span>
+                                                        <span class="font-weight-bold">Ngày phát hành: </span>
                                                         <span class="pl-3">
                                                             [[${detailTabHopDong.getNgayPhatHanhBLTU()}]]</span>
                                                     </td>
@@ -254,7 +254,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <span class="font-weight-bold">Ngày mở: </span>
+                                                        <span class="font-weight-bold">Ngày phát hành: </span>
                                                         <span class="pl-3">
                                                             [[${detailTabHopDong.getNgayPhatHanhBLBH()}]]</span>
                                                     </td>
@@ -282,12 +282,12 @@
                         </div>
                     </div>
                 </div>
-                <div id="blThhdEditModal" class="modal fade" tabindex="-1" role="dialog"
-                    aria-labelledby="blThhdEditModalLabel" aria-hidden="true">
+                <div id="baoLanhEditModal" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="baoLanhEditModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header pt-2 pb-2">
-                                <h5 class="modal-title" id="blThhdEditModalLabel">
+                                <h5 class="modal-title" id="baoLanhEditModalLabel">
                                     Thay đổi thông tin (Bảo lãnh thực hiện hợp đồng)
                                 </h5>
                                 <button type="button" class="tab-hop-dong-edit-modal-close close" aria-label="Close">
@@ -295,7 +295,7 @@
                                 </button>
                             </div>
                             <form th:action="@{/chi-tiet/update/bl-thhd/{id}(id=${detailTabHopDong.getBlThhdId()})}"
-                                id="form-bl-thhd-edit" method="post" class="form-tab-hop-dong">
+                                id="form-bao-lanh-edit" method="post" class="form-tab-hop-dong">
                                 <div class="modal-body">
                                     <div class="row mb-4">
                                         <div class="col-md-12 table-responsive">
@@ -303,17 +303,14 @@
                                                 <tr>
                                                     <td class="font-weight-bold">Ngày phát hành</td>
                                                     <td class="p-2">
-                                                        <input type="text" name="ngayPhatHanh"
-                                                            id="ngay_phat_hanh_bl_thhd"
-                                                            class="ngay-phat-hanh form-control text-center input-datepicker float-left"
+                                                        <input type="text" name="ngayPhatHanh" id="ngay-phat-hanh-input"
+                                                            class="form-control text-center input-datepicker float-left"
                                                             placeholder="dd / mm / yyyy"
-                                                            data-related-id="ngay_het_han_bl_thhd"
-                                                            data-calculate-result="chenh_lech_bl_thhd"
-                                                            th:value="${detailTabHopDong.getNgayPhatHanhBLTHHD()}"
-                                                            readonly="">
+                                                            data-related-id="ngay-het-han-input"
+                                                            data-calculate-result="chenh-lech-bao-lanh" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            data-target="ngay_phat_hanh_bl_thhd">
+                                                            data-target="ngay-phat-hanh-input">
                                                             <i class="feather icon-x"></i>
                                                         </button>
                                                     </td>
@@ -321,47 +318,29 @@
                                                 <tr>
                                                     <td class="font-weight-bold">Ngày hết hạn</td>
                                                     <td class="p-2">
-                                                        <input type="text" name="ngayHetHan" id="ngay_het_han_bl_thhd"
+                                                        <input type="text" name="ngayHetHan" id="ngay-het-han-input"
                                                             class="form-control text-center input-datepicker float-left"
                                                             placeholder="dd / mm / yyyy"
-                                                            data-related-id="ngay_phat_hanh_bl_thhd"
-                                                            data-calculate-result="chenh_lech_bl_thhd"
-                                                            th:value="${detailTabHopDong.getNgayHetHanBLTHHD()}"
-                                                            readonly="">
+                                                            data-related-id="ngay-phat-hanh-input"
+                                                            data-calculate-result="chenh-lech-bao-lanh" readonly="">
                                                         <button type="button"
                                                             class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1"
-                                                            data-target="ngay_het_han_bl_thhd"
-                                                            data-compare="ngay_phat_hanh_bl_thhd">
+                                                            data-target="ngay-het-han-input"
+                                                            data-compare="ngay-phat-hanh-input">
                                                             <i class="feather icon-x"></i>
                                                         </button>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="font-weight-bold">Báo hạn</td>
-                                                    <td class="text-center" id="chenh_lech_bl_thhd"
-                                                        style="font-size: 20px;">
-                                                        <th:block
-                                                            th:if="${detailTabHopDong.getChenhLechBLTHHD() != null && #strings.indexOf(detailTabHopDong.getChenhLechBLTHHD(), 'Còn') != -1}">
-                                                            <span class="text-primary">
-                                                                [[${detailTabHopDong.getChenhLechBLTHHD()}]]</span>
-                                                        </th:block>
-                                                        <th:block
-                                                            th:if="${detailTabHopDong.getChenhLechBLTHHD() != null && #strings.indexOf(detailTabHopDong.getChenhLechBLTHHD(), 'Đã') != -1}">
-                                                            <span class="text-muted">
-                                                                [[${detailTabHopDong.getChenhLechBLTHHD()}]]</span>
-                                                        </th:block>
-                                                        <th:block
-                                                            th:if="${detailTabHopDong.getChenhLechBLTHHD() != null && #strings.indexOf(detailTabHopDong.getChenhLechBLTHHD(), 'ngày hôm nay') != -1}">
-                                                            <span style="color: #FF8C00;">
-                                                                [[${detailTabHopDong.getChenhLechBLTHHD()}]]</span>
-                                                        </th:block>
-                                                    </td>
+                                                    <td class="text-center" id="chenh-lech-bao-lanh"
+                                                        style="font-size: 20px;"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="font-weight-bold">Ghi chú</td>
                                                     <td class="p-2">
-                                                        <textarea name="note" class="form-control"
-                                                            rows="1">[[${detailTabHopDong.getNoteBLTHHD()}]]</textarea>
+                                                        <textarea name="note" id="note-bao-lanh-input"
+                                                            class="form-control" rows="2"></textarea>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -370,13 +349,11 @@
                                 </div>
                                 <div class="modal-footer pr-2 pt-2 pb-2">
                                     <button type="button" class="tab-hop-dong-edit-modal-close btn btn-secondary pt-1"
-                                        style="height: 30px; width: 100px;" data-target="thoi-han-hop-dong">Hủy</button>
+                                        style="height: 30px; width: 100px;" data-target="bao-lanh">Hủy</button>
                                     <button type="button" id="btn-tab-hop-dong-edit-reset" class="btn btn-light pt-1"
-                                        style="height: 30px; width: 100px;" data-target="thoi-han-hop-dong">
-                                        Hoàn tác</button>
+                                        style="height: 30px; width: 100px;" data-target="bao-lanh">Hoàn tác</button>
                                     <button type="submit" id="btn-tab-hop-dong-edit-submit" class="btn btn-primary pt-1"
-                                        style="height: 30px; width: 100px;" data-target="thoi-han-hop-dong">
-                                        Cập nhật</button>
+                                        style="height: 30px; width: 100px;" data-target="bao-lanh">Cập nhật</button>
                                 </div>
                             </form>
                         </div>
@@ -386,16 +363,19 @@
                     data-toggle="modal" data-target="#thoiHanHopDongEditModal" style="height: 30px;">
                     <i class="feather mr-2 icon-edit"></i>Thời hạn hợp đồng
                 </button>
-                <button type="button" id="bl-thhd-open-modal-edit" class="btn btn-warning pt-1 mr-3" data-toggle="modal"
-                    data-target="#blThhdEditModal" style="height: 30px;">
+                <button type="button" id="bl-thhd-open-modal-edit" class="bao-lanh-modal-btn btn btn-warning pt-1 mr-3"
+                    data-toggle="modal" data-target="#baoLanhEditModal" data-type="blthhd"
+                    th:data-id="${detailTabHopDong.getId()}" style="height: 30px;">
                     <i class="feather mr-2 icon-edit"></i>Bảo lãnh thực hiện hợp đồng
                 </button>
-                <button type="button" id="bl-tu-open-modal-edit" class="btn btn-warning pt-1 mr-3" data-toggle="modal"
-                    data-target="#thoiHanHopDongEditModal" style="height: 30px;">
+                <button type="button" id="bl-tu-open-modal-edit" class="bao-lanh-modal-btn btn btn-warning pt-1 mr-3"
+                    data-toggle="modal" data-target="#baoLanhEditModal" data-type="bltu"
+                    th:data-id="${detailTabHopDong.getId()}" style="height: 30px;">
                     <i class="feather mr-2 icon-edit"></i>Bảo lãnh tạm ứng
                 </button>
-                <button type="button" id="bl-bh-open-modal-edit" class="btn btn-warning pt-1 mr-3" data-toggle="modal"
-                    data-target="#thoiHanHopDongEditModal" style="height: 30px;">
+                <button type="button" id="bl-bh-open-modal-edit" class="bao-lanh-modal-btn btn btn-warning pt-1 mr-3"
+                    data-toggle="modal" data-target="#baoLanhEditModal" data-type="blbh"
+                    th:data-id="${detailTabHopDong.getId()}" style="height: 30px;">
                     <i class="feather mr-2 icon-edit"></i>Bảo lãnh bảo hành
                 </button>
 

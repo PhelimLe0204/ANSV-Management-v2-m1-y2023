@@ -492,10 +492,6 @@ $("#du-thau-open-modal-edit").click(function () {
 /* ==============================
 *      Start: Tab hợp đồng      *
 ============================== */
-// $('#thoiHanHopDongEditModal').on('shown.bs.modal', function (e) {
-//     console.log("XYZ");
-//     alert("I want this to appear after the modal has opened!");
-// })
 $("#thoi-han-hop-dong-open-modal-edit").click(function () {
     console.log("thoi-han-hop-dong-open-modal-edit");
     // bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
@@ -652,11 +648,32 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
     });
 });
 
-$("#bl-thhd-open-modal-edit").click(function () {
-    console.log("bl-thhd-open-modal-edit");
-    var $formDataOrigin = getFormData($("#form-bl-thhd-edit")); // old form data
+// $('#baoLanhEditModal').on('shown.bs.modal', function (e) {
 
-    $("#ngay_phat_hanh_bl_thhd").datepicker({
+// })
+$(".bao-lanh-modal-btn").click(function () {
+    var $modalType = $(this).attr("data-type");
+    var reportId = $(this).attr("data-id");
+    var $formDataOrigin = "";
+    console.log("baoLanhEditModal: " + $modalType);
+
+    $.ajax({
+        url: "/api/bao-lanh-hop-dong/" + $modalType + "/" + reportId,
+        success: function (result, textStatus, jqXHR) {
+            if (result.status == "success") {
+                $("#ngay-phat-hanh-input").val(result.data.ngayPhatHanh);
+                $("#ngay-het-han-input").val(result.data.ngayHetHan);
+                $("#note-bao-lanh-input").val(result.data.note);
+            }
+            console.log(result);
+            $formDataOrigin = getFormData($("#form-bao-lanh-edit"));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertify.error("Thất bại! Vui lòng thử lại sau.").delay(3);
+        }
+    });
+
+    $("#ngay-phat-hanh-input").datepicker({
         dateFormat: 'dd / mm / yy',
         onSelect: function (dateValue) {
             var calculate_result_id = $(this).attr("data-calculate-result");
@@ -680,11 +697,11 @@ $("#bl-thhd-open-modal-edit").click(function () {
                 $("#" + calculate_result_id).html('<span class="text-primaryr">Vô thời hạn</span>');
             }
 
-            $("#ngay_het_han_bl_thhd").datepicker("option", "minDate", date1);
+            $("#ngay-het-han-input").datepicker("option", "minDate", date1);
         }
     });
 
-    $("#ngay_het_han_bl_thhd").datepicker({
+    $("#ngay-het-han-input").datepicker({
         dateFormat: 'dd / mm / yy',
         onSelect: function (dateValue) {
             var calculate_result_id = $(this).attr("data-calculate-result");
@@ -706,7 +723,7 @@ $("#bl-thhd-open-modal-edit").click(function () {
                 }
             }
 
-            $("#ngay_phat_hanh_bl_thhd").datepicker("option", "maxDate", date1);
+            $("#ngay-phat-hanh-input").datepicker("option", "maxDate", date1);
         }
     });
 
@@ -717,48 +734,54 @@ $("#bl-thhd-open-modal-edit").click(function () {
         $("#" + target_id).val("");
 
         // Trường hợp xóa ngày phát hành => Không còn chênh lệch
-        if (target_id == "ngay_phat_hanh_bl_thhd") {
+        if (target_id == "ngay-phat-hanh-input") {
             $("#" + data_relate_id).datepicker("option", "minDate", null);
-            $("#chenh_lech_bl_thhd").html("");
+            $("#chenh-lech-bao-lanh").html("");
         }
 
         // Trường hợp xóa ngày hết hạn
-        if (target_id == "ngay_het_han_bl_thhd") {
+        if (target_id == "ngay-het-han-input") {
             $("#" + data_relate_id).datepicker("option", "maxDate", null);
             var data_compare = $("#" + target_compare_id).val();
             if (data_compare != undefined && data_compare.length > 0) {
-                $("#chenh_lech_bl_thhd").html('<span class="text-primaryr">Vô thời hạn</span>');
+                $("#chenh-lech-bao-lanh").html('<span class="text-primaryr">Vô thời hạn</span>');
             } else {
-                $("#chenh_lech_bl_thhd").html("");
+                $("#chenh-lech-bao-lanh").html("");
             }
         }
     });
 
     // CLOSE Modal update tab "Hợp đồng"
     $(".tab-hop-dong-edit-modal-close").unbind('click').click(function () {
-        var dataCompare = getFormData($("#form-bl-thhd-edit"));
+        var dataCompare = getFormData($("#form-bao-lanh-edit"));
+        console.log("$formDataOrigin: " + $formDataOrigin);
+        console.log("dataCompare: " + dataCompare);
         if (dataCompare == $formDataOrigin) {
-            $('#blThhdEditModal').modal('hide');
+            $('#baoLanhEditModal').modal('hide');
             return;
         }
 
+        var targetUpdate
+        if ($modalType == "BLTHHD") targetUpdate = "BẢO LÃNH THỰC HIỆN HỢP ĐỒNG";
+        if ($modalType == "BLTU") targetUpdate = "BẢO LÃNH TẠM ỨNG";
+        if ($modalType == "BLBH") targetUpdate = "BẢO LÃNH BẢO HÀNH";
         alertify.confirm(
             'Xác nhận hủy',
             '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
             + '<p class="text-center">'
-            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">BẢO LÃNH THỰC HIỆN HỢP ĐỒNG</span><br>'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">' + targetUpdate + '</span><br>'
             + 'Bạn chắc chắn muốn hủy?'
             + '</p>',
             function () {
-                $("#form-bl-thhd-edit")[0].reset(); // Hoàn tác dữ liệu form
-                bao_han("ngay_phat_hanh_bl_thhd", "ngay_het_han_bl_thhd", "chenh_lech_bl_thhd");
-                $('#blThhdEditModal').modal('hide');
+                $("#form-bao-lanh-edit")[0].reset(); // Hoàn tác dữ liệu form
+                bao_han("ngay-phat-hanh-input", "ngay-het-han-input", "chenh-lech-bao-lanh");
+                $('#baoLanhEditModal').modal('hide');
             },
             function () { }
         );
     });
 
-    $(".form-tab-hop-dong").unbind('submit').submit(function (e) {
+    $("#form-bao-lanh-edit").unbind('submit').submit(function (e) {
         e.preventDefault();
 
         var form = document.getElementById($(this).attr("id"));
@@ -783,12 +806,10 @@ $("#bl-thhd-open-modal-edit").click(function () {
                 }
                 console.log(result);
 
-                $('#nph-bl-thhd-display').html(result.data.ngayPhatHanh);
-                $('#nhh-bl-thhd-display').html(result.data.ngayHetHan);
-                $('#cl-bl-thhd-display').html(result.data.chenhLech);
-
-                $formDataOrigin = getFormData($("#form-bl-thhd-edit"));
-                $('#blThhdEditModal').modal('hide');
+                $("#cl-" + $modalType + "-display").text(result.data.chenhLech);
+                $("#nph-" + $modalType + "-display").text(result.data.ngayPhatHanh);
+                $("#nhh-" + $modalType + "-display").text(result.data.ngayHetHan);
+                $('#baoLanhEditModal').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("Thất bại! Vui lòng thử lại.").delay(3);

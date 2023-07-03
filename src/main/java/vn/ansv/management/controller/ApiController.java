@@ -563,4 +563,15 @@ public class ApiController {
                 new ResponseObject("failed", "Lỗi không xác định!", null));
     }
 
+    @GetMapping("/bao-lanh-hop-dong/blthhd/{reportId}")
+    public ResponseEntity<ResponseObject> baoLanhHopDong(@PathVariable Long reportId) {
+        SupportBaoLanhHopDongDTO result = baoLanhThhdService.baoLanhHopDongByReport(reportId);
+        if (result != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Thông tin bảo lãnh thực hiện hợp đồng", result));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", "Đối tượng không thể được tìm thấy!", null));
+    }
+
 }
