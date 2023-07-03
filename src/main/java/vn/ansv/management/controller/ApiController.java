@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.ansv.management.dto.AddNewProjectDTO;
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
+import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.SupportCptgLessDTO;
 import vn.ansv.management.dto.Detail.UpdateDetailTabHopDong1_DTO;
@@ -35,6 +36,7 @@ import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.MenuCategoryRepository;
 import vn.ansv.management.repository.ProjectRepository;
+import vn.ansv.management.service.BaoLanhThhdService;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.FileUploadService;
@@ -57,6 +59,9 @@ public class ApiController {
 
     @Autowired
     private HopDongService hopDongService;
+
+    @Autowired
+    private BaoLanhThhdService baoLanhThhdService;
 
     @Autowired
     private FileUploadService fileUploadService;
@@ -514,8 +519,10 @@ public class ApiController {
     }
 
     @PostMapping("/chi-tiet/update/thoi-han-hop-dong/{reportId}_{hopDongId}")
-    public ResponseEntity<ResponseObject> updateTabHopDong1(UpdateDetailTabHopDong1_DTO dataUpdate,
-            @PathVariable Long reportId, @PathVariable Long hopDongId) {
+    public ResponseEntity<ResponseObject> updateTabHopDong(UpdateDetailTabHopDong1_DTO dataUpdate,
+            @PathVariable Long reportId, @PathVariable Long hopDongId, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        dataUpdate.setModifiedBy(username);
         ResponseObject result = hopDongService.updateDataHopDong(reportId, hopDongId, dataUpdate);
         if (result.getMessage().equals("SUCCESS")) {
             return ResponseEntity.status(HttpStatus.OK).body(
@@ -524,6 +531,29 @@ public class ApiController {
         if (result.getMessage().equals("NOT FOUND")) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Cập nhật thời hạn hợp đồng thất bại!", null));
+        }
+        if (result.getMessage().equals("EXCEPTION")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Có lỗi! Vui lòng thử lại sau.", null));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", "Lỗi không xác định!", null));
+    }
+
+    @PostMapping("/chi-tiet/update/bl-thhd/{blThhdId}")
+    public ResponseEntity<ResponseObject> updateTabHopDong(SupportBaoLanhHopDongDTO dataUpdate,
+            @PathVariable Long blThhdId, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        dataUpdate.setModifiedBy(username);
+        ResponseObject result = baoLanhThhdService.updateDataHopDong(blThhdId, dataUpdate);
+        if (result.getMessage().equals("SUCCESS")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cập nhật bảo lãnh thực hiện hợp đồng thành công!",
+                            result.getData()));
+        }
+        if (result.getMessage().equals("NOT FOUND")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Cập nhật bảo lãnh thực hiện hợp đồng thất bại!", null));
         }
         if (result.getMessage().equals("EXCEPTION")) {
             return ResponseEntity.status(HttpStatus.OK).body(

@@ -597,7 +597,7 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
             'Xác nhận hủy',
             '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
             + '<p class="text-center">'
-            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">HỢP ĐỒNG</span><br>'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">THỜI HẠN HỢP ĐỒNG</span><br>'
             + 'Bạn chắc chắn muốn hủy?'
             + '</p>',
             function () {
@@ -644,6 +644,151 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
 
                 $formDataOrigin = getFormData($("#form-thoi-han-hop-dong-edit"));
                 $('#thoiHanHopDongEditModal').modal('hide');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+            }
+        });
+    });
+});
+
+$("#bl-thhd-open-modal-edit").click(function () {
+    console.log("bl-thhd-open-modal-edit");
+    var $formDataOrigin = getFormData($("#form-bl-thhd-edit")); // old form data
+
+    $("#ngay_phat_hanh_bl_thhd").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays < 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
+                }
+            } else {
+                $("#" + calculate_result_id).html('<span class="text-primaryr">Vô thời hạn</span>');
+            }
+
+            $("#ngay_het_han_bl_thhd").datepicker("option", "minDate", date1);
+        }
+    });
+
+    $("#ngay_het_han_bl_thhd").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays > 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + Math.abs(diffDays) + ' ngày</span>');
+                }
+            }
+
+            $("#ngay_phat_hanh_bl_thhd").datepicker("option", "maxDate", date1);
+        }
+    });
+
+    $(".btn-delete-input").unbind('click').click(function () {
+        var target_id = $(this).attr("data-target");
+        var data_relate_id = $("#" + target_id).attr("data-related-id");
+        var target_compare_id = $(this).attr("data-compare");
+        $("#" + target_id).val("");
+
+        // Trường hợp xóa ngày phát hành => Không còn chênh lệch
+        if (target_id == "ngay_phat_hanh_bl_thhd") {
+            $("#" + data_relate_id).datepicker("option", "minDate", null);
+            $("#chenh_lech_bl_thhd").html("");
+        }
+
+        // Trường hợp xóa ngày hết hạn
+        if (target_id == "ngay_het_han_bl_thhd") {
+            $("#" + data_relate_id).datepicker("option", "maxDate", null);
+            var data_compare = $("#" + target_compare_id).val();
+            if (data_compare != undefined && data_compare.length > 0) {
+                $("#chenh_lech_bl_thhd").html('<span class="text-primaryr">Vô thời hạn</span>');
+            } else {
+                $("#chenh_lech_bl_thhd").html("");
+            }
+        }
+    });
+
+    // CLOSE Modal update tab "Hợp đồng"
+    $(".tab-hop-dong-edit-modal-close").unbind('click').click(function () {
+        var dataCompare = getFormData($("#form-bl-thhd-edit"));
+        if (dataCompare == $formDataOrigin) {
+            $('#blThhdEditModal').modal('hide');
+            return;
+        }
+
+        alertify.confirm(
+            'Xác nhận hủy',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">BẢO LÃNH THỰC HIỆN HỢP ĐỒNG</span><br>'
+            + 'Bạn chắc chắn muốn hủy?'
+            + '</p>',
+            function () {
+                $("#form-bl-thhd-edit")[0].reset(); // Hoàn tác dữ liệu form
+                bao_han("ngay_phat_hanh_bl_thhd", "ngay_het_han_bl_thhd", "chenh_lech_bl_thhd");
+                $('#blThhdEditModal').modal('hide');
+            },
+            function () { }
+        );
+    });
+
+    $(".form-tab-hop-dong").unbind('submit').submit(function (e) {
+        e.preventDefault();
+
+        var form = document.getElementById($(this).attr("id"));
+        var data = new FormData(form);
+        var url = $(this).attr('action');
+        console.log("url: " + url);
+
+        $.ajax({
+            url: "/api" + url,
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                if (result.status == "failed") {
+                    alertify.error(result.message).delay(3);
+                }
+                if (result.status == "success") {
+                    alertify.success(result.message).delay(2);
+                }
+                console.log(result);
+
+                $('#nph-bl-thhd-display').html(result.data.ngayPhatHanh);
+                $('#nhh-bl-thhd-display').html(result.data.ngayHetHan);
+                $('#cl-bl-thhd-display').html(result.data.chenhLech);
+
+                $formDataOrigin = getFormData($("#form-bl-thhd-edit"));
+                $('#blThhdEditModal').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("Thất bại! Vui lòng thử lại.").delay(3);

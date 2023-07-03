@@ -18,6 +18,7 @@ public class SupportBaoLanhHopDongDTO {
     private String ngayHetHan; // Ngày hết hạn bảo lãnh thực hiện hợp đồng
     private String note; // Ghi chú bảo lãnh thực hiện hợp đồng
     private String chenhLech;
+    private String modifiedBy;
 
     public String tinhNgayChenhLech(String ngayPhatHanh, String ngayHetHan) {
         DateTimeFormatter dateFormatter = new DateTimeFormatterBuilder()

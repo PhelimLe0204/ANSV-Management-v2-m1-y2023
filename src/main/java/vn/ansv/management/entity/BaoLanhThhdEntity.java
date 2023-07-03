@@ -12,14 +12,20 @@ import javax.persistence.Table;
 
 import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 
-/* ===== BaoLanhThhdRepository.findDetailTabHopDong() ===== */
-@NamedNativeQuery(name = "BaoLanhThhdEntity.findDetailTabHopDong", query = "SELECT "
+/* ===== BaoLanhThhdRepository.findDetailTabHopDongByReport() ===== */
+@NamedNativeQuery(name = "BaoLanhThhdEntity.findDetailTabHopDongByReport", query = "SELECT "
         + "blthhd.id, blthhd.ngay_phat_hanh AS ngayPhatHanh, blthhd.ngay_het_han AS ngayHetHan, blthhd.note "
         + "FROM bao_lanh_thhd AS blthhd "
         + "INNER JOIN project AS p ON blthhd.project_id = p.id "
         + "INNER JOIN project_report AS pr ON p.id = pr.project_id "
         + "WHERE pr.id = :projectReportId AND pr.enabled = :enabled "
         + "ORDER BY blthhd.modified_at DESC LIMIT 1", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
+
+/* ===== BaoLanhThhdRepository.findDetailTabHopDongById() ===== */
+@NamedNativeQuery(name = "BaoLanhThhdEntity.findDetailTabHopDongById", query = "SELECT "
+        + "blthhd.id, blthhd.ngay_phat_hanh AS ngayPhatHanh, blthhd.ngay_het_han AS ngayHetHan, blthhd.note "
+        + "FROM bao_lanh_thhd AS blthhd "
+        + "WHERE blthhd.id = :id", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
 
 /* ===== Set mapping: SupportBaoLanhHopDongDTO ===== */
 @SqlResultSetMapping(name = "Mapping.SupportBaoLanhHopDongDTO", classes = @ConstructorResult(targetClass = SupportBaoLanhHopDongDTO.class, columns = {

@@ -244,11 +244,11 @@ public class ProjectReportService implements IProjectReport {
 
     public SupportBaoLanhHopDongDTO findBaoLanhHopDong(Long id, int enabled, String target) {
         if (target.equals("BLTHHD")) {
-            SupportBaoLanhHopDongDTO result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+            SupportBaoLanhHopDongDTO result = baoLanhThhdRepository.findDetailTabHopDongByReport(id, enabled);
             if (result == null) {
                 Long project_id = projectRepository.findIdByReport(id);
                 baoLanhThhdRepository.addNewBLTHHD(project_id);
-                result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+                result = baoLanhThhdRepository.findDetailTabHopDongByReport(id, enabled);
             }
             return result;
         }
