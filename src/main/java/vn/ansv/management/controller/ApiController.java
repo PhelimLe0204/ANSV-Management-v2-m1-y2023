@@ -38,6 +38,7 @@ import vn.ansv.management.repository.ProjectRepository;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.FileUploadService;
+import vn.ansv.management.service.HopDongService;
 import vn.ansv.management.service.ProjectReportMemberService;
 import vn.ansv.management.service.ProjectReportService;
 import vn.ansv.management.service.ProjectReportSubdataService;
@@ -54,8 +55,8 @@ public class ApiController {
     @Autowired
     private MenuCategoryRepository menuCategoryRepository;
 
-    // @Autowired
-    // private MenuRepository menuRepository;
+    @Autowired
+    private HopDongService hopDongService;
 
     @Autowired
     private FileUploadService fileUploadService;
@@ -512,12 +513,24 @@ public class ApiController {
         }
     }
 
-    @PostMapping("/chi-tiet/update/thoi-han-hop-dong/{projectReportId}")
+    @PostMapping("/chi-tiet/update/thoi-han-hop-dong/{reportId}_{hopDongId}")
     public ResponseEntity<ResponseObject> updateTabHopDong1(UpdateDetailTabHopDong1_DTO dataUpdate,
-            @PathVariable Long projectReportId) {
-
+            @PathVariable Long reportId, @PathVariable Long hopDongId) {
+        ResponseObject result = hopDongService.updateDataHopDong(reportId, hopDongId, dataUpdate);
+        if (result.getMessage().equals("SUCCESS")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cập nhật thời hạn hợp đồng thành công!", result.getData()));
+        }
+        if (result.getMessage().equals("NOT FOUND")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Cập nhật thời hạn hợp đồng thất bại!", null));
+        }
+        if (result.getMessage().equals("EXCEPTION")) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Có lỗi! Vui lòng thử lại sau.", null));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("success", "Cập nhật chi tiết dự án - tab hợp động - 1", projectReportId));
+                new ResponseObject("failed", "Lỗi không xác định!", null));
     }
 
 }

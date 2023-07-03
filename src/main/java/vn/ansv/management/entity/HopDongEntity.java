@@ -12,8 +12,14 @@ import javax.persistence.Table;
 
 import vn.ansv.management.dto.Detail.HopDongDTO;
 
-/* ===== HopDongRepository.findDetailTabHopDong() ===== */
-@NamedNativeQuery(name = "HopDongEntity.findDetailTabHopDong", query = "SELECT "
+/* ===== HopDongRepository.findDetailTabHopDongById() ===== */
+@NamedNativeQuery(name = "HopDongEntity.findDetailTabHopDongById", query = "SELECT "
+        + "hd.id, hd.ngay_ky AS ngayKy, hd.ngay_hieu_luc AS ngayHieuLuc, hd.ngay_ket_thuc AS ngayKetThuc, hd.note "
+        + "FROM hop_dong AS hd "
+        + "WHERE hd.id = :id", resultSetMapping = "Mapping.HopDongDTO")
+
+/* ===== HopDongRepository.findDetailTabHopDongByReport() ===== */
+@NamedNativeQuery(name = "HopDongEntity.findDetailTabHopDongByReport", query = "SELECT "
         + "hd.id, hd.ngay_ky AS ngayKy, hd.ngay_hieu_luc AS ngayHieuLuc, hd.ngay_ket_thuc AS ngayKetThuc, hd.note "
         + "FROM hop_dong AS hd "
         + "INNER JOIN project AS p ON hd.project_id = p.id "

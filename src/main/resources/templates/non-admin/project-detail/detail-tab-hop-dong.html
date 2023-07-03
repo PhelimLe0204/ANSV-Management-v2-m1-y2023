@@ -8,23 +8,27 @@
             <div class="col-md-6 table-responsive">
                 <table class="table table-striped table-hover table-bordered table-detail">
                     <tr>
-                        <td class="font-weight-bold">Ngày ký hợp đồng</td>
-                        <td class="pl-3">[[${detailTabHopDong.getNgayKy() != null ? detailTabHopDong.getNgayKy() : '. .
+                        <td class="font-weight-bold w-50">Ngày ký hợp đồng</td>
+                        <td class="pl-3" id="ngay-ky-display">
+                            [[${detailTabHopDong.getNgayKy() != null ? detailTabHopDong.getNgayKy() : '. .
                             . . .'}]]</td>
                     </tr>
                     <tr>
                         <td class="font-weight-bold">Ngày hiệu lực</td>
-                        <td class="pl-3">[[${detailTabHopDong.getNgayHieuLuc() != null ?
+                        <td class="pl-3" id="ngay-hieu-luc-display">
+                            [[${detailTabHopDong.getNgayHieuLuc() != null ?
                             detailTabHopDong.getNgayHieuLuc() : '. . . . .'}]]</td>
                     </tr>
                     <tr>
                         <td class="font-weight-bold">Ngày kết thúc (mới nhất)</td>
-                        <td class="pl-3">[[${detailTabHopDong.getNgayKetThuc() != null ?
+                        <td class="pl-3" id="ngay-ket-thuc-display">
+                            [[${detailTabHopDong.getNgayKetThuc() != null ?
                             detailTabHopDong.getNgayKetThuc() : '. . . . .'}]]</td>
                     </tr>
                     <tr>
                         <td class="font-weight-bold">Báo hạn</td>
-                        <td class="pl-3">[[${detailTabHopDong.getChenhLechHieuLuc() != null ?
+                        <td class="pl-3" id="chenh-lech-hieu-luc-display">
+                            [[${detailTabHopDong.getChenhLechHieuLuc() != null ?
                             detailTabHopDong.getChenhLechHieuLuc() : '. . . . .'}]]</td>
                     </tr>
                 </table>
@@ -110,7 +114,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form th:action="@{/chi-tiet/update/thoi-han-hop-dong/{id}(id=${detailTabHopDong.getId()})}"
+                            <form
+                                th:action="@{/chi-tiet/update/thoi-han-hop-dong/{reportId}_{hopDongId}(reportId=${detailTabHopDong.getId()}, hopDongId=${detailTabHopDong.getHopDongId()})}"
                                 id="form-thoi-han-hop-dong-edit" method="post" class="form-tab-hop-dong">
                                 <div class="modal-body">
                                     <div class="row mb-4">
@@ -164,20 +169,26 @@
                                                     <td class="text-center" id="chenh_lech_hieu_luc"
                                                         style="font-size: 20px;">
                                                         <th:block
-                                                            th:if="${detailTabHopDong.getChenhLechBLTHHD() != null && #strings.indexOf(detailTabHopDong.getChenhLechBLTHHD(), 'Còn') != -1}">
+                                                            th:if="${detailTabHopDong.getChenhLechHieuLuc() != null && #strings.indexOf(detailTabHopDong.getChenhLechHieuLuc(), 'Còn') != -1}">
                                                             <span class="text-primary">
-                                                                [[${detailTabHopDong.getChenhLechBLTHHD()}]]</span>
+                                                                [[${detailTabHopDong.getChenhLechHieuLuc()}]]</span>
                                                         </th:block>
                                                         <th:block
-                                                            th:if="${detailTabHopDong.getChenhLechBLTHHD() != null && #strings.indexOf(detailTabHopDong.getChenhLechBLTHHD(), 'Đã') != -1}">
+                                                            th:if="${detailTabHopDong.getChenhLechHieuLuc() != null && #strings.indexOf(detailTabHopDong.getChenhLechHieuLuc(), 'Đã') != -1}">
                                                             <span class="text-muted">
-                                                                [[${detailTabHopDong.getChenhLechBLTHHD()}]]</span>
+                                                                [[${detailTabHopDong.getChenhLechHieuLuc()}]]</span>
                                                         </th:block>
                                                         <th:block
-                                                            th:if="${detailTabHopDong.getChenhLechBLTHHD() != null && #strings.indexOf(detailTabHopDong.getChenhLechBLTHHD(), 'ngày hôm nay') != -1}">
+                                                            th:if="${detailTabHopDong.getChenhLechHieuLuc() != null && #strings.indexOf(detailTabHopDong.getChenhLechHieuLuc(), 'ngày hôm nay') != -1}">
                                                             <span style="color: #FF8C00;">
-                                                                [[${detailTabHopDong.getChenhLechBLTHHD()}]]</span>
+                                                                [[${detailTabHopDong.getChenhLechHieuLuc()}]]</span>
                                                         </th:block>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Ghi chú</td>
+                                                    <td class="p-2">
+                                                        <textarea name="note" class="form-control" rows="1"></textarea>
                                                     </td>
                                                 </tr>
                                             </table>

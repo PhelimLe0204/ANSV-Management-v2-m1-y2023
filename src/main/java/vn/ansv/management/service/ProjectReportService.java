@@ -203,20 +203,22 @@ public class ProjectReportService implements IProjectReport {
     public ReportDetailTabHopDongDTO findDetailTabHopDong(Long id, int enabled) {
         Long projectId = projectRepository.findIdByReport(id);
         ReportDetailTabHopDongDTO result = new ReportDetailTabHopDongDTO();
-        HopDongDTO dataHopDong = hopDongRepository.findDetailTabHopDong(id, enabled);
+        HopDongDTO dataHopDong = hopDongRepository.findDetailTabHopDongByReport(id, enabled);
         if (dataHopDong == null) {
-            Long project_id = projectRepository.findIdByReport(id);
-            hopDongRepository.addNewHopDong(project_id);
-            dataHopDong = hopDongRepository.findDetailTabHopDong(id, enabled);
+            hopDongRepository.addNewHopDong(projectId);
+            dataHopDong = hopDongRepository.findDetailTabHopDongByReport(id, enabled);
         }
         SupportBaoLanhHopDongDTO dataBLTHHD = findBaoLanhHopDong(id, enabled, "BLTHHD");
         SupportBaoLanhHopDongDTO dataBLTU = findBaoLanhHopDong(id, enabled, "BLTU");
         SupportBaoLanhHopDongDTO dataBLBH = findBaoLanhHopDong(id, enabled, "BLBH");
 
-        result.setId(projectId);
+        result.setId(id);
+
+        result.setHopDongId(dataHopDong.getId());
         result.setNgayKy(dataHopDong.getNgayKy());
         result.setNgayHieuLuc(dataHopDong.getNgayHieuLuc());
         result.setNgayKetThuc(dataHopDong.getNgayKetThuc());
+        result.setChenhLechHieuLuc(dataHopDong.getChenhLech());
 
         result.setBlThhdId(dataBLTHHD.getId());
         result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());

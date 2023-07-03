@@ -497,8 +497,9 @@ $("#du-thau-open-modal-edit").click(function () {
 //     alert("I want this to appear after the modal has opened!");
 // })
 $("#thoi-han-hop-dong-open-modal-edit").click(function () {
-    console.log("ABC");
-    var $formDataOrigin = getFormData($("#form-tab-hop-dong-edit")); // old form data
+    console.log("thoi-han-hop-dong-open-modal-edit");
+    // bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
+    var $formDataOrigin = getFormData($("#form-thoi-han-hop-dong-edit")); // old form data
 
     $("#ngay_ky").datepicker({ dateFormat: 'dd / mm / yy' });
 
@@ -584,11 +585,11 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
 
     // CLOSE Modal update tab "Hợp đồng"
     $(".tab-hop-dong-edit-modal-close").unbind('click').click(function () {
-        var dataCompare = getFormData($("#form-tab-hop-dong-edit"));
-        console.log("dataCompare: " + dataCompare);
-        console.log("$formDataOrigin: " + $formDataOrigin);
+        var dataCompare = getFormData($("#form-thoi-han-hop-dong-edit"));
+        // console.log("dataCompare: " + dataCompare);
+        // console.log("$formDataOrigin: " + $formDataOrigin);
         if (dataCompare == $formDataOrigin) {
-            $('#tabHopDongEditModal').modal('hide');
+            $('#thoiHanHopDongEditModal').modal('hide');
             return;
         }
 
@@ -601,8 +602,9 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
             + '</p>',
             function () {
                 // Ok => Reset modal update, then close modal
-                resetModalUpdate(2);
-                $('#tabHopDongEditModal').modal('hide');
+                $("#form-thoi-han-hop-dong-edit")[0].reset(); // Hoàn tác dữ liệu form
+                bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
+                $('#thoiHanHopDongEditModal').modal('hide');
             },
             function () {
                 // Cancel => Do nothing
@@ -627,7 +629,21 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
             processData: false,
             contentType: false,
             success: function (result, textStatus, jqXHR) {
+                if (result.status == "failed") {
+                    alertify.error(result.message).delay(3);
+                }
+                if (result.status == "success") {
+                    alertify.success(result.message).delay(2);
+                }
                 console.log(result);
+
+                $('#ngay-ky-display').html(result.data.ngayKy);
+                $('#ngay-hieu-luc-display').html(result.data.ngayHieuLuc);
+                $('#ngay-ket-thuc-display').html(result.data.ngayKetThuc);
+                $('#chenh-lech-hieu-luc-display').html(result.data.chenhLech);
+
+                $formDataOrigin = getFormData($("#form-thoi-han-hop-dong-edit"));
+                $('#thoiHanHopDongEditModal').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
@@ -635,6 +651,31 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
         });
     });
 });
+
+function bao_han(startDate, endDate, target) {
+    var dataStartDate = $("#" + startDate).val();
+    var dataEndDate = $("#" + endDate).val();
+    if (dataStartDate.length == 0) {
+        $("#" + target).html("");
+        return;
+    }
+    if (dataEndDate.length == 0) {
+        $("#" + target).html('<span class="text-primaryr">Vô thời hạn</span>');
+        return;
+    }
+    var dataStartDateFormat = new Date(dataStartDate.slice(5, 7) + "/" + dataStartDate.slice(0, 2) + "/" + dataStartDate.slice(10, 15));
+    var dataEndDateFormat = new Date(dataEndDate.slice(5, 7) + "/" + dataEndDate.slice(0, 2) + "/" + dataEndDate.slice(10, 15));
+    var diffTime = dataEndDateFormat - dataStartDateFormat;
+    var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays == 0) {
+        $("#" + target).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+    } else if (diffDays < 0) {
+        $("#" + target).html('<span class="text-muted">Đã hết hiệu lực</span>');
+    } else {
+        $("#" + target).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
+    }
+}
 /* ==============================
 *      End: Tab hợp đồng        *
 ============================== */

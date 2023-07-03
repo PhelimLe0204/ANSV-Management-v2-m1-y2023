@@ -10,12 +10,16 @@ public class UpdateDetailTabHopDong1_DTO {
     private String ngayKy;
     private String ngayHieuLuc;
     private String ngayKetThuc;
+    private String note;
+    private String createdBy;
+    private String modifiedBy;
 
-    public UpdateDetailTabHopDong1_DTO(Long id, String ngayKy, String ngayHieuLuc, String ngayKetThuc) {
+    public UpdateDetailTabHopDong1_DTO(Long id, String ngayKy, String ngayHieuLuc, String ngayKetThuc, String note) {
         this.id = id;
         this.ngayKy = ngayKy;
         this.ngayHieuLuc = ngayHieuLuc;
         this.ngayKetThuc = ngayKetThuc;
+        this.note = note;
     }
 
 }
