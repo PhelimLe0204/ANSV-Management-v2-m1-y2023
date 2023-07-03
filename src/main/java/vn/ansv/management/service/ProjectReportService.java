@@ -219,32 +219,36 @@ public class ProjectReportService implements IProjectReport {
         result.setNgayHieuLuc(dataHopDong.getNgayHieuLuc());
         result.setNgayKetThuc(dataHopDong.getNgayKetThuc());
         result.setChenhLechHieuLuc(dataHopDong.getChenhLech());
+        result.setNoteHopDong(dataHopDong.getNote());
 
         result.setBlThhdId(dataBLTHHD.getId());
         result.setNgayPhatHanhBLTHHD(dataBLTHHD.getNgayPhatHanh());
         result.setNgayHetHanBLTHHD(dataBLTHHD.getNgayHetHan());
         result.setChenhLechBLTHHD(dataBLTHHD.getChenhLech());
+        result.setNoteBLTHHD(dataBLTHHD.getNote());
 
         result.setBlTuId(dataBLTU.getId());
         result.setNgayPhatHanhBLTU(dataBLTU.getNgayPhatHanh());
         result.setNgayHetHanBLTU(dataBLTU.getNgayHetHan());
         result.setChenhLechBLTU(dataBLTU.getChenhLech());
+        result.setNoteBLTU(dataBLTU.getNote());
 
         result.setBlBhId(dataBLBH.getId());
         result.setNgayPhatHanhBLBH(dataBLBH.getNgayPhatHanh());
         result.setNgayHetHanBLBH(dataBLBH.getNgayHetHan());
         result.setChenhLechBLBH(dataBLBH.getChenhLech());
+        result.setNoteBLBH(dataBLBH.getNote());
 
         return result;
     }
 
     public SupportBaoLanhHopDongDTO findBaoLanhHopDong(Long id, int enabled, String target) {
         if (target.equals("BLTHHD")) {
-            SupportBaoLanhHopDongDTO result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+            SupportBaoLanhHopDongDTO result = baoLanhThhdRepository.findDetailTabHopDongByReport(id, enabled);
             if (result == null) {
                 Long project_id = projectRepository.findIdByReport(id);
                 baoLanhThhdRepository.addNewBLTHHD(project_id);
-                result = baoLanhThhdRepository.findDetailTabHopDong(id, enabled);
+                result = baoLanhThhdRepository.findDetailTabHopDongByReport(id, enabled);
             }
             return result;
         }

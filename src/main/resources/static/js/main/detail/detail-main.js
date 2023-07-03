@@ -492,10 +492,6 @@ $("#du-thau-open-modal-edit").click(function () {
 /* ==============================
 *      Start: Tab hợp đồng      *
 ============================== */
-// $('#thoiHanHopDongEditModal').on('shown.bs.modal', function (e) {
-//     console.log("XYZ");
-//     alert("I want this to appear after the modal has opened!");
-// })
 $("#thoi-han-hop-dong-open-modal-edit").click(function () {
     console.log("thoi-han-hop-dong-open-modal-edit");
     // bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
@@ -597,7 +593,7 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
             'Xác nhận hủy',
             '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
             + '<p class="text-center">'
-            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">HỢP ĐỒNG</span><br>'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">THỜI HẠN HỢP ĐỒNG</span><br>'
             + 'Bạn chắc chắn muốn hủy?'
             + '</p>',
             function () {
@@ -644,6 +640,176 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
 
                 $formDataOrigin = getFormData($("#form-thoi-han-hop-dong-edit"));
                 $('#thoiHanHopDongEditModal').modal('hide');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+            }
+        });
+    });
+});
+
+// $('#baoLanhEditModal').on('shown.bs.modal', function (e) {
+
+// })
+$(".bao-lanh-modal-btn").click(function () {
+    var $modalType = $(this).attr("data-type");
+    var reportId = $(this).attr("data-id");
+    var $formDataOrigin = "";
+    console.log("baoLanhEditModal: " + $modalType);
+
+    $.ajax({
+        url: "/api/bao-lanh-hop-dong/" + $modalType + "/" + reportId,
+        success: function (result, textStatus, jqXHR) {
+            if (result.status == "success") {
+                $("#ngay-phat-hanh-input").val(result.data.ngayPhatHanh);
+                $("#ngay-het-han-input").val(result.data.ngayHetHan);
+                $("#note-bao-lanh-input").val(result.data.note);
+            }
+            console.log(result);
+            $formDataOrigin = getFormData($("#form-bao-lanh-edit"));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertify.error("Thất bại! Vui lòng thử lại sau.").delay(3);
+        }
+    });
+
+    $("#ngay-phat-hanh-input").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays < 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
+                }
+            } else {
+                $("#" + calculate_result_id).html('<span class="text-primaryr">Vô thời hạn</span>');
+            }
+
+            $("#ngay-het-han-input").datepicker("option", "minDate", date1);
+        }
+    });
+
+    $("#ngay-het-han-input").datepicker({
+        dateFormat: 'dd / mm / yy',
+        onSelect: function (dateValue) {
+            var calculate_result_id = $(this).attr("data-calculate-result");
+            var dateCompare = $("#" + $(this).attr("data-related-id")).val();
+            var date1 = new Date(dateValue.slice(5, 7) + "/" + dateValue.slice(0, 2) + "/" + dateValue.slice(10, 15));
+
+            if (dateCompare.length > 0) {
+                var date2 = new Date(dateCompare.slice(5, 7) + "/" + dateCompare.slice(0, 2) + "/" + dateCompare.slice(10, 15));
+
+                var diffTime = date2 - date1; // To calculate the time difference of two dates
+                var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // To calculate the no. of days between two dates
+
+                if (diffDays == 0) {
+                    $("#" + calculate_result_id).html('<span style="color: #FF8C00;">Hiệu lực đến hết ngày hôm nay</span>');
+                } else if (diffDays > 0) {
+                    $("#" + calculate_result_id).html('<span class="text-muted">Đã hết hiệu lực</span>');
+                } else {
+                    $("#" + calculate_result_id).html('<span class="text-primary">Còn ' + Math.abs(diffDays) + ' ngày</span>');
+                }
+            }
+
+            $("#ngay-phat-hanh-input").datepicker("option", "maxDate", date1);
+        }
+    });
+
+    $(".btn-delete-input").unbind('click').click(function () {
+        var target_id = $(this).attr("data-target");
+        var data_relate_id = $("#" + target_id).attr("data-related-id");
+        var target_compare_id = $(this).attr("data-compare");
+        $("#" + target_id).val("");
+
+        // Trường hợp xóa ngày phát hành => Không còn chênh lệch
+        if (target_id == "ngay-phat-hanh-input") {
+            $("#" + data_relate_id).datepicker("option", "minDate", null);
+            $("#chenh-lech-bao-lanh").html("");
+        }
+
+        // Trường hợp xóa ngày hết hạn
+        if (target_id == "ngay-het-han-input") {
+            $("#" + data_relate_id).datepicker("option", "maxDate", null);
+            var data_compare = $("#" + target_compare_id).val();
+            if (data_compare != undefined && data_compare.length > 0) {
+                $("#chenh-lech-bao-lanh").html('<span class="text-primaryr">Vô thời hạn</span>');
+            } else {
+                $("#chenh-lech-bao-lanh").html("");
+            }
+        }
+    });
+
+    // CLOSE Modal update tab "Hợp đồng"
+    $(".tab-hop-dong-edit-modal-close").unbind('click').click(function () {
+        var dataCompare = getFormData($("#form-bao-lanh-edit"));
+        console.log("$formDataOrigin: " + $formDataOrigin);
+        console.log("dataCompare: " + dataCompare);
+        if (dataCompare == $formDataOrigin) {
+            $('#baoLanhEditModal').modal('hide');
+            return;
+        }
+
+        var targetUpdate
+        if ($modalType == "BLTHHD") targetUpdate = "BẢO LÃNH THỰC HIỆN HỢP ĐỒNG";
+        if ($modalType == "BLTU") targetUpdate = "BẢO LÃNH TẠM ỨNG";
+        if ($modalType == "BLBH") targetUpdate = "BẢO LÃNH BẢO HÀNH";
+        alertify.confirm(
+            'Xác nhận hủy',
+            '<p class="text-center pb-2"><i class="feather icon-alert-circle text-warning h1"></i></p>'
+            + '<p class="text-center">'
+            + 'Dữ liệu hiện tại sẽ hoàn tác<br><span class="text-primary font-weight-bold">' + targetUpdate + '</span><br>'
+            + 'Bạn chắc chắn muốn hủy?'
+            + '</p>',
+            function () {
+                $("#form-bao-lanh-edit")[0].reset(); // Hoàn tác dữ liệu form
+                bao_han("ngay-phat-hanh-input", "ngay-het-han-input", "chenh-lech-bao-lanh");
+                $('#baoLanhEditModal').modal('hide');
+            },
+            function () { }
+        );
+    });
+
+    $("#form-bao-lanh-edit").unbind('submit').submit(function (e) {
+        e.preventDefault();
+
+        var form = document.getElementById($(this).attr("id"));
+        var data = new FormData(form);
+        var url = $(this).attr('action');
+        console.log("url: " + url);
+
+        $.ajax({
+            url: "/api" + url,
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                if (result.status == "failed") {
+                    alertify.error(result.message).delay(3);
+                }
+                if (result.status == "success") {
+                    alertify.success(result.message).delay(2);
+                }
+                console.log(result);
+
+                $("#cl-" + $modalType + "-display").text(result.data.chenhLech);
+                $("#nph-" + $modalType + "-display").text(result.data.ngayPhatHanh);
+                $("#nhh-" + $modalType + "-display").text(result.data.ngayHetHan);
+                $('#baoLanhEditModal').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("Thất bại! Vui lòng thử lại.").delay(3);

@@ -17,12 +17,16 @@ public class ReportDetailTabHopDongDTO {
     private String ngayKy;
     private String ngayHieuLuc;
     private String ngayKetThuc;
+    private String noteHopDong;
     private String ngayPhatHanhBLTHHD; // Ngày phát hành bảo lãnh thực hiện hợp đồng
     private String ngayHetHanBLTHHD; // Ngày hết hạn bảo lãnh thực hiện hợp đồng
+    private String noteBLTHHD;
     private String ngayPhatHanhBLTU; // Ngày phát hành bảo lãnh tạm ứng
     private String ngayHetHanBLTU; // Ngày hết hạn bảo lãnh tạm ứng
+    private String noteBLTU;
     private String ngayPhatHanhBLBH; // Ngày phát hành bảo lãnh bảo hành
     private String ngayHetHanBLBH; // Ngày hết hạn bảo lãnh bảo hành
+    private String noteBLBH;
     private Long projectId;
     private Long hopDongId;
     private Long blThhdId;
@@ -65,11 +69,13 @@ public class ReportDetailTabHopDongDTO {
     public ReportDetailTabHopDongDTO() {
     }
 
-    public ReportDetailTabHopDongDTO(Long id, String ngayKy, String ngayHieuLuc, String ngayKetThuc, Long projectId) {
+    public ReportDetailTabHopDongDTO(Long id, String ngayKy, String ngayHieuLuc, String ngayKetThuc, String noteHopDong,
+            Long projectId) {
         this.id = id;
         this.ngayKy = ngayKy;
         this.ngayHieuLuc = ngayHieuLuc;
         this.ngayKetThuc = ngayKetThuc;
+        this.noteHopDong = noteHopDong;
         this.projectId = projectId;
         this.chenhLechHieuLuc = tinhNgayChenhLech(ngayHieuLuc, ngayKetThuc);
     }
