@@ -294,7 +294,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form th:action="@{/chi-tiet/update/bl-thhd/{id}(id=${detailTabHopDong.getBlThhdId()})}"
+                            <form th:action="@{/chi-tiet/update/{id}(id=${detailTabHopDong.getBlThhdId()})}"
                                 id="form-bao-lanh-edit" method="post" class="form-tab-hop-dong">
                                 <div class="modal-body">
                                     <div class="row mb-4">
@@ -365,17 +365,20 @@
                 </button>
                 <button type="button" id="bl-thhd-open-modal-edit" class="bao-lanh-modal-btn btn btn-warning pt-1 mr-3"
                     data-toggle="modal" data-target="#baoLanhEditModal" data-type="blthhd"
-                    th:data-id="${detailTabHopDong.getId()}" style="height: 30px;">
+                    th:data-report="${detailTabHopDong.getId()}" th:data-id="${detailTabHopDong.getBlThhdId()}"
+                    style="height: 30px;">
                     <i class="feather mr-2 icon-edit"></i>Bảo lãnh thực hiện hợp đồng
                 </button>
                 <button type="button" id="bl-tu-open-modal-edit" class="bao-lanh-modal-btn btn btn-warning pt-1 mr-3"
                     data-toggle="modal" data-target="#baoLanhEditModal" data-type="bltu"
-                    th:data-id="${detailTabHopDong.getId()}" style="height: 30px;">
+                    th:data-report="${detailTabHopDong.getId()}" th:data-id="${detailTabHopDong.getBlTuId()}"
+                    style="height: 30px;">
                     <i class="feather mr-2 icon-edit"></i>Bảo lãnh tạm ứng
                 </button>
                 <button type="button" id="bl-bh-open-modal-edit" class="bao-lanh-modal-btn btn btn-warning pt-1 mr-3"
                     data-toggle="modal" data-target="#baoLanhEditModal" data-type="blbh"
-                    th:data-id="${detailTabHopDong.getId()}" style="height: 30px;">
+                    th:data-report="${detailTabHopDong.getId()}" th:data-id="${detailTabHopDong.getBlBhId()}"
+                    style="height: 30px;">
                     <i class="feather mr-2 icon-edit"></i>Bảo lãnh bảo hành
                 </button>
 
