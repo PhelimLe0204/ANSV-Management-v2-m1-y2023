@@ -13,7 +13,7 @@ import vn.ansv.management.entity.BaoLanhThhdEntity;
 
 @Repository
 public interface BaoLanhThhdRepository extends JpaRepository<BaoLanhThhdEntity, Long> {
-    // Count hop_dong by id
+    // Count bao_lanh_thhd by id
     @Query(value = "SELECT COUNT(blthhd.id) FROM bao_lanh_thhd AS blthhd WHERE blthhd.id = :id", nativeQuery = true)
     Integer countById(@Param("id") Long id);
 

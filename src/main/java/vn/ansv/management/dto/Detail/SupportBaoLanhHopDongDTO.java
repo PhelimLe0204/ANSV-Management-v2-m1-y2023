@@ -48,6 +48,9 @@ public class SupportBaoLanhHopDongDTO {
         return result;
     }
 
+    public SupportBaoLanhHopDongDTO() {
+    }
+
     public SupportBaoLanhHopDongDTO(Long id, String ngayPhatHanh, String ngayHetHan, String note) {
         this.id = id;
         this.ngayPhatHanh = ngayPhatHanh;
