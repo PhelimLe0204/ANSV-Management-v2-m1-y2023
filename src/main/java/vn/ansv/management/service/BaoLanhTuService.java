@@ -29,18 +29,21 @@ public class BaoLanhTuService implements IBaoLanhTu {
         ResponseObject result = new ResponseObject();
         try {
             if (baoLanhTuRepository.countById(id) == 0) {
-                result.setMessage("NOT FOUND");
+                result.setStatus("failed");
+                result.setMessage("Đối tượng không xác định!");
                 return result;
             }
             baoLanhTuRepository.updateDataBaoLanhById(id, dataUpdate.getModifiedBy(),
                     dataUpdate.getNgayPhatHanh(), dataUpdate.getNgayHetHan(), dataUpdate.getNote());
 
-            result.setMessage("SUCCESS");
+            result.setStatus("success");
+            result.setMessage("Cập nhật bảo lãnh tạm ứng thành công!");
             result.setData(baoLanhTuRepository.findDetailTabHopDongById(id));
             return result;
         } catch (Exception e) {
-            System.out.println("--- BaoLanhTuService Line 31: " + e.getMessage());
-            result.setMessage("EXCEPTION");
+            System.out.println("--- BaoLanhTuService Line 44: " + e.getMessage());
+            result.setStatus("failed");
+            result.setMessage("Có lỗi! Vui lòng thử lại sau.");
             return result;
         }
     }

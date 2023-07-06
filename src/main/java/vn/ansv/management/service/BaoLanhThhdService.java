@@ -18,18 +18,21 @@ public class BaoLanhThhdService implements IBaoLanhThhd {
         ResponseObject result = new ResponseObject();
         try {
             if (baoLanhThhdRepository.countById(id) == 0) {
-                result.setMessage("NOT FOUND");
+                result.setStatus("failed");
+                result.setMessage("Đối tượng không xác định!");
                 return result;
             }
             baoLanhThhdRepository.updateDataBaoLanhById(id, dataUpdate.getModifiedBy(),
                     dataUpdate.getNgayPhatHanh(), dataUpdate.getNgayHetHan(), dataUpdate.getNote());
 
-            result.setMessage("SUCCESS");
+            result.setStatus("success");
+            result.setMessage("Cập nhật bảo lãnh thực hiện hợp đồng thành công!");
             result.setData(baoLanhThhdRepository.findDetailTabHopDongById(id));
             return result;
         } catch (Exception e) {
             System.out.println("--- BaoLanhThhdService Line 31: " + e.getMessage());
-            result.setMessage("EXCEPTION");
+            result.setStatus("failed");
+            result.setMessage("Có lỗi! Vui lòng thử lại sau.");
             return result;
         }
     }

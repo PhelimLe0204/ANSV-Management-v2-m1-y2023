@@ -493,7 +493,7 @@ $("#du-thau-open-modal-edit").click(function () {
 *      Start: Tab hợp đồng      *
 ============================== */
 $("#thoi-han-hop-dong-open-modal-edit").click(function () {
-    console.log("thoi-han-hop-dong-open-modal-edit");
+    // console.log("thoi-han-hop-dong-open-modal-edit");
     // bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
     var $formDataOrigin = getFormData($("#form-thoi-han-hop-dong-edit")); // old form data
 
@@ -614,7 +614,7 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
         var form = document.getElementById($(this).attr("id"));
         var data = new FormData(form);
         var url = $(this).attr('action');
-        console.log("url: " + url);
+        // console.log("url: " + url);
 
         $.ajax({
             url: "/api" + url,
@@ -631,7 +631,7 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
                 if (result.status == "success") {
                     alertify.success(result.message).delay(2);
                 }
-                console.log(result);
+                // console.log(result);
 
                 $('#ngay-ky-display').html(result.data.ngayKy);
                 $('#ngay-hieu-luc-display').html(result.data.ngayHieuLuc);
@@ -653,9 +653,10 @@ $("#thoi-han-hop-dong-open-modal-edit").click(function () {
 // })
 $(".bao-lanh-modal-btn").click(function () {
     var $modalType = $(this).attr("data-type");
-    var reportId = $(this).attr("data-id");
+    var reportId = $(this).attr("data-report");
+    var baoLanhId = $(this).attr("data-id");
     var $formDataOrigin = "";
-    console.log("baoLanhEditModal: " + $modalType);
+    // console.log("baoLanhEditModal: " + $modalType);
 
     $.ajax({
         url: "/api/bao-lanh-hop-dong/" + $modalType + "/" + reportId,
@@ -665,7 +666,7 @@ $(".bao-lanh-modal-btn").click(function () {
                 $("#ngay-het-han-input").val(result.data.ngayHetHan);
                 $("#note-bao-lanh-input").val(result.data.note);
             }
-            console.log(result);
+            // console.log(result);
             $formDataOrigin = getFormData($("#form-bao-lanh-edit"));
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -754,8 +755,8 @@ $(".bao-lanh-modal-btn").click(function () {
     // CLOSE Modal update tab "Hợp đồng"
     $(".tab-hop-dong-edit-modal-close").unbind('click').click(function () {
         var dataCompare = getFormData($("#form-bao-lanh-edit"));
-        console.log("$formDataOrigin: " + $formDataOrigin);
-        console.log("dataCompare: " + dataCompare);
+        // console.log("$formDataOrigin: " + $formDataOrigin);
+        // console.log("dataCompare: " + dataCompare);
         if (dataCompare == $formDataOrigin) {
             $('#baoLanhEditModal').modal('hide');
             return;
@@ -786,11 +787,12 @@ $(".bao-lanh-modal-btn").click(function () {
 
         var form = document.getElementById($(this).attr("id"));
         var data = new FormData(form);
-        var url = $(this).attr('action');
-        console.log("url: " + url);
+        var url = $(this).attr('action').substring(0, 16); // "/chi-tiet/update"
+        var urlFull = url + "/" + $modalType + "/" + baoLanhId;
+        // console.log("url: " + url);
 
         $.ajax({
-            url: "/api" + url,
+            url: "/api" + urlFull,
             type: 'POST',
             data: data,
             cache: false,
@@ -804,7 +806,7 @@ $(".bao-lanh-modal-btn").click(function () {
                 if (result.status == "success") {
                     alertify.success(result.message).delay(2);
                 }
-                console.log(result);
+                // console.log(result);
 
                 $("#cl-" + $modalType + "-display").text(result.data.chenhLech);
                 $("#nph-" + $modalType + "-display").text(result.data.ngayPhatHanh);

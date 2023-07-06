@@ -548,24 +548,28 @@ public class ApiController {
                 new ResponseObject("failed", "Lỗi không xác định!", null));
     }
 
-    @PostMapping("/chi-tiet/update/bl-thhd/{blThhdId}")
+    @PostMapping("/chi-tiet/update/{typeBaoLanh}/{baoLanhId}")
     public ResponseEntity<ResponseObject> updateTabHopDong(SupportBaoLanhHopDongDTO dataUpdate,
-            @PathVariable Long blThhdId, HttpSession session) {
+            @PathVariable String typeBaoLanh, @PathVariable Long baoLanhId, HttpSession session) {
         String username = (String) session.getAttribute("username");
         dataUpdate.setModifiedBy(username);
-        ResponseObject result = baoLanhThhdService.updateDataHopDong(blThhdId, dataUpdate);
-        if (result.getMessage().equals("SUCCESS")) {
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("success", "Cập nhật bảo lãnh thực hiện hợp đồng thành công!",
-                            result.getData()));
+        ResponseObject result = new ResponseObject();
+
+        if (typeBaoLanh.equals("blthhd")) {
+            result = baoLanhThhdService.updateDataHopDong(baoLanhId, dataUpdate);
         }
-        if (result.getMessage().equals("NOT FOUND")) {
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("failed", "Cập nhật bảo lãnh thực hiện hợp đồng thất bại!", null));
+
+        if (typeBaoLanh.equals("bltu")) {
+            result = baoLanhTuService.updateDataHopDong(baoLanhId, dataUpdate);
         }
-        if (result.getMessage().equals("EXCEPTION")) {
+
+        if (typeBaoLanh.equals("blbh")) {
+            result = baoLanhBhService.updateDataHopDong(baoLanhId, dataUpdate);
+        }
+
+        if (result.getStatus().length() > 0) {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("failed", "Có lỗi! Vui lòng thử lại sau.", null));
+                    new ResponseObject(result.getStatus(), result.getMessage(), result.getData()));
         }
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("failed", "Lỗi không xác định!", null));
