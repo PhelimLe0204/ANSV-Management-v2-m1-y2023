@@ -1,19 +1,14 @@
 package vn.ansv.management.entity;
 
 import javax.persistence.Column;
-// import javax.persistence.ColumnResult;
-// import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
-// import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
-// import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
-
-/* ===== BaoLanhTuRepository.findDetailTabHopDong() ===== */
-@NamedNativeQuery(name = "BaoLanhTuEntity.findDetailTabHopDong", query = "SELECT "
+/* ===== BaoLanhTuRepository.findDetailTabHopDongByReport() ===== */
+@NamedNativeQuery(name = "BaoLanhTuEntity.findDetailTabHopDongByReport", query = "SELECT "
         + "bltu.id, bltu.ngay_phat_hanh AS ngayPhatHanh, bltu.ngay_het_han AS ngayHetHan, bltu.note "
         + "FROM bao_lanh_tu AS bltu "
         + "INNER JOIN project AS p ON bltu.project_id = p.id "
@@ -21,12 +16,19 @@ import javax.persistence.Table;
         + "WHERE pr.id = :projectReportId AND pr.enabled = :enabled "
         + "ORDER BY bltu.modified_at DESC LIMIT 1", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
 
+/* ===== BaoLanhTuRepository.findDetailTabHopDongById() ===== */
+@NamedNativeQuery(name = "BaoLanhTuEntity.findDetailTabHopDongById", query = "SELECT "
+        + "bltu.id, bltu.ngay_phat_hanh AS ngayPhatHanh, bltu.ngay_het_han AS ngayHetHan, bltu.note "
+        + "FROM bao_lanh_tu AS bltu "
+        + "WHERE bltu.id = :id", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
+
 /* ===== Set mapping: SupportBaoLanhHopDongDTO ===== */
-// @SqlResultSetMapping(name = "Mapping.SupportBaoLanhHopDongDTO", classes = @ConstructorResult(targetClass = SupportBaoLanhHopDongDTO.class, columns = {
-//         @ColumnResult(name = "id", type = Long.class),
-//         @ColumnResult(name = "ngayPhatHanh", type = String.class),
-//         @ColumnResult(name = "ngayHetHan", type = String.class),
-//         @ColumnResult(name = "note", type = String.class) }))
+// @SqlResultSetMapping(name = "Mapping.SupportBaoLanhHopDongDTO", classes =
+// @ConstructorResult(targetClass = SupportBaoLanhHopDongDTO.class, columns = {
+// @ColumnResult(name = "id", type = Long.class),
+// @ColumnResult(name = "ngayPhatHanh", type = String.class),
+// @ColumnResult(name = "ngayHetHan", type = String.class),
+// @ColumnResult(name = "note", type = String.class) }))
 
 @Entity
 @Table(name = "bao_lanh_tu")

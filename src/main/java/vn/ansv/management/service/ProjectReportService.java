@@ -254,21 +254,21 @@ public class ProjectReportService implements IProjectReport {
         }
 
         if (target.equals("BLTU")) {
-            SupportBaoLanhHopDongDTO result = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
+            SupportBaoLanhHopDongDTO result = baoLanhTuRepository.findDetailTabHopDongByReport(id, enabled);
             if (result == null) {
                 Long project_id = projectRepository.findIdByReport(id);
                 baoLanhTuRepository.addNewBLTU(project_id);
-                result = baoLanhTuRepository.findDetailTabHopDong(id, enabled);
+                result = baoLanhTuRepository.findDetailTabHopDongByReport(id, enabled);
             }
             return result;
         }
 
         if (target.equals("BLBH")) {
-            SupportBaoLanhHopDongDTO result = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+            SupportBaoLanhHopDongDTO result = baoLanhBhRepository.findDetailTabHopDongByReport(id, enabled);
             if (result == null) {
                 Long project_id = projectRepository.findIdByReport(id);
                 baoLanhBhRepository.addNewBLBH(project_id);
-                result = baoLanhBhRepository.findDetailTabHopDong(id, enabled);
+                result = baoLanhBhRepository.findDetailTabHopDongByReport(id, enabled);
             }
             return result;
         }

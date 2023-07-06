@@ -36,7 +36,9 @@ import vn.ansv.management.entity.ProjectEntity;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.MenuCategoryRepository;
 import vn.ansv.management.repository.ProjectRepository;
+import vn.ansv.management.service.BaoLanhBhService;
 import vn.ansv.management.service.BaoLanhThhdService;
+import vn.ansv.management.service.BaoLanhTuService;
 import vn.ansv.management.service.CurrencyUnitService;
 import vn.ansv.management.service.CustomerService;
 import vn.ansv.management.service.FileUploadService;
@@ -62,6 +64,12 @@ public class ApiController {
 
     @Autowired
     private BaoLanhThhdService baoLanhThhdService;
+
+    @Autowired
+    private BaoLanhTuService baoLanhTuService;
+
+    @Autowired
+    private BaoLanhBhService baoLanhBhService;
 
     @Autowired
     private FileUploadService fileUploadService;
@@ -563,15 +571,30 @@ public class ApiController {
                 new ResponseObject("failed", "Lỗi không xác định!", null));
     }
 
-    @GetMapping("/bao-lanh-hop-dong/blthhd/{reportId}")
-    public ResponseEntity<ResponseObject> baoLanhHopDong(@PathVariable Long reportId) {
-        SupportBaoLanhHopDongDTO result = baoLanhThhdService.baoLanhHopDongByReport(reportId);
+    @GetMapping("/bao-lanh-hop-dong/{typeBaoLanh}/{reportId}")
+    public ResponseEntity<ResponseObject> baoLanhHopDong(@PathVariable String typeBaoLanh,
+            @PathVariable Long reportId) {
+        SupportBaoLanhHopDongDTO result = new SupportBaoLanhHopDongDTO();
+        String msg = "";
+        if (typeBaoLanh.equals("blthhd")) {
+            result = baoLanhThhdService.baoLanhHopDongByReport(reportId);
+            msg = "Thông tin bảo lãnh thực hiện hợp đồng";
+        }
+        if (typeBaoLanh.equals("bltu")) {
+            result = baoLanhTuService.baoLanhHopDongByReport(reportId);
+            msg = "Thông tin bảo lãnh tạm ứng";
+        }
+        if (typeBaoLanh.equals("blbh")) {
+            result = baoLanhBhService.baoLanhHopDongByReport(reportId);
+            msg = "Thông tin bảo lãnh bảo hành";
+        }
         if (result != null) {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("success", "Thông tin bảo lãnh thực hiện hợp đồng", result));
+                    new ResponseObject("success", msg, result));
         }
+        msg = "Đối tượng không thể được tìm thấy!";
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("failed", "Đối tượng không thể được tìm thấy!", null));
+                new ResponseObject("failed", msg, null));
     }
 
 }
