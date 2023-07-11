@@ -1,5 +1,7 @@
 package vn.ansv.management.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,11 +10,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import vn.ansv.management.dto.Detail.DanhSachGiaHanDTO;
 import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 import vn.ansv.management.entity.BaoLanhThhdEntity;
 
 @Repository
 public interface BaoLanhThhdRepository extends JpaRepository<BaoLanhThhdEntity, Long> {
+    /* Danh sách gia hạn */
+    @Query(nativeQuery = true)
+    List<DanhSachGiaHanDTO> getListGiaHan(@Param("projectReportId") Long projectReportId,
+            @Param("enabled") Integer enabled);
+
     // Count bao_lanh_thhd by id
     @Query(value = "SELECT COUNT(blthhd.id) FROM bao_lanh_thhd AS blthhd WHERE blthhd.id = :id", nativeQuery = true)
     Integer countById(@Param("id") Long id);

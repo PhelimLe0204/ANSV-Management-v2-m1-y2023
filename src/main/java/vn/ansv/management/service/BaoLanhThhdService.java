@@ -1,8 +1,11 @@
 package vn.ansv.management.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.ansv.management.dto.Detail.DanhSachGiaHanDTO;
 import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 import vn.ansv.management.entity.ResponseObject;
 import vn.ansv.management.repository.BaoLanhThhdRepository;
@@ -43,6 +46,16 @@ public class BaoLanhThhdService implements IBaoLanhThhd {
             return baoLanhThhdRepository.findDetailTabHopDongByReport(reportId, 1);
         } catch (Exception e) {
             System.out.println("--- BaoLanhThhdService - Line 42: " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<DanhSachGiaHanDTO> listGiaHan(Long reportId, Integer enabled) {
+        try {
+            return baoLanhThhdRepository.getListGiaHan(reportId, enabled);
+        } catch (Exception e) {
+            System.out.println("--- BaoLanhThhdService().listGiaHan() - Line 57: " + e.getMessage());
             return null;
         }
     }

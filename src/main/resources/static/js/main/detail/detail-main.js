@@ -490,8 +490,8 @@ $("#du-thau-open-modal-edit").click(function () {
 
 
 /* ==============================
-*      Start: Tab hợp đồng      *
-============================== */
+ *      Start: Tab hợp đồng     *
+ ============================== */
 $("#thoi-han-hop-dong-open-modal-edit").click(function () {
     // console.log("thoi-han-hop-dong-open-modal-edit");
     // bao_han("ngay_hieu_luc", "ngay_ket_thuc", "chenh_lech_hieu_luc");
@@ -844,6 +844,42 @@ function bao_han(startDate, endDate, target) {
         $("#" + target).html('<span class="text-primary">Còn ' + diffDays + ' ngày</span>');
     }
 }
+
+$(".btn-list-gia-han").click(function () {
+    var $modalType = $(this).attr("data-type");
+    var reportId = $(this).attr("data-report");
+
+    $.ajax({
+        url: "/api/hop-dong/gia-han/" + $modalType + "/" + reportId,
+        success: function (result, textStatus, jqXHR) {
+            console.log(result);
+            switch ($modalType) {
+                case "blthhd":
+                    $("#listGiaHanModalLabel").html("<span>Danh sách gia hạn (Bảo lãnh thực hiện hợp đồng)</span>");
+                    break;
+                case "bltu":
+                    $("#listGiaHanModalLabel").html("<span>Danh sách gia hạn (Bảo lãnh tạm ứng)</span>");
+                    break;
+                case "blbh":
+                    $("#listGiaHanModalLabel").html("<span>Danh sách gia hạn (Bảo lãnh bảo hành)</span>");
+                    break;
+            }
+            var data = result.data;
+            var html = "";
+            for (let i = data.length; i > 0; i--) {
+                html += '<tr>'
+                    + '<td class="text-center">' + i + '</td>'
+                    + '<td class="text-center">' + data[i-1].ngayPhatHanh + '</td>'
+                    + '<td class="text-center">' + data[i-1].ngayHetHan + '</td>'
+                    + '</tr>';
+            }
+            $("#list-gia-han-tbody").html(html);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertify.error("Thất bại! Vui lòng thử lại sau.").delay(3);
+        }
+    });
+});
 /* ==============================
 *      End: Tab hợp đồng        *
 ============================== */

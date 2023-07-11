@@ -14,7 +14,7 @@ import javax.persistence.Table;
         + "INNER JOIN project AS p ON bltu.project_id = p.id "
         + "INNER JOIN project_report AS pr ON p.id = pr.project_id "
         + "WHERE pr.id = :projectReportId AND pr.enabled = :enabled "
-        + "ORDER BY bltu.modified_at DESC LIMIT 1", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
+        + "ORDER BY str_to_date(`ngayPhatHanh`, '%d / %m / %Y') DESC LIMIT 1", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
 
 /* ===== BaoLanhTuRepository.findDetailTabHopDongById() ===== */
 @NamedNativeQuery(name = "BaoLanhTuEntity.findDetailTabHopDongById", query = "SELECT "
