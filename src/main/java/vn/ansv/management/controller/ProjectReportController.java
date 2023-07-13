@@ -223,18 +223,21 @@ public class ProjectReportController extends BaseController {
     }
 
     @RequestMapping(value = "report/addNew/{type}", method = RequestMethod.POST)
-    public String addNew(@ModelAttribute AddNewReportDTO dataUpdate, @PathVariable Integer type) {
+    public String addNew(HttpSession session, @ModelAttribute AddNewReportDTO dataUpdate, @PathVariable Integer type) {
+        Integer result = projectReportService.addNewReport(dataUpdate);
+        session.setAttribute("thisWeek", dataUpdate.getWeek());
+        session.setAttribute("thisYear", dataUpdate.getYear());
         if (type == 3) {
-            return "redirect:/danh-sach/trien-khai?addNew=" + projectReportService.addNewReport(dataUpdate);
+            return "redirect:/danh-sach/trien-khai?addNew=" + result;
         }
         if (type == 2) {
-            return "redirect:/danh-sach/kd-chuyen-doi-so?addNew=" + projectReportService.addNewReport(dataUpdate);
+            return "redirect:/danh-sach/kd-chuyen-doi-so?addNew=" + result;
         }
         if (type == 1) {
-            return "redirect:/danh-sach/kd-vien-thong?addNew=" + projectReportService.addNewReport(dataUpdate);
+            return "redirect:/danh-sach/kd-vien-thong?addNew=" + result;
         }
 
-        return null;
+        return "redirect:/dashboard";
 
     }
 
