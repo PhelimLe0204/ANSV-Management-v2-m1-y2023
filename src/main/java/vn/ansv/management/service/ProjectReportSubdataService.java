@@ -22,8 +22,6 @@ public class ProjectReportSubdataService implements IProjectReportSubdata {
         SupportCptgLessDTO result = null;
         try {
             if (target.contains("DAC")) {
-                System.out.println("-------------------------------- number: " + number);
-
                 switch (number) {
                     case 1:
                         result = projectReportRepository.findDataDAC(id);
