@@ -578,7 +578,7 @@ public class ProjectReportService implements IProjectReport {
                 UserDefineDTO user_define = userService.userDefine(currentUserName);
                 Long user_id = user_define.getId();
                 String user_role = user_define.getUserRole();
-                System.out.println("--------------------------- user_role: " + user_role);
+                // System.out.println("--------------------------- user_role: " + user_role);
                 if (user_role.contains("Manager_AM")) {
                     dataInsert.setAmManagerId(user_id); // Set AM's manager
                 } else if (user_role.contains("Manager_PM")) {
