@@ -108,7 +108,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form th:action="@{/export/3}" method="post" id="formExportReport"
+                                <form th:action="@{/do-export/3}" method="post" id="formExportReport"
                                     class="was-validated">
                                     <div class="form-group">
                                         <select name="weekExport" id="weekExport" class="custom-select"
@@ -132,8 +132,8 @@
                         </div>
                     </div>
                     <div class="modal-footer" id="exportButtons">
-                        <button type="button" class="btn btn-primary pt-1 pb-1 float-right"
-                            id="btn-do-export-report">Export</button>
+                        <button type="button" class="btn btn-primary pt-1 pb-1 float-right" id="btn-do-export-report"
+                            data-type="3">Export</button>
                         <button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report"
                             data-dismiss="modal">Đóng</button>
                     </div>

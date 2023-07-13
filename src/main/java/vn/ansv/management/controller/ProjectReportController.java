@@ -283,6 +283,54 @@ public class ProjectReportController extends BaseController {
     }
 
     @RequestMapping(value = "/export/{type}", method = RequestMethod.POST)
+    ResponseEntity<ResponseObject> exportReport(HttpSession session,
+            @ModelAttribute ExportInputDTO dataInput, @PathVariable Integer type) {
+        Integer week = dataInput.getWeekExport();
+        Integer year = dataInput.getYearExport();
+        String userRole = (String) session.getAttribute("userRole");
+        Long userId = (Long) session.getAttribute("userId");
+        userRole = userRole.substring(0, userRole.indexOf("___"));
+
+        String msg = "Có lỗi! Vui lòng thử lại sau.";
+        if (type == 1) {
+            List<ExportVienThongDTO> listOfReport = projectReportService.findAllExportVienThong(type, week, year);
+            if (listOfReport.size() == 0) {
+                msg = "KD VT tuần " + week + " năm " + year + " không có dữ liệu!";
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("failed", msg, null));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cho phép export!", null));
+        }
+
+        if (type == 2) {
+            List<ExportChuyenDoiSoDTO> listOfReport = projectReportService.findAllExportChuyenDoiSo(type, week, year);
+            if (listOfReport.size() == 0) {
+                msg = "KD CĐS tuần " + week + " năm " + year + " không có dữ liệu!";
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("failed", msg, null));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cho phép export!", null));
+        }
+
+        if (type == 3) {
+            List<ExportTrienKhaiDTO> listOfReport = projectReportService.findAllExportTrienKhai(
+                    userRole, userId, type, week, year);
+            if (listOfReport.size() == 0) {
+                msg = "Triển khai tuần " + week + " năm " + year + " không có dữ liệu!";
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("failed", msg, null));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cho phép export!", null));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", msg, null));
+    }
+
+    @RequestMapping(value = "/do-export/{type}", method = RequestMethod.POST)
     public void exportIntoExcelFile(HttpSession session, HttpServletResponse response,
             @ModelAttribute ExportInputDTO dataInput,
             @PathVariable Integer type) throws IOException {

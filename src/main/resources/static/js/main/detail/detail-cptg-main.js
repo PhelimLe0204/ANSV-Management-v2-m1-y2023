@@ -19,7 +19,7 @@ $('[data-target="#moreDetailModal"]').click(function () {
                     + '<td class="text-center">' + (data.mucTieu != null ? data.mucTieu : '...') + '</td>'
                     + '<td class="text-center">' + (data.thucTe != null ? data.thucTe : '...') + '</td>'
                     + '<td class="text-center">' + (data.chenhLech != null ? data.chenhLech : '...') + '</td>'
-                    + '<td class="text-center">' + (data.note != null ? data.note : '...') + '</td>'
+                    + '<td class="text-left text-wrap">' + (data.note != null ? data.note : '...') + '</td>'
                     + '</tr>'
                     + '<tr>'
                     + '<td class="bg-primary text-center text-white font-weight-bold p-0">' + target_name_uppercase + ' 2</td>'
@@ -28,7 +28,7 @@ $('[data-target="#moreDetailModal"]').click(function () {
                     + '<td class="text-center">' + (data.mucTieu2 != null ? data.mucTieu2 : '...') + '</td>'
                     + '<td class="text-center">' + (data.thucTe2 != null ? data.thucTe2 : '...') + '</td>'
                     + '<td class="text-center">' + (data.chenhLech2 != null ? data.chenhLech2 : '...') + '</td>'
-                    + '<td class="text-center">' + (data.note2 != null ? data.note2 : '...') + '</td>'
+                    + '<td class="text-left text-wrap">' + (data.note2 != null ? data.note2 : '...') + '</td>'
                     + '</tr>'
                     + '<tr>'
                     + '<td class="bg-primary text-center text-white font-weight-bold p-0">' + target_name_uppercase + ' 3</td>'
@@ -37,7 +37,7 @@ $('[data-target="#moreDetailModal"]').click(function () {
                     + '<td class="text-center">' + (data.mucTieu3 != null ? data.mucTieu3 : '...') + '</td>'
                     + '<td class="text-center">' + (data.thucTe3 != null ? data.thucTe3 : '...') + '</td>'
                     + '<td class="text-center">' + (data.chenhLech3 != null ? data.chenhLech3 : '...') + '</td>'
-                    + '<td class="text-center">' + (data.note3 != null ? data.note3 : '...') + '</td>'
+                    + '<td class="text-left text-wrap">' + (data.note3 != null ? data.note3 : '...') + '</td>'
                     + '</tr>'
                     + '<tr>'
                     + '<td class="bg-primary text-center text-white font-weight-bold p-0">' + target_name_uppercase + ' 4</td>'
@@ -46,7 +46,7 @@ $('[data-target="#moreDetailModal"]').click(function () {
                     + '<td class="text-center">' + (data.mucTieu4 != null ? data.mucTieu4 : '...') + '</td>'
                     + '<td class="text-center">' + (data.thucTe4 != null ? data.thucTe4 : '...') + '</td>'
                     + '<td class="text-center">' + (data.chenhLech4 != null ? data.chenhLech4 : '...') + '</td>'
-                    + '<td class="text-center">' + (data.note4 != null ? data.note4 : '...') + '</td>'
+                    + '<td class="text-left text-wrap">' + (data.note4 != null ? data.note4 : '...') + '</td>'
                     + '</tr>'
                     + '<tr>'
                     + '<td class="bg-primary text-center text-white font-weight-bold p-0">' + target_name_uppercase + ' 5</td>'
@@ -55,7 +55,7 @@ $('[data-target="#moreDetailModal"]').click(function () {
                     + '<td class="text-center">' + (data.mucTieu5 != null ? data.mucTieu5 : '...') + '</td>'
                     + '<td class="text-center">' + (data.thucTe5 != null ? data.thucTe5 : '...') + '</td>'
                     + '<td class="text-center">' + (data.chenhLech5 != null ? data.chenhLech5 : '...') + '</td>'
-                    + '<td class="text-center">' + (data.note5 != null ? data.note5 : '...') + '</td>'
+                    + '<td class="text-left text-wrap">' + (data.note5 != null ? data.note5 : '...') + '</td>'
                     + '</tr>';
 
                 $('#moreDetailBody').html(html);
@@ -76,14 +76,6 @@ $(".addMoreDate").click(function () {
         return;
     }
 
-    $.ajax({
-        url: "/api/report/subdata-less?id=" + targetId + "&target=" + target + "&count=" + (count + 2),
-        success: function (result) {
-            console.log(result);
-
-        }
-    });
-
     var stt = count + 2;
     if (count != 0) {
         for (let i = 1; i < window["$array" + target].length; i++) {
@@ -98,59 +90,66 @@ $(".addMoreDate").click(function () {
     // console.log('#edit' + target + '' + stt);
     var lowAllLetter = target.toLowerCase();
     var upFisrtLetter = lowAllLetter.charAt(0).toUpperCase() + lowAllLetter.slice(1);
-    var html = '<tr class="border-top border-white" id="edit' + target + stt + '">'
-        + '<td class="bg-primary align-middle text-center text-white font-weight-bold p-0">'
-        + '<button type="button" class="btn btn-primary deleteDate" data-from="' + target + '" data-target="' + target + stt + '" data-toggle="tooltip" data-placement="top" title="Xóa ' + target + ' ' + stt + '">'
-        + target + ' ' + stt + ' <i class="fas fa-trash pl-2 text-warning"></i>'
-        + '</button>'
-        + '</td>'
-        + '<td class="p-2">'
-        + '<input type="text" name="soTien' + upFisrtLetter + stt + '" id="so_tien_' + lowAllLetter + '_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập số tiền ' + target + ' ' + stt + '...">'
-        + '</td>'
-        + '<td class="p-2">'
-        + '<input type="text" name="hopDong' + upFisrtLetter + stt + '" id="hop_dong_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">'
-        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="hop_dong_' + lowAllLetter + '_' + stt + '">'
-        + '<i class="feather icon-x"></i>'
-        + '</button>'
-        + '</td>'
-        + '<td class="p-2">'
-        + '<input type="text" name="mucTieu' + upFisrtLetter + stt + '" id="muc_tieu_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="thuc_te_' + lowAllLetter + '_' + stt + '" data-calculate-result="chenh_lech_' + lowAllLetter + '_' + stt + '" data-allow-change-status="0" readonly="">'
-        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="muc_tieu_' + lowAllLetter + '_' + stt + '">'
-        + '<i class="feather icon-x"></i>'
-        + '</button>'
-        + '</td>'
-        + '<td class="p-2">'
-        + '<input type="text" name="thucTe' + upFisrtLetter + stt + '" id="thuc_te_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" placeholder="dd / mm / yyyy" data-related-id="muc_tieu_' + lowAllLetter + '_' + stt + '" data-calculate-result="chenh_lech_' + lowAllLetter + '_' + stt + '" data-allow-change-status="1" readonly="">'
-        + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="thuc_te_' + lowAllLetter + '_' + stt + '">'
-        + '<i class="feather icon-x"></i>'
-        + '</button>'
-        + '</td>'
-        + '<td class="align-middle text-center">'
-        + '<i class="fa-solid fa-square" data-status-for="thuc_te_' + lowAllLetter + '_' + stt + '" style="font-size: 20px;"></i>'
-        + '<span class="pl-1" id="chenh_lech_' + lowAllLetter + '_' + stt + '"></span>'
-        + '</td>'
-        + '<td class="p-2">'
-        + '<input type="text" name="note' + upFisrtLetter + stt + '" id="note_' + lowAllLetter + '_' + stt + '" class="form-control text-center table-bg-form-input" placeholder="Nhập ghi chú ' + target + ' ' + stt + '...">'
-        + '</td>'
-        + '</tr>';
 
-    if ((stt - 2) == 0) {
-        $('#edit' + target).after(html);
-    } else {
-        $('#edit' + target + (stt - 1)).after(html);
-    }
+    $.ajax({
+        url: "/api/report/subdata-less?id=" + targetId + "&target=" + target + "&count=" + (count + 2),
+        success: function (result) {
+            console.log(result);
+            var html = '<tr class="border-top border-white" id="edit' + target + stt + '">'
+                + '<td class="bg-primary align-middle text-center text-white font-weight-bold p-0">'
+                + '<button type="button" class="btn btn-primary deleteDate" data-from="' + target + '" data-target="' + target + stt + '" data-toggle="tooltip" data-placement="top" title="Xóa ' + target + ' ' + stt + '">'
+                + target + ' ' + stt + ' <i class="fas fa-trash pl-2 text-warning"></i>'
+                + '</button>'
+                + '</td>'
+                + '<td class="p-2">'
+                + '<input type="text" name="soTien' + upFisrtLetter + stt + '" id="so_tien_' + lowAllLetter + '_' + stt + '" class="form-control text-center table-bg-form-input" value="' + (result.data.soTien != null ? result.data.soTien : '') + '" placeholder="Nhập số tiền ' + target + ' ' + stt + '...">'
+                + '</td>'
+                + '<td class="p-2">'
+                + '<input type="text" name="hopDong' + upFisrtLetter + stt + '" id="hop_dong_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" value="' + (result.data.hopDong != null ? result.data.hopDong : '') + '" placeholder="dd / mm / yyyy" data-allow-change-status="0" readonly="">'
+                + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="hop_dong_' + lowAllLetter + '_' + stt + '">'
+                + '<i class="feather icon-x"></i>'
+                + '</button>'
+                + '</td>'
+                + '<td class="p-2">'
+                + '<input type="text" name="mucTieu' + upFisrtLetter + stt + '" id="muc_tieu_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" value="' + (result.data.mucTieu != null ? result.data.mucTieu : '') + '" placeholder="dd / mm / yyyy" data-related-id="thuc_te_' + lowAllLetter + '_' + stt + '" data-calculate-result="chenh_lech_' + lowAllLetter + '_' + stt + '" data-allow-change-status="0" readonly="">'
+                + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="muc_tieu_' + lowAllLetter + '_' + stt + '">'
+                + '<i class="feather icon-x"></i>'
+                + '</button>'
+                + '</td>'
+                + '<td class="p-2">'
+                + '<input type="text" name="thucTe' + upFisrtLetter + stt + '" id="thuc_te_' + lowAllLetter + '_' + stt + '" class="form-control text-center input-datepicker float-left" value="' + (result.data.thucTe != null ? result.data.thucTe : '') + '" placeholder="dd / mm / yyyy" data-related-id="muc_tieu_' + lowAllLetter + '_' + stt + '" data-calculate-result="chenh_lech_' + lowAllLetter + '_' + stt + '" data-allow-change-status="1" readonly="">'
+                + '<button type="button" class="btn-delete-input btn btn-outline-primary float-right pt-2 pl-1 pr-1" data-target="thuc_te_' + lowAllLetter + '_' + stt + '">'
+                + '<i class="feather icon-x"></i>'
+                + '</button>'
+                + '</td>'
+                + '<td class="align-middle text-center">'
+                + '<i class="fa-solid fa-square" data-status-for="thuc_te_' + lowAllLetter + '_' + stt + '" style="font-size: 20px;"></i>'
+                + '<span class="pl-1" id="chenh_lech_' + lowAllLetter + '_' + stt + '">' + (result.data.chenhLech != null ? result.data.chenhLech : '') + '</span>'
+                + '</td>'
+                + '<td class="p-2">'
+                + '<input type="text" name="note' + upFisrtLetter + stt + '" id="note_' + lowAllLetter + '_' + stt + '" class="form-control text-center table-bg-form-input" value="' + (result.data.note != null ? result.data.note : '') + '" placeholder="Nhập ghi chú ' + target + ' ' + stt + '..." data-toggle="tooltip" title="' + result.data.note + '">'
+                + '</td>'
+                + '</tr>';
 
-    if (count == 0) {
-        $(this).html(target + ' 1 <i class="fas fa-plus pl-2 text-warning"></i>');
-    }
+            if ((stt - 2) == 0) {
+                $('#edit' + target).after(html);
+            } else {
+                $('#edit' + target + (stt - 1)).after(html);
+            }
 
-    if (!window["$array" + target].includes(stt)) {
-        // window["$array" + target].push(stt); // Add stt into $arrayDAC / $arrayPAC / $arrayFAC
-        window["$array" + target].splice((stt - 1), 0, stt);
-    }
-    setDatePicker(lowAllLetter, stt);
-    $('[data-toggle="tooltip"]').tooltip();
-    alertify.success("Thêm trường " + target + " " + (stt - 1)).delay(1.5);
+            if (count == 0) {
+                $(this).html(target + ' 1 <i class="fas fa-plus pl-2 text-warning"></i>');
+            }
+
+            if (!window["$array" + target].includes(stt)) {
+                // window["$array" + target].push(stt); // Add stt into $arrayDAC / $arrayPAC / $arrayFAC
+                window["$array" + target].splice((stt - 1), 0, stt);
+            }
+            setDatePicker(lowAllLetter, stt);
+            $('[data-toggle="tooltip"]').tooltip();
+            alertify.success("Thêm trường " + target + " " + (stt - 1)).delay(1.5);
+        }
+    });
 });
 
 function setDatePicker(target, stt) {

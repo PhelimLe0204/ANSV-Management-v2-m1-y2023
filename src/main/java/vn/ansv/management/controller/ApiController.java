@@ -1,5 +1,6 @@
 package vn.ansv.management.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.ansv.management.dto.AddNewProjectDTO;
 import vn.ansv.management.dto.ProjectDTO;
 import vn.ansv.management.dto.Customer.ListCustomerDTO;
+import vn.ansv.management.dto.Detail.DanhSachGiaHanDTO;
 import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
 import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Detail.SupportCptgLessDTO;
@@ -591,6 +593,32 @@ public class ApiController {
         if (typeBaoLanh.equals("blbh")) {
             result = baoLanhBhService.baoLanhHopDongByReport(reportId);
             msg = "Thông tin bảo lãnh bảo hành";
+        }
+        if (result != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", msg, result));
+        }
+        msg = "Đối tượng không thể được tìm thấy!";
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("failed", msg, null));
+    }
+
+    @GetMapping("/hop-dong/gia-han/{typeGiaHan}/{reportId}")
+    public ResponseEntity<ResponseObject> listGiaHan(@PathVariable String typeGiaHan,
+            @PathVariable Long reportId) {
+        List<DanhSachGiaHanDTO> result = new ArrayList<DanhSachGiaHanDTO>();
+        String msg = "";
+        if (typeGiaHan.equals("blthhd")) {
+            result = baoLanhThhdService.listGiaHan(reportId, 1);
+            msg = "Danh sách gia hạn bảo lãnh thực hiện hợp đồng";
+        }
+        if (typeGiaHan.equals("bltu")) {
+            result = null;
+            msg = "Danh sách gia hạn bảo lãnh tạm ứng";
+        }
+        if (typeGiaHan.equals("blbh")) {
+            result = null;
+            msg = "Danh sách gia hạn bảo lãnh bảo hành";
         }
         if (result != null) {
             return ResponseEntity.status(HttpStatus.OK).body(

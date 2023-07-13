@@ -5,7 +5,45 @@
                 Dữ liệu không thể tìm thấy!<br>Vui lòng báo lại đội phát triển để xử lý.</h5>
         </th:block>
         <th:block th:unless="${#lists.isEmpty(detailTabHopDong)}">
-            <div class="col-md-6 table-responsive">
+            <div id="listGiaHanModal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="listGiaHanModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header pt-2 pb-2">
+                            <h5 class="modal-title" id="listGiaHanModalLabel">
+                                Danh sách gia hạn (Bảo lãnh thực hiện hợp đồng)
+                            </h5>
+                            <button type="button" class="tab-hop-dong-edit-modal-close close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-4">
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table table-striped table-hover table-bordered table-detail">
+                                        <thead id="list-gia-han-thead">
+                                            <tr>
+                                                <th class="bg-primary text-white text-center p-2">Lần</th>
+                                                <th class="bg-primary text-white text-center p-2">Ngày phát hành</th>
+                                                <th class="bg-primary text-white text-center p-2">Ngày hết hạn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list-gia-han-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer pr-2 pt-2 pb-2">
+                            <button type="button" class="list-gia-han-modal-close btn btn-secondary p-1"
+                                style="height: 30px; width: 50px;">Đóng</button>
+                            <button type="submit" id="btn-add-new-gia-han" class="btn btn-primary p-1"
+                                style="height: 30px; width: 90px;">Thêm mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 table-responsive">
                 <table class="table table-striped table-hover table-bordered table-detail">
                     <tr>
                         <td class="font-weight-bold w-50">Ngày ký hợp đồng</td>
@@ -33,10 +71,10 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-6 table-responsive">
+            <div class="col-md-7 table-responsive">
                 <table class="table table-striped table-hover table-bordered">
                     <tr>
-                        <td colspan="2" class="bg-primary font-weight-bold text-white pt-2 pb-2">
+                        <td colspan="3" class="bg-primary font-weight-bold text-white pt-2 pb-2">
                             <span>Bảo lãnh thực hiện hợp đồng</span>
                             <span class="float-right" id="cl-blthhd-display">
                                 [[${detailTabHopDong.getChenhLechBLTHHD() != null ?
@@ -56,10 +94,18 @@
                                 [[${detailTabHopDong.getNgayHetHanBLTHHD() != null ?
                                 detailTabHopDong.getNgayHetHanBLTHHD() : '. . . . .'}]]</span>
                         </td>
+                        <td style="width: 10%;">
+                            <button type="button"
+                                class="btn-list-gia-han btn btn-outline-primary font-weight-bold w-100 pt-1 pr-2 pb-1 pl-2"
+                                data-toggle="modal" data-target="#listGiaHanModal" data-type="blthhd"
+                                th:data-report="${detailTabHopDong.getId()}">
+                                <i class="feather icon-list"></i>
+                            </button>
+                        </td>
                     </tr>
 
                     <tr>
-                        <td colspan="2" class="bg-primary font-weight-bold text-white pt-2 pb-2">
+                        <td colspan="3" class="bg-primary font-weight-bold text-white pt-2 pb-2">
                             <span>Bảo lãnh tạm ứng</span>
                             <span class="float-right" id="cl-bltu-display">
                                 [[${detailTabHopDong.getChenhLechBLTU() != null ?
@@ -79,10 +125,18 @@
                                 [[${detailTabHopDong.getNgayHetHanBLTU() != null ?
                                 detailTabHopDong.getNgayHetHanBLTU() : '. . . . .'}]]</span>
                         </td>
+                        <td style="width: 10%;">
+                            <button type="button"
+                                class="btn-list-gia-han btn btn-outline-primary font-weight-bold w-100 pt-1 pr-2 pb-1 pl-2"
+                                data-toggle="modal" data-target="#listGiaHanModal" data-type="bltu"
+                                th:data-report="${detailTabHopDong.getId()}">
+                                <i class="feather icon-list"></i>
+                            </button>
+                        </td>
                     </tr>
 
                     <tr>
-                        <td colspan="2" class="bg-primary font-weight-bold text-white pt-2 pb-2">
+                        <td colspan="3" class="bg-primary font-weight-bold text-white pt-2 pb-2">
                             <span>Bảo lãnh bảo hành</span>
                             <span class="float-right" id="cl-blbh-display">
                                 [[${detailTabHopDong.getChenhLechBLBH() != null ?
@@ -101,6 +155,14 @@
                             <span class="pl-3" id="nhh-blbh-display">
                                 [[${detailTabHopDong.getNgayHetHanBLBH() != null ?
                                 detailTabHopDong.getNgayHetHanBLBH() : '. . . . .'}]]</span>
+                        </td>
+                        <td style="width: 10%;">
+                            <button type="button"
+                                class="btn-list-gia-han btn btn-outline-primary font-weight-bold w-100 pt-1 pr-2 pb-1 pl-2"
+                                data-toggle="modal" data-target="#listGiaHanModal" data-type="blbh"
+                                th:data-report="${detailTabHopDong.getId()}">
+                                <i class="feather icon-list"></i>
+                            </button>
                         </td>
                     </tr>
                 </table>

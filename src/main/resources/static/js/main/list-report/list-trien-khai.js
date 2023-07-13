@@ -940,7 +940,7 @@ $("#btn-open-modal-export-report").click(function () {
     }
     $("#yearExport").html(htmlSelectYear);
 
-    $("#btn-do-export-report").click(function () {
+    $("#exportButtons").on("click", "#btn-do-export-report", function () {
         $("#exportButtons").html(
             '<button class="btn btn-primary pt-1 pb-1 float-right" type="button" disabled>'
             + '<span class="spinner-border spinner-border-sm" role="status"></span>'
@@ -948,15 +948,44 @@ $("#btn-open-modal-export-report").click(function () {
             + '<button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>'
         );
 
-        $("#formExportReport").submit();
+        var dataType = $(this).attr('data-type');
+        var form = document.getElementById('formExportReport');
+        var data = new FormData(form);
 
-        setTimeout(function () {
-            $("#exportButtons").html(
-                '<button type="button" class="btn btn-primary pt-1 pb-1 float-right" '
-                + 'id="btn-do-export-report">Export</button>'
-                + '<button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report" '
-                + 'data-dismiss="modal">Đóng</button>'
-            );
-        }, 2000);
+        $.ajax({
+            url: '/export/' + dataType,
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (result, textStatus, jqXHR) {
+                if (result.status == "success") {
+                    $("#formExportReport").submit();
+                    setTimeout(function () {
+                        $("#exportButtons").html(
+                            '<button type="button" class="btn btn-primary pt-1 pb-1 float-right" '
+                            + 'id="btn-do-export-report" data-type="' + dataType + '">Export</button>'
+                            + '<button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report" '
+                            + 'data-dismiss="modal">Đóng</button>'
+                        );
+                        alertify.success("Export thành công!").delay(2);
+                    }, 1500);
+                } else {
+                    $("#exportButtons").html(
+                        '<button type="button" class="btn btn-primary pt-1 pb-1 float-right" '
+                        + 'id="btn-do-export-report" data-type="' + dataType + '">Export</button>'
+                        + '<button type="button" class="btn btn-secondary pt-1 pb-1 btn-close-import-report" '
+                        + 'data-dismiss="modal">Đóng</button>'
+                    );
+                    alertify.notify(result.message).delay(3);
+                }
+                // console.log(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertify.error("File không xác định! Vui lòng thử lại.").delay(3);
+            }
+        });
     });
 });

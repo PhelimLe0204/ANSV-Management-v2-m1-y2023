@@ -155,7 +155,7 @@
                                         <td class="text-center">
                                             [[${detailTabCptg.getChenhLechDac() != null ?
                                             detailTabCptg.getChenhLechDac() : '...'}]]</td>
-                                        <td class="text-center">
+                                        <td class="text-left text-wrap">
                                             [[${detailTabCptg.getNoteDac() != null ? detailTabCptg.getNoteDac() :
                                             '...'}]]</td>
                                     </tr>
@@ -490,12 +490,12 @@
                                                         </button>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <th:block th:if="${detailTabCptg.getThucTePac() == ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTePac() != ''}">
                                                             <i class="fa-sharp fa-solid fa-square-check text-primary"
                                                                 data-status-for="thuc_te_pac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
-                                                        <th:block th:if="${detailTabCptg.getThucTePac() != ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTePac() == ''}">
                                                             <i class="fa-solid fa-square" data-status-for="thuc_te_pac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
@@ -567,12 +567,12 @@
                                                         </button>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <th:block th:if="${detailTabCptg.getThucTeFac() == ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeFac() != ''}">
                                                             <i class="fa-sharp fa-solid fa-square-check text-primary"
                                                                 data-status-for="thuc_te_fac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>
-                                                        <th:block th:if="${detailTabCptg.getThucTeFac() != ''}">
+                                                        <th:block th:if="${detailTabCptg.getThucTeFac() == ''}">
                                                             <i class="fa-solid fa-square" data-status-for="thuc_te_fac"
                                                                 style="font-size: 20px;"></i>
                                                         </th:block>

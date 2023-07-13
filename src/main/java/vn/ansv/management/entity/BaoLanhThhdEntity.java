@@ -1,5 +1,7 @@
 package vn.ansv.management.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
@@ -10,7 +12,18 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
+import vn.ansv.management.dto.Detail.DanhSachGiaHanDTO;
 import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
+
+/* ===== BaoLanhThhdRepository.getListGiaHan() ===== */
+@NamedNativeQuery(name = "BaoLanhThhdEntity.getListGiaHan", query = "SELECT "
+        + "blthhd.id, blthhd.ngay_phat_hanh AS ngayPhatHanh, blthhd.ngay_het_han AS ngayHetHan, blthhd.note, "
+        + "blthhd.modified_by AS modifiedBy, blthhd.modified_at AS modifiedAt "
+        + "FROM bao_lanh_thhd AS blthhd "
+        + "INNER JOIN project AS p ON blthhd.project_id = p.id "
+        + "INNER JOIN project_report AS pr ON p.id = pr.project_id "
+        + "WHERE pr.id = :projectReportId AND pr.enabled = :enabled "
+        + "ORDER BY str_to_date(`ngayPhatHanh`, '%d / %m / %Y')", resultSetMapping = "Mapping.DanhSachGiaHanDTO")
 
 /* ===== BaoLanhThhdRepository.findDetailTabHopDongByReport() ===== */
 @NamedNativeQuery(name = "BaoLanhThhdEntity.findDetailTabHopDongByReport", query = "SELECT "
@@ -19,7 +32,7 @@ import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
         + "INNER JOIN project AS p ON blthhd.project_id = p.id "
         + "INNER JOIN project_report AS pr ON p.id = pr.project_id "
         + "WHERE pr.id = :projectReportId AND pr.enabled = :enabled "
-        + "ORDER BY blthhd.modified_at DESC LIMIT 1", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
+        + "ORDER BY str_to_date(`ngayPhatHanh`, '%d / %m / %Y') DESC LIMIT 1", resultSetMapping = "Mapping.SupportBaoLanhHopDongDTO")
 
 /* ===== BaoLanhThhdRepository.findDetailTabHopDongById() ===== */
 @NamedNativeQuery(name = "BaoLanhThhdEntity.findDetailTabHopDongById", query = "SELECT "
@@ -33,6 +46,15 @@ import vn.ansv.management.dto.Detail.SupportBaoLanhHopDongDTO;
         @ColumnResult(name = "ngayPhatHanh", type = String.class),
         @ColumnResult(name = "ngayHetHan", type = String.class),
         @ColumnResult(name = "note", type = String.class) }))
+
+/* ===== Set mapping: DanhSachGiaHanDTO ===== */
+@SqlResultSetMapping(name = "Mapping.DanhSachGiaHanDTO", classes = @ConstructorResult(targetClass = DanhSachGiaHanDTO.class, columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "ngayPhatHanh", type = String.class),
+        @ColumnResult(name = "ngayHetHan", type = String.class),
+        @ColumnResult(name = "note", type = String.class),
+        @ColumnResult(name = "modifiedBy", type = String.class),
+        @ColumnResult(name = "modifiedAt", type = Date.class) }))
 
 @Entity
 @Table(name = "bao_lanh_thhd")
