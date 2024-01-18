@@ -539,6 +539,7 @@ public class ProjectReportService implements IProjectReport {
                 return result;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("----- ProjectReportService.findListReportType3().e ----- " + e);
         }
         return null;
