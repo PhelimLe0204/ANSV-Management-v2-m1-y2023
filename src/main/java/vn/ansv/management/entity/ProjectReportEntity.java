@@ -454,7 +454,7 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN project_status AS ps ON pr.project_status_id = ps.id "
         + "INNER JOIN user AS u ON pr.pm_id = u.id "
         + "WHERE pr.year = :year AND pr.week = :week AND pr.project_type_id = :project_type_id AND u.username = :username "
-        + "ORDER BY pr.job_name"
+        + "ORDER BY pr.job_name "
         + "LIMIT :pageSize OFFSET :startPosition", resultSetMapping = "Mapping.ListReport3DTO")
 
 /* ===== ShowDashboardDTO.modalShowDashboard ===== */

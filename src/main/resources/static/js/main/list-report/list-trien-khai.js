@@ -608,6 +608,22 @@ $("#btn-open-add-new-report-modal").click(function () {
         // let ma_ke_toan = $("#ma_ke_toan").val();
         let currency_unit_id = $("#currency_unit_id").val();
 
+        if (!project_id) {
+            alertify.warning("Chưa chọn dự án!").delay(2.5);
+        }
+
+        if (!project_type_id) {
+            alertify.warning("Chưa chọn giai đoạn!").delay(2.5);
+        }
+
+        if (!project_priority_id) {
+            alertify.warning("Chưa chọn mức độ ưu tiên!").delay(2.5);
+        }
+
+        if (!project_status_id) {
+            alertify.warning("Chưa chọn trạng thái!").delay(2.5);
+        }
+
         if (!project_id | !project_type_id | !project_priority_id | !project_status_id | !week | !year | !currency_unit_id) {
             console.log("Thiếu dữ liệu");
             return;
