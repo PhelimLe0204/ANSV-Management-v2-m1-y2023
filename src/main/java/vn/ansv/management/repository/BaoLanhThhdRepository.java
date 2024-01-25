@@ -36,7 +36,7 @@ public interface BaoLanhThhdRepository extends JpaRepository<BaoLanhThhdEntity, 
     // Thêm mới Bảo lãnh thực hiện hợp đồng
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO bao_lanh_thhd (project_id) VALUES (:projectId)", nativeQuery = true)
+    @Query(value = "INSERT INTO bao_lanh_thhd (project_id, modified_by) VALUES (:projectId, 'System')", nativeQuery = true)
     void addNewBLTHHD(@Param("projectId") Long projectId);
 
     /*

@@ -214,6 +214,7 @@ public class HomeController extends BaseController {
             // System.out.println("--- projectDetailTabHopDong: " +
             // projectDetailTabHopDong.getNgayKy());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("--- HomeController() - viewDetail() - Line 216: " + e.getMessage());
         }
 

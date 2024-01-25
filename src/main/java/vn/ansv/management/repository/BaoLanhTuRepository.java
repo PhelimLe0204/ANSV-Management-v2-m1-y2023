@@ -28,7 +28,7 @@ public interface BaoLanhTuRepository extends JpaRepository<BaoLanhTuEntity, Long
     // Thêm mới Bảo lãnh tạm ứng
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO bao_lanh_tu (project_id) VALUES (:projectId)", nativeQuery = true)
+    @Query(value = "INSERT INTO bao_lanh_tu (project_id, modified_by) VALUES (:projectId, 'System')", nativeQuery = true)
     void addNewBLTU(@Param("projectId") Long projectId);
 
     /*
