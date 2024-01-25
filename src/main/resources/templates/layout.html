@@ -250,8 +250,10 @@
                     <div class="modal-footer">
                         <button type="button" class="btn  btn-secondary rounded-pill pt-1 pr-3 pb-1 pl-3"
                             data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn  btn-primary rounded-pill pt-1 pr-3 pb-1 pl-3"
-                            id="addNewProjectSubmit">Lưu dự án</button>
+                        <th:block th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                            <button type="button" class="btn  btn-primary rounded-pill pt-1 pr-3 pb-1 pl-3"
+                                id="addNewProjectSubmit">Lưu dự án</button>
+                        </th:block>
                     </div>
                 </div>
             </div>
