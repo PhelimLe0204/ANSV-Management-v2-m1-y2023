@@ -13,7 +13,9 @@
                             alt="user image" class="img-radius align-top m-r-15" style="width: 46px !important;">
                         <div class="user-details">
                             <div id="more-details">
-                                <span data-toggle="tooltip" data-placement="bottom" th:title="${session.username}">
+                                <span id="username_display_nav" data-toggle="tooltip" data-placement="bottom"
+                                    th:title="${session.username}"
+                                    th:data-readonly="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
                                     [[${#strings.abbreviate(session.username, 20)}]]</span>
                                 <i class="fa fa-caret-down"></i>
                             </div>

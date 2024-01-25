@@ -291,10 +291,12 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="phan-loai-open-modal-edit" class="btn btn-warning pt-1 float-right"
-                data-toggle="modal" data-target="#tabPhanLoaiEditModal" style="height: 30px; width: 130px;">
-                <i class="feather mr-2 icon-edit"></i>Chỉnh sửa
-            </button>
+            <th:block th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                <button type="button" id="phan-loai-open-modal-edit" class="btn btn-warning pt-1 float-right"
+                    data-toggle="modal" data-target="#tabPhanLoaiEditModal" style="height: 30px; width: 130px;">
+                    <i class="feather mr-2 icon-edit"></i>Chỉnh sửa
+                </button>
+            </th:block>
         </div>
     </div>
 </div>

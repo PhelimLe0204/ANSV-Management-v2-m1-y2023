@@ -145,22 +145,23 @@
                 <div class="page-block">
                     <div class="row align-items-center">
                         <div class="col-md-6 pt-1">
-                            <button type="button" id="btn-open-add-new-report-modal"
-                                class="btn btn-warning pt-1 pb-1 rounded-pill font-weight-bold" data-toggle="modal"
-                                data-target="#addNewReportModal">
-                                <i class="feather mr-2 icon-plus"></i>Thêm mới
-                            </button>
-                            <button type="button" id="btn-open-import-report-modal"
-                                class="btn btn-warning pt-1 pb-1 ml-3 rounded-pill font-weight-bold" data-toggle="modal"
-                                data-target="#importModal">
-                                <i class="feather mr-2 icon-upload"></i>Import
-                            </button>
+                            <th:block th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                                <button type="button" id="btn-open-add-new-report-modal"
+                                    class="btn btn-warning pt-1 pb-1 rounded-pill font-weight-bold" data-toggle="modal"
+                                    data-target="#addNewReportModal">
+                                    <i class="feather mr-2 icon-plus"></i>Thêm mới
+                                </button>
+                                <button type="button" id="btn-open-import-report-modal"
+                                    class="btn btn-warning pt-1 pb-1 ml-3 rounded-pill font-weight-bold"
+                                    data-toggle="modal" data-target="#importModal">
+                                    <i class="feather mr-2 icon-upload"></i>Import
+                                </button>
+                            </th:block>
                             <button type="button" id="btn-open-modal-export-report"
                                 class="btn btn-warning pt-1 pb-1 ml-3 rounded-pill font-weight-bold" data-toggle="modal"
                                 data-target="#exportModal">
                                 <i class="feather mr-2 icon-download"></i>Export
                             </button>
-
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -304,13 +305,17 @@
                                                         </button>
                                                     </td>
                                                     <td class="text-center" th:id="${listReportType2Item.getId()}">
-                                                        <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
-                                                            title="Delete" th:data-id="${listReportType2Item.getId()}"
-                                                            th:data-name="${listReportType2Item.getJobName()}">
-                                                            <span class="btn-icon-wrapper opacity-8">
-                                                                <i class="fa fa-trash fa-w-20"></i>
-                                                            </span>
-                                                        </a>
+                                                        <th:block
+                                                            th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                                                            <a class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
+                                                                title="Delete"
+                                                                th:data-id="${listReportType2Item.getId()}"
+                                                                th:data-name="${listReportType2Item.getJobName()}">
+                                                                <span class="btn-icon-wrapper opacity-8">
+                                                                    <i class="fa fa-trash fa-w-20"></i>
+                                                                </span>
+                                                            </a>
+                                                        </th:block>
                                                     </td>
                                                 </tr>
                                             </th:block>

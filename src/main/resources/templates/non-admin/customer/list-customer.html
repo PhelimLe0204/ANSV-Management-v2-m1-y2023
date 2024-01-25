@@ -134,8 +134,10 @@
                     </div>
                     <div class="modal-footer" id="modal-update-customer-footer">
                         <button type="button" class="btn btn-secondary pt-1 pb-1" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-update-customer">
-                            Cập nhật</button>
+                        <th:block th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                            <button type="button" class="btn btn-primary pt-1 pb-1" id="btn-submit-update-customer">
+                                Cập nhật</button>
+                        </th:block>
                     </div>
                 </div>
             </div>
@@ -147,11 +149,13 @@
                 <div class="page-block">
                     <div class="row align-items-center">
                         <div class="col-md-6 pt-1">
-                            <button type="button" id="btn-open-add-new-customer-modal"
-                                class="btn btn-warning pt-1 pb-1 rounded-pill font-weight-bold" data-toggle="modal"
-                                data-target="#addNewCustomerModal">
-                                <i class="feather mr-2 icon-plus"></i>Thêm mới
-                            </button>
+                            <th:block th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                                <button type="button" id="btn-open-add-new-customer-modal"
+                                    class="btn btn-warning pt-1 pb-1 rounded-pill font-weight-bold" data-toggle="modal"
+                                    data-target="#addNewCustomerModal">
+                                    <i class="feather mr-2 icon-plus"></i>Thêm mới
+                                </button>
+                            </th:block>
                         </div>
                         <div class="col-md-6">
                             <div class="page-header-title"></div>
@@ -241,12 +245,16 @@
                                                     [[${customerListItem.getModdifiedBy()}]]<br>[[${customerListItem.getModdifiedDate()}]]
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <input class="checkEnabled"
-                                                        th:data-value="${customerListItem.getEnabled()}" type="checkbox"
-                                                        th:checked="${customerListItem.getEnabled()}"
-                                                        data-toggle="toggle" data-onstyle="primary"
-                                                        th:data-id="${customerListItem.getId()}"
-                                                        th:id="${customerListItem.getId()}">
+                                                    <th:block
+                                                        th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                                                        <input class="checkEnabled"
+                                                            th:data-value="${customerListItem.getEnabled()}"
+                                                            type="checkbox"
+                                                            th:checked="${customerListItem.getEnabled()}"
+                                                            data-toggle="toggle" data-onstyle="primary"
+                                                            th:data-id="${customerListItem.getId()}"
+                                                            th:id="${customerListItem.getId()}">
+                                                    </th:block>
                                                 </td>
                                             </tr>
                                         </tbody>

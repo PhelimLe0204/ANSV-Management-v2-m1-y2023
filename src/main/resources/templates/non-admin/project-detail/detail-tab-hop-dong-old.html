@@ -262,34 +262,36 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" id="thoi-han-hop-dong-open-modal-edit"
-                    class="btn btn-warning pt-1 float-left mr-3" data-toggle="modal"
-                    data-target="#thoiHanHopDongEditModal" style="height: 30px;">
-                    <i class="feather mr-2 icon-edit"></i>Thời hạn hợp đồng
-                </button>
-                <button type="button" id="bl-thhd-open-modal-edit" class="btn btn-warning pt-1 float-left mr-3"
-                    data-toggle="modal" data-target="#thoiHanHopDongEditModal" style="height: 30px;">
-                    <i class="feather mr-2 icon-edit"></i>Bảo lãnh thực hiện hợp đồng
-                </button>
-                <button type="button" id="bl-tu-open-modal-edit" class="btn btn-warning pt-1 float-left mr-3"
-                    data-toggle="modal" data-target="#thoiHanHopDongEditModal" style="height: 30px;">
-                    <i class="feather mr-2 icon-edit"></i>Bảo lãnh tạm ứng
-                </button>
-                <button type="button" id="bl-bh-open-modal-edit" class="btn btn-warning pt-1 float-left mr-3"
-                    data-toggle="modal" data-target="#thoiHanHopDongEditModal" style="height: 30px;">
-                    <i class="feather mr-2 icon-edit"></i>Bảo lãnh bảo hành
-                </button>
+                <th:block th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                    <button type="button" id="thoi-han-hop-dong-open-modal-edit"
+                        class="btn btn-warning pt-1 float-left mr-3" data-toggle="modal"
+                        data-target="#thoiHanHopDongEditModal" style="height: 30px;">
+                        <i class="feather mr-2 icon-edit"></i>Thời hạn hợp đồng
+                    </button>
+                    <button type="button" id="bl-thhd-open-modal-edit" class="btn btn-warning pt-1 float-left mr-3"
+                        data-toggle="modal" data-target="#thoiHanHopDongEditModal" style="height: 30px;">
+                        <i class="feather mr-2 icon-edit"></i>Bảo lãnh thực hiện hợp đồng
+                    </button>
+                    <button type="button" id="bl-tu-open-modal-edit" class="btn btn-warning pt-1 float-left mr-3"
+                        data-toggle="modal" data-target="#thoiHanHopDongEditModal" style="height: 30px;">
+                        <i class="feather mr-2 icon-edit"></i>Bảo lãnh tạm ứng
+                    </button>
+                    <button type="button" id="bl-bh-open-modal-edit" class="btn btn-warning pt-1 float-left mr-3"
+                        data-toggle="modal" data-target="#thoiHanHopDongEditModal" style="height: 30px;">
+                        <i class="feather mr-2 icon-edit"></i>Bảo lãnh bảo hành
+                    </button>
 
-                <!-- <button class="btn btn-primary  m-t-5" type="button" data-toggle="collapse"
-                    data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Button with data-target</button>
-                <div class="collapse" id="collapseExample">
-                    <div class="card-body">
-                        <p class="mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                            richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                            nesciunt sapiente ea proident.</p>
-                    </div>
-                </div> -->
+                    <!-- <button class="btn btn-primary  m-t-5" type="button" data-toggle="collapse"
+                        data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Button with data-target</button>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card-body">
+                            <p class="mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                nesciunt sapiente ea proident.</p>
+                        </div>
+                    </div> -->
+                </th:block>
             </div>
         </th:block>
     </div>

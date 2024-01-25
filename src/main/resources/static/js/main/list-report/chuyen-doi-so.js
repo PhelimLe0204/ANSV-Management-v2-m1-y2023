@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    
+$(document).ready(function () {
+
 });
 $(".listWeekYear2").on("change", function () {
     let data_week = $("#weekList").val();
@@ -27,27 +27,50 @@ function getDataCard1(data_week, data_year, data_size, data_page, data_target, d
                     let dataArray = result.data.data;
                     let dataPaging = result.data.paging;
                     let classSub = "'d-flex justify-content-center'";
-                    for (let i = 0; i < dataArray.length; i++) {
-                        let htmlBodySub = '<tr>'
-                            + '<td class="text-center" style="width: 50px;">' + (i + 1 + (result.data.paging.pageNumber - 1) * result.data.paging.pageSize) + '</td>'
-                            + '<td class="d-inline-block text-truncate" style="max-width: 220px;">'
-                            + '<a href="/chi-tiet?id=' + dataArray[i].id + '" data-toggle="tooltip" title="' + dataArray[i].jobName + '">' + dataArray[i].jobName + '</a>'
-                            + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
-                            + '</td>'
-                            + '<td class="text-center">' + dataArray[i].tongMucDauTuDuKien + '</td>'
-                            + '<td class="text-center">' + (dataArray[i].mucDoKhaThi == null ? '' : dataArray[i].mucDoKhaThi +'%') + '</td>'
-                            + '<td class="text-center">' + dataArray[i].customerName.substring(0, 15) + '...</td>'
-                            + '<td class="text-center">' + dataArray[i].picName + '</td>'
-                            + '<td class="text-center">'
-                            + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
-                            + '</td>'
-                            + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
-                            + '<a href="javascript:void(0)" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete" title="Delete" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
-                            + '<span class="btn-icon-wrapper opacity-8"><i class="fa fa-trash fa-w-20"></i></span>'
-                            + '</a>'
-                            + '</td>'
-                            + '</tr>';
-                        htmlBody += htmlBodySub;
+                    let username_display_nav = $('#username_display_nav').data("readonly");
+                    if (!username_display_nav) {
+                        for (let i = 0; i < dataArray.length; i++) {
+                            let htmlBodySub = '<tr>'
+                                + '<td class="text-center" style="width: 50px;">' + (i + 1 + (result.data.paging.pageNumber - 1) * result.data.paging.pageSize) + '</td>'
+                                + '<td class="d-inline-block text-truncate" style="max-width: 220px;">'
+                                + '<a href="/chi-tiet?id=' + dataArray[i].id + '" data-toggle="tooltip" title="' + dataArray[i].jobName + '">' + dataArray[i].jobName + '</a>'
+                                + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
+                                + '</td>'
+                                + '<td class="text-center">' + dataArray[i].tongMucDauTuDuKien + '</td>'
+                                + '<td class="text-center">' + (dataArray[i].mucDoKhaThi == null ? '' : dataArray[i].mucDoKhaThi + '%') + '</td>'
+                                + '<td class="text-center">' + dataArray[i].customerName.substring(0, 15) + '...</td>'
+                                + '<td class="text-center">' + dataArray[i].picName + '</td>'
+                                + '<td class="text-center">'
+                                + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
+                                + '</td>'
+                                + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
+                                + '<a href="javascript:void(0)" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete" title="Delete" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
+                                + '<span class="btn-icon-wrapper opacity-8"><i class="fa fa-trash fa-w-20"></i></span>'
+                                + '</a>'
+                                + '</td>'
+                                + '</tr>';
+                            htmlBody += htmlBodySub;
+                        }
+                    } else {
+                        for (let i = 0; i < dataArray.length; i++) {
+                            let htmlBodySub = '<tr>'
+                                + '<td class="text-center" style="width: 50px;">' + (i + 1 + (result.data.paging.pageNumber - 1) * result.data.paging.pageSize) + '</td>'
+                                + '<td class="d-inline-block text-truncate" style="max-width: 220px;">'
+                                + '<a href="/chi-tiet?id=' + dataArray[i].id + '" data-toggle="tooltip" title="' + dataArray[i].jobName + '">' + dataArray[i].jobName + '</a>'
+                                + '<p class="text-muted m-b-0">Tuần ' + dataArray[i].week + ' năm ' + dataArray[i].year + '</p>'
+                                + '</td>'
+                                + '<td class="text-center">' + dataArray[i].tongMucDauTuDuKien + '</td>'
+                                + '<td class="text-center">' + (dataArray[i].mucDoKhaThi == null ? '' : dataArray[i].mucDoKhaThi + '%') + '</td>'
+                                + '<td class="text-center">' + dataArray[i].customerName.substring(0, 15) + '...</td>'
+                                + '<td class="text-center">' + dataArray[i].picName + '</td>'
+                                + '<td class="text-center">'
+                                + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
+                                + '</td>'
+                                + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
+                                + '</td>'
+                                + '</tr>';
+                            htmlBody += htmlBodySub;
+                        }
                     }
 
                     if (dataPaging.pageNumber - 1 <= 0) {

@@ -39,9 +39,10 @@
                                         name="jobAssigned"
                                         placeholder="Mời nhập nội dung CÔNG VIỆC PHÂN BỔ..."></textarea>
                                 </div>
-                                <button type="submit" class="c-button c-button--primary c-button--full"
-                                    style="font-size: 16px;" id="addMember">
-                                    Thêm vào dự án</button>
+                                <th:block th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
+                                    <button type="submit" class="c-button c-button--primary c-button--full"
+                                        style="font-size: 16px;" id="addMember">Thêm vào dự án</button>
+                                </th:block>
                             </form>
                         </div>
                     </div>
