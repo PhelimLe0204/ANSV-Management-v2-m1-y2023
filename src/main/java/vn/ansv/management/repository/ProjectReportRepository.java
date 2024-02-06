@@ -21,6 +21,7 @@ import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.ReportAutoUpdateCurrentWeek;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 import vn.ansv.management.entity.ProjectReportEntity;
@@ -415,6 +416,11 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 	Long findIdByJobNameWeekYear(@Param("jobName") String jobName, @Param("week") Integer week,
 			@Param("year") Integer year);
 
+	@Query(value = "SELECT COUNT(id) FROM project_report AS pr WHERE pr.job_name = :jobName AND pr.week = :week " + 
+				"AND pr.year = :year AND pr.project_type_id = :type", nativeQuery = true)
+	Integer checkByJobNameWeekYearType(@Param("jobName") String jobName, @Param("week") Integer week,
+			@Param("year") Integer year, @Param("type") Long type);
+
 	@Query(nativeQuery = true)
 	List<ExportVienThongDTO> findAllExportVienThong(
 			@Param("type") int type, @Param("week") int week, @Param("year") int year);
@@ -471,4 +477,7 @@ public interface ProjectReportRepository extends JpaRepository<ProjectReportEnti
 			+ "FROM project_report_subdata AS prs "
 			+ "WHERE prs.project_report_id = :projectReportId", nativeQuery = true)
 	SupportCptgLessDTO findDataFAC(@Param("projectReportId") Long projectReportId);
+
+	@Query(nativeQuery = true)
+	ReportAutoUpdateCurrentWeek findAllReportDetailById(@Param("id") Long id);
 }

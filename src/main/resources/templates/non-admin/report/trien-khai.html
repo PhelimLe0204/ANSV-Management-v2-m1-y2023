@@ -292,6 +292,20 @@
                                                         <th:block
                                                             th:unless="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
                                                             <a href="javascript:void(0)"
+                                                                onclick="return autoUpdateCurrentWeek(event)"
+                                                                class="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
+                                                                title="Cập nhật tuần hiện tại"
+                                                                th:data-id="${listReportType3Item.getId()}"
+                                                                th:data-name="${listReportType3Item.getJobName()}">
+                                                                <span class="btn-icon-wrapper opacity-8"
+                                                                    th:data-id="${listReportType3Item.getId()}"
+                                                                    th:data-name="${listReportType3Item.getJobName()}">
+                                                                    <i class="fa-solid fa-cloud-arrow-up"
+                                                                        th:data-id="${listReportType3Item.getId()}"
+                                                                        th:data-name="${listReportType3Item.getJobName()}"></i>
+                                                                </span>
+                                                            </a>
+                                                            <a href="javascript:void(0)"
                                                                 class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete"
                                                                 title="Delete"
                                                                 th:data-id="${listReportType3Item.getId()}"

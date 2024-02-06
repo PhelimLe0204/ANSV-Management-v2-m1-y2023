@@ -62,6 +62,8 @@ public interface IProjectReport {
 
     Integer addNewReport(AddNewReportDTO dataInsert);
 
+    Integer autoAddNewReport(int week, int year, Long id);
+
     List<ShowDashboardDTO> modalShowDashboard(int enabled, int week, int year, Long status, Long type);
 
     List<Map<String, String>> processingImportReport(

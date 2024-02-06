@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -45,6 +46,7 @@ import vn.ansv.management.dto.Export.ExportVienThongDTO;
 import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.ReportAutoUpdateCurrentWeek;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Statistic.DashboardChartDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
@@ -569,7 +571,9 @@ public class ProjectReportService implements IProjectReport {
         try {
             String uid = RandomStringUtils.randomAlphanumeric(20);
             dataInsert.setUid(uid);
-            dataInsert.setAmId(1L); // Set AM
+            if (dataInsert.getAmId() != null) {
+                dataInsert.setAmId(1L); // Set AM
+            }
 
             // Get username và Set người tạo (AM / PM / AM's manager / PM's manager)
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -607,21 +611,45 @@ public class ProjectReportService implements IProjectReport {
                     dataInsert.getJobName(), dataInsert.getDescription(), 1, dataInsert.getMucDoKhaThi(),
                     dataInsert.getTongMucDauTuDuKien(), dataInsert.getHinhThucDauTu(), dataInsert.getPhamViCungCap(),
                     dataInsert.getPhanTichSwoot(), dataInsert.getSoTienGiaoHang(),
-                    (dataInsert.getHopDongGiaoHang().length() != 0) ? dataInsert.getHopDongGiaoHang() : null,
-                    (dataInsert.getMucTieuGiaoHang().length() != 0) ? dataInsert.getMucTieuGiaoHang() : null,
-                    (dataInsert.getThucTeGiaoHang().length() != 0) ? dataInsert.getThucTeGiaoHang() : null,
+                    (dataInsert.getHopDongGiaoHang() != null && dataInsert.getHopDongGiaoHang().length() != 0)
+                            ? dataInsert.getHopDongGiaoHang()
+                            : null,
+                    (dataInsert.getMucTieuGiaoHang() != null && dataInsert.getMucTieuGiaoHang().length() != 0)
+                            ? dataInsert.getMucTieuGiaoHang()
+                            : null,
+                    (dataInsert.getThucTeGiaoHang() != null && dataInsert.getThucTeGiaoHang().length() != 0)
+                            ? dataInsert.getThucTeGiaoHang()
+                            : null,
                     dataInsert.getNoteGiaoHang(), dataInsert.getSoTienDac(),
-                    (dataInsert.getHopDongDac().length() != 0) ? dataInsert.getHopDongDac() : null,
-                    (dataInsert.getMucTieuDac().length() != 0) ? dataInsert.getMucTieuDac() : null,
-                    (dataInsert.getThucTeDac().length() != 0) ? dataInsert.getThucTeDac() : null,
+                    (dataInsert.getHopDongDac() != null && dataInsert.getHopDongDac().length() != 0)
+                            ? dataInsert.getHopDongDac()
+                            : null,
+                    (dataInsert.getMucTieuDac() != null && dataInsert.getMucTieuDac().length() != 0)
+                            ? dataInsert.getMucTieuDac()
+                            : null,
+                    (dataInsert.getThucTeDac() != null && dataInsert.getThucTeDac().length() != 0)
+                            ? dataInsert.getThucTeDac()
+                            : null,
                     dataInsert.getNoteDac(), dataInsert.getSoTienPac(),
-                    (dataInsert.getHopDongPac().length() != 0) ? dataInsert.getHopDongPac() : null,
-                    (dataInsert.getMucTieuPac().length() != 0) ? dataInsert.getMucTieuPac() : null,
-                    (dataInsert.getThucTePac().length() != 0) ? dataInsert.getThucTePac() : null,
+                    (dataInsert.getHopDongPac() != null && dataInsert.getHopDongPac().length() != 0)
+                            ? dataInsert.getHopDongPac()
+                            : null,
+                    (dataInsert.getMucTieuPac() != null && dataInsert.getMucTieuPac().length() != 0)
+                            ? dataInsert.getMucTieuPac()
+                            : null,
+                    (dataInsert.getThucTePac() != null && dataInsert.getThucTePac().length() != 0)
+                            ? dataInsert.getThucTePac()
+                            : null,
                     dataInsert.getNotePac(), dataInsert.getSoTienFac(),
-                    (dataInsert.getHopDongFac().length() != 0) ? dataInsert.getHopDongFac() : null,
-                    (dataInsert.getMucTieuFac().length() != 0) ? dataInsert.getMucTieuFac() : null,
-                    (dataInsert.getThucTeFac().length() != 0) ? dataInsert.getThucTeFac() : null,
+                    (dataInsert.getHopDongFac() != null && dataInsert.getHopDongFac().length() != 0)
+                            ? dataInsert.getHopDongFac()
+                            : null,
+                    (dataInsert.getMucTieuFac() != null && dataInsert.getMucTieuFac().length() != 0)
+                            ? dataInsert.getMucTieuFac()
+                            : null,
+                    (dataInsert.getThucTeFac() != null && dataInsert.getThucTeFac().length() != 0)
+                            ? dataInsert.getThucTeFac()
+                            : null,
                     dataInsert.getNoteFac(), dataInsert.getTongGiaTriThucTe(), dataInsert.getNoteTongGiaTri(),
                     dataInsert.getSoTienTamUng(), dataInsert.getKeHoachTamUng(), dataInsert.getNoteTamUng(),
                     dataInsert.getTienDoChung(), dataInsert.getGeneralIssue(), dataInsert.getSolution(),
@@ -636,6 +664,78 @@ public class ProjectReportService implements IProjectReport {
             return 1;
         } catch (Exception e) {
             System.out.println("----- Error ----- ProjectReportService.addNewReport(): " + e.getMessage());
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public Integer addNewReportAuto(AddNewReportDTO dataInsert) {
+        try {
+            int count_data = projectReportRepository.checkByJobNameWeekYearType(
+                    dataInsert.getJobName(), dataInsert.getWeek(), dataInsert.getYear(), dataInsert.getProjectTypeId());
+            if (count_data == 0) {
+                String uid = RandomStringUtils.randomAlphanumeric(20);
+                dataInsert.setUid(uid);
+                // Add new report
+                projectReportRepository.addNewReport(dataInsert.getUid(), dataInsert.getAmId(),
+                        dataInsert.getAmManagerId(),
+                        dataInsert.getPmId(), dataInsert.getPmManagerId(), dataInsert.getCreatedBy(),
+                        dataInsert.getProjectId(), dataInsert.getProjectTypeId(), dataInsert.getProjectPriorityId(),
+                        dataInsert.getProjectStatusId(), dataInsert.getWeek(), dataInsert.getYear(),
+                        dataInsert.getMaHopDong(), dataInsert.getMaKeToan(), dataInsert.getCurrencyUnitId(),
+                        dataInsert.getJobName(), dataInsert.getDescription(), 1, dataInsert.getMucDoKhaThi(),
+                        dataInsert.getTongMucDauTuDuKien(), dataInsert.getHinhThucDauTu(),
+                        dataInsert.getPhamViCungCap(),
+                        dataInsert.getPhanTichSwoot(), dataInsert.getSoTienGiaoHang(),
+                        (dataInsert.getHopDongGiaoHang() != null && dataInsert.getHopDongGiaoHang().length() != 0)
+                                ? dataInsert.getHopDongGiaoHang()
+                                : null,
+                        (dataInsert.getMucTieuGiaoHang() != null && dataInsert.getMucTieuGiaoHang().length() != 0)
+                                ? dataInsert.getMucTieuGiaoHang()
+                                : null,
+                        (dataInsert.getThucTeGiaoHang() != null && dataInsert.getThucTeGiaoHang().length() != 0)
+                                ? dataInsert.getThucTeGiaoHang()
+                                : null,
+                        dataInsert.getNoteGiaoHang(), dataInsert.getSoTienDac(),
+                        (dataInsert.getHopDongDac() != null && dataInsert.getHopDongDac().length() != 0)
+                                ? dataInsert.getHopDongDac()
+                                : null,
+                        (dataInsert.getMucTieuDac() != null && dataInsert.getMucTieuDac().length() != 0)
+                                ? dataInsert.getMucTieuDac()
+                                : null,
+                        (dataInsert.getThucTeDac() != null && dataInsert.getThucTeDac().length() != 0)
+                                ? dataInsert.getThucTeDac()
+                                : null,
+                        dataInsert.getNoteDac(), dataInsert.getSoTienPac(),
+                        (dataInsert.getHopDongPac() != null && dataInsert.getHopDongPac().length() != 0)
+                                ? dataInsert.getHopDongPac()
+                                : null,
+                        (dataInsert.getMucTieuPac() != null && dataInsert.getMucTieuPac().length() != 0)
+                                ? dataInsert.getMucTieuPac()
+                                : null,
+                        (dataInsert.getThucTePac() != null && dataInsert.getThucTePac().length() != 0)
+                                ? dataInsert.getThucTePac()
+                                : null,
+                        dataInsert.getNotePac(), dataInsert.getSoTienFac(),
+                        (dataInsert.getHopDongFac() != null && dataInsert.getHopDongFac().length() != 0)
+                                ? dataInsert.getHopDongFac()
+                                : null,
+                        (dataInsert.getMucTieuFac() != null && dataInsert.getMucTieuFac().length() != 0)
+                                ? dataInsert.getMucTieuFac()
+                                : null,
+                        (dataInsert.getThucTeFac() != null && dataInsert.getThucTeFac().length() != 0)
+                                ? dataInsert.getThucTeFac()
+                                : null,
+                        dataInsert.getNoteFac(), dataInsert.getTongGiaTriThucTe(), dataInsert.getNoteTongGiaTri(),
+                        dataInsert.getSoTienTamUng(), dataInsert.getKeHoachTamUng(), dataInsert.getNoteTamUng(),
+                        dataInsert.getTienDoChung(), dataInsert.getGeneralIssue(), dataInsert.getSolution(),
+                        dataInsert.getKeHoachTuanNay(), dataInsert.getKeHoachTuanSau(), dataInsert.getKetQuaTuanTruoc(),
+                        dataInsert.getKetQuaTuanNay());
+                return 1;
+            }
+            return 2;
+        } catch (Exception e) {
+            System.out.println("----- Error ----- ProjectReportService.addNewReportAuto(): " + e.getMessage());
             e.printStackTrace();
             return 0;
         }
@@ -1683,6 +1783,26 @@ public class ProjectReportService implements IProjectReport {
                 return projectReportRepository.findDetailMoreFAC(id);
             default:
                 return null;
+        }
+    }
+
+    @Override
+    public Integer autoAddNewReport(int week, int year, Long id) {
+        try {
+            if (week > 1) {
+                ReportAutoUpdateCurrentWeek data = projectReportRepository.findAllReportDetailById(id);
+                AddNewReportDTO data_insert = new AddNewReportDTO();
+                ModelMapper modelMapper = new ModelMapper();
+                data_insert = modelMapper.map(data, AddNewReportDTO.class);
+                data_insert.setWeek(week);
+                data_insert.setYear(year);
+                int insert_result = addNewReportAuto(data_insert);
+                return insert_result;
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }

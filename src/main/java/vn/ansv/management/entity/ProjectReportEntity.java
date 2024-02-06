@@ -1,6 +1,7 @@
 package vn.ansv.management.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,8 +23,10 @@ import vn.ansv.management.dto.Detail.SupportCptgDTO;
 import vn.ansv.management.dto.Export.ExportChuyenDoiSoDTO;
 import vn.ansv.management.dto.Export.ExportTrienKhaiDTO;
 import vn.ansv.management.dto.Export.ExportVienThongDTO;
+import vn.ansv.management.dto.Report.AddNewReportDTO;
 import vn.ansv.management.dto.Report.ListReport12DTO;
 import vn.ansv.management.dto.Report.ListReport3DTO;
+import vn.ansv.management.dto.Report.ReportAutoUpdateCurrentWeek;
 import vn.ansv.management.dto.Report.ShowDashboardDTO;
 import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
 
@@ -483,6 +486,96 @@ import vn.ansv.management.dto.Detail.ReportDetailTabCptgDTO;
         + "INNER JOIN currency_unit AS cu ON pr.currency_unit_id = cu.id "
         + "WHERE pr.enabled = :enabled AND pr.week = :week AND pr.year = :year "
         + "AND pr.project_status_id = :project_status_id AND pr.project_type_id = :project_type_id", resultSetMapping = "Mapping.ShowDashboardDTO")
+
+/* ===== ProjectReportRepository.findAllReportDetailById ===== */
+@NamedNativeQuery(name = "ProjectReportEntity.findAllReportDetailById", query = "SELECT " 
+        + "pr.id, pr.uid, pr.am_id AS amid, pr.pm_id AS pmid, pr.am_id AS amid, pr.am_manager_id AS amManagerId, "
+        + "pr.pm_manager_id AS pmManagerId, pr.created_by AS createdBy, pr.created_date AS createdDate, "
+        + "pr.project_id AS projectId, pr.project_type_id AS projectTypeId, pr.project_priority_id AS projectPriorityId, "
+        + "pr.project_status_id AS projectStatusId, pr.week, pr.year, pr.ma_hop_dong AS maHopDong, "
+        + "pr.ma_ke_toan AS maKeToan, pr.currency_unit_id AS currencyUnitId, pr.job_name AS jobName, null AS customerId, "
+        + "pr.description, pr.muc_do_kha_thi AS mucDoKhaThi, pr.tong_muc_dau_tu_du_kien AS tongMucDauTuDuKien, "
+        + "pr.hinh_thuc_dau_tu AS hinhThucDauTu, pr.pham_vi_cung_cap AS phamViCungCap, pr.phan_tich_swoot AS phanTichSwoot, "
+        + "pr.so_tien_giao_hang AS soTienGiaoHang, pr.hop_dong_giao_hang AS hopDongGiaoHang, "
+        + "pr.muc_tieu_giao_hang AS mucTieuGiaoHang, pr.thuc_te_giao_hang AS thucTeGiaoHang, "
+        + "pr.note_giao_hang AS noteGiaoHang, pr.so_tien_dac AS soTienDac, pr.hop_dong_dac AS hopDongDac, "
+        + "pr.muc_tieu_dac AS mucTieuDac, pr.thuc_te_dac AS thucTeDac, pr.note_dac AS noteDac, pr.so_tien_pac AS soTienPac, "
+        + "pr.hop_dong_pac AS hopDongPac, pr.muc_tieu_pac AS mucTieuPac, pr.thuc_te_pac AS thucTePac, "
+        + "pr.note_pac AS notePac, pr.so_tien_fac AS soTienFac, pr.hop_dong_fac AS hopDongFac, "
+        + "pr.muc_tieu_fac AS mucTieuFac, pr.thuc_te_fac AS thucTeFac, pr.note_fac AS noteFac, "
+        + "pr.tong_gia_tri_thuc_te AS tongGiaTriThucTe, pr.note_tong_gia_tri AS noteTongGiaTri, "
+        + "pr.so_tien_tam_ung AS soTienTamUng, pr.ke_hoach_tam_ung AS keHoachTamUng, pr.note_tam_ung AS noteTamUng, "
+        + "pr.tien_do_chung AS tienDoChung, pr.general_issue AS generalIssue, pr.solution AS solution, "
+        + "pr.ke_hoach_tuan_nay AS keHoachTuanNay, pr.ke_hoach_tuan_sau AS keHoachTuanSau, "
+        + "pr.ket_qua_tuan_truoc AS ketQuaTuanTruoc, pr.ket_qua_tuan_nay AS ketQuaTuanNay "
+        + "FROM project_report AS pr "
+        + "WHERE pr.id =:id "
+        + "ORDER BY pr.created_date", resultSetMapping = "Mapping.ReportAutoUpdateCurrentWeek")
+
+/* ===== Set mapping: ReportAutoUpdateCurrentWeek ===== */
+@SqlResultSetMapping(name = "Mapping.ReportAutoUpdateCurrentWeek", classes = @ConstructorResult(targetClass = ReportAutoUpdateCurrentWeek.class, columns = {
+    @ColumnResult(name = "id", type = Long.class),
+    @ColumnResult(name = "uid", type = String.class),
+    @ColumnResult(name = "amId", type = Long.class),
+    @ColumnResult(name = "pmId", type = Long.class),
+    @ColumnResult(name = "amManagerId", type = Long.class),
+    @ColumnResult(name = "pmManagerId", type = Long.class),
+    @ColumnResult(name = "createdBy", type = String.class),
+    @ColumnResult(name = "createdDate", type = Date.class),
+
+    @ColumnResult(name = "projectId", type = Long.class),
+    @ColumnResult(name = "projectTypeId", type = Long.class),
+    @ColumnResult(name = "projectPriorityId", type = Long.class),
+    @ColumnResult(name = "projectStatusId", type = Long.class),
+    @ColumnResult(name = "week", type = Integer.class),
+    @ColumnResult(name = "year", type = Integer.class),
+    @ColumnResult(name = "maHopDong", type = String.class),
+    @ColumnResult(name = "maKeToan", type = String.class),
+    @ColumnResult(name = "currencyUnitId", type = Long.class),
+
+    @ColumnResult(name = "jobName", type = String.class),
+    @ColumnResult(name = "customerId", type = Long.class),
+    @ColumnResult(name = "description", type = String.class),
+    @ColumnResult(name = "mucDoKhaThi", type = Integer.class),
+    @ColumnResult(name = "tongMucDauTuDuKien", type = String.class),
+    @ColumnResult(name = "hinhThucDauTu", type = String.class),
+    @ColumnResult(name = "phamViCungCap", type = String.class),
+    @ColumnResult(name = "phanTichSwoot", type = String.class),
+
+    @ColumnResult(name = "soTienGiaoHang", type = String.class),
+    @ColumnResult(name = "hopDongGiaoHang", type = String.class),
+    @ColumnResult(name = "mucTieuGiaoHang", type = String.class),
+    @ColumnResult(name = "thucTeGiaoHang", type = String.class),
+    @ColumnResult(name = "noteGiaoHang", type = String.class),
+    @ColumnResult(name = "soTienDac", type = String.class),
+    @ColumnResult(name = "hopDongDac", type = String.class),
+    @ColumnResult(name = "mucTieuDac", type = String.class),
+    @ColumnResult(name = "thucTeDac", type = String.class),
+    @ColumnResult(name = "noteDac", type = String.class),
+    @ColumnResult(name = "soTienPac", type = String.class),
+    @ColumnResult(name = "hopDongPac", type = String.class),
+    @ColumnResult(name = "mucTieuPac", type = String.class),
+    @ColumnResult(name = "thucTePac", type = String.class),
+    @ColumnResult(name = "notePac", type = String.class),
+    @ColumnResult(name = "soTienFac", type = String.class),
+    @ColumnResult(name = "hopDongFac", type = String.class),
+    @ColumnResult(name = "mucTieuFac", type = String.class),
+    @ColumnResult(name = "thucTeFac", type = String.class),
+    @ColumnResult(name = "noteFac", type = String.class),
+    @ColumnResult(name = "tongGiaTriThucTe", type = String.class),
+    @ColumnResult(name = "noteTongGiaTri", type = String.class),
+    @ColumnResult(name = "soTienTamUng", type = String.class),
+    @ColumnResult(name = "keHoachTamUng", type = String.class),
+    @ColumnResult(name = "noteTamUng", type = String.class),
+
+    @ColumnResult(name = "tienDoChung", type = String.class),
+    @ColumnResult(name = "generalIssue", type = String.class),
+    @ColumnResult(name = "solution", type = String.class),
+    @ColumnResult(name = "keHoachTuanNay", type = String.class),
+    @ColumnResult(name = "keHoachTuanSau", type = String.class),
+    @ColumnResult(name = "ketQuaTuanTruoc", type = String.class),
+    @ColumnResult(name = "ketQuaTuanNay", type = String.class)
+}))
 
 /* ===== Set mapping: ShowDashboardDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ShowDashboardDTO", classes = @ConstructorResult(targetClass = ShowDashboardDTO.class, columns = {

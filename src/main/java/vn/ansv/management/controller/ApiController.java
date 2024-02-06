@@ -629,4 +629,22 @@ public class ApiController {
                 new ResponseObject("failed", msg, null));
     }
 
+    @GetMapping("/autoAddNewReport/{id}")
+    public ResponseEntity<ResponseObject> autoAddNewReport(@PathVariable Long id, HttpSession session) {
+        int currentWeek = (int) session.getAttribute("currentWeek");
+        int currentYear = (int) session.getAttribute("currentYear");
+        Integer result_status = projectReportService.autoAddNewReport(currentWeek, currentYear, id);
+
+        if (result_status == 1) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Cập nhật dữ liệu tuần hiện tại thành công!", null));
+        }
+        if (result_status == 2) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("duplicate", "Báo cáo đã có ở tuần hiện tại!", null));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("success", "null", null));
+    }
+
 }

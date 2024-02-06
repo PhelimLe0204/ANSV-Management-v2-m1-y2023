@@ -89,6 +89,8 @@ function getDataListReport3(action_type, data_week, data_year, data_size, data_p
                                 + '<button type="button" class="btn btn-' + dataArray[i].statusColor + ' rounded-pill pt-0 btn-status" data-toggle="popover" data-html="true" data-placement="right" title="" data-content="' + (dataArray[i].tinhTrangDuAn != null ? dataArray[i].tinhTrangDuAn : '...') + '" data-original-title="<span class=' + classSub + '>Tình trạng dự án</span>">' + dataArray[i].statusDisplay + '</button>'
                                 + '</td>'
                                 + '<td class="text-center" id="' + dataArray[i].id + '" style="width: 100px;">'
+                                + '<a href="javascript:void(0)" onclick="return autoUpdateCurrentWeek(event)" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm" title="Cập nhật tuần hiện tại" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
+                                + '<span class="btn-icon-wrapper opacity-8" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '"><i class="fa-solid fa-cloud-arrow-up" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '"></i></span></a>'
                                 + '<a href="javascript:void(0)" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm delete" title="Delete" data-id="' + dataArray[i].id + '" data-name="' + dataArray[i].jobName + '">'
                                 + '<span class="btn-icon-wrapper opacity-8"><i class="fa fa-trash fa-w-20"></i></span>'
                                 + '</a>'
@@ -1073,3 +1075,29 @@ $("#btn-open-modal-export-report").click(function () {
         });
     });
 });
+
+function autoUpdateCurrentWeek(e) {
+    var report_id = e.target.getAttribute("data-id");
+    var report_name = e.target.getAttribute("data-name");
+    var title_confirm = 'Cập nhật dữ liệu tuần hiện tại: ' + report_name;
+    var msg_confirm = 'Dữ liệu <font color="#4680ff">tuần hiện tại</font> (theo thời gian thực) sẽ được cập nhật từ dữ liệu ' +
+        '<font color="#4680ff">tuần trước</font>, bạn chắc chứ?';
+    alertify.confirm(
+        title_confirm,
+        (msg_confirm), function () {
+            $.ajax({
+                url: "/api/autoAddNewReport/" + report_id,
+                success: function (result, textStatus, jqXHR) {
+                    if (result.status == "success") {
+                        alertify.success(result.message);
+                    }
+                    if (result.status == "duplicate") {
+                        alertify.warning(result.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alertify.error('Cập nhật thất bại!');
+                }
+            });
+        }, function () { });
+}
