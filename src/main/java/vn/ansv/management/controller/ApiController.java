@@ -366,11 +366,11 @@ public class ApiController {
                         new ResponseObject("success", msg, dataType3Week));
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            System.out.println("----- 369 HomeController.viewDashboard() ----- " + nfe);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
         } catch (Exception e) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            System.out.println("----- 373 HomeController.viewDashboard() ----- " + e);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
         }
@@ -413,11 +413,11 @@ public class ApiController {
                         new ResponseObject("success", msg, dataType1Week));
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            System.out.println("----- 416 HomeController.viewDashboard() ----- " + nfe);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
         } catch (Exception e) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            System.out.println("----- 420 HomeController.viewDashboard() ----- " + e);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
         }
@@ -460,11 +460,11 @@ public class ApiController {
                         new ResponseObject("success", msg, dataType2Week));
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            System.out.println("----- 463HomeController.viewDashboard() ----- " + nfe);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Dữ liệu yêu cầu không thỏa mãn", ""));
         } catch (Exception e) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            System.out.println("----- 467 HomeController.viewDashboard() ----- " + e);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("failed", "Lỗi xử lý! Vui lòng thử lại sau", ""));
         }

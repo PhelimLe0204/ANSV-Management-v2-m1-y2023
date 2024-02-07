@@ -67,7 +67,7 @@ public class ShowDashboardDTO {
                 .toFormatter(Locale.ENGLISH);
         String result = null;
 
-        if (dateHopDong == null && dateMucTieu == null) {
+        if ((dateHopDong == null || dateHopDong.length() == 0) && (dateMucTieu == null || dateMucTieu.length() == 0)) {
             return result;
         }
 
@@ -77,7 +77,7 @@ public class ShowDashboardDTO {
         if (dateMucTieu != null) {
             muc_tieu = LocalDate.parse(dateMucTieu, dateFormatter);
 
-            if (dateThucTe == null) {
+            if (dateThucTe == null || dateThucTe.length() == 0) {
                 // Không có ngày thực tế (chưa hoàn thành công việc)
                 thuc_te = LocalDate.now();
                 long dif = Duration.between(thuc_te.atStartOfDay(), muc_tieu.atStartOfDay()).toDays();
@@ -108,6 +108,10 @@ public class ShowDashboardDTO {
         }
 
         return result;
+    }
+
+    public ShowDashboardDTO() {
+
     }
 
     public ShowDashboardDTO(Long id, String jobName, String customerName, String amName, String pmName,

@@ -186,11 +186,12 @@ public class HomeController extends BaseController {
             _mvShare.setViewName("non-admin/dashboard");
             return _mvShare;
         } catch (NumberFormatException nfe) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            System.out.println("----- 189 HomeController.viewDashboard() ----- " + nfe);
             session.setAttribute("errorReturnDashboard", "Tuần hoặc năm không xác định!");
             return new ModelAndView("redirect:/");
         } catch (Exception e) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + e);
+            e.printStackTrace();
+            System.out.println("----- 193 HomeController.viewDashboard() ----- " + e);
             return new ModelAndView("redirect:/");
         }
     }
@@ -348,12 +349,12 @@ public class HomeController extends BaseController {
             session.setAttribute("errorReturnDashboard", "Không đủ quyền hạn để truy cập!");
             return new ModelAndView("redirect:/");
         } catch (NumberFormatException nfe) {
-            System.out.println("----- HomeController.viewDashboard() ----- " + nfe);
+            System.out.println("----- 351 HomeController.viewDashboard() ----- " + nfe);
             session.setAttribute("errorReturnDashboard", "Tuần hoặc năm không xác định!");
             return new ModelAndView("redirect:/");
         } catch (Exception e) {
             // NumberFormatException
-            System.out.println("----- HomeController.totalReportByUser() ----- " + e);
+            System.out.println("----- 356 HomeController.totalReportByUser() ----- " + e);
             return new ModelAndView("redirect:/");
         }
     }
