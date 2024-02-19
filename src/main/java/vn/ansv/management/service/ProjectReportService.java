@@ -1767,7 +1767,8 @@ public class ProjectReportService implements IProjectReport {
 
             return result;
         } catch (Exception e) {
-            System.out.println("--- ProjectReportService line 1649: " + e.getMessage());
+            System.out.println("----- ProjectReportService line 1649: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

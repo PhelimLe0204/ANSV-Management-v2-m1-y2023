@@ -105,10 +105,10 @@ public class ExportTrienKhaiDTO {
         LocalDate muc_tieu = null;
         LocalDate thuc_te = null;
 
-        if (dateMucTieu != null) {
+        if (dateMucTieu != null && dateMucTieu.length() > 0) {
             muc_tieu = LocalDate.parse(dateMucTieu, dateFormatter);
 
-            if (dateThucTe == null) {
+            if (dateThucTe == null || dateThucTe.length() == 0) {
                 // Không có ngày thực tế (chưa hoàn thành công việc)
                 thuc_te = LocalDate.now();
                 long dif = Duration.between(thuc_te.atStartOfDay(), muc_tieu.atStartOfDay()).toDays();
