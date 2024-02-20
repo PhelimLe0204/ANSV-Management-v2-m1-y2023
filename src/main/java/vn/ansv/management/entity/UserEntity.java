@@ -238,7 +238,7 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
 /* ===== Set mapping: ListAllMemberDTO ===== */
 @SqlResultSetMapping(name = "Mapping.ListAllMemberDTO", classes = @ConstructorResult(targetClass = ListAllMemberDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
-        @ColumnResult(name = "uid", type = Long.class),
+        @ColumnResult(name = "uid", type = String.class),
         @ColumnResult(name = "avatar", type = String.class),
         @ColumnResult(name = "employeeCode", type = String.class),
         @ColumnResult(name = "fullname", type = String.class),

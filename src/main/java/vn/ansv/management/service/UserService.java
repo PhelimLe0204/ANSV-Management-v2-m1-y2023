@@ -30,8 +30,8 @@ public class UserService implements IUser {
             List<ListAllMemberDTO> result = userRepository.findAllByWorkCenter(centerId);
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("----- Exception ----- UserService.findAllByWorkCenter()");
+            e.printStackTrace();
         }
         return null;
     }

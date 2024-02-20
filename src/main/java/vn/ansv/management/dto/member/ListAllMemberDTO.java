@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ListAllMemberDTO {
     private Long id; // User's id
-    private Long uid;
+    private String uid;
     private String avatar;
     private String employeeCode;
     private String fullname;
@@ -24,7 +24,7 @@ public class ListAllMemberDTO {
     private String centerDisplay;
     private String centerDescription;
 
-    public ListAllMemberDTO(Long id, Long uid, String avatar, String employeeCode, String fullname, String username,
+    public ListAllMemberDTO(Long id, String uid, String avatar, String employeeCode, String fullname, String username,
             Integer enabled, Long positionId, String positionName, String positionExplain, String positionDisplay,
             Long workCenterId, String centerName, String centerDisplay, String centerDescription) {
         this.id = id;
