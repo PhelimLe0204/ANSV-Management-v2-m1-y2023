@@ -37,7 +37,7 @@
                         </a>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             <i class="icon feather icon-bell"></i>
@@ -123,37 +123,37 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> -->
                 <li>
                     <div class="dropdown drp-user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="feather icon-user"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-notification">
+                        <div class="dropdown-menu dropdown-menu-right profile-notification"  id="nav-user-link">
                             <div class="pro-head">
                                 <img th:src="@{/images/user/avatar-1.jpg}" class="img-radius" alt="User-Profile-Image">
                                 <span id="username_display_nav" data-toggle="tooltip" data-placement="bottom"
                                 th:title="${session.username}"
                                 th:data-readonly="${#strings.contains(session.userRole, 'DO_READ_ONLY')}">
                                 [[${#strings.abbreviate(session.username, 20)}]]</span>
-                                <a href="auth-signin.html" class="dud-logout" title="Logout">
+                                <a href="auth-signin.html" class="dud-logout" title="Logout" >
                                     <i class="feather icon-log-out"></i>
                                 </a>
                             </div>
-                            <ul class="pro-body">
-                                <li>
-                                    <a href="user-profile.html" class="dropdown-item">
-                                        <i class="feather icon-user"></i> Profile
+                            <ul class="pro-body" >
+                                <li class="list-group-item">
+                                    <a href="javascript:void(0)" id="user-profile-btn-1" th:data-id="${session.userId}">
+                                        <i class="feather icon-user m-r-5"></i>Thông tin cá nhân
                                     </a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="email_inbox.html" class="dropdown-item">
                                         <i class="feather icon-mail"></i> My Messages
                                     </a>
-                                </li>
-                                <li>
-                                    <a href="auth-signin.html" class="dropdown-item">
-                                        <i class="feather icon-lock"></i> Lock Screen
+                                </li> -->
+                                <li class="list-group-item">
+                                    <a th:href="@{/logout}">
+                                        <i class="feather icon-log-out m-r-5"></i>Đăng xuất
                                     </a>
                                 </li>
                             </ul>
@@ -166,3 +166,4 @@
 </body>
 
 </html>
+

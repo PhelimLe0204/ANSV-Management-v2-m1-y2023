@@ -105,7 +105,7 @@ $("#addNewProjectModalOpen").click(function () {
     });
 });
 
-$("#user-profile-btn").click(function () {
+$("#user-profile-btn, #user-profile-btn-1").click(function () {
     $.ajax({
         url: "/api/getUserProfile/" + $(this).data("id"),
         success: function (result) {
@@ -132,7 +132,6 @@ $("#user-profile-btn").click(function () {
             }
         }
     });
-
     $("#userProfileEditModalContent").hide();
     $("#userProfileModalContent").show();
     $('#userProfileModal').modal('show');
