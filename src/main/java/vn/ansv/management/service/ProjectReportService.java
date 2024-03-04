@@ -17,6 +17,7 @@ import java.util.stream.IntStream;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -1110,6 +1111,23 @@ public class ProjectReportService implements IProjectReport {
         }
     }
 
+    private static int countNonEmptyRows(XSSFSheet sheet) {
+        int rowCount = 0;
+        for (Row row : sheet) {
+            boolean rowHasValues = false;
+            for (Cell cell : row) {
+                if (cell.getCellType() != CellType.BLANK) {
+                    rowHasValues = true;
+                    break;
+                }
+            }
+            if (rowHasValues) {
+                rowCount++;
+            }
+        }
+        return rowCount;
+    }
+
     /*
      * Kiểm tra file excel (Triển khai)
      * TRUE => Thực hiện import
@@ -1123,8 +1141,9 @@ public class ProjectReportService implements IProjectReport {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(readExcelDataFile.getInputStream());
             XSSFSheet worksheet = workbook.getSheetAt(0);
-
-            for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+            int rowCount = countNonEmptyRows(worksheet);
+            // for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+            for (int i = 1; i < rowCount; i++) {
                 XSSFRow row = worksheet.getRow(i);
 
                 Cell cell = row.getCell(0);
@@ -1424,7 +1443,8 @@ public class ProjectReportService implements IProjectReport {
                 return dataError; // Nếu dữ liệu excel có lỗi => Dừng và trả về thông tin lỗi
             }
 
-            for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+            // for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+            for (int i = 1; i < rowCount; i++) {
                 XSSFRow row = worksheet.getRow(i);
 
                 Cell cell = row.getCell(0);

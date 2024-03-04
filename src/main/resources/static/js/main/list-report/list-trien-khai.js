@@ -986,7 +986,7 @@ $("#btn-open-import-report-modal").click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("File không xác định! Vui lòng thử lại.").delay(3);
-                // alert('ERRORS: ' + textStatus);
+                console.log('ERRORS: ' + textStatus);
             }
         });
     });
