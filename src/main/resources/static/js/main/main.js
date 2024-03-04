@@ -79,7 +79,7 @@ $("#addNewProjectModalOpen").click(function () {
         // console.log("AJAX ongoing!!!");
         var form = document.getElementById('form-insert-project');
         var data = new FormData(form);
-
+        $(this).prop('disabled', true);
         $.ajax({
             url: "/api/project/insert",
             type: 'POST',
@@ -100,6 +100,10 @@ $("#addNewProjectModalOpen").click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+            },
+            complete: function () {
+                // Khôi phục trạng thái của nút khi AJAX request hoàn thành
+                $("#addNewProjectSubmit").prop('disabled', false);
             }
         });
     });
