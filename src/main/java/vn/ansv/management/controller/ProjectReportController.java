@@ -320,7 +320,7 @@ public class ProjectReportController extends BaseController {
         if (type == 3) {
             List<ExportTrienKhaiDTO> listOfReport = projectReportService.findAllExportTrienKhai(
                     userRole, userId, type, week, year);
-            if (listOfReport.isEmpty() || listOfReport.size() == 0) {
+            if (listOfReport == null || listOfReport.size() == 0) {
                 msg = "Triển khai tuần " + week + " năm " + year + " không có dữ liệu!";
                 return ResponseEntity.status(HttpStatus.OK).body(
                         new ResponseObject("failed", msg, null));

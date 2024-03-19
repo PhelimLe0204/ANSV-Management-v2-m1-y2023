@@ -79,7 +79,7 @@ $("#addNewProjectModalOpen").click(function () {
         // console.log("AJAX ongoing!!!");
         var form = document.getElementById('form-insert-project');
         var data = new FormData(form);
-
+        $(this).prop('disabled', true);
         $.ajax({
             url: "/api/project/insert",
             type: 'POST',
@@ -100,12 +100,16 @@ $("#addNewProjectModalOpen").click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertify.error("Thất bại! Vui lòng thử lại.").delay(3);
+            },
+            complete: function () {
+                // Khôi phục trạng thái của nút khi AJAX request hoàn thành
+                $("#addNewProjectSubmit").prop('disabled', false);
             }
         });
     });
 });
 
-$("#user-profile-btn").click(function () {
+$("#user-profile-btn, #user-profile-btn-1").click(function () {
     $.ajax({
         url: "/api/getUserProfile/" + $(this).data("id"),
         success: function (result) {
@@ -132,7 +136,6 @@ $("#user-profile-btn").click(function () {
             }
         }
     });
-
     $("#userProfileEditModalContent").hide();
     $("#userProfileModalContent").show();
     $('#userProfileModal').modal('show');
