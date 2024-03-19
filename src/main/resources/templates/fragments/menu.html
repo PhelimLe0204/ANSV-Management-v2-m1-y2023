@@ -59,10 +59,17 @@
                                 ? @{'/' + ${menu_level_1.getLink()}}
                                 : ${menu_level_1.getLink() }" class="nav-link"
                                     th:classappend="${menu_level_1.getNote()}">
-                                    <span class="pcoded-micon">
+                                    <span th:unless="${menu_level_1.getDataCount() > 0}" class="pcoded-micon">
                                         <i class="feather" th:classappend="${menu_level_1.getIcon()}"></i>
                                     </span>
-                                    <span class="pcoded-mtext" th:text="${menu_level_1.getMenuName()}"></span>
+                                    <span th:if="${menu_level_1.getDataCount() > 0}" class="pcoded-micon">
+                                        <button type="button" class="btn btn-icon btn-primary w-10 menu-count-report">
+                                            [[${menu_level_1.getDataCount()}]]
+                                        </button>
+                                    </span>
+                                    <span class="pcoded-mtext">
+                                        [[${#strings.abbreviate(menu_level_1.getMenuName(), 15)}]]
+                                    </span>
                                 </a>
 
                                 <th:block th:if="${menu_level_1.getInclude() == 1}">

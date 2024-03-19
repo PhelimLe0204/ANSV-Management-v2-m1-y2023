@@ -45,13 +45,13 @@ public class BaseController {
         if (session.getAttribute("thisYear") == null) {
             session.setAttribute("thisYear", Calendar.getInstance().get(Calendar.YEAR));
         }
+        int thisWeek = (int) session.getAttribute("thisWeek");
+        int thisYear = (int) session.getAttribute("thisYear");
 
         userSession(session);
         String userRole = (String) session.getAttribute("userRole");
-        // System.out.println("-------------------------------------------------
-        // userRole: " + userRole);
         List<LayoutMenuCategoryDTO> menuCategoryLayout = menuCategoryService
-                .findAllLayout(userRole.substring(0, userRole.indexOf("___")));
+                .findAllLayout(userRole.substring(0, userRole.indexOf("___")), thisWeek, thisYear);
         _mvShare.addObject("menuCategoryLayout", menuCategoryLayout);
         return _mvShare;
     }

@@ -17,7 +17,7 @@ import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 
 @NamedNativeQuery(name = "MenuCategoryEntity.findAllLayout", query = "SELECT "
         + "mc.id, mc.menu_category_name AS menuCategoryName "
-        + "FROM menu_category AS mc", resultSetMapping = "Mapping.LayoutMenuCategoryDTO")
+        + "FROM menu_category AS mc ORDER BY mc.stt", resultSetMapping = "Mapping.LayoutMenuCategoryDTO")
 @SqlResultSetMapping(name = "Mapping.LayoutMenuCategoryDTO", classes = @ConstructorResult(targetClass = LayoutMenuCategoryDTO.class, columns = {
         @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "menuCategoryName", type = String.class) }))
@@ -25,6 +25,9 @@ import vn.ansv.management.dto.Layout.LayoutMenuCategoryDTO;
 @Entity
 @Table(name = "menu_category")
 public class MenuCategoryEntity extends BaseEntity {
+    @Column(name = "stt", nullable = false)
+    private Integer stt;
+
     @Column(name = "menu_category_name", nullable = false)
     private String menuCategoryName;
 
@@ -42,6 +45,14 @@ public class MenuCategoryEntity extends BaseEntity {
      * => dùng List để hứng mảng dữ liệu
      */
     private List<MenuEntity> menus = new ArrayList<>();
+
+    public Integer getStt() {
+        return this.stt;
+    }
+
+    public void setStt(Integer stt) {
+        this.stt = stt;
+    }
 
     public String getMenuCategoryName() {
         return this.menuCategoryName;

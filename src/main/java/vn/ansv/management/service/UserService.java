@@ -6,6 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.dto.User.UserProfileDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
@@ -23,6 +24,16 @@ public class UserService implements IUser {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Override
+    public List<LayoutMenuDTO> findAllPicLayout(Integer week, Integer year) {
+        try {
+            return userRepository.findAllPicLayout(week, year);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public List<ListAllMemberDTO> findAllByWorkCenter(Long centerId) {

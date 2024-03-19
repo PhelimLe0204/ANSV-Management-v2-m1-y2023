@@ -22,6 +22,13 @@ import vn.ansv.management.dto.member.ListReportLessByUserDTO;
 import vn.ansv.management.dto.member.TotalReportByUserDTO;
 import vn.ansv.management.dto.selectOption.OptionUserDTO;
 
+/* ===== UserRepository.findAllPicLayout() ===== */
+@NamedNativeQuery(name = "UserEntity.findAllPicLayout", query = "select "
+        + "mainData.* from (select us.id, us.fullname menuName, 'icon-user' icon, 1 include, 1 level, 'javascript:void(0)' link, "
+        + "null linkSub, CONVERT((select count(id) from project_report pr_c where pr_c.pm_id = us.id and pr_c.year = 2024 "
+        + "and pr_c.week = 9), CHAR) dataCount, null note from user us) mainData "
+        + "where mainData.dataCount > 0", resultSetMapping = "Mapping.LayoutMenuDTO")
+
 /* ===== UserRepository.findUserProfileById() ===== */
 @NamedNativeQuery(name = "UserEntity.findUserProfileById", query = "SELECT "
         + "u.id, u.avatar, u.fullname, u.username, u.employee_code AS employeeCode, "

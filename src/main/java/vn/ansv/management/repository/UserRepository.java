@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import vn.ansv.management.dto.Layout.LayoutMenuDTO;
 import vn.ansv.management.dto.User.UserDefineDTO;
 import vn.ansv.management.dto.User.UserProfileDTO;
 import vn.ansv.management.dto.member.ListAllMemberDTO;
@@ -18,6 +19,9 @@ import vn.ansv.management.dto.selectOption.OptionUserDTO;
 import vn.ansv.management.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
+
+    @Query(nativeQuery = true)
+    List<LayoutMenuDTO> findAllPicLayout(@Param("week") Integer week, @Param("year") Integer year);
 
     @Query(nativeQuery = true)
     List<OptionUserDTO> findAllUserOption();

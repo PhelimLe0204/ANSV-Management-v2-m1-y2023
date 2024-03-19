@@ -13,11 +13,12 @@ public class LayoutMenuDTO {
     private Integer level;
     private String link;
     private String linkSub;
+    private Integer dataCount;
     private String note;
     private Object menuChild;
 
     public LayoutMenuDTO(Long id, String menuName, String icon, Integer include, Integer level, String link,
-            String linkSub, String note) {
+            String linkSub, Integer dataCount, String note) {
         this.id = id;
         this.menuName = menuName;
         this.icon = icon;
@@ -25,6 +26,7 @@ public class LayoutMenuDTO {
         this.level = level;
         this.link = link;
         this.linkSub = linkSub;
+        this.dataCount = dataCount;
         // this.note = note;
         if (note != null && note.contains("NONE")) {
             this.note = "link-none";
